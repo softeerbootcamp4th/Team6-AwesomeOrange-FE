@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - "main"
-      - "feature/3-ssg"
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
