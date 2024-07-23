@@ -2,7 +2,7 @@
 name: Feature 이슈 템플릿
 about: 새로운 기능을 구현했을 때의 이슈 템플릿입니다.
 title: "[feat]"
-labels: enhancement
+labels: feat
 assignees: ''
 
 ---
