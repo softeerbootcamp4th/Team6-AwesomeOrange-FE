@@ -1,0 +1,24 @@
+name: check lint
+on:
+  pull_request:
+    branches:
+      - "main"
+      - "dev"
+  push:
+    branches:
+      - "feature/3-ssg"
+jobs:
+  check-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull code to computer
+        uses: actions/checkout@v4
+      - name: install node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: check lint
+        run: |
+          npm install
+          npm run lint
+          echo "You're code is pretty!"
