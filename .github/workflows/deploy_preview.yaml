@@ -1,0 +1,26 @@
+name: deploy preview
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+  push:
+    branches:
+      - "dev"
+      - "feature/3-ssg"
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull code to computer
+        uses: actions/checkout@v4
+      - name: install node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: install vercel cli
+        run: npm install -g vercel
+      - name: deploy to vercel as preview
+        run: |
+          vercel pull --yes -token=${{ secrets.VERCEL_TOKEN }}
+          vercel build --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
