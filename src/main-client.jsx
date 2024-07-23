@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 
 hydrateRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
 );
