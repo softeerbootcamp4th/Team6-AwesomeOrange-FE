@@ -2,7 +2,7 @@
 name: BugFix 이슈 템플릿
 about: 버그를 수정하는 등 문제를 수정했을 때의 이슈 템플릿입니다.
 title: "[fix]"
-labels: bug
+labels: fix
 assignees: ''
 
 ---
