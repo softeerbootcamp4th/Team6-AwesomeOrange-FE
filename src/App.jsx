@@ -1,4 +1,4 @@
-function app() {
+function App() {
   return (
     <div>
       <span>Hello Orange</span>
