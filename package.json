@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "build": "vite build && npm run build:server && node prerender.js",
+    "build:client": "vite build",
+    "build:server": "vite build --ssr src/main-server.jsx --outDir dist-ssg",
     "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "lint-fix": "eslint . --ext js,jsx --fix"
   },
   "dependencies": {
