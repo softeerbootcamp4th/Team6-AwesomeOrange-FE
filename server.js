@@ -39,7 +39,7 @@ async function createServer() {
   app.get(serverPath, async (req, res) => {
     try {
       const url = req.originalUrl;
-      const fileUrl = htmlPathMap.get(url);
+      const fileUrl = htmlPathMap.get(req.path);
 
       let template = readFileSync(toAbsolute(fileUrl), "utf-8");
       template = await vite.transformIndexHtml(url, template);
