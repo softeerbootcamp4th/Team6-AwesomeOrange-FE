@@ -22,3 +22,4 @@ dist-ssg
 *.njsproj
 *.sln
 *.sw?
+.vercel
