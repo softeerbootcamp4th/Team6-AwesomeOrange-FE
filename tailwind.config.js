@@ -5,8 +5,7 @@ export default {
     extend: {},
     fontFamily: {
       "ds-digital": ["ds-digital"],
-      "hdsans-text": ["hdsans-text"],
-      "hdsans-head": ["hdsans-head"],
+      "hdsans": ["hdsans-ttf", "hdsans-woff"],
     },
   },
   plugins: [],
