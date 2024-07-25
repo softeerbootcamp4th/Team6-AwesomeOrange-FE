@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "ds-digital";
+  src: url("/font/DS-DIGI.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "hdsans";
+  src: url("/font/HyundaiSansTextOffice-Medium.woff") format("woff"), url("/font/HyundaiSansTextOffice-Medium.ttf") format("truetype")
+}
+
+@layer base {
+  body {
+    font-family: "hdsans";
+  }
+}
