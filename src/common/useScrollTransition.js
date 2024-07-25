@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import throttleRaF from "./throttleRaf.js";
-
-function clamp(target, min, max)
-{
-	if(target < min) return min;
-	if(target > max) return max;
-	return target;
-}
+import { clamp } from "./utils.js";
 
 /**
  * 스크롤 트랜지션을 더 쉽게 사용할 수 있게 하는 커스텀 훅입니다.
