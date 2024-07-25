@@ -9,7 +9,9 @@
 
 @font-face {
   font-family: "hdsans";
-  src: url("/font/HyundaiSansTextOffice-Medium.woff") format("woff"), url("/font/HyundaiSansTextOffice-Medium.ttf") format("truetype")
+  src:
+    url("/font/HyundaiSansTextOffice-Medium.woff") format("woff"),
+    url("/font/HyundaiSansTextOffice-Medium.ttf") format("truetype");
 }
 
 @layer base {
