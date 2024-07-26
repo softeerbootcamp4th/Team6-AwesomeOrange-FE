@@ -1,6 +1,6 @@
 function App() {
   return (
-    <div className="text-5xl text-black">
+    <div className="text-5xl graphic-gradient">
       <div className="flex flex-col">
         <span>다람쥐 헌 쳇바퀴에 타고파</span>
         <span>Hyundai Sans Text Office</span>
