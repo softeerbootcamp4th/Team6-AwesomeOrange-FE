@@ -19,3 +19,9 @@
     font-family: "hdsans";
   }
 }
+
+@layer components {
+  .graphic-gradient {
+    @apply bg-gradient-to-r from-[#3ED7BE] to-[#069AF8];
+  }
+}
