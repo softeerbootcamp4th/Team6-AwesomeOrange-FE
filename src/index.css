@@ -10,16 +10,14 @@
 
 @font-face {
   font-family: "hdsans";
-  src:
-    url("/font/HyundaiSansTextKROTFBold.otf") format("opentype");
+  src: url("/font/HyundaiSansTextKROTFBold.otf") format("opentype");
   font-weight: bold;
   font-display: swap;
 }
 
 @font-face {
   font-family: "hdsans";
-  src:
-    url("/font/HyundaiSansTextKROTFMedium.otf") format("opentype");
+  src: url("/font/HyundaiSansTextKROTFMedium.otf") format("opentype");
   font-weight: medium;
   font-display: swap;
 }
