@@ -1,0 +1,42 @@
+.hull {
+	--bar-scale: var(--progress, 1);
+}
+
+/*
+768px 미만 : 48px ~ 256px
+768px 이상 : 66px ~ 352px (명세에 나온 80px ~ 410px과 실제 산출된 디자인의 width가 다름)
+
+8px ~ 216px
+
+*/
+
+.left {
+	width: 1.5rem;
+	transition: background-color 0.3s;
+}
+
+.bar {
+	width: calc( 100% - 2.5rem );
+	transform-origin: left center;
+	transform: scaleX( calc( (var(--progress, 1) * 208 + 8 )/216) ); /* 8px ~ 216px */
+	transition: transform 0.3s, background-color 0.3s;
+}
+
+.right {
+	width: 1.5rem;
+	transform-origin: left center;
+	transform: translateX( calc( (1 - var(--progress, 1)) * -13rem ) ); /* -208px ~ 0px */
+	transition: transform 0.3s, background-color 0.3s;
+}
+
+@media (min-width: 768px) {
+	.bar {
+		transform: scaleX( calc( (var(--progress, 1) * 286 + 26 )/312) ); /* 26px ~ 312px */
+	}
+	.right {
+		width: 1.5rem;
+		transform-origin: left center;
+		transform: translateX( calc( (1 - var(--progress, 1)) * -17.875rem ) ); /* -286px ~ 0px */
+		transition: transform 0.3s, background-color 0.3s;
+	}
+}

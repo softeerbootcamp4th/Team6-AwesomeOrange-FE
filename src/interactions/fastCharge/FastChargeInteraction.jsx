@@ -1,19 +1,20 @@
 import { useState, useImperativeHandle } from "react";
+import BatteryProgressBar from "./BatteryProgressBar.jsx";
 import orderIcon from "@/assets/property2.svg";
 import dialSvg from "./timer.svg";
 //import useDialDrag from "./useDialDrag.js";
 
 function FastChargeInteraction({interacted, $ref})
 {
-	const [timer, setTimer] = useState(0);
+	const [progress, setProgress] = useState(1);
 	//const [dialRef, angle, resetAngle] = useDialDrag(0);
 
 	function reset()
 	{
-		setTimer(0);
+		setProgress(0);
 		//resetAngle();
 	}
-	useImperativeHandle($ref, ()=>({reset}), [setTimer]);
+	useImperativeHandle($ref, ()=>({reset}), [setProgress]);
 
 	return <article className="bg-black relative w-full h-full overflow-hidden flex items-center flex-col">
 		<div className="w-full max-w-[1200px] px-10 lg:px-20 flex gap-2 items-start mt-16 lg:mt-[6.25rem] ">
@@ -24,8 +25,9 @@ function FastChargeInteraction({interacted, $ref})
 				<p className="text-neutral-200 text-body-s">다이얼을 돌려 충전에 필요한 시간을 확인해보세요!</p>
 			</div>
 		</div>
-		<div className="absolute top-[clamp(240px,40%,384px)] w-72 md:w-96 h-32 border-solid border-2 border-neutral-600 rounded-[30px]">
-			<div></div>
+		<div className="absolute top-[clamp(240px,40%,384px)] w-72 md:w-96 h-32 border-solid border-2 border-neutral-600 rounded-[30px] p-3.5">
+			<div className="absolute w-5 h-9 bg-neutral-600 right-[-1.25rem] top-[2.875rem] rounded-r-md"></div>
+			<BatteryProgressBar progress={progress} />
 		</div>
 		<img src={dialSvg} alt="다이얼" className="absolute bottom-0 size-72 md:size-96 lg:size-[562px] translate-y-1/2"></img>
 	</article>
