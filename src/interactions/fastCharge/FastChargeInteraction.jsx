@@ -57,7 +57,7 @@ function FastChargeInteraction({ interactCallback, $ref }) {
         <img
           src={dialSvg}
           alt="다이얼"
-          className="w-full h-full absolute left-0 top-0 cursor-pointer"
+          className="w-full h-full absolute left-0 top-0 cursor-pointer touch-none"
           style={dialStyle}
           ref={dialRef}
           onPointerDown={(e) => {

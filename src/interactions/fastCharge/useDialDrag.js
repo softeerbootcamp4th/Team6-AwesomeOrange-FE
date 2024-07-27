@@ -25,17 +25,23 @@ function useDialDrag() {
   const angleCache = useRef(0);
 
   useEffect(() => {
-    const onPointerMove = throttleRaf((e) => {
-      if (!isDrag) return;
+    function applyPointerMove(cursor) {
+      const currentAngle = getAngle(cursor, dialCenter.current);
 
-      const { clientX, clientY } = e;
-      const currentAngle = getAngle(
-        { x: clientX, y: clientY },
-        dialCenter.current,
-      );
       angleCache.current += getAngleDelta(prevAngle.current, currentAngle);
       setAngle(angleCache.current);
       prevAngle.current = currentAngle;
+    }
+
+    const onPointerMove = throttleRaf((e) => {
+      if (!isDrag) return;
+      const { clientX, clientY } = e;
+      applyPointerMove({ x: clientX, y: clientY });
+    });
+    const onTouchMove = throttleRaf((e) => {
+      if (!isDrag) return;
+      const { clientX, clientY } = e.touches[0];
+      applyPointerMove({ x: clientX, y: clientY });
     });
     function onPointerEnd() {
       setIsDrag(false);
@@ -45,11 +51,17 @@ function useDialDrag() {
 
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onPointerEnd);
-    window.addEventListener("poinercancel", onPointerEnd);
+    window.addEventListener("pointercancel", onPointerEnd);
+    window.addEventListener("touchmove", onTouchMove);
+    window.addEventListener("touchend", onPointerEnd);
+    window.addEventListener("touchcancel", onPointerEnd);
     return () => {
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerup", onPointerEnd);
-      window.removeEventListener("poinercancel", onPointerEnd);
+      window.removeEventListener("pointercancel", onPointerEnd);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onPointerEnd);
+      window.removeEventListener("touchcancel", onPointerEnd);
     };
   }, [isDrag]);
 
