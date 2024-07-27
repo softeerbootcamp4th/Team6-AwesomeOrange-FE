@@ -2,21 +2,29 @@ import { useState, useImperativeHandle } from "react";
 import BatteryProgressBar from "./BatteryProgressBar.jsx";
 import orderIcon from "@/assets/property2.svg";
 import dialSvg from "./timer.svg";
-//import useDialDrag from "./useDialDrag.js";
+import useDialDrag from "./useDialDrag.js";
 
 const MAX_MINUTE = 30;
 
+function getProgress(angle)
+{
+	const rawProgress = -angle / (Math.PI*2);
+	if(rawProgress < 0) return 0;
+	if(rawProgress > 1) return 1;
+	return rawProgress;
+}
+
 function FastChargeInteraction({interacted, $ref})
 {
-	const [progress, setProgress] = useState(1);
-	//const [dialRef, angle, resetAngle] = useDialDrag(0);
+	//const [progress, setProgress] = useState(1);
+	const {angle, style: dialStyle, ref, onPointerStart, resetAngle} = useDialDrag(0);
 
 	function reset()
 	{
-		setProgress(0);
-		//resetAngle();
+		resetAngle();
 	}
-	useImperativeHandle($ref, ()=>({reset}), [setProgress]);
+	useImperativeHandle($ref, ()=>({reset}), []);
+	const progress = getProgress(angle);
 
 	return <article className="bg-black relative w-full h-full overflow-hidden flex items-center flex-col">
 		<div className="w-full max-w-[1200px] px-10 lg:px-20 flex gap-2 items-start mt-16 lg:mt-[6.25rem] ">
@@ -32,9 +40,9 @@ function FastChargeInteraction({interacted, $ref})
 			<BatteryProgressBar progress={progress} />
 		</div>
 		<div className="absolute bottom-0 size-72 md:size-[448px] lg:size-[562px] translate-y-[40%] md:translate-y-1/2 flex justify-center">
-			<img src={dialSvg} alt="다이얼" className="w-full h-full absolute left-0 top-0 cursor-pointer"/>
+			<img src={dialSvg} alt="다이얼" className="w-full h-full absolute left-0 top-0 cursor-pointer" style={dialStyle} ref={ref} onPointerDown={onPointerStart} draggable="false"/>
 			<p className="text-white absolute bottom-[calc(50%+48px)] md:bottom-[calc(50%+94px)] lg:bottom-[calc(50%+140px)] text-title-s pointer-events-none">
-				<span className="text-head-m md:text-head-l lg:text-[4.375rem] mr-1.5 lg:mr-2.5">{Math.round(progress) * MAX_MINUTE}</span>
+				<span className="text-head-m md:text-head-l lg:text-[4.375rem] mr-1.5 lg:mr-2.5">{Math.round(progress * MAX_MINUTE)}</span>
 				분
 			</p>
 		</div>
