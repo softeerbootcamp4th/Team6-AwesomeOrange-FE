@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { clamp } from "@/common/utils.js";
-import throttleRaf from "@/common/throttleRaf.js";
+import useMountDragEvent from "@/common/useMountDragEvent.js";
 
 function getAngle(pointer, center) {
   const vx = pointer.x - center.x;
@@ -24,46 +24,18 @@ function useDialDrag() {
   const prevAngle = useRef(0);
   const angleCache = useRef(0);
 
-  useEffect(() => {
-    function applyPointerMove(cursor) {
-      const currentAngle = getAngle(cursor, dialCenter.current);
-
-      angleCache.current += getAngleDelta(prevAngle.current, currentAngle);
-      setAngle(angleCache.current);
-      prevAngle.current = currentAngle;
-    }
-
-    const onPointerMove = throttleRaf((e) => {
-      if (!isDrag) return;
-      const { clientX, clientY } = e;
-      applyPointerMove({ x: clientX, y: clientY });
-    });
-    const onTouchMove = throttleRaf((e) => {
-      if (!isDrag) return;
-      const { clientX, clientY } = e.touches[0];
-      applyPointerMove({ x: clientX, y: clientY });
-    });
-    function onPointerEnd() {
-      setIsDrag(false);
-      angleCache.current = clamp(angleCache.current, -Math.PI * 2, 0);
-      setAngle(angleCache.current);
-    }
-
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("pointerup", onPointerEnd);
-    window.addEventListener("pointercancel", onPointerEnd);
-    window.addEventListener("touchmove", onTouchMove);
-    window.addEventListener("touchend", onPointerEnd);
-    window.addEventListener("touchcancel", onPointerEnd);
-    return () => {
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerEnd);
-      window.removeEventListener("pointercancel", onPointerEnd);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onPointerEnd);
-      window.removeEventListener("touchcancel", onPointerEnd);
-    };
-  }, [isDrag]);
+  const applyPointerMove = useCallback( (cursor)=>{
+    const currentAngle = getAngle(cursor, dialCenter.current);
+    angleCache.current += getAngleDelta(prevAngle.current, currentAngle);
+    setAngle(angleCache.current);
+    prevAngle.current = currentAngle;
+  }, [] );
+  const onPointerEnd = useCallback( ()=>{
+    setIsDrag(false);
+    angleCache.current = clamp(angleCache.current, -Math.PI * 2, 0);
+    setAngle(angleCache.current);
+  }, [] );
+  useMountDragEvent(applyPointerMove, onPointerEnd, isDrag);
 
   function onPointerStart(e) {
     if (dialRef.current === null) return;
