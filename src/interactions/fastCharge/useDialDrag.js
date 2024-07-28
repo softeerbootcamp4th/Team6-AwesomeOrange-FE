@@ -25,17 +25,18 @@ function useDialDrag() {
   const angleCache = useRef(0);
 
   const applyPointerMove = useCallback( (cursor)=>{
+    if(!isDrag) return;
     const currentAngle = getAngle(cursor, dialCenter.current);
     angleCache.current += getAngleDelta(prevAngle.current, currentAngle);
     setAngle(angleCache.current);
     prevAngle.current = currentAngle;
-  }, [] );
+  }, [isDrag] );
   const onPointerEnd = useCallback( ()=>{
     setIsDrag(false);
     angleCache.current = clamp(angleCache.current, -Math.PI * 2, 0);
     setAngle(angleCache.current);
   }, [] );
-  useMountDragEvent(applyPointerMove, onPointerEnd, isDrag);
+  useMountDragEvent(applyPointerMove, onPointerEnd);
 
   function onPointerStart(e) {
     if (dialRef.current === null) return;

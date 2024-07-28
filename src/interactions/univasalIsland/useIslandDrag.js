@@ -18,13 +18,13 @@ function aabbCheck(bound1, bound2)
 function useIslandDrag()
 {
 	// island state
-	const [islandIsDrag, setIslandIsDrag] = useState(false);
+	const islandIsDrag = useRef(false);
 	const islandStartMouseYPosition = useRef(0);
 	const islandStartPosition = useRef(0);
 	const [islandY, setIslandY] = useState(0);
 
 	// phone state
-	const [phoneIsDrag, setPhoneIsDrag] = useState(false);
+	const phoneIsDrag = useRef(false);
 	const phoneStartMousePosition = useRef({x:0, y:0});
 	const phoneStartPosition = useRef({x:PHONE_INITIAL_X, y:PHONE_INITIAL_Y});
 	const [phoneIsSnapping, setPhoneIsSnapping] = useState(false);
@@ -38,13 +38,14 @@ function useIslandDrag()
 	// mount island drag event
 	const islandOnDragStart = function(e)
 	{
-		setIslandIsDrag(true);
+		islandIsDrag.current = true;
 		setPhoneShouldSnapped(false);
 		islandStartMouseYPosition.current = e.clientY;
 		islandStartPosition.current = islandY;
 	}
 	const islandOnDragging = useCallback(function({y: mouseY})
 	{
+		if(!islandIsDrag.current) return;
 		const rawY = mouseY - islandStartMouseYPosition.current + islandStartPosition.current;
 		const y = clamp(rawY, -50, 50);
 
@@ -56,19 +57,22 @@ function useIslandDrag()
 		}
 	}, [phoneIsSnapping]);
 	const islandOnDragEnd = useCallback(()=>{
-		setIslandIsDrag(false);
+		if(!islandIsDrag.current) return;
+		islandIsDrag.current = false;
 	}, []);
-	useMountDragEvent(islandOnDragging, islandOnDragEnd, islandIsDrag);
+	useMountDragEvent(islandOnDragging, islandOnDragEnd);
 
 	// mount phone drag event
 	const phoneOnDragStart = function(e) {
-		setPhoneIsDrag(true);
+		phoneIsDrag.current = true;
 		setPhoneShouldSnapped(false);
 		phoneStartMousePosition.current = { x: e.clientX, y: e.clientY };
 		phoneStartPosition.current = { x: phoneX, y:phoneY };
 	}
 	const phoneOnDragging = useCallback(function({x: mouseX, y: mouseY})
 	{
+		if(!phoneIsDrag.current) return;
+
 		const x = mouseX - phoneStartMousePosition.current.x + phoneStartPosition.current.x;
 		const y = mouseY - phoneStartMousePosition.current.y + phoneStartPosition.current.y;
 
@@ -76,9 +80,9 @@ function useIslandDrag()
 		setPhoneY(y);
 	}, []);
 	const phoneOnDragEnd = useCallback((e)=>{
-		if(!phoneIsDrag) return;
+		if(!phoneIsDrag.current) return;
 
-		setPhoneIsDrag(false);
+		phoneIsDrag.current = false;
 		const isSnapped = aabbCheck(e.target.getBoundingClientRect(), phoneSnapArea.current.getBoundingClientRect());
 		setPhoneIsSnapping(isSnapped);
 		if(isSnapped) {
@@ -87,7 +91,7 @@ function useIslandDrag()
 			setPhoneShouldSnapped(true);
 		}
 	}, [islandY, phoneIsDrag]);
-	useMountDragEvent(phoneOnDragging, phoneOnDragEnd, phoneIsDrag);
+	useMountDragEvent(phoneOnDragging, phoneOnDragEnd);
 
 	// reset function interface
 	const reset = useCallback( ()=>{
@@ -95,13 +99,15 @@ function useIslandDrag()
 		phoneStartMousePosition.current = {x: 0, y: 0};
 		islandStartPosition.current = 0;
 		phoneStartPosition.current = {x: PHONE_INITIAL_X, y: PHONE_INITIAL_Y};
-		setIslandIsDrag(false);
+		islandIsDrag.current = false;
+		phoneIsDrag.current = false;
 		setIslandY(0);
-		setPhoneIsDrag(false);
 		setPhoneIsSnapping(false);
 		setPhoneShouldSnapped(false);
 		setPhoneX(PHONE_INITIAL_X);
 		setPhoneY(PHONE_INITIAL_Y);
+		islandYRef.current = 0;
+		phonePositionRef.current = {x: PHONE_INITIAL_X, y: PHONE_INITIAL_Y};
 	}, [] );
 
 	// island style
