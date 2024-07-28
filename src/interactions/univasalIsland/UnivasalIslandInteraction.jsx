@@ -9,7 +9,7 @@ import univasalIsland2x from "./assets/univasalIsland@2x.png";
 import univasalIslandLeg from "./assets/univasalIsland2.png";
 
 function UnivasalIslandInteraction() {
-	const { islandEventListener, phoneEventListener, islandStyle, phoneStyle, reset, phoneSnapArea } = useIslandDrag();
+	const { islandEventListener, phoneEventListener, islandStyle, phoneStyle, reset, phoneSnapArea, phoneIsSnapping } = useIslandDrag();
 
 	const seatHullStyle = `absolute w-[1200px] h-[800px] 
 		bottom-[min(calc(100%-800px),-140px)] 
@@ -56,7 +56,7 @@ function UnivasalIslandInteraction() {
 					<div className={snapAreaStyle} ref={phoneSnapArea}></div>
 				</div>
 				<img className={seatStyle} src={seat} alt="right seat" draggable="false" />
-				<Phone dynamicStyle={phoneStyle} onPointerDown={phoneEventListener.onPointerDown} />
+				<Phone isSnapped={phoneIsSnapping} dynamicStyle={phoneStyle} onPointerDown={phoneEventListener.onPointerDown} />
 			</div>
 		</article>
 	)

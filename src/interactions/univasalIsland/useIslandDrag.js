@@ -116,7 +116,7 @@ function useIslandDrag()
 	};
 
 	return {
-		reset, islandStyle, phoneStyle, 
+		reset, islandStyle, phoneStyle, phoneIsSnapping, 
 		islandEventListener: {onPointerDown: islandOnDragStart}, 
 		phoneEventListener: {onPointerDown: phoneOnDragStart}, 
 		phoneSnapArea
