@@ -1,8 +1,10 @@
 import { useImperativeHandle } from "react";
 import orderIcon from "@/assets/property3.svg";
-import seat from "./assets/seat.svg";
-import univasalIsland from "./assets/univasalIsland.svg";
-import univasalIsland2 from "./assets/univasalIsland2.svg";
+import seat from "./assets/seat.png";
+import univasalIsland1x from "./assets/univasalIsland@1x.png";
+import univasalIsland2x from "./assets/univasalIsland@2x.png";
+import univasalIslandLeg1x from "./assets/univasalIsland2@1x.png";
+import univasalIslandLeg2x from "./assets/univasalIsland2@2x.png";
 
 function UnivasalIslandInteraction() {
 
@@ -10,9 +12,16 @@ function UnivasalIslandInteraction() {
 		bottom-[min(calc(100%-800px),-140px)] 
 		lg:bottom-[min(calc(100%-900px),-170px)] 
 		xl:bottom-[min(calc(100%-1000px),-200px)] 
-		-translate-x-24 md:translate-x-0
-		scale-[70%] lg:scale-[85%] xl:scale-100 
-	flex justify-center items-end origin-bottom`;
+	flex justify-center items-end`;
+
+	const seatStyle = `w-[317.44px] h-[501.88px]
+		lg:w-[385.46px] lg:h-[610.64px]
+		xl:w-[453.48px] xl:h-[718.4px]`;
+
+	const univasalIslandStyle = `w-[158.2px] h-[546px]
+		lg:w-[192.1px] lg:h-[663px]
+		xl:w-[226px] xl:h-[780px]
+		flex flex-col gap-2`;
 
 	return (
 		<article className="relative w-full h-full overflow-hidden flex items-center flex-col">
@@ -31,12 +40,12 @@ function UnivasalIslandInteraction() {
 				</div>
 			</div>
 			<div className={seatHullStyle}>
-				<img className="w-[453.48px] h-[718.4px]" src={seat} alt="left seat" />
-				<div className="w-[226px] h-[780px] flex flex-col gap-2">
-					<img src={univasalIsland} alt="univasal island" />
-					<img src={univasalIsland2} alt="univasal island" />
+				<img className={seatStyle} src={seat} alt="left seat" draggable="false" />
+				<div className={univasalIslandStyle} draggable="true">
+					<img src={univasalIsland1x} srcSet={`${univasalIsland1x} 1x, ${univasalIsland2x} 2x`}  alt="univasal island" draggable="false"/>
+					<img src={univasalIslandLeg1x} alt="univasal island" draggable="false" />
 				</div>
-				<img className="w-[453.48px] h-[718.4px]" src={seat} alt="right seat" />
+				<img className={seatStyle} src={seat} alt="right seat" draggable="false" />
 			</div>
 		</article>
 	)
