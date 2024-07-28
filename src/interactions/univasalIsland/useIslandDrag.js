@@ -6,10 +6,6 @@ import useMountDragEvent from "@/common/useMountDragEvent.js";
 const PHONE_INITIAL_X = 150;
 const PHONE_INITIAL_Y = 100;
 
-const voidImage = new Image();
-voidImage.src =
-	"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUGFdjYAACAAAFAAGq1chRAAAAAElFTkSuQmCC";
-
 function useIslandDrag()
 {
 	// island state
@@ -94,7 +90,7 @@ function useIslandDrag()
 	// phone style은 상당히 많은 state 종속성을 가지고 있으므로 useMemo가 의미가 없음
 	const phoneStyle = {
 		transform: `translate(${phoneX}px, ${phoneY}px)`,
-		transition: !phoneIsDrag && phoneIsSnapping ? "none" : "transform 0.5s",
+		transition: !phoneIsDrag && phoneIsSnapping ? "transform 0.5s" : "none",
 	};
 
 	return {

@@ -1,4 +1,5 @@
 import { useImperativeHandle } from "react";
+import Phone from "./Phone.jsx";
 import useIslandDrag from "./useIslandDrag.js";
 
 import orderIcon from "@/assets/property3.svg";
@@ -14,16 +15,16 @@ function UnivasalIslandInteraction() {
 		bottom-[min(calc(100%-800px),-140px)] 
 		lg:bottom-[min(calc(100%-900px),-170px)] 
 		xl:bottom-[min(calc(100%-1000px),-200px)] 
-	flex justify-center items-end`;
+	flex justify-center items-end select-none`;
 
 	const seatStyle = `w-[317.44px] h-[501.88px]
 		lg:w-[385.46px] lg:h-[610.64px]
 		xl:w-[453.48px] xl:h-[718.4px]`;
 
-	const univasalIslandStyle = `w-[158.2px] h-[546px]
+	const univasalIslandStaticStyle = `w-[158.2px] h-[546px]
 		lg:w-[192.1px] lg:h-[663px]
 		xl:w-[226px] xl:h-[780px]
-		flex flex-col gap-2 cursor-pointer`;
+		flex flex-col gap-2 cursor-pointer touch-none`;
 
 	const snapAreaStyle = `absolute`;
 
@@ -45,12 +46,13 @@ function UnivasalIslandInteraction() {
 			</div>
 			<div className={seatHullStyle}>
 				<img className={seatStyle} src={seat} alt="left seat" draggable="false" />
-				<div className={univasalIslandStyle} style={islandStyle} {...islandEventListener}>
+				<div className={univasalIslandStaticStyle} style={islandStyle} {...islandEventListener}>
 					<img src={univasalIsland1x} srcSet={`${univasalIsland1x} 1x, ${univasalIsland2x} 2x`} alt="univasal island" draggable="false"/>
 					<img src={univasalIslandLeg} alt="univasal island" draggable="false" />
 					<div className={snapAreaStyle} ref={phoneSnapArea}></div>
 				</div>
 				<img className={seatStyle} src={seat} alt="right seat" draggable="false" />
+				<Phone dynamicStyle={phoneStyle} onPointerDown={phoneEventListener.onPointerDown} />
 			</div>
 		</article>
 	)
