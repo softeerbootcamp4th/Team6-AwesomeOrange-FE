@@ -26,7 +26,11 @@ function UnivasalIslandInteraction() {
 		xl:w-[226px] xl:h-[780px]
 		flex flex-col gap-2 cursor-pointer touch-none`;
 
-	const snapAreaStyle = `absolute`;
+	const snapAreaStyle = `absolute scale-50
+		left-[21px] top-[40px] w-[54px] h-[97px]
+		lg:left-[25px] lg:top-[49px] lg:w-[66px] lg:h-[118px]
+		xl:left-[30px] xl:top-[56px] xl:w-[77px] xl:h-[140px]
+	`;
 
 	return (
 		<article className="relative w-full h-full overflow-hidden flex items-center flex-col">

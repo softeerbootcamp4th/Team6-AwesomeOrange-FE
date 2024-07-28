@@ -6,6 +6,15 @@ import useMountDragEvent from "@/common/useMountDragEvent.js";
 const PHONE_INITIAL_X = 150;
 const PHONE_INITIAL_Y = 100;
 
+function aabbCheck(bound1, bound2)
+{
+	if(bound1.right < bound2.left) return false;
+	if(bound1.left > bound2.right) return false;
+	if(bound1.top > bound2.bottom) return false;
+	if(bound1.bottom < bound2.top) return false;
+	return true;
+}
+
 function useIslandDrag()
 {
 	// island state
@@ -19,6 +28,7 @@ function useIslandDrag()
 	const phoneStartMousePosition = useRef({x:0, y:0});
 	const phoneStartPosition = useRef({x:PHONE_INITIAL_X, y:PHONE_INITIAL_Y});
 	const [phoneIsSnapping, setPhoneIsSnapping] = useState(false);
+	const [phoneShouldSnapped, setPhoneShouldSnapped] = useState(false);
 	const [phoneX, setPhoneX] = useState(PHONE_INITIAL_X);
 	const [phoneY, setPhoneY] = useState(PHONE_INITIAL_Y);
 
@@ -29,6 +39,7 @@ function useIslandDrag()
 	const islandOnDragStart = function(e)
 	{
 		setIslandIsDrag(true);
+		setPhoneShouldSnapped(false);
 		islandStartMouseYPosition.current = e.clientY;
 		islandStartPosition.current = islandY;
 	}
@@ -52,6 +63,7 @@ function useIslandDrag()
 	// mount phone drag event
 	const phoneOnDragStart = function(e) {
 		setPhoneIsDrag(true);
+		setPhoneShouldSnapped(false);
 		phoneStartMousePosition.current = { x: e.clientX, y: e.clientY };
 		phoneStartPosition.current = { x: phoneX, y:phoneY };
 	}
@@ -63,9 +75,18 @@ function useIslandDrag()
 		setPhoneX(x);
 		setPhoneY(y);
 	}, []);
-	const phoneOnDragEnd = useCallback(()=>{
+	const phoneOnDragEnd = useCallback((e)=>{
+		if(!phoneIsDrag) return;
+
 		setPhoneIsDrag(false);
-	}, []);
+		const isSnapped = aabbCheck(e.target.getBoundingClientRect(), phoneSnapArea.current.getBoundingClientRect());
+		setPhoneIsSnapping(isSnapped);
+		if(isSnapped) {
+			setPhoneX(0);
+			setPhoneY(islandY);
+			setPhoneShouldSnapped(true);
+		}
+	}, [islandY, phoneIsDrag]);
 	useMountDragEvent(phoneOnDragging, phoneOnDragEnd, phoneIsDrag);
 
 	// reset function interface
@@ -78,6 +99,7 @@ function useIslandDrag()
 		setIslandY(0);
 		setPhoneIsDrag(false);
 		setPhoneIsSnapping(false);
+		setPhoneShouldSnapped(false);
 		setPhoneX(PHONE_INITIAL_X);
 		setPhoneY(PHONE_INITIAL_Y);
 	}, [] );
@@ -90,7 +112,7 @@ function useIslandDrag()
 	// phone style은 상당히 많은 state 종속성을 가지고 있으므로 useMemo가 의미가 없음
 	const phoneStyle = {
 		transform: `translate(${phoneX}px, ${phoneY}px)`,
-		transition: !phoneIsDrag && phoneIsSnapping ? "transform 0.5s" : "none",
+		transition: phoneShouldSnapped ? "transform 0.5s" : "none",
 	};
 
 	return {
