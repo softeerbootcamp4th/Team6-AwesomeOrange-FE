@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import throttleRaf from "@/common/throttleRaf.js";
 
-function useMountDragEvent( dragging, dragEnd, isDrag )
+function useMountDragEvent( dragging, dragEnd )
 {
 	useEffect(() => {
 		const onPointerMove = throttleRaf((e) => {
-			if (!isDrag) return;
 			const { clientX, clientY } = e;
 			dragging({ x: clientX, y: clientY });
 		});
 		const onTouchMove = throttleRaf((e) => {
-			if (!isDrag) return;
 			const { clientX, clientY } = e.touches[0];
 			dragging({ x: clientX, y: clientY });
 		});
@@ -29,7 +27,7 @@ function useMountDragEvent( dragging, dragEnd, isDrag )
 			window.removeEventListener("touchend", dragEnd);
 			window.removeEventListener("touchcancel", dragEnd);
 		};
-	}, [isDrag, dragging, dragEnd]);
+	}, [dragging, dragEnd]);
 }
 
 export default useMountDragEvent;
