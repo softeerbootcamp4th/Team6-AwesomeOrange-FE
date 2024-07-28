@@ -1,12 +1,14 @@
 import { useImperativeHandle } from "react";
+import useIslandDrag from "./useIslandDrag.js";
+
 import orderIcon from "@/assets/property3.svg";
 import seat from "./assets/seat.png";
 import univasalIsland1x from "./assets/univasalIsland@1x.png";
 import univasalIsland2x from "./assets/univasalIsland@2x.png";
-import univasalIslandLeg1x from "./assets/univasalIsland2@1x.png";
-import univasalIslandLeg2x from "./assets/univasalIsland2@2x.png";
+import univasalIslandLeg from "./assets/univasalIsland2.png";
 
 function UnivasalIslandInteraction() {
+	const { islandEventListener, phoneEventListener, islandStyle, phoneStyle, reset, phoneSnapArea } = useIslandDrag();
 
 	const seatHullStyle = `absolute w-[1200px] h-[800px] 
 		bottom-[min(calc(100%-800px),-140px)] 
@@ -21,7 +23,9 @@ function UnivasalIslandInteraction() {
 	const univasalIslandStyle = `w-[158.2px] h-[546px]
 		lg:w-[192.1px] lg:h-[663px]
 		xl:w-[226px] xl:h-[780px]
-		flex flex-col gap-2`;
+		flex flex-col gap-2 cursor-pointer`;
+
+	const snapAreaStyle = `absolute`;
 
 	return (
 		<article className="relative w-full h-full overflow-hidden flex items-center flex-col">
@@ -41,9 +45,10 @@ function UnivasalIslandInteraction() {
 			</div>
 			<div className={seatHullStyle}>
 				<img className={seatStyle} src={seat} alt="left seat" draggable="false" />
-				<div className={univasalIslandStyle} draggable="true">
-					<img src={univasalIsland1x} srcSet={`${univasalIsland1x} 1x, ${univasalIsland2x} 2x`}  alt="univasal island" draggable="false"/>
-					<img src={univasalIslandLeg1x} alt="univasal island" draggable="false" />
+				<div className={univasalIslandStyle} draggable="true" style={islandStyle} {...islandEventListener}>
+					<img src={univasalIsland1x} srcSet={`${univasalIsland1x} 1x, ${univasalIsland2x} 2x`} alt="univasal island" draggable="false"/>
+					<img src={univasalIslandLeg} alt="univasal island" draggable="false" />
+					<div className={snapAreaStyle} ref={phoneSnapArea}></div>
 				</div>
 				<img className={seatStyle} src={seat} alt="right seat" draggable="false" />
 			</div>
