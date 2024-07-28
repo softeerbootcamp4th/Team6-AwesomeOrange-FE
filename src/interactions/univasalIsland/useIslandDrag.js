@@ -1,6 +1,7 @@
 import { useState, useRef, useMemo, useCallback } from "react";
 import throttleRaf from "@/common/throttleRaf.js";
 import { clamp } from "@/common/utils.js";
+import useMountDragEvent from "@/common/useMountDragEvent.js";
 
 const PHONE_INITIAL_X = 150;
 const PHONE_INITIAL_Y = 100;
@@ -12,7 +13,7 @@ voidImage.src =
 function useIslandDrag()
 {
 	// island state
-	const islandIsDrag = useRef(false);
+	const [islandIsDrag, setIslandIsDrag] = useState(false);
 	const islandStartMouseYPosition = useRef(0);
 	const islandStartPosition = useRef(0);
 	const [islandY, setIslandY] = useState(0);
@@ -28,72 +29,56 @@ function useIslandDrag()
 	// phone snap area
 	const phoneSnapArea = useRef(null);
 
-	const islandEventListener = (()=>{
-		function onDragStart(e) {
-			islandIsDrag.current = true;
-			islandStartMouseYPosition.current = e.clientY;
-			islandStartPosition.current = islandY;
-			e.dataTransfer.setDragImage(voidImage, 0, 0);
-		}
-		function onDrag(e) {
-			if(!islandIsDrag.current) return;
+	// mount island drag event
+	const islandOnDragStart = function(e)
+	{
+		setIslandIsDrag(true);
+		islandStartMouseYPosition.current = e.clientY;
+		islandStartPosition.current = islandY;
+	}
+	const islandOnDragging = useCallback(function({y: mouseY})
+	{
+		const rawY = mouseY - islandStartMouseYPosition.current + islandStartPosition.current;
+		const y = clamp(rawY, -50, 50);
 
-			const rawY = e.clientY - islandStartMouseYPosition.current + islandStartPosition.current;
-			const y = clamp(rawY, -50, 50);
+		setIslandY(y);
 
-			setIslandY(y);
-
-			if(phoneIsSnapping) {
-				setPhoneX(0);
-				setPhoneY(y);
-			}
-		}
-		function onDragEnd(e) {
-			islandIsDrag.current = false;
-		}
-
-		return {
-			onDragStart,
-			onDrag: throttleRaf(onDrag),
-			onDragEnd,
-		}
-	})();
-
-	const phoneEventListener = (()=>{
-		function onDragStart(e) {
-			setPhoneIsDrag(true);
-			phoneStartMousePosition.current = { x: e.clientX, y: e.clientY };
-			phoneStartPosition.current = { x: phoneX, y:phoneY };
-			e.dataTransfer.setDragImage(voidImage, 0, 0);
-		}
-		function onDrag(e) {
-			if(!phoneIsDrag) return;
-
-			const x = e.clientX - phoneStartMousePosition.current.x + phoneStartPosition.current.x;
-			const y = e.clientY - phoneStartMousePosition.current.y + phoneStartPosition.current.y;
-
-			setPhoneX(x);
+		if(phoneIsSnapping) {
+			setPhoneX(0);
 			setPhoneY(y);
 		}
-		function onDragEnd(e) {
-			setPhoneIsDrag(false);
+	}, [phoneIsSnapping]);
+	const islandOnDragEnd = useCallback(()=>{
+		setIslandIsDrag(false);
+	}, []);
+	useMountDragEvent(islandOnDragging, islandOnDragEnd, islandIsDrag);
 
-		}
+	// mount phone drag event
+	const phoneOnDragStart = function(e) {
+		setPhoneIsDrag(true);
+		phoneStartMousePosition.current = { x: e.clientX, y: e.clientY };
+		phoneStartPosition.current = { x: phoneX, y:phoneY };
+	}
+	const phoneOnDragging = useCallback(function({x: mouseX, y: mouseY})
+	{
+		const x = mouseX - phoneStartMousePosition.current.x + phoneStartPosition.current.x;
+		const y = mouseY - phoneStartMousePosition.current.y + phoneStartPosition.current.y;
 
-		return {
-			onDragStart,
-			onDrag: throttleRaf(onDrag),
-			onDragEnd,
-		}
-	})();
+		setPhoneX(x);
+		setPhoneY(y);
+	}, []);
+	const phoneOnDragEnd = useCallback(()=>{
+		setPhoneIsDrag(false);
+	}, []);
+	useMountDragEvent(phoneOnDragging, phoneOnDragEnd, phoneIsDrag);
 
-
+	// reset function interface
 	const reset = useCallback( ()=>{
-		islandIsDrag.current = false;
 		islandStartMouseYPosition.current = 0;
 		phoneStartMousePosition.current = {x: 0, y: 0};
 		islandStartPosition.current = 0;
 		phoneStartPosition.current = {x: PHONE_INITIAL_X, y: PHONE_INITIAL_Y};
+		setIslandIsDrag(false);
 		setIslandY(0);
 		setPhoneIsDrag(false);
 		setPhoneIsSnapping(false);
@@ -101,6 +86,7 @@ function useIslandDrag()
 		setPhoneY(PHONE_INITIAL_Y);
 	}, [] );
 
+	// island style
 	const islandStyle = useMemo( ()=>({
 		transform: `translateY(${islandY}px)`
 	}), [islandY] );
@@ -112,7 +98,10 @@ function useIslandDrag()
 	};
 
 	return {
-		reset, islandStyle, phoneStyle, islandEventListener, phoneEventListener, phoneSnapArea
+		reset, islandStyle, phoneStyle, 
+		islandEventListener: {onPointerDown: islandOnDragStart}, 
+		phoneEventListener: {onPointerDown: phoneOnDragStart}, 
+		phoneSnapArea
 	};
 }
 

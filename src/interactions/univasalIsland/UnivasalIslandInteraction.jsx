@@ -45,7 +45,7 @@ function UnivasalIslandInteraction() {
 			</div>
 			<div className={seatHullStyle}>
 				<img className={seatStyle} src={seat} alt="left seat" draggable="false" />
-				<div className={univasalIslandStyle} draggable="true" style={islandStyle} {...islandEventListener}>
+				<div className={univasalIslandStyle} style={islandStyle} {...islandEventListener}>
 					<img src={univasalIsland1x} srcSet={`${univasalIsland1x} 1x, ${univasalIsland2x} 2x`} alt="univasal island" draggable="false"/>
 					<img src={univasalIslandLeg} alt="univasal island" draggable="false" />
 					<div className={snapAreaStyle} ref={phoneSnapArea}></div>
