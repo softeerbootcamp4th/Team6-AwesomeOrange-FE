@@ -3,7 +3,7 @@ import usePointDrag from "./usePointDrag.js";
 
 function DistanceDrivenInteraction()
 {
-	const { x, y, reset, eventHandler } = usePointDrag();
+	const { x, y, reset, onPointerDown } = usePointDrag();
 
 	const circleStyle = {
 		transform : `translate(${x}px, ${y}px)`,
@@ -32,10 +32,11 @@ function DistanceDrivenInteraction()
 		/>
 		<div className="absolute top-1/2">
 			<div className="rounded-full size-8 bg-blue-500 cursor-pointer before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50"
-				onClick={pulseAnimation}
+				onPointerDown={(e)=>{
+					onPointerDown(e);
+					pulseAnimation(e);
+				}}
 				style={circleStyle}
-				draggable="true"
-				{...eventHandler}
 			/>
 			<svg className="overflow-visible stroke-blue-500 absolute top-4 left-4 pointer-events-none" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<line x1="0" y1="0" x2={x} y2={y} strokeWidth="4" strokeLinecap="round"></line>
