@@ -1,7 +1,15 @@
 import InteractionDescription from "../InteractionDescription.jsx";
+//import usePointDrag from "./usePointDrag.jsx";
 
 function DistanceDrivenInteraction()
 {
+	//const { x, y, reset } = usePointDrag();
+	const x= 160;
+	const y=270;
+
+	const circleStyle = {
+		transform : `translate(${x}px, ${y}px)`
+	};
 
 	function pulseAnimation(e)
 	{
@@ -25,11 +33,17 @@ function DistanceDrivenInteraction()
 			directive="가운데 점을 드래그하여 최대 주행거리를 예측해보세요!"
 		/>
 		<div className="absolute top-1/2">
-			<div className="rounded-full size-8 bg-blue-500 cursor-pointer before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50" onClick={pulseAnimation}></div>
+			<div className="rounded-full size-8 bg-blue-500 cursor-pointer before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50"
+				onClick={pulseAnimation}
+				style={circleStyle}
+			/>
+			<svg className="overflow-visible stroke-blue-500 absolute top-4 left-4" version="1.1" xmlns="http://www.w3.org/2000/svg">
+				<line x1="0" y1="0" x2={x} y2={y} strokeWidth="4" strokeLinecap="round"></line>
+			</svg>
 		</div>
 		<p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s pointer-events-none">
 			<span className="text-head-m md:text-head-l lg:text-[4.375rem] mr-1.5 lg:mr-2.5">
-				{0}
+				{Math.round(Math.hypot(x, y) / 3)}
 			</span>
 			km
 		</p>
