@@ -1,12 +1,16 @@
+import { useEffect } from "react";
+import IntroSection from "./introSection";
+
 function App() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    history.scrollRestoration = "manual";
+  }, []);
+
   return (
-    <div className="text-5xl graphic-gradient">
-      <div className="flex flex-col">
-        <span>다람쥐 헌 쳇바퀴에 타고파</span>
-        <span>Hyundai Sans Text Office</span>
-        <span className="font-ds-digital">0123456789</span>
-      </div>
-    </div>
+    <>
+      <IntroSection />
+    </>
   );
 }
 

@@ -69,6 +69,6 @@ export default {
     "title-l": ["32px", "44px"],
     "head-s": ["36px", "52px"],
     "head-m": ["45px", "64px"],
-    "head-l": ["57px", "80px"]
-  }
+    "head-l": ["57px", "80px"],
+  },
 };

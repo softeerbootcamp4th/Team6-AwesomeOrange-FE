@@ -1,4 +1,6 @@
 import useScrollTransition from "@/common/useScrollTransition.js";
+import vector from "./vector.svg";
+import style from "./index.module.css";
 
 function IntroSection() {
   const titleOpacity = useScrollTransition({
@@ -14,12 +16,25 @@ function IntroSection() {
 
   return (
     <div className="h-[2160px]">
-      <h1
-        className="text-8xl w-full flex items-center justify-center absolute top-[500px]"
-        style={titleStyle}
-      >
-        The new IONIQ 5
-      </h1>
+      <div className="pointer-events-none fixed w-full flex justify-center top-[500px] -translate-y-1/2">
+        <h1
+          className={`${style.openTitle} ease-in text-8xl z-50`}
+          style={titleStyle}
+        >
+          The new IONIQ 5
+        </h1>
+
+        <div
+          className="absolute top-[66px] z-0 overflow-hidden"
+          style={titleStyle}
+        >
+          <img src={vector} />
+
+          <div
+            className={`${style.openVector} w-full h-full bg-white absolute top-0`}
+          ></div>
+        </div>
+      </div>
     </div>
   );
 }
