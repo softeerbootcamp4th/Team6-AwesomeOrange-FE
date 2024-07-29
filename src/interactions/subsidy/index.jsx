@@ -8,9 +8,20 @@ function SubsidyInteraction({ interactCallback, $ref }) {
   const [count, setCount] = useState(0);
   const rottieRef = useRef(null);
 
-  function onClick()
+  function onClick(e)
   {
   	setCount( count=>count+1 );
+  	e.currentTarget.animate(
+      [
+        { transform: "rotateY(0)" },
+        { transform: "rotateY(360deg)" },
+      ],
+      {
+        duration: 500,
+        iteractions: 1,
+        easing: "cubic-bezier(0.215, 0.610, 0.355, 1.000)", // ease-out-cubic
+      },
+    );
   	rottieRef.current.goToAndPlay(0);
   }
 
@@ -27,7 +38,7 @@ function SubsidyInteraction({ interactCallback, $ref }) {
         directive="가운데 점을 드래그하여 최대 주행거리를 예측해보세요!"
       />
       <div className="absolute z-0 w-96 h-96 top-[calc(50%-12rem)] flex justify-center items-center" >
-      	<div className="absolute size-[120px] rounded-full bg-blue-400 flex justify-center items-center" onClick={onClick}>
+      	<div className="absolute size-[120px] rounded-full bg-blue-400 flex justify-center items-center active:scale-90 transition-transform" onClick={onClick}>
       		<img src={dollor} className="select-none" alt="$" width="22.8" height="35.84" />
       	</div>
       	<Lottie className="absolute -z-10" animationData={coinRottie} ref={rottieRef} loop={false}/>
