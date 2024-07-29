@@ -1,14 +1,12 @@
 import InteractionDescription from "../InteractionDescription.jsx";
-//import usePointDrag from "./usePointDrag.jsx";
+import usePointDrag from "./usePointDrag.js";
 
 function DistanceDrivenInteraction()
 {
-	//const { x, y, reset } = usePointDrag();
-	const x= 160;
-	const y=270;
+	const { x, y, reset, eventHandler } = usePointDrag();
 
 	const circleStyle = {
-		transform : `translate(${x}px, ${y}px)`
+		transform : `translate(${x}px, ${y}px)`,
 	};
 
 	function pulseAnimation(e)
@@ -36,8 +34,10 @@ function DistanceDrivenInteraction()
 			<div className="rounded-full size-8 bg-blue-500 cursor-pointer before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50"
 				onClick={pulseAnimation}
 				style={circleStyle}
+				draggable="true"
+				{...eventHandler}
 			/>
-			<svg className="overflow-visible stroke-blue-500 absolute top-4 left-4" version="1.1" xmlns="http://www.w3.org/2000/svg">
+			<svg className="overflow-visible stroke-blue-500 absolute top-4 left-4 pointer-events-none" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<line x1="0" y1="0" x2={x} y2={y} strokeWidth="4" strokeLinecap="round"></line>
 			</svg>
 		</div>
