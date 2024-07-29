@@ -56,7 +56,11 @@ function useDialDrag() {
     setIsDrag(true);
   }
 
-  const resetAngle = useCallback(() => setAngle(0), []);
+  const resetAngle = useCallback(() => {
+    setAngle(0);
+    angleCache.current = 0;
+    prevAngle.current = 0;
+  }, []);
 
   const style = {
     transform: `rotate(${angle}rad)`,
