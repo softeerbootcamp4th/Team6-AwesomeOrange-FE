@@ -5,13 +5,21 @@
 @font-face {
   font-family: "ds-digital";
   src: url("/font/DS-DIGI.TTF") format("truetype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "hdsans";
-  src:
-    url("/font/HyundaiSansTextOffice-Medium.woff") format("woff"),
-    url("/font/HyundaiSansTextOffice-Medium.ttf") format("truetype");
+  src: url("/font/HyundaiSansTextKROTFBold.otf") format("opentype");
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "hdsans";
+  src: url("/font/HyundaiSansTextKROTFMedium.otf") format("opentype");
+  font-weight: medium;
+  font-display: swap;
 }
 
 @layer base {

@@ -57,4 +57,18 @@ export default {
     },
     black: "#0D0D0D",
   },
+  fontSize: {
+    "detail-s": ["10px", "13px"],
+    "detail-m": ["11px", "14px"],
+    "detail-l": ["12px", "16px"],
+    "body-s": ["14px", "20px"],
+    "body-m": ["16px", "24px"],
+    "body-l": ["22px", "32px"],
+    "title-s": ["24px", "36px"],
+    "title-m": ["28px", "40px"],
+    "title-l": ["32px", "44px"],
+    "head-s": ["36px", "52px"],
+    "head-m": ["45px", "64px"],
+    "head-l": ["57px", "80px"]
+  }
 };
