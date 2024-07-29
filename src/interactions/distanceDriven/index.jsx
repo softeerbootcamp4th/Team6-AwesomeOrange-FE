@@ -1,7 +1,8 @@
+import { useImperativeHandle } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
 import usePointDrag from "./usePointDrag.js";
 
-function DistanceDrivenInteraction()
+function DistanceDrivenInteraction({ interactCallback, $ref })
 {
 	const { x, y, reset, onPointerDown } = usePointDrag();
 
@@ -23,6 +24,12 @@ function DistanceDrivenInteraction()
 		} );
 	}
 
+	useImperativeHandle(
+		$ref,
+		() => ({reset}),
+		[reset],
+	);
+
 	return <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
 		<InteractionDescription 
 			order="1"
@@ -35,6 +42,7 @@ function DistanceDrivenInteraction()
 				onPointerDown={(e)=>{
 					onPointerDown(e);
 					pulseAnimation(e);
+					interactCallback?.();
 				}}
 				style={circleStyle}
 			/>
