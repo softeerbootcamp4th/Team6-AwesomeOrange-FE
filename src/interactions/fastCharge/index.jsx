@@ -35,7 +35,7 @@ function FastChargeInteraction({ interactCallback, $ref }) {
 
   return (
     <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
-      <InteractionDescription 
+      <InteractionDescription
         order="2"
         title="불편함 없이, 더 빠르게"
         description="The new IONIQ 5의 배터리를 충전하는 데 얼마만큼의 시간이 걸릴까요?"

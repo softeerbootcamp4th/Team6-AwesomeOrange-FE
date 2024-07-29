@@ -44,7 +44,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
 
   return (
     <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
-      <InteractionDescription 
+      <InteractionDescription
         order="3"
         title="나에게 맞게, 자유자재로"
         description="새로워진 The new IONIQ 5의 유니버설 아일랜드는 어떤 모습일까요?"
