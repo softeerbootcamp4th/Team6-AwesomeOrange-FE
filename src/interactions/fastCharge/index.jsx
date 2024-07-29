@@ -1,7 +1,7 @@
 import { useImperativeHandle } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
 import BatteryProgressBar from "./BatteryProgressBar.jsx";
-import dialSvg from "./timer.svg";
+import dialSvg from "./assets/timer.svg";
 import useDialDrag from "./useDialDrag.js";
 
 const MAX_MINUTE = 30;
