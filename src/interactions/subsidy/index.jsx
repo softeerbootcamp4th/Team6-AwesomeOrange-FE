@@ -36,9 +36,9 @@ function SubsidyInteraction({ interactCallback, $ref }) {
     <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
       <InteractionDescription
         order="5"
-        title="걱정 없이, 더 멀리"
-        description="The new IONIQ 5는 한 번의 충전으로 얼마나 멀리 주행할 수 있을까요?"
-        directive="가운데 점을 드래그하여 최대 주행거리를 예측해보세요!"
+        title="누구보다 경제적으로"
+        description="The new IONIQ 5 구매 시, 최대 얼마의 보조금 혜택을 받을 수 있을까요?"
+        directive="동전을 클릭하여 예상 금액을 입력해보세요!"
       />
       <div className="absolute z-0 w-96 h-96 top-[calc(50%-12rem)] flex justify-center items-center">
         <div
