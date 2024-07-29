@@ -34,7 +34,7 @@ function FastChargeInteraction({ interactCallback, $ref }) {
   const progress = getProgress(angle);
 
   return (
-    <article className="bg-black relative w-full h-full overflow-hidden flex items-center flex-col">
+    <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
       <div className="w-full max-w-[1200px] px-10 lg:px-20 flex gap-2 items-start mt-16 lg:mt-[6.25rem] ">
         <img src={orderIcon} alt="2" />
         <div className="flex flex-col gap-3.5 font-bold">
