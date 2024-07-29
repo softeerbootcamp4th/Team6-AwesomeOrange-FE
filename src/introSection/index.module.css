@@ -1,0 +1,27 @@
+.openTitle {
+  animation: open-title 0.5s ease-in-out;
+}
+
+@keyframes open-title {
+  from {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.openVector {
+  animation: open-vector 0.3s ease-in-out 0.3s forwards;
+}
+
+@keyframes open-vector {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
