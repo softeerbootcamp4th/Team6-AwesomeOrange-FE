@@ -4,18 +4,17 @@ const mountedStore = {
   mounted: false,
   listeners: new Set(),
   mount() {
-    this.mounted = true;
-    this.listeners.forEach( listener=>listener() );
-  }
+    mountedStore.mounted = true;
+    mountedStore.listeners.forEach( listener=>listener() );
+  },
   subscribe(listener) {
-    this.listeners.add(listener);
-    return ()=>this.listeners.delete(listener);
-  }
+    mountedStore.listeners.add(listener);
+    return ()=>mountedStore.listeners.delete(listener);
+  },
   getSnapshot() {
-    return mounted;
+    return mountedStore.mounted;
   }
 }
-
 
 /**
  * react 클라이언트 only 래퍼 입니다.
@@ -23,11 +22,11 @@ const mountedStore = {
  * 동일한 폴백 엘리먼트를 렌더링하도록 보장합니다.
  */
 export default function ClientOnly({ children, fallback }) {
-  const mounted = useSyncExternalStore(mountedStore.subscribe, mountedStore.getSnapshot, false);
+  const mounted = useSyncExternalStore(mountedStore.subscribe, mountedStore.getSnapshot, ()=>false);
   useEffect(() => {
     mountedStore.mount();
   }, []);
 
-  if (!init) return fallback;
+  if (!mounted) return fallback;
   return children;
 }
