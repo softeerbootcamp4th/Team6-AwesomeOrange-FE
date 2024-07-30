@@ -1,0 +1,4 @@
+.moveBar {
+  transition: all 0.2s ease-in-out;
+  transform: translateX(calc(var(--pos) * 1px));
+}
