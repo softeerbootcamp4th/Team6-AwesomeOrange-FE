@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import IntroSection from "./introSection";
+import Header from "./header";
 
 function App() {
   useEffect(() => {
@@ -10,6 +11,7 @@ function App() {
   return (
     <>
       <IntroSection />
+      <Header />
     </>
   );
 }
