@@ -2,7 +2,7 @@ import { LINEAR, CURVED, ANY } from "./constants.js";
 
 // ─│┌┐┘└
 
-class Piece
+class PieceData
 {
 	constructor(shapeChar)
 	{
@@ -19,7 +19,7 @@ class Piece
 	}
 	rotated()
 	{
-		const newPiece = new Piece(this.symbol);
+		const newPiece = new PieceData(this.symbol);
 		newPiece.rotate = this.rotate + 1;
 		return newPiece;
 	}
@@ -31,19 +31,19 @@ class Piece
 	}
 	fixedRotated()
 	{
-		const newPiece = new Piece(this.symbol);
-		if(this.type === LINEAR) newPiece.rotate = this.rotate % 2;
-		else newPiece.rotate = this.rotate % 4;
+		const newPiece = new PieceData(this.symbol);
+		newPiece.rotate = this.rotate % 4;
 		return newPiece;
 	}
 }
-function generatePiece(shapeString)
+
+export function generatePiece(shapeString)
 {
 	const rawString = [...shapeString.replace(/\s+/gm, "")];
-	return rawString.map( c=>new Piece(c) );
+	return rawString.map( c=>new PieceData(c) );
 }
 
-function generateAnswer(shapeString)
+export function generateAnswer(shapeString)
 {
 	const rawString = [...shapeString.replace(/\s+/gm, "")];
 	return rawString.map( c=>{
@@ -59,5 +59,3 @@ function generateAnswer(shapeString)
 		}
 	} );
 }
-
-export default generatePiece;
