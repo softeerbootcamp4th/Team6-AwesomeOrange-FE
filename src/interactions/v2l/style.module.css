@@ -1,0 +1,19 @@
+.container {
+	top: max( var(--top-area, 11rem), calc( 60% - 11.5rem ) );
+	transform: scale(0.7);
+	--top-area: 11rem;
+}
+
+@media (min-width: 768px) {
+	.container {
+		--top-area: 12rem;
+		transform: scale(0.9);
+	}
+}
+
+@media (min-width: 1024px) {
+	.container {
+		--top-area: 15rem;
+		transform: scale(1);
+	}
+}

@@ -9,7 +9,7 @@ function PuzzlePiece({shape, onClick, fixRotate})
 	};
 
 	return <div style={style} className={
-			`size-28 text-white rounded-xl border-2 border-white transition-transform ease-out ${fixing ? "duration-0" : "duration-500"}`
+			`size-28 bg-black rounded-xl border-2 border-white transition-transform ease-out ${fixing ? "duration-0" : "duration-500"}`
 		}
 		onClick={()=>{
 			onClick();
