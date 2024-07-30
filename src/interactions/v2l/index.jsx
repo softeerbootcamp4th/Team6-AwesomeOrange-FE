@@ -15,7 +15,7 @@ function V2LInteraction({ interactCallback, $ref }) {
       />
       <div className={`absolute ${style.container} origin-top`}>
         <ClientOnly fallback={<div>스켈레톤 그릴 예정</div>}>
-          <Puzzle $ref={$ref} />
+          <Puzzle $ref={$ref} interactCallback={interactCallback} />
         </ClientOnly>
       </div>
     </article>

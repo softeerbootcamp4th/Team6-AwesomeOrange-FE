@@ -9,7 +9,9 @@ import ClientOnly from "./ClientOnly.jsx";
  * 출처 : https://toss.tech/article/faster-initial-rendering
  */
 export default function Suspense({ children, fallback }) {
-  return <ClientOnly fallback={fallback}>
-    <ReactSuspense fallback={fallback}>{children}</ReactSuspense>
-  </ClientOnly>;
+  return (
+    <ClientOnly fallback={fallback}>
+      <ReactSuspense fallback={fallback}>{children}</ReactSuspense>
+    </ClientOnly>
+  );
 }
