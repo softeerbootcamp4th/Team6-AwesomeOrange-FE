@@ -22,7 +22,7 @@ function Puzzle()
 	);
 
 	return <div>
-		<div className="grid grid-rows-3 grid-cols-3">
+		<div className="grid grid-rows-3 grid-cols-3 gap-4">
 			{ piece.map( (shape, i)=>{
 				const onClick = ()=>{
 					setPiece( board=>{
