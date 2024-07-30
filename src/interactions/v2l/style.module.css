@@ -4,6 +4,10 @@
 	--top-area: 11rem;
 }
 
+.rotate {
+	animation: spin 1s linear infinite;
+}
+
 @media (min-width: 768px) {
 	.container {
 		--top-area: 12rem;
@@ -15,5 +19,14 @@
 	.container {
 		--top-area: 15rem;
 		transform: scale(1);
+	}
+}
+
+@keyframes spin{
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
 	}
 }

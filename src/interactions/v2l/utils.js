@@ -59,3 +59,8 @@ export function generateAnswer(shapeString)
 		}
 	} );
 }
+
+export function checkPuzzle(pieces, answer)
+{
+	return pieces.every( (piece, i)=>piece.isCorrect(answer[i]) );
+}
