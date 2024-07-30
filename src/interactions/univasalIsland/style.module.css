@@ -1,0 +1,75 @@
+.hull {
+	bottom: min(calc(100% - 800px),-140px);
+}
+.seat {
+	width: 317.44px;
+	height: 501.88px;
+}
+.island {
+	width: 158.2px;
+	height: 546px;
+}
+.phone {
+	top: 293px;
+	left: 541px;
+	width: 54px;
+	height: 97px;
+}
+.snap {
+	top: 40px;
+	left: 21px;
+	width: 54px;
+	height: 97px;
+}
+
+@media (min-width: 1024px) {
+	.hull {
+		bottom: min(calc(100% - 900px),-170px);
+	}
+	.seat {
+		width: 385.46px;
+		height: 610.64px;
+	}
+	.island {
+		width: 192.1px;
+		height: 663px;
+	}
+	.phone {
+		top: 185px;
+		left: 528px;
+		width: 66px;
+		height: 118px;
+	}
+	.snap {
+		top: 49px;
+		left: 25px;
+		width: 66px;
+		height: 118px;
+	}
+}
+
+@media (min-width: 1280px) {
+	.hull {
+		bottom: min(calc(100% - 1000px),-200px);
+	}
+	.seat {
+		width: 453.48px;
+		height: 718.4px;
+	}
+	.island {
+		width: 226px;
+		height: 780px;
+	}
+	.phone {
+		top: 75px;
+		left: 516px;
+		width: 77px;
+		height: 140px;
+	}
+	.snap {
+		top: 56px;
+		left: 30px;
+		width: 77px;
+		height: 140px;
+	}
+}

@@ -1,10 +1,7 @@
+import style from "./style.module.css";
+
 function Phone({ dynamicStyle, onPointerDown, isSnapped }) {
-  const staticStyle = `absolute flex justify-center items-center
-		left-[541px] top-[293px] w-[54px] h-[97px]
-		lg:left-[528px] lg:top-[185px] lg:w-[66px] lg:h-[118px]
-		xl:left-[516px] xl:top-[75px] xl:w-[77px] xl:h-[140px]
-		touch-none
-	`;
+  const staticStyle = `absolute flex justify-center items-center ${style.phone} cursor-pointer touch-none`;
   const phoneScreenFill = isSnapped ? "fill-green-700" : "fill-neutral-900";
   const lightningOpacity = isSnapped ? "opacity-100" : "opacity-0";
 
