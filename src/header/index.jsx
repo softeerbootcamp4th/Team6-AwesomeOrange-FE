@@ -3,7 +3,6 @@ import style from "./index.module.css";
 
 export default function Header() {
   const [scrollState, setScrollState] = useState(null);
-  const scrollListRef = useRef([]);
   const [positionList, setPositionList] = useState([]);
   const scrollSectionList = [
     "추첨 이벤트",
@@ -13,10 +12,9 @@ export default function Header() {
   ];
 
   useEffect(() => {
-    const newPositionList = scrollListRef.current.map((ref) => {
-      const pos = ref.getBoundingClientRect();
-      return pos.left + ref.offsetWidth / 2 - 25;
-    });
+    const browserHalfWidth = window.innerWidth / 2;
+    const newPositionList = [browserHalfWidth - 224, browserHalfWidth - 96, browserHalfWidth + 32, browserHalfWidth + 160];
+
     setPositionList(newPositionList);
   }, [scrollState]);
 
@@ -49,20 +47,17 @@ export default function Header() {
   }
 
   return (
-    <div className="sticky top-0 h-[60px] backdrop-blur-xl flex justify-between items-center pl-[36px] pr-[46px] font-bold select-none">
-      <span onClick={gotoTop} className="text-black text-[22px] cursor-pointer">
+    <div className="sticky top-0 h-[60px] backdrop-blur-xl flex justify-center items-center font-bold select-none">
+      <span onClick={gotoTop} className="absolute left-9 text-black text-body-l cursor-pointer">
         The new IONIQ 5
       </span>
 
-      <div className="flex h-full gap-8 text-[16px]">
+      <div className="flex h-full gap-8 text-body-m">
         {scrollSectionList.map((scrollSection, index) => (
           <div
             key={index}
-            ref={(section) => {
-              scrollListRef.current[index] = section;
-            }}
             onClick={() => onClickScrollSection(index)}
-            className={`flex items-center cursor-pointer ${scrollState === index ? "text-black" : "text-neutral-300"}`}
+            className={`flex justify-center items-center w-24 cursor-pointer border border-red-500 ${scrollState === index ? "text-black" : "text-neutral-300"}`}
           >
             {scrollSection}
           </div>
@@ -76,7 +71,7 @@ export default function Header() {
 
       <button
         onClick={openVerifyModal}
-        className="bg-blue-400 text-white text-[14px] py-[12px] px-[16px]"
+        className="absolute right-[46px] bg-blue-400 text-white text-body-s py-3 px-4"
       >
         본인인증하기
       </button>
