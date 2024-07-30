@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useImperativeHandle } from "react";
 import { generatePiece, generateAnswer, checkPuzzle } from "./utils.js";
 import PuzzlePiece from "./PuzzlePiece.jsx";
 import style from "./style.module.css";
@@ -10,7 +10,7 @@ import pan from "./assets/pan.svg";
 
 // ─│┌┐┘└
 
-function Puzzle()
+function Puzzle({$ref})
 {
 	const [ answer, setAnswer ] = useState(
 		generateAnswer(`
@@ -26,6 +26,12 @@ function Puzzle()
 			│┘│`
 		)
 	);
+
+	useImperativeHandle( $ref, ()=>({
+		reset() {
+			setPiece(generatePiece(`│┘──│││┘│`));
+		}
+	}), [] );
 
 	const isCorrect = checkPuzzle(piece, answer);
 
