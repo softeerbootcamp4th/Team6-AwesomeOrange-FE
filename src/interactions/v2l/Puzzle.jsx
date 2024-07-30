@@ -1,4 +1,5 @@
-import { useState, useImperativeHandle } from "react";
+import { useState, useEffect, useImperativeHandle } from "react";
+import generateRandomPuzzle from "./generateRandom.js";
 import { generatePiece, generateAnswer, checkPuzzle } from "./utils.js";
 import PuzzlePiece from "./PuzzlePiece.jsx";
 import style from "./style.module.css";
@@ -27,11 +28,15 @@ function Puzzle({$ref})
 		)
 	);
 
-	useImperativeHandle( $ref, ()=>({
-		reset() {
-			setPiece(generatePiece(`│┘──│││┘│`));
-		}
-	}), [] );
+	function reset()
+	{
+		const [randAnswer, randPiece] = generateRandomPuzzle();
+		setAnswer(randAnswer);
+		setPiece(randPiece);
+	}
+
+	useEffect(reset, []);
+	useImperativeHandle( $ref, ()=>({reset}), [] );
 
 	const isCorrect = checkPuzzle(piece, answer);
 
