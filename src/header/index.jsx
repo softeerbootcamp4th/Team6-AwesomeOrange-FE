@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./index.module.css";
 
 export default function Header() {
@@ -11,12 +11,17 @@ export default function Header() {
     "선착순 이벤트",
   ];
 
-  useEffect(() => {
+  function updatePositions() {
     const browserHalfWidth = window.innerWidth / 2;
     const newPositionList = [browserHalfWidth - 224, browserHalfWidth - 96, browserHalfWidth + 32, browserHalfWidth + 160];
-
     setPositionList(newPositionList);
-  }, [scrollState]);
+  };
+
+  useEffect(() => {
+    updatePositions();
+    window.addEventListener('resize', () => updatePositions());
+    return () => window.removeEventListener('resize', () => updatePositions());
+  }, []);
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -57,7 +62,7 @@ export default function Header() {
           <div
             key={index}
             onClick={() => onClickScrollSection(index)}
-            className={`flex justify-center items-center w-24 cursor-pointer border border-red-500 ${scrollState === index ? "text-black" : "text-neutral-300"}`}
+            className={`flex justify-center items-center w-24 cursor-pointer ${scrollState === index ? "text-black" : "text-neutral-300"}`}
           >
             {scrollSection}
           </div>
