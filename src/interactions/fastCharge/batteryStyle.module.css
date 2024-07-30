@@ -1,15 +1,3 @@
-.hull {
-  --bar-scale: var(--progress, 1);
-}
-
-/*
-768px 미만 : 48px ~ 256px
-768px 이상 : 66px ~ 352px (명세에 나온 80px ~ 410px과 실제 산출된 디자인의 width가 다름)
-
-8px ~ 216px
-
-*/
-
 .left {
   width: 1.5rem;
   transition: background-color 0.3s;

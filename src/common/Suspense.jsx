@@ -1,4 +1,5 @@
-import { Suspense as ReactSuspense, useState, useEffect } from "react";
+import { Suspense as ReactSuspense } from "react";
+import ClientOnly from "./ClientOnly.jsx";
 
 /**
  * react <Suspense />의 래퍼 컴포넌트입니다.
@@ -8,11 +9,9 @@ import { Suspense as ReactSuspense, useState, useEffect } from "react";
  * 출처 : https://toss.tech/article/faster-initial-rendering
  */
 export default function Suspense({ children, fallback }) {
-  const [init, setInit] = useState(false);
-  useEffect(() => {
-    setInit(true);
-  }, []);
-
-  if (!init) return fallback;
-  return <ReactSuspense fallback={fallback}>{children}</ReactSuspense>;
+  return (
+    <ClientOnly fallback={fallback}>
+      <ReactSuspense fallback={fallback}>{children}</ReactSuspense>
+    </ClientOnly>
+  );
 }
