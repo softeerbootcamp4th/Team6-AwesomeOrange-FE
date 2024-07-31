@@ -32,10 +32,19 @@ export default function ContentSection({ content }) {
     };
   }, []);
 
+  const highlightDynamicStyle = {
+    "--progress": "0%",
+  };
+
+  function descriptionWithHighlight(desc, hl) {
+    //구현 아직
+    return desc;
+  }
+
   return (
     <div
       ref={contentRef}
-      className={`${isVisible ? style.fadeIn : "opacity-0"} flex flex-col font-bold`}
+      className={`${isVisible ? style.fadeIn : "opacity-0"} z-0 flex flex-col font-bold`}
     >
       <img src={content.src} className="w-full" />
 
@@ -45,7 +54,7 @@ export default function ContentSection({ content }) {
 
       <div className="pt-3 flex justify-between items-end">
         <span className="whitespace-pre-wrap text-title-m text-neutral-800">
-          {content.desc}
+          {descriptionWithHighlight(content.desc, content.hl)}
         </span>
 
         <span className="absoulte top-0 right-0 text-body-s text-neutral-300">
