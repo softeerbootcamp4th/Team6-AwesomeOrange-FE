@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import IntroSection from "./introSection";
 import Header from "./header";
 import QnA from "./qna";
+import Footer from "./footer";
 
 function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
         className="h-[2000px]"
       />
       <QnA />
+      <Footer />
     </>
   );
 }
