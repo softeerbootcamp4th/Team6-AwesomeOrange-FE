@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import style from "./index.module.css";
 
 export default function Header() {
+  const ITEM_WIDTH = 96;
+  const ITEM_GAP = 32;
   const [scrollState, setScrollState] = useState(-1);
   const [positionList, setPositionList] = useState([]);
   const scrollSectionList = [
@@ -12,15 +14,18 @@ export default function Header() {
   ];
 
   function updatePositions() {
-    const browserHalfWidth = window.innerWidth / 2;
-    const newPositionList = [browserHalfWidth - 224, browserHalfWidth - 96, browserHalfWidth + 32, browserHalfWidth + 160];
+    let newPositionList = [];
+    for (let i = 0; i < scrollSectionList.length; i++) {
+      newPositionList[i] = ITEM_WIDTH / 4 + i * (ITEM_WIDTH + ITEM_GAP);
+    }
+
     setPositionList(newPositionList);
-  };
+  }
 
   useEffect(() => {
     updatePositions();
-    window.addEventListener('resize', () => updatePositions());
-    return () => window.removeEventListener('resize', () => updatePositions());
+    window.addEventListener("resize", () => updatePositions());
+    return () => window.removeEventListener("resize", () => updatePositions());
   }, []);
 
   function gotoTop() {
@@ -53,16 +58,19 @@ export default function Header() {
 
   return (
     <div className="sticky top-0 h-[60px] backdrop-blur-xl flex justify-center items-center font-bold select-none">
-      <span onClick={gotoTop} className="absolute left-9 text-black text-body-l cursor-pointer">
+      <span
+        onClick={gotoTop}
+        className="absolute left-9 text-black text-body-l cursor-pointer"
+      >
         The new IONIQ 5
       </span>
 
-      <div className="flex h-full gap-8 text-body-m">
+      <div className={`flex h-full gap-[${ITEM_GAP}px] text-body-m relative`}>
         {scrollSectionList.map((scrollSection, index) => (
           <div
             key={index}
             onClick={() => onClickScrollSection(index)}
-            className={`flex justify-center items-center w-24 cursor-pointer ${scrollState === index ? "text-black" : "text-neutral-300"}`}
+            className={`border border-red-500 flex justify-center items-center w-[${ITEM_WIDTH}px] cursor-pointer ${scrollState === index ? "text-black" : "text-neutral-300"}`}
           >
             {scrollSection}
           </div>
@@ -70,7 +78,7 @@ export default function Header() {
 
         <div
           style={scrollDynamicStyle()}
-          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${scrollState === null ? "hidden" : style.moveBar}`}
+          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${scrollState < 0 ? "hidden" : style.moveBar}`}
         />
       </div>
 
