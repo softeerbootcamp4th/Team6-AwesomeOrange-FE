@@ -65,12 +65,12 @@ export default function Header() {
         The new IONIQ 5
       </span>
 
-      <div className={`flex h-full gap-[${ITEM_GAP}px] text-body-m relative`}>
+      <div className={`flex h-full gap-8 text-body-m relative`}>
         {scrollSectionList.map((scrollSection, index) => (
           <div
             key={index}
             onClick={() => onClickScrollSection(index)}
-            className={`border border-red-500 flex justify-center items-center w-[${ITEM_WIDTH}px] cursor-pointer ${scrollState === index ? "text-black" : "text-neutral-300"}`}
+            className={`flex justify-center items-center w-24 cursor-pointer ${scrollState === index ? "text-black" : "text-neutral-300"}`}
           >
             {scrollSection}
           </div>
