@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import IntroSection from "./introSection";
 import Header from "./header";
 import SimpleInformation from "./simpleInformation";
+import QnA from "./qna";
+import Footer from "./footer";
 
 function App() {
   useEffect(() => {
@@ -14,6 +16,8 @@ function App() {
       <IntroSection />
       <Header />
       <SimpleInformation />
+      <QnA />
+      <Footer />
     </>
   );
 }

@@ -2,6 +2,7 @@ import { useImperativeHandle } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
 import Phone from "./Phone.jsx";
 import useIslandDrag from "./useIslandDrag.js";
+import style from "./style.module.css";
 
 import seat from "./assets/seat.png";
 import univasalIsland1x from "./assets/univasalIsland@1x.png";
@@ -21,26 +22,9 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);
 
-  const seatHullStyle = `absolute w-[1200px] h-[800px] 
-		bottom-[min(calc(100%-800px),-140px)] 
-		lg:bottom-[min(calc(100%-900px),-170px)] 
-		xl:bottom-[min(calc(100%-1000px),-200px)] 
-	flex justify-center items-end select-none`;
-
-  const seatStyle = `w-[317.44px] h-[501.88px]
-		lg:w-[385.46px] lg:h-[610.64px]
-		xl:w-[453.48px] xl:h-[718.4px]`;
-
-  const univasalIslandStaticStyle = `w-[158.2px] h-[546px]
-		lg:w-[192.1px] lg:h-[663px]
-		xl:w-[226px] xl:h-[780px]
-		flex flex-col gap-2 cursor-pointer touch-none`;
-
-  const snapAreaStyle = `absolute scale-50
-		left-[21px] top-[40px] w-[54px] h-[97px]
-		lg:left-[25px] lg:top-[49px] lg:w-[66px] lg:h-[118px]
-		xl:left-[30px] xl:top-[56px] xl:w-[77px] xl:h-[140px]
-	`;
+  const seatHullStyle = `absolute w-[1200px] h-[800px] ${style.hull} flex justify-center items-end select-none`;
+  const univasalIslandStaticStyle = `${style.island} flex flex-col gap-2 cursor-pointer touch-none`;
+  const snapAreaStyle = `absolute scale-50 ${style.snap}`;
 
   return (
     <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
@@ -52,7 +36,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
       />
       <div className={seatHullStyle}>
         <img
-          className={seatStyle}
+          className={style.seat}
           src={seat}
           alt="left seat"
           draggable="false"
@@ -79,7 +63,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
           <div className={snapAreaStyle} ref={phoneSnapArea}></div>
         </div>
         <img
-          className={seatStyle}
+          className={style.seat}
           src={seat}
           alt="right seat"
           draggable="false"
