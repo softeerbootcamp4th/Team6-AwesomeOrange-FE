@@ -4,8 +4,10 @@ import style from "./contentSection.module.css";
 export default function ContentSection({ content }) {
   const contentRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isHighlighted, setIsHighlighted] = useState(false);
 
   useEffect(() => {
+    const contentDOM = contentRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -20,30 +22,26 @@ export default function ContentSection({ content }) {
       },
     );
 
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
+    if (contentDOM) {
+      observer.observe(contentDOM);
     }
 
     // 클린업 함수
     return () => {
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
+      if (contentDOM) {
+        observer.unobserve(contentDOM);
       }
     };
   }, []);
 
   const highlightDynamicStyle = {
-    "--progress": "0%",
+    "--progress": isHighlighted ? "100%" : "0%",
   };
-
-  function descriptionWithHighlight(desc, hl) {
-    //구현 아직
-    return desc;
-  }
 
   return (
     <div
       ref={contentRef}
+      onAnimationEnd={() => setIsHighlighted(true)}
       className={`${isVisible ? style.fadeIn : "opacity-0"} z-0 flex flex-col font-bold`}
     >
       <img src={content.src} className="w-full" />
@@ -53,9 +51,15 @@ export default function ContentSection({ content }) {
       </span>
 
       <div className="pt-3 flex justify-between items-end">
-        <span className="whitespace-pre-wrap text-title-m text-neutral-800">
-          {descriptionWithHighlight(content.desc, content.hl)}
-        </span>
+        <div>
+          {content.desc.map((str, index) => (
+            <span
+              key={index}
+              style={highlightDynamicStyle}
+              className={`${index % 2 ? style.highlightAnim : "text-neutral-800"} text-title-m whitespace-pre-wrap`}>
+              {str}
+            </span>))}
+        </div>
 
         <span className="absoulte top-0 right-0 text-body-s text-neutral-300">
           {content.sub}

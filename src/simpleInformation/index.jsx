@@ -1,7 +1,9 @@
-import contentList from "./contentList";
+import JSONData from "./contentList.json";
 import ContentSection from "./contentSection";
 
 export default function SimpleInformation() {
+  const contentList = JSONData.content
+  
   return (
     <div className="h-[4700px] flex justify-center ">
       <div className="w-[1200px] flex flex-col gap-[160px]">
