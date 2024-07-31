@@ -12,7 +12,7 @@ function Modal({layer}) {
 	const close = useCallback( ()=>{
 		setOpacity(0);
 		openScroll();
-		if(timeoutRef.current !== null) timeoutRef.current = setTimeout(()=>closeModal(layer), 150);
+		if(timeoutRef.current === null) timeoutRef.current = setTimeout(()=>closeModal(layer), 150);
 	}, [layer] );
 
 	useEffect( ()=>{
