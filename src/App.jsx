@@ -17,6 +17,7 @@ function App() {
       <img
         src="https://image.utoimage.com/preview/cp872655/2018/03/201803016775_500.jpg"
         className="h-[2000px]"
+        alt="test image"
       />
       <QnA />
       <Footer />

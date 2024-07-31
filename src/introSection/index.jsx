@@ -79,7 +79,7 @@ function IntroSection() {
       </div>
 
       <div className="flex justify-center pt-[100px] animate-bounce">
-        <img src={Pointer} />
+        <img src={Pointer} alt="다음으로 넘어가기"/>
       </div>
     </div>
   );
