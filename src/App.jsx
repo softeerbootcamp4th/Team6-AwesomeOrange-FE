@@ -3,6 +3,7 @@ import IntroSection from "./introSection";
 import Header from "./header";
 import QnA from "./qna";
 import Footer from "./footer";
+import Modal from "./modal/modal.jsx";
 
 function App() {
   useEffect(() => {
@@ -21,6 +22,8 @@ function App() {
       />
       <QnA />
       <Footer />
+      <Modal layer="alert" />
+      <Modal layer="interaction" />
     </>
   );
 }
