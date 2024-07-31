@@ -1,4 +1,5 @@
 import { createContext, useCallback, useEffect, useState, useRef } from "react";
+import useBodyScrollLock from "./useBodyScrollLock.js";
 import useModalStore, { closeModal } from "./store.js";
 
 export const ModalCloseContext = createContext( ()=>{ console.log("모달이 닫힙니다."); } );
@@ -6,14 +7,17 @@ export const ModalCloseContext = createContext( ()=>{ console.log("모달이 닫
 function Modal({layer}) {
 	const timeoutRef = useRef(null);
 	const child = useModalStore(layer);
+	const [opacity, setOpacity] = useState(0);
+	const { lockScroll, openScroll } = useBodyScrollLock();
 	const close = useCallback( ()=>{
 		setOpacity(0);
+		openScroll();
 		timeoutRef.current = setTimeout(()=>closeModal(layer), 150);
 	}, [layer] );
-	const [opacity, setOpacity] = useState(0);
 
 	useEffect( ()=>{
 		if(child !== null) {
+			lockScroll();
 			clearTimeout(timeoutRef.current);
 			requestAnimationFrame( ()=>setOpacity(1) );
 		}
