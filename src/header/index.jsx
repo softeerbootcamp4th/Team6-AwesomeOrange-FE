@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import style from "./index.module.css";
 
 export default function Header() {
-  const [scrollState, setScrollState] = useState(null);
+  const [scrollState, setScrollState] = useState(-1);
   const [positionList, setPositionList] = useState([]);
   const scrollSectionList = [
     "추첨 이벤트",
@@ -44,7 +44,7 @@ export default function Header() {
   }
 
   function scrollDynamicStyle() {
-    if (scrollState === null) return;
+    if (scrollState < 0) return;
     const position = Math.floor(positionList[scrollState]);
     return {
       "--pos": position,
