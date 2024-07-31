@@ -22,8 +22,8 @@ function App() {
       />
       <QnA />
       <Footer />
-      <Modal layer="alert" />
       <Modal layer="interaction" />
+      <Modal layer="alert" />
     </>
   );
 }
