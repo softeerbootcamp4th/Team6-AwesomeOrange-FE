@@ -34,12 +34,10 @@ export default function Header() {
 
   function scrollDynamicStyle() {
     if (scrollState < 0) return;
-    let newPositionList = [];
-    for (let i = 0; i < scrollSectionList.length; i++) {
-      newPositionList[i] = ITEM_WIDTH / 4 + i * (ITEM_WIDTH + ITEM_GAP);
-    }
 
-    const position = Math.floor(newPositionList[scrollState]);
+    const position = Math.floor(
+      ITEM_WIDTH / 4 + scrollState * (ITEM_WIDTH + ITEM_GAP),
+    );
     return {
       "--pos": position,
     };
