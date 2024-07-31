@@ -1,14 +1,13 @@
-import { createContext, useCallback, useSyncExternalStore } from "react";
+import { createContext, useCallback } from "react";
 import useModalStore, { closeModal } from "./store.js";
 
 export const ModalCloseContext = createContext( ()=>{ console.log("모달이 닫힙니다."); } );
 
-function Modal({layer})
-{
+function Modal({layer}) {
 	const child = useModalStore(layer);
 	const close = useCallback( ()=>{
 		closeModal(layer);
-	}, [] );
+	}, [layer] );
 
 	return <ModalCloseContext.Provider value={ close }>
 		{child}
