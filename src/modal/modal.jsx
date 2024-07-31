@@ -12,13 +12,14 @@ function Modal({layer}) {
 	const close = useCallback( ()=>{
 		setOpacity(0);
 		openScroll();
-		timeoutRef.current = setTimeout(()=>closeModal(layer), 150);
+		if(timeoutRef.current !== null) timeoutRef.current = setTimeout(()=>closeModal(layer), 150);
 	}, [layer] );
 
 	useEffect( ()=>{
 		if(child !== null) {
 			lockScroll();
 			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
 			requestAnimationFrame( ()=>setOpacity(1) );
 		}
 	}, [child] );
