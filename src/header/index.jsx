@@ -1,32 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import style from "./index.module.css";
 
 export default function Header() {
-  const ITEM_WIDTH = 96;
-  const ITEM_GAP = 32;
+  const ITEM_WIDTH = 96; // w-24
+  const ITEM_GAP = 32; // gap-8
   const [scrollState, setScrollState] = useState(-1);
-  const [positionList, setPositionList] = useState([]);
   const scrollSectionList = [
     "추첨 이벤트",
     "차량 상세정보",
     "기대평",
     "선착순 이벤트",
   ];
-
-  function updatePositions() {
-    let newPositionList = [];
-    for (let i = 0; i < scrollSectionList.length; i++) {
-      newPositionList[i] = ITEM_WIDTH / 4 + i * (ITEM_WIDTH + ITEM_GAP);
-    }
-
-    setPositionList(newPositionList);
-  }
-
-  useEffect(() => {
-    updatePositions();
-    window.addEventListener("resize", () => updatePositions());
-    return () => window.removeEventListener("resize", () => updatePositions());
-  }, []);
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -50,7 +34,12 @@ export default function Header() {
 
   function scrollDynamicStyle() {
     if (scrollState < 0) return;
-    const position = Math.floor(positionList[scrollState]);
+    let newPositionList = [];
+    for (let i = 0; i < scrollSectionList.length; i++) {
+      newPositionList[i] = ITEM_WIDTH / 4 + i * (ITEM_WIDTH + ITEM_GAP);
+    }
+
+    const position = Math.floor(newPositionList[scrollState]);
     return {
       "--pos": position,
     };
