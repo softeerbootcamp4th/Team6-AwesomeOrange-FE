@@ -83,7 +83,7 @@ function Puzzle({ interactCallback, $ref }) {
           );
         })}
       </div>
-      <div className="flex items-end absolute bottom-0 -right-28 md:relative md:bottom-auto md:right-auto">
+      <div className="flex items-end absolute bottom-0 -right-28 md:relative md:bottom-auto md:right-auto select-none">
         <div className="w-28 h-28 flex items-center relative">
           <svg className="stroke-blue-300 w-12 h-28 overflow-visible fill-none">
             <path
@@ -92,7 +92,7 @@ function Puzzle({ interactCallback, $ref }) {
             />
           </svg>
           <img
-            className="object-left w-16 h-28 object-scale-down"
+            className="object-left w-16 h-28 object-contain"
             width="80"
             height="130"
             src={panContainer1x}
