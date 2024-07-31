@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import IntroSection from "./introSection";
 import Header from "./header";
+import SimpleInformation from "./simpleInformation";
 
 function App() {
   useEffect(() => {
@@ -12,7 +13,7 @@ function App() {
     <>
       <IntroSection />
       <Header />
-      <img src="https://image.utoimage.com/preview/cp872655/2018/03/201803016775_500.jpg" className="h-[2000px]"/>
+      <SimpleInformation />
     </>
   );
 }
