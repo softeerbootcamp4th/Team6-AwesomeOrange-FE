@@ -1,5 +1,5 @@
 import useScrollTransition from "@/common/useScrollTransition.js";
-import vector from "./vector.svg";
+import LineHighlight from "./LineHighlight.jsx";
 import style from "./index.module.css";
 import SpinningCarVideo from "./car-spin.mp4";
 import Pointer from "./pointer.svg";
@@ -54,11 +54,7 @@ function IntroSection() {
           className="absolute top-[66px] z-0 overflow-hidden"
           style={titleStyle}
         >
-          <img src={vector} />
-
-          <div
-            className={`${style.openVector} w-full h-full bg-white absolute top-0`}
-          />
+          <LineHighlight />
         </div>
       </div>
 
@@ -79,7 +75,7 @@ function IntroSection() {
       </div>
 
       <div className="flex justify-center pt-[100px] animate-bounce">
-        <img src={Pointer} alt="다음으로 넘어가기"/>
+        <img src={Pointer} alt="다음으로 넘어가기" />
       </div>
     </div>
   );

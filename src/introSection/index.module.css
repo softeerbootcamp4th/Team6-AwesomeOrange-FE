@@ -14,14 +14,16 @@
 }
 
 .openVector {
+  stroke-dasharray: 790px;
+  stroke-dashoffset: 790px;
   animation: open-vector 0.3s ease-in-out 0.3s forwards;
 }
 
 @keyframes open-vector {
   from {
-    transform: translateX(0%);
+    stroke-dashoffset: 790px;
   }
   to {
-    transform: translateX(100%);
+    stroke-dashoffset: 0px;
   }
 }
