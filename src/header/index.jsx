@@ -1,27 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import style from "./index.module.css";
 
 export default function Header() {
-  const [scrollState, setScrollState] = useState(null);
-  const [positionList, setPositionList] = useState([]);
+  const ITEM_WIDTH = 96; // w-24
+  const ITEM_GAP = 32; // gap-8
+  const [scrollState, setScrollState] = useState(-1);
   const scrollSectionList = [
     "추첨 이벤트",
     "차량 상세정보",
     "기대평",
     "선착순 이벤트",
   ];
-
-  function updatePositions() {
-    const browserHalfWidth = window.innerWidth / 2;
-    const newPositionList = [browserHalfWidth - 224, browserHalfWidth - 96, browserHalfWidth + 32, browserHalfWidth + 160];
-    setPositionList(newPositionList);
-  };
-
-  useEffect(() => {
-    updatePositions();
-    window.addEventListener('resize', () => updatePositions());
-    return () => window.removeEventListener('resize', () => updatePositions());
-  }, []);
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,8 +33,11 @@ export default function Header() {
   }
 
   function scrollDynamicStyle() {
-    if (scrollState === null) return;
-    const position = Math.floor(positionList[scrollState]);
+    if (scrollState < 0) return;
+
+    const position = Math.floor(
+      ITEM_WIDTH / 4 + scrollState * (ITEM_WIDTH + ITEM_GAP),
+    );
     return {
       "--pos": position,
     };
@@ -53,11 +45,14 @@ export default function Header() {
 
   return (
     <div className="sticky top-0 h-[60px] backdrop-blur-xl flex justify-center items-center font-bold select-none">
-      <span onClick={gotoTop} className="absolute left-9 text-black text-body-l cursor-pointer">
+      <span
+        onClick={gotoTop}
+        className="absolute left-9 text-black text-body-l cursor-pointer"
+      >
         The new IONIQ 5
       </span>
 
-      <div className="flex h-full gap-8 text-body-m">
+      <div className={`flex h-full gap-8 text-body-m relative`}>
         {scrollSectionList.map((scrollSection, index) => (
           <div
             key={index}
@@ -70,7 +65,7 @@ export default function Header() {
 
         <div
           style={scrollDynamicStyle()}
-          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${scrollState === null ? "hidden" : style.moveBar}`}
+          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${scrollState < 0 ? "hidden" : style.moveBar}`}
         />
       </div>
 
