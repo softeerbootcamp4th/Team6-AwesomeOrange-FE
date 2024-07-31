@@ -1,5 +1,5 @@
-import { modalStore } from "./store.js"
+import { modalStore } from "./store.js";
 
-export default function openModal(component, layer="alert") {
-	modalStore.changeModal(component, layer);
+export default function openModal(component, layer = "alert") {
+  modalStore.changeModal(component, layer);
 }
