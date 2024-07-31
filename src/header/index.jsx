@@ -44,7 +44,7 @@ export default function Header() {
   }
 
   return (
-    <div className="sticky top-0 h-[60px] backdrop-blur-xl flex justify-center items-center font-bold select-none">
+    <div className="sticky top-0 h-[60px] bg-white/[.36] backdrop-blur-xl flex justify-center items-center font-bold select-none">
       <span
         onClick={gotoTop}
         className="absolute left-9 text-black text-body-l cursor-pointer"
