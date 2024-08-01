@@ -1,7 +1,7 @@
 import useScrollTransition from "@/common/useScrollTransition.js";
 import LineHighlight from "./LineHighlight.jsx";
 import style from "./index.module.css";
-import SpinningCarVideo from "./car-spin-small.webm";
+import SpinningCarVideo from "./car-spin.webm";
 import Pointer from "./pointer.svg";
 import { useEffect, useRef, useState } from "react";
 
@@ -46,12 +46,6 @@ function IntroSection() {
   };
 
   useEffect(() => {
-    if (
-      videoRef.current &&
-      Math.abs(videoRef.current.currentTime - videoTimeline) > 0.1
-    ) {
-      videoRef.current.currentTime = videoTimeline;
-    }
     videoRef.current.currentTime = videoTimeline;
   }, [videoTimeline]);
 
