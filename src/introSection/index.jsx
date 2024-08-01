@@ -1,7 +1,7 @@
 import useScrollTransition from "@/common/useScrollTransition.js";
 import LineHighlight from "./LineHighlight.jsx";
 import style from "./index.module.css";
-import SpinningCarVideo from "./car-spin.mp4";
+import SpinningCarVideo from "./car-spin-small.webm";
 import Pointer from "./pointer.svg";
 import { useEffect, useRef, useState } from "react";
 
@@ -24,7 +24,7 @@ function IntroSection() {
   });
 
   const videoTimeline = useScrollTransition({
-    scrollStart: 300,
+    scrollStart: 400,
     scrollEnd: 1000,
     valueStart: 0,
     valueEnd: 2,
@@ -52,6 +52,7 @@ function IntroSection() {
     ) {
       videoRef.current.currentTime = videoTimeline;
     }
+    videoRef.current.currentTime = videoTimeline;
   }, [videoTimeline]);
 
   useEffect(() => {
@@ -104,7 +105,7 @@ function IntroSection() {
             <video
               src={SpinningCarVideo}
               ref={videoRef}
-              className={`${style.video} scale-110 z-0 pointer-events-none select-none`}
+              className="w-dvw scale-110 z-0 pointer-events-none select-none"
             />
           </div>
 
@@ -115,7 +116,7 @@ function IntroSection() {
             <span className="text-head-s">09/09 (mon) - 09/13 (fri)</span>
           </div>
 
-          <div className="absolute -bottom-2 bg-white w-full h-4" />
+          <div className="absolute -bottom-2 w-full h-4 bg-white" />
         </div>
 
         <img
