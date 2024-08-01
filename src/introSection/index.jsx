@@ -46,7 +46,12 @@ function IntroSection() {
   };
 
   useEffect(() => {
-    videoRef.current.currentTime = videoTimeline;
+    if (
+      videoRef.current &&
+      Math.abs(videoRef.current.currentTime - videoTimeline) > 0.1
+    ) {
+      videoRef.current.currentTime = videoTimeline;
+    }
   }, [videoTimeline]);
 
   useEffect(() => {
@@ -74,10 +79,7 @@ function IntroSection() {
 
   return (
     <>
-      <div
-        ref={introRef}
-        className="h-[2160px] flex flex-col items-center"
-      >
+      <div ref={introRef} className="h-[2160px] flex flex-col items-center">
         <div className="z-50 fixed w-full flex justify-center top-[500px] -translate-y-1/2 pointer-events-none">
           <h1
             className={`${style.openTitle} ease-in text-8xl font-bold text-black  z-50`}
