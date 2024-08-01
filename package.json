@@ -9,7 +9,7 @@
     "build:client": "vite build",
     "build:server": "vite build --ssr src/main-server.jsx --outDir dist-ssg",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css}'",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext js,jsx --max-warnings 0",
     "lint-fix": "eslint . --ext js,jsx --fix",
     "preview": "vite preview"
   },
