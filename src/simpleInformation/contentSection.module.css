@@ -22,9 +22,14 @@
   display: block;
   width: 100%;
   height: 1.4em;
-  background: linear-gradient(90deg, #3ED7BE, #069AF8);
+  background: linear-gradient(90deg, #3ed7be, #069af8);
   opacity: 0.3;
   z-index: -1;
-  clip-path: polygon(0 0, 0 100%, var(--progress, 0) 100%, var(--progress, 0) 0);
+  clip-path: polygon(
+    0 0,
+    0 100%,
+    var(--progress, 0) 100%,
+    var(--progress, 0) 0
+  );
   transition: clip-path 0.4s;
 }

@@ -32,4 +32,19 @@
   .graphic-gradient {
     @apply bg-gradient-to-r from-[#3ED7BE] to-[#069AF8];
   }
+  .sketch-line {
+    position: relative;
+  }
+  .sketch-line::after {
+    content: "";
+    background: url(/sketchLine.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: absolute;
+    width: 3.6em;
+    height: 1em;
+    bottom: -0.75em;
+    left: calc(50% - 1.8em);
+  }
 }
