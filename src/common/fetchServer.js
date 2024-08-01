@@ -3,6 +3,15 @@ import wrapPromise from "./wrapPromise.js";
 const cacheMap = new Map();
 const CACHE_DURATION = 0.2 * 1000;
 
+class HTTPError extends Error {
+	constructor(response) {
+		super(response.status + " " + response.statusText);
+		this.status = response.status;
+		this.response = response;
+		this.data = null;
+	}
+}
+
 function fetchServer(url, options={})
 {
 	const key = JSON.stringify({ url, options });
@@ -22,7 +31,18 @@ function fetchServer(url, options={})
 		fetchOptions.body = JSON.stringify(options.body);
 	}
 
-	const promise = fetch(url, fetchOptions).then( e=>e.json() );
+	const promise = fetch(url, fetchOptions)
+		.then( e=>{
+			if(e.status >= 400 && e.status <= 599) throw new HTTPError(e);
+			return e;
+		} )
+		.then( e=>e.json() )
+		.catch( async e=>{
+			if(e instanceof HTTPError) {
+				e.data = await e.response.json();
+			}
+			throw e;
+		} );
 	cacheMap.set(key, { promise, date: Date.now() });
 
 	return promise;
