@@ -14,7 +14,7 @@ const app = (
 
 if (import.meta.env.DEV) {
   // 개발 시
-  async function enableMocking() {
+  const enableMocking = async function() {
     // 실서버와 연동시 //return;의 주석 지워서 테스트해주세요
     // return;
     const worker = (await import("./mock.js")).default;
