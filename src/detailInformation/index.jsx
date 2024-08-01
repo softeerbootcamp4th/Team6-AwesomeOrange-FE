@@ -44,7 +44,7 @@ function DetailInformation()
 			</div>
 		</div>
 		<div className="w-full max-w-[1248px] px-16 lg:px-6 h-14 flex justify-end lg:justify-between align-center">
-			<ul className="hidden lg:flex text-body-l">
+			<ul className="hidden lg:flex text-body-l gap-[3.75rem]">
 				{ content.map( ({tabName}, i)=><li className={i === page ? "text-black" : "text-neutral-300"} key={tabName} onClick={ ()=>{
 					swiperElRef.current.swiper.slideTo(i);
 				} }>{tabName}</li> ) }
