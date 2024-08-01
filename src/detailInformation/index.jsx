@@ -1,4 +1,6 @@
 import useSwiperState from "@/common/useSwiperState.js";
+import left from "./assets/left.svg";
+import right from "./assets/right.svg";
 
 const PAGE_COUNT = 3;
 
@@ -8,10 +10,11 @@ function DetailInformation()
 	const isLastPage = page === PAGE_COUNT-1;
 
 	const slideClass = "w-full max-w-[1200px] bg-yellow-400";
-	const navigationClass = "absolute top-[calc(50%-2.25rem)] size-[4.5rem] p-4 rounded-full bg-neutral-100 z-10 cursor-pointer";
+	const navigationClass = `absolute [--size:3rem] md:[--size:4.5rem] top-[calc(50%-var(--size)*0.5)] size-[var(--size)] p-2 md:p-4 
+	flex justify-center items-center rounded-full bg-neutral-100 z-10 cursor-pointer`;
 
-	return <section className="w-full flex flex-col items-center">
-		<div className="w-full max-w-[2000px] h-[32rem] lg:h-[50rem] relative">
+	return <section className="w-full flex flex-col items-center gap-10">
+		<div className="w-full max-w-[1728px] h-[32rem] lg:h-[50rem] relative">
 			<swiper-container class="w-full h-full" 
 				slides-per-view="auto" space-between="400" centered-slides="true"
 				ref={swiperElRef} 
@@ -20,18 +23,30 @@ function DetailInformation()
 				<swiper-slide class={slideClass}>I'm</swiper-slide>
 				<swiper-slide class={slideClass}>Temmie</swiper-slide>
 			</swiper-container>
-			<div className={`${navigationClass} left-0 ${page === 0 ? "invisible" : ""}`} onClick={ ()=>{
+			<div className={`${navigationClass} left-6 ${page === 0 ? "invisible" : ""}`} onClick={ ()=>{
 				swiperElRef.current.swiper.slidePrev();
 			} }>
-				Left
+				<img src={left} alt="left" width="40" height="40" />
 			</div>
-			<div className={`${navigationClass} right-0 ${isLastPage ? "invisible" : ""}`} onClick={ ()=>{
+			<div className={`${navigationClass} right-6 ${isLastPage ? "invisible" : ""}`} onClick={ ()=>{
 				swiperElRef.current.swiper.slideNext();
 			} }>
-				Right
+				<img src={right} alt="right" width="40" height="40" />
 			</div>
-			<div className="absolute top-0 right-24 z-10 cursor-pointer">
-				{page}
+		</div>
+		<div className="w-full max-w-[1200px] flex justify-between">
+			<div>
+				<div>어쩌구</div>
+				<div>저쩌구</div>
+				<div>거쩌구</div>
+			</div>
+			<div>
+				<a href="https://www.hyundai.com/kr/ko/e/vehicles/the-new-ioniq5/intro" target="_blank">
+					더뉴 아이오닉 5 더 알아보기
+				</a>
+				<a href="https://www.hyundai.com/kr/ko/e/vehicles/purchase-consult" target="_blank">
+					구매 상담 신청
+				</a>
 			</div>
 		</div>
 	</section>
