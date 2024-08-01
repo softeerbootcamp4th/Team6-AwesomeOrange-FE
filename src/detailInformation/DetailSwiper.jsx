@@ -3,7 +3,7 @@ import DetailItem from "./DetailItem.jsx";
 import left from "./assets/left.svg";
 import right from "./assets/right.svg";
 
-function DetailSwiper({content}) {
+function DetailSwiper({ content }) {
   const [page, swiperElRef] = useSwiperState();
   const isLastPage = page === content.length - 1;
 
