@@ -4,6 +4,7 @@ import Header from "./header";
 import SimpleInformation from "./simpleInformation";
 import QnA from "./qna";
 import Footer from "./footer";
+import Modal from "./modal/modal.jsx";
 
 function App() {
   useEffect(() => {
@@ -18,6 +19,8 @@ function App() {
       <SimpleInformation />
       <QnA />
       <Footer />
+      <Modal layer="interaction" />
+      <Modal layer="alert" />
     </>
   );
 }
