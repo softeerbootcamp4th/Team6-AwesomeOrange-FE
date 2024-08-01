@@ -13,8 +13,18 @@ const app = (
 );
 
 if (import.meta.env.DEV) {
-  const root = createRoot($root);
-  root.render(app);
+  // 개발 시
+  async function enableMocking() {
+    // 실서버와 연동시 //return;의 주석 지워서 테스트해주세요
+    // return;
+    const worker = (await import("./mock.js")).default;
+    await worker.start({ onUnhandledRequest: "bypass" });
+  }
+  enableMocking().then( ()=>{
+    const root = createRoot($root);
+    root.render(app);
+  } );
 } else {
+  // 배포 시
   hydrateRoot($root, app);
 }
