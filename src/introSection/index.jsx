@@ -74,7 +74,10 @@ function IntroSection() {
 
   return (
     <>
-      <div ref={introRef} className="h-[2160px]">
+      <div
+        ref={introRef}
+        className="h-[2160px] flex flex-col items-center"
+      >
         <div className="z-50 fixed w-full flex justify-center top-[500px] -translate-y-1/2 pointer-events-none">
           <h1
             className={`${style.openTitle} ease-in text-8xl font-bold text-black  z-50`}
@@ -92,24 +95,32 @@ function IntroSection() {
         </div>
 
         <div
-          className="relative pt-[800px] h-[1880px] flex justify-center items-center overflow-hidden"
+          className="relative mt-[800px] flex flex-col items-center"
           style={videoStyle}
         >
-          <video
-            src={SpinningCarVideo}
-            ref={videoRef}
-            className="scale-125 z-0 pointer-events-none select-none"
-          />
-
-          <div className="font-bold flex flex-col items-center text-black absolute bottom-[36px] z-50">
-            <span className="text-[24px]">더뉴 아이오닉5 신차 출시 이벤트</span>
-            <span className="text-[36px]">09/09 (mon) - 09/13 (fri)</span>
+          <div className="overflow-hidden">
+            <video
+              src={SpinningCarVideo}
+              ref={videoRef}
+              className={`${style.video} scale-110 z-0 pointer-events-none select-none`}
+            />
           </div>
+
+          <div className="font-bold flex flex-col items-center text-black absolute bottom-10 z-40">
+            <span className="text-title-s">
+              더뉴 아이오닉5 신차 출시 이벤트
+            </span>
+            <span className="text-head-s">09/09 (mon) - 09/13 (fri)</span>
+          </div>
+
+          <div className="absolute -bottom-2 bg-white w-full h-4" />
         </div>
 
-        <div className="flex justify-center pt-[100px] animate-bounce">
-          <img src={Pointer} alt="다음으로 넘어가기" />
-        </div>
+        <img
+          src={Pointer}
+          alt="다음으로 넘어가기"
+          className="pt-[100px] animate-bounce"
+        />
       </div>
 
       <div
