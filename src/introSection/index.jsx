@@ -41,43 +41,56 @@ function IntroSection() {
   }, [videoTimeline]);
 
   return (
-    <div className="h-[2160px]">
-      <div className="z-50 fixed w-full flex justify-center top-[500px] -translate-y-1/2 pointer-events-none">
-        <h1
-          className={`${style.openTitle} ease-in text-8xl font-bold text-black  z-50`}
-          style={titleStyle}
-        >
-          The new IONIQ 5
-        </h1>
+    <>
+      <div className="h-[2160px]">
+        <div className="z-50 fixed w-full flex justify-center top-[500px] -translate-y-1/2 pointer-events-none">
+          <h1
+            className={`${style.openTitle} ease-in text-8xl font-bold text-black  z-50`}
+            style={titleStyle}
+          >
+            The new IONIQ 5
+          </h1>
+
+          <div
+            className="absolute top-[66px] z-0 overflow-hidden"
+            style={titleStyle}
+          >
+            <LineHighlight />
+          </div>
+        </div>
 
         <div
-          className="absolute top-[66px] z-0 overflow-hidden"
-          style={titleStyle}
+          className="relative pt-[800px] h-[1880px] flex justify-center items-center overflow-hidden"
+          style={videoStyle}
         >
-          <LineHighlight />
+          <video
+            src={SpinningCarVideo}
+            ref={videoRef}
+            className="scale-125 z-0 pointer-events-none select-none"
+          />
+
+          <div className="font-bold flex flex-col items-center text-black absolute bottom-[36px] z-50">
+            <span className="text-[24px]">더뉴 아이오닉5 신차 출시 이벤트</span>
+            <span className="text-[36px]">09/09 (mon) - 09/13 (fri)</span>
+          </div>
+        </div>
+
+        <div className="flex justify-center pt-[100px] animate-bounce">
+          <img src={Pointer} alt="다음으로 넘어가기" />
         </div>
       </div>
 
-      <div
-        className="relative pt-[800px] h-[1880px] flex justify-center items-center overflow-hidden"
-        style={videoStyle}
-      >
-        <video
-          src={SpinningCarVideo}
-          ref={videoRef}
-          className="scale-125 z-0 pointer-events-none select-none"
-        />
-
-        <div className="font-bold flex flex-col items-center text-black absolute bottom-[36px] z-50">
-          <span className="text-[24px]">더뉴 아이오닉5 신차 출시 이벤트</span>
-          <span className="text-[36px]">09/09 (mon) - 09/13 (fri)</span>
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 graphic-gradient rounded-full p-px shadow-[0_4px_12px_0px_rgba(0,0,0,0.25)] z-40">
+        <div className=" bg-black flex items-center gap-[10px] px-10 py-4 rounded-full">
+          <span className="text-body-m font-bold text-white">
+            선착순 이벤트까지
+          </span>
+          <span className="font-ds-digital text-transparent text-[20px] bg-clip-text graphic-gradient font-bold">
+            01 : 23 : 45
+          </span>
         </div>
       </div>
-
-      <div className="flex justify-center pt-[100px] animate-bounce">
-        <img src={Pointer} alt="다음으로 넘어가기" />
-      </div>
-    </div>
+    </>
   );
 }
 
