@@ -56,9 +56,11 @@ export default function ContentSection({ content }) {
             <span
               key={index}
               style={highlightDynamicStyle}
-              className={`${index % 2 ? style.highlightAnim : "text-neutral-800"} text-title-m whitespace-pre-wrap`}>
+              className={`${index % 2 ? style.highlightAnim : "text-neutral-800"} text-title-m whitespace-pre-wrap`}
+            >
               {str}
-            </span>))}
+            </span>
+          ))}
         </div>
 
         <span className="absoulte top-0 right-0 text-body-s text-neutral-300">
