@@ -50,7 +50,7 @@ export default function ContentSection({ content }) {
         {content.title}
       </span>
 
-      <div className="pt-3 flex flex-col sm:flex-row justify-between items-start sm:items-end">
+      <div className="pt-3 flex flex-col md:flex-row justify-between items-start md:items-end">
         <p className="flex-shrink-0">
           {content.desc.map((str, index) => (
             <span
@@ -63,7 +63,7 @@ export default function ContentSection({ content }) {
           ))}
         </p>
 
-        <p className="w-full sm:w-auto text-right text-body-s text-neutral-300">
+        <p className="w-full md:w-auto text-right text-body-s text-neutral-300">
           {content.sub}
         </p>
       </div>
