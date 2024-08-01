@@ -9,6 +9,13 @@ function IntroSection() {
   const videoRef = useRef(null);
   const introRef = useRef(null);
   const [isTimerVisible, setIsTimerVisible] = useState(false);
+
+  function onClickTimer() {
+    /*
+     *  타이머 클릭시 선착순 이벤트 섹션으로 이동하는 코드 미구현
+     */
+  }
+
   const titleOpacity = useScrollTransition({
     scrollStart: 0,
     scrollEnd: 500,
@@ -106,7 +113,8 @@ function IntroSection() {
       </div>
 
       <div
-        className={`${isTimerVisible ? "" : "hidden"} fixed bottom-4 left-1/2 -translate-x-1/2 graphic-gradient rounded-full p-px shadow-[0_4px_12px_0px_rgba(0,0,0,0.25)] z-40`}
+        onClick={onClickTimer}
+        className={`${isTimerVisible ? "-translate-y-24" : ""} -bottom-20 transition duration-150 ease-in-out fixed left-1/2 -translate-x-1/2 graphic-gradient rounded-full p-px shadow-[0_4px_12px_0px_rgba(0,0,0,0.25)] z-40 select-none`}
       >
         <div className=" bg-black flex items-center gap-[10px] px-10 py-4 rounded-full">
           <span className="text-body-m font-bold text-white">
