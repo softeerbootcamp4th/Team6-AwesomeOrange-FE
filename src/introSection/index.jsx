@@ -3,10 +3,12 @@ import LineHighlight from "./LineHighlight.jsx";
 import style from "./index.module.css";
 import SpinningCarVideo from "./car-spin.mp4";
 import Pointer from "./pointer.svg";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function IntroSection() {
   const videoRef = useRef(null);
+  const introRef = useRef(null);
+  const [isTimerVisible, setIsTimerVisible] = useState(false);
   const titleOpacity = useScrollTransition({
     scrollStart: 0,
     scrollEnd: 500,
@@ -40,9 +42,32 @@ function IntroSection() {
     videoRef.current.currentTime = videoTimeline;
   }, [videoTimeline]);
 
+  useEffect(() => {
+    const introDOM = introRef.current;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsTimerVisible(false);
+        } else {
+          setIsTimerVisible(true);
+        }
+      });
+    });
+
+    if (introDOM) {
+      observer.observe(introDOM);
+    }
+
+    return () => {
+      if (introDOM) {
+        observer.unobserve(introDOM);
+      }
+    };
+  }, []);
+
   return (
     <>
-      <div className="h-[2160px]">
+      <div ref={introRef} className="h-[2160px]">
         <div className="z-50 fixed w-full flex justify-center top-[500px] -translate-y-1/2 pointer-events-none">
           <h1
             className={`${style.openTitle} ease-in text-8xl font-bold text-black  z-50`}
@@ -80,7 +105,9 @@ function IntroSection() {
         </div>
       </div>
 
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 graphic-gradient rounded-full p-px shadow-[0_4px_12px_0px_rgba(0,0,0,0.25)] z-40">
+      <div
+        className={`${isTimerVisible ? "" : "hidden"} fixed bottom-4 left-1/2 -translate-x-1/2 graphic-gradient rounded-full p-px shadow-[0_4px_12px_0px_rgba(0,0,0,0.25)] z-40`}
+      >
         <div className=" bg-black flex items-center gap-[10px] px-10 py-4 rounded-full">
           <span className="text-body-m font-bold text-white">
             선착순 이벤트까지
