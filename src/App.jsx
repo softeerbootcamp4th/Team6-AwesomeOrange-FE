@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import IntroSection from "./introSection";
 import Header from "./header";
 import SimpleInformation from "./simpleInformation";
+import DetailInformation from "./detailInformation";
 import QnA from "./qna";
 import Footer from "./footer";
 import Modal from "./modal/modal.jsx";
@@ -17,6 +18,7 @@ function App() {
       <IntroSection />
       <Header />
       <SimpleInformation />
+      <DetailInformation />
       <QnA />
       <Footer />
       <Modal layer="interaction" />
