@@ -6,6 +6,7 @@ import DetailInformation from "./detailInformation";
 import QnA from "./qna";
 import Footer from "./footer";
 import Modal from "./modal/modal.jsx";
+import InteractionPage from "./interactions";
 
 function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
       <IntroSection />
       <Header />
       <SimpleInformation />
+      <InteractionPage />
       <DetailInformation />
       <QnA />
       <Footer />
