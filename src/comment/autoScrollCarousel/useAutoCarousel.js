@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import useMountDragEvent from "@/common/useMountDragEvent";
 
 const FRICTION_RATE = 0.1;
-const MOMENTUM_THRESHOLD = 0.1;
+const MOMENTUM_THRESHOLD = 0.6;
 const MOMENTUM_RATE = 0.15;
 
 function useAutoCarousel(speed = 1) {
@@ -61,9 +61,11 @@ function useAutoCarousel(speed = 1) {
     setPosition(newPos);
 
     // 관성 계산
-    if (prevDragState.current.prevMouseX === mouseX) return;
-    momentum.current =
-      (prevDragState.current.prevMouseX - mouseX) * MOMENTUM_RATE;
+    if(Math.abs(mouseX - prevDragState.current.mouseX) > 10 ) {
+      momentum.current =
+        (prevDragState.current.prevMouseX - mouseX) * MOMENTUM_RATE;
+    }
+    else momentum.current = 0;
     prevDragState.current.prevMouseX = mouseX;
   }, []);
 

@@ -12,7 +12,7 @@ function AutoScrollCarousel({ speed = 1, gap = 0, children }) {
           "--gap": gap + "px",
           transform: `translateX(${position * -1}px)`,
         }}
-        className="relative h-max touch-none"
+        className="relative h-max touch-pan-y"
       >
         <div
           className={`${flexStyle} -translate-x-[calc(100%+var(--gap,0px))]`}
