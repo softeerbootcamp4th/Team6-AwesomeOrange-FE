@@ -61,11 +61,10 @@ function useAutoCarousel(speed = 1) {
     setPosition(newPos);
 
     // 관성 계산
-    if(Math.abs(mouseX - prevDragState.current.mouseX) > 10 ) {
+    if (Math.abs(mouseX - prevDragState.current.mouseX) > 10) {
       momentum.current =
         (prevDragState.current.prevMouseX - mouseX) * MOMENTUM_RATE;
-    }
-    else momentum.current = 0;
+    } else momentum.current = 0;
     prevDragState.current.prevMouseX = mouseX;
   }, []);
 
