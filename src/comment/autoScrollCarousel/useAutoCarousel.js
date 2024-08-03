@@ -3,7 +3,7 @@ import useMountDragEvent from "@/common/useMountDragEvent";
 
 const FRICTION_RATE = 0.1;
 const MOMENTUM_THRESHOLD = 0.1;
-const MOMENTUM_RATE = 0.25;
+const MOMENTUM_RATE = 0.2;
 
 function useAutoCarousel(speed = 1) {
   const childRef = useRef(null);

@@ -1,4 +1,4 @@
-import AutoScrollCarousel from "./autoScrollCarousel";
+import AutoScrollCarousel from "../autoScrollCarousel";
 
 function mask(string)
 {
@@ -17,7 +17,9 @@ function formatDate(dateString)
   return `${year}. ${month}. ${day}`;
 }
 
-function CommentCarousel({ comments }) {
+function CommentCarousel({ resource }) {
+  const comments = resource().comments;
+
   return (
     <div className="w-full h-[29rem]">
       <AutoScrollCarousel speed={0.2} gap={28}>
