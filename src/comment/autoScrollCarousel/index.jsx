@@ -3,7 +3,8 @@ import useAutoCarousel from "./useAutoCarousel.js";
 function AutoScrollCarousel({ speed = 1, gap = 0, children }) {
   const { position, ref, eventListener } = useAutoCarousel(speed);
 
-  const flexStyle = "flex [&>div]:flex-shrink-0 gap-[var(--gap,0)] items-center absolute";
+  const flexStyle =
+    "flex [&>div]:flex-shrink-0 gap-[var(--gap,0)] items-center absolute";
   return (
     <div className="w-full h-full overflow-hidden" {...eventListener}>
       <div
