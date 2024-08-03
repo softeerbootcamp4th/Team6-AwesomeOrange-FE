@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import useMountDragEvent from "@/common/useMountDragEvent";
 
+const FRICTION_RATE = 0.1;
+const MOMENTUM_THRESHOLD = 0.1;
+const MOMENTUM_RATE = 0.25;
+
 function useAutoCarousel(speed=1)
 {
 	const childRef = useRef(null);
@@ -23,9 +27,9 @@ function useAutoCarousel(speed=1)
 
 			// 마우스 뗐을 때 관성 재계산
 			const baseSpeed = isHovered ? 0 : speed;
-			momentum.current -= (momentum.current - baseSpeed)*0.1;
+			momentum.current -= (momentum.current - baseSpeed)* FRICTION_RATE;
 
-			if(Math.abs(momentum.current, baseSpeed) < 0.1 ) momentum.current = baseSpeed;
+			if(Math.abs(momentum.current, baseSpeed) < MOMENTUM_THRESHOLD ) momentum.current = baseSpeed;
 			const finalSpeed = momentum.current;
 
 			// 인터벌과 실제 x 포지션 계산
@@ -58,10 +62,8 @@ function useAutoCarousel(speed=1)
 		
 		// 관성 계산
 		if(prevDragState.current.prevMouseX === mouseX) return;
-		momentum.current = (prevDragState.current.prevMouseX - mouseX) / 4;
-		prevDragState.current.prevMouseX = mouseX;
-
-		
+		momentum.current = (prevDragState.current.prevMouseX - mouseX) * MOMENTUM_RATE;
+		prevDragState.current.prevMouseX = mouseX;		
 	}, []);
 
 	// 드래그 종료 함수
