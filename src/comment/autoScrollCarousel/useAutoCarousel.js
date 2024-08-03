@@ -96,6 +96,7 @@ function useAutoCarousel(speed = 1) {
         dragging.current = true;
         prevDragState.current.x = position;
         prevDragState.current.mouseX = e.clientX;
+        prevDragState.current.prevMouseX = e.clientX;
       },
     },
   };
