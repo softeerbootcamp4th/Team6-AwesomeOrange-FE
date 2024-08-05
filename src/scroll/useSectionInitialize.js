@@ -3,23 +3,25 @@ import { useSectionStore } from "./store";
 
 export default function useSectionInitialize(SECTION_IDX, sectionRef) {
   const uploadSection = useSectionStore((state) => state.uploadSection);
-  const updateCurrentSection = useSectionStore(
-    (state) => state.updateCurrentSection,
-  );
+  const setCurrentSection = useSectionStore((state) => state.setCurrentSection);
+  const currentSection = useSectionStore((state) => state.currentSection);
 
   useEffect(() => {
-    if (sectionRef.current) {
+    const sectionDOM = sectionRef.current;
+    if (sectionDOM) {
       uploadSection(SECTION_IDX, sectionRef.current);
     }
 
-    const sectionDOM = sectionRef.current;
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          updateCurrentSection(SECTION_IDX);
-        }
-      });
-    }, {});
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // 미구현
+          }
+        });
+      },
+      { threshold: 0.05 },
+    );
 
     if (sectionDOM) {
       observer.observe(sectionDOM);
@@ -29,5 +31,11 @@ export default function useSectionInitialize(SECTION_IDX, sectionRef) {
         observer.unobserve(sectionDOM);
       }
     };
-  }, [SECTION_IDX, sectionRef, uploadSection, updateCurrentSection]);
+  }, [
+    SECTION_IDX,
+    sectionRef,
+    uploadSection,
+    setCurrentSection,
+    currentSection,
+  ]);
 }

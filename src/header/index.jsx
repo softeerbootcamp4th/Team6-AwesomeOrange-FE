@@ -1,11 +1,11 @@
-import { useState } from "react";
 import style from "./index.module.css";
 import scrollTo from "../scroll/scrollTo";
+import { useSectionStore } from "../scroll/store";
 
 export default function Header() {
   const ITEM_WIDTH = 96; // w-24
   const ITEM_GAP = 32; // gap-8
-  const [scrollState, setScrollState] = useState(-1);
+  const currentSection = useSectionStore((state) => state.currentSection);
   const scrollSectionList = [
     "추첨 이벤트",
     "차량 상세정보",
@@ -18,9 +18,8 @@ export default function Header() {
   }
 
   function onClickScrollSection(index) {
-    scrollTo(index);
-    if (index !== scrollState) {
-      setScrollState(index);
+    if (index !== currentSection) {
+      scrollTo(index);
     }
   }
 
@@ -31,10 +30,10 @@ export default function Header() {
   }
 
   function scrollDynamicStyle() {
-    if (scrollState < 0) return;
+    if (currentSection < 0) return;
 
     const position = Math.floor(
-      ITEM_WIDTH / 4 + scrollState * (ITEM_WIDTH + ITEM_GAP),
+      ITEM_WIDTH / 4 + currentSection * (ITEM_WIDTH + ITEM_GAP),
     );
     return {
       "--pos": position,
@@ -55,7 +54,7 @@ export default function Header() {
           <div
             key={index}
             onClick={() => onClickScrollSection(index)}
-            className={`flex justify-center items-center w-24 cursor-pointer ${scrollState === index ? "text-black" : "text-neutral-300"}`}
+            className={`flex justify-center items-center w-24 cursor-pointer ${currentSection === index ? "text-black" : "text-neutral-300"}`}
           >
             {scrollSection}
           </div>
@@ -63,7 +62,7 @@ export default function Header() {
 
         <div
           style={scrollDynamicStyle()}
-          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${scrollState < 0 ? "hidden" : style.moveBar}`}
+          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${currentSection < 0 ? "hidden" : style.moveBar}`}
         />
       </div>
 

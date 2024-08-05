@@ -3,7 +3,7 @@ import { create } from "zustand";
 export const useSectionStore = create((set) => ({
   sectionList: [null, null, null, null],
   currentSection: -1,
-  updateCurrentSection: (newSection) => set({ currentSection: newSection }),
+  setCurrentSection: (newSection) => set({ currentSection: newSection }),
   uploadSection: (index, section) =>
     set((state) => {
       const updatedList = [...state.sectionList];
