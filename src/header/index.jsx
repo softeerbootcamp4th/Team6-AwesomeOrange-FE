@@ -1,17 +1,24 @@
 import style from "./index.module.css";
 import scrollTo from "../scroll/scrollTo";
 import { useSectionStore } from "../scroll/store";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const ITEM_WIDTH = 96; // w-24
   const ITEM_GAP = 32; // gap-8
-  const currentSection = useSectionStore((state) => state.currentSection);
+  const isVisibleList = useSectionStore((state) => state.isVisibleList);
+  const [currentSection, setCurrentSection] = useState(0);
   const scrollSectionList = [
     "추첨 이벤트",
     "차량 상세정보",
     "기대평",
     "선착순 이벤트",
   ];
+
+  useEffect(() => {
+    const idx = isVisibleList.findIndex((value) => value === true);
+    setCurrentSection(idx);
+  }, [isVisibleList]);
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -30,14 +37,14 @@ export default function Header() {
   }
 
   function scrollDynamicStyle() {
-    if (currentSection < 0) return;
-
-    const position = Math.floor(
-      ITEM_WIDTH / 4 + currentSection * (ITEM_WIDTH + ITEM_GAP),
-    );
-    return {
-      "--pos": position,
-    };
+    if (currentSection > 0) {
+      const position = Math.floor(
+        ITEM_WIDTH / 4 + (currentSection - 1) * (ITEM_WIDTH + ITEM_GAP),
+      );
+      return {
+        "--pos": position,
+      };
+    }
   }
 
   return (
@@ -53,8 +60,8 @@ export default function Header() {
         {scrollSectionList.map((scrollSection, index) => (
           <div
             key={index}
-            onClick={() => onClickScrollSection(index)}
-            className={`flex justify-center items-center w-24 cursor-pointer ${currentSection === index ? "text-black" : "text-neutral-300"}`}
+            onClick={() => onClickScrollSection(index + 1)}
+            className={`flex justify-center items-center w-24 cursor-pointer ${currentSection - 1 === index ? "text-black" : "text-neutral-300"}`}
           >
             {scrollSection}
           </div>
@@ -62,7 +69,7 @@ export default function Header() {
 
         <div
           style={scrollDynamicStyle()}
-          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${currentSection < 0 ? "hidden" : style.moveBar}`}
+          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${currentSection > 0 ? style.moveBar : "hidden"}`}
         />
       </div>
 

@@ -3,9 +3,7 @@ import { useSectionStore } from "./store";
 
 export default function useSectionInitialize(SECTION_IDX, sectionRef) {
   const uploadSection = useSectionStore((state) => state.uploadSection);
-  const setCurrentSection = useSectionStore((state) => state.setCurrentSection);
-  const currentSection = useSectionStore((state) => state.currentSection);
-
+  const setIsVisibleList = useSectionStore((state) => state.setIsVisibleList);
   useEffect(() => {
     const sectionDOM = sectionRef.current;
     if (sectionDOM) {
@@ -15,12 +13,10 @@ export default function useSectionInitialize(SECTION_IDX, sectionRef) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // 미구현
-          }
+          setIsVisibleList(SECTION_IDX, entry.isIntersecting);
         });
       },
-      { threshold: 0.05 },
+      { threshold: 0.01 },
     );
 
     if (sectionDOM) {
@@ -35,7 +31,6 @@ export default function useSectionInitialize(SECTION_IDX, sectionRef) {
     SECTION_IDX,
     sectionRef,
     uploadSection,
-    setCurrentSection,
-    currentSection,
+    setIsVisibleList,
   ]);
 }

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import useSectionInitialize from "../scroll/useSectionInitialize";
 
 export default function InteractionPage() {
-  const SECTION_IDX = 0;
+  const SECTION_IDX = 1;
   const sectionRef = useRef(null);
   useSectionInitialize(SECTION_IDX, sectionRef);
 
