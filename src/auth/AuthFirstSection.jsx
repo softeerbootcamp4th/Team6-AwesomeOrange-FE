@@ -33,7 +33,7 @@ function AuthFirstSection({name, setName, phone, setPhone, goNext})
 
 	return <>
 		<p className="text-body-l font-bold text-neutral-700">이벤트 응모를 위해<br/>간단한 정보를 입력해주세요!</p>
-		<form className="flex flex-col flex-grow w-[calc(100%+0.25rem)] -left-0.5 relative pb-4 group" onSubmit={onSubmit}>
+		<form className="flex flex-col flex-grow w-[calc(100%+0.25rem)] -left-0.5 relative gap-4 pb-4 group" onSubmit={onSubmit}>
 			<div className="flex flex-col flex-grow gap-7 px-0.5 relative h-0 overflow-y-auto">
 				<div className="flex flex-col gap-6">
 					<label className="flex flex-col gap-3">
