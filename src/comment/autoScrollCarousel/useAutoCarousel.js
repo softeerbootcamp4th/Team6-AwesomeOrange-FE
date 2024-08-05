@@ -3,7 +3,7 @@ import useMountDragEvent from "@/common/useMountDragEvent";
 
 const FRICTION_RATE = 0.1;
 const MOMENTUM_THRESHOLD = 0.6;
-const MOMENTUM_RATE = 0.15;
+const MOMENTUM_RATE = 0.3;
 
 function useAutoCarousel(speed = 1) {
   const childRef = useRef(null);
@@ -14,14 +14,13 @@ function useAutoCarousel(speed = 1) {
   const dragging = useRef(false);
   const prevDragState = useRef({ x: 0, mouseX: 0, prevMouseX: 0 });
   const momentum = useRef(speed);
+  const raf = useRef(null);
 
-  useEffect(() => {
-    if (isControlled) return;
-
-    let progress = true;
-    timestamp.current = performance.now();
-    function animate(time) {
+  const animate = useCallback(
+    (time) => {
       if (childRef.current === null) return;
+
+      const width = childRef.current.clientWidth;
 
       // 마우스 뗐을 때 관성 재계산
       const baseSpeed = isHovered ? 0 : speed;
@@ -35,20 +34,26 @@ function useAutoCarousel(speed = 1) {
       const interval = performance.now() - timestamp.current;
       setPosition((position) => {
         const newPos = position + finalSpeed * interval;
-        return newPos % childRef.current.clientWidth;
+        return newPos % width;
       });
 
       // 타임스탬프 저장
       timestamp.current = time;
-      if (progress) requestAnimationFrame(animate);
+    },
+    [isHovered, speed],
+  );
+
+  useEffect(() => {
+    timestamp.current = performance.now();
+    function realAnimate(time) {
+      animate(time);
+      raf.current = requestAnimationFrame(realAnimate);
     }
-
-    requestAnimationFrame(animate);
-
+    raf.current = requestAnimationFrame(realAnimate);
     return () => {
-      progress = false;
+      cancelAnimationFrame(raf.current);
     };
-  }, [isControlled, isHovered, speed]);
+  }, [isControlled, animate]);
 
   // 드래그 도중 함수
   const onDrag = useCallback(({ x: mouseX }) => {
