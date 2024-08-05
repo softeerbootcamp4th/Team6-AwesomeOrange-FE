@@ -1,20 +1,16 @@
 import CommentCarousel from "./commentCarousel";
 import decoration from "./assets/decoration.svg";
-import { useEffect, useRef } from "react";
-import { useSectionStore } from "../scroll/store";
+import { useRef } from "react";
+import useSectionInitialize from "../scroll/useSectionInitialize";
 
 function CommentSection() {
-  const sectionDOM = useRef(null);
-  const uploadSection = useSectionStore((state) => state.uploadSection);
-  useEffect(() => {
-    if (sectionDOM) {
-      uploadSection(2, sectionDOM.current);
-    }
-  }, [sectionDOM, uploadSection]);
+  const SECTION_IDX = 2;
+  const sectionRef = useRef(null);
+  useSectionInitialize(SECTION_IDX, sectionRef);
 
   return (
     <section
-      ref={sectionDOM}
+      ref={sectionRef}
       className="w-full flex flex-col items-center py-24 lg:py-60 gap-40"
     >
       <div className="w-full flex flex-col items-center">

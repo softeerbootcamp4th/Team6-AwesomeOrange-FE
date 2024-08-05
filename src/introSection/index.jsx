@@ -74,7 +74,7 @@ function IntroSection() {
 
   return (
     <>
-      <div ref={introRef} className="flex flex-col items-center">
+      <section ref={introRef} className="flex flex-col items-center">
         <div className="z-50 fixed w-full flex justify-center top-[500px] -translate-y-1/2 pointer-events-none">
           <h1
             className={`${style.openTitle} ease-in text-8xl font-bold text-black  z-50`}
@@ -118,7 +118,7 @@ function IntroSection() {
           alt="다음으로 넘어가기"
           className="pt-32 pb-32 animate-bounce"
         />
-      </div>
+      </section>
 
       <div
         onClick={onClickTimer}

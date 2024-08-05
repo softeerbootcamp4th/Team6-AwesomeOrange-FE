@@ -1,17 +1,13 @@
 import DetailSwiper from "./DetailSwiper.jsx";
 import content from "./content.json";
 import decoration from "./assets/decoration.svg";
-import { useEffect, useRef } from "react";
-import { useSectionStore } from "../scroll/store.js";
+import { useRef } from "react";
+import useSectionInitialize from "../scroll/useSectionInitialize.js";
 
 function DetailInformation() {
+  const SECTION_IDX = 1;
   const sectionRef = useRef(null);
-  const uploadSection = useSectionStore((state) => state.uploadSection);
-  useEffect(() => {
-    if (sectionRef) {
-      uploadSection(1, sectionRef.current);
-    }
-  }, [sectionRef, uploadSection]);
+  useSectionInitialize(SECTION_IDX, sectionRef);
 
   return (
     <section
