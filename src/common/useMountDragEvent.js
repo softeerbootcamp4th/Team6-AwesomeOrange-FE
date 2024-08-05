@@ -4,6 +4,7 @@ import throttleRaf from "@/common/throttleRaf.js";
 function useMountDragEvent(dragging, dragEnd) {
   useEffect(() => {
     const onPointerMove = throttleRaf((e) => {
+      if (e.pointerType === "touch") return;
       const { clientX, clientY } = e;
       dragging({ x: clientX, y: clientY });
     });
