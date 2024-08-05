@@ -1,4 +1,5 @@
 import Input from "@/common/Input.jsx";
+import PhoneInput from "@/common/PhoneInput.jsx";
 
 function AuthFirstSection({name, setName, phone, setPhone})
 {
@@ -17,7 +18,7 @@ function AuthFirstSection({name, setName, phone, setPhone})
 					</label>
 					<label className="flex flex-col gap-3">
 						<span className="text-body-m font-bold">전화번호</span>
-						<Input text={phone} setText={setPhone} placeholder="ex) 01012345678" />
+						<PhoneInput text={phone} setText={setPhone} />
 						<p className="w-full h-4">{null}</p>
 					</label>
 				</div>
