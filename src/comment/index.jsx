@@ -1,9 +1,18 @@
 import CommentCarousel from "./commentCarousel";
 import decoration from "./assets/decoration.svg";
+import { useRef } from "react";
+import useSectionInitialize from "../scroll/useSectionInitialize";
 
 function CommentSection() {
+  const SECTION_IDX = 2;
+  const sectionRef = useRef(null);
+  useSectionInitialize(SECTION_IDX, sectionRef);
+
   return (
-    <section className="w-full flex flex-col items-center py-24 lg:py-60 gap-40">
+    <section
+      ref={sectionRef}
+      className="w-full flex flex-col items-center py-24 lg:py-60 gap-40"
+    >
       <div className="w-full flex flex-col items-center">
         <div className="relative flex flex-col gap-3 lg:gap-9 text-center font-bold items-center">
           <p className="text-body-m text-neutral-600 w-fit py-3 lg:py-5">

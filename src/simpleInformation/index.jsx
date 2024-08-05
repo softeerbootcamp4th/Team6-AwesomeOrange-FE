@@ -1,11 +1,16 @@
+import { useRef } from "react";
 import JSONData from "./contentList.json";
 import ContentSection from "./contentSection";
+import useSectionInitialize from "../scroll/useSectionInitialize";
 
 export default function SimpleInformation() {
+  const SECTION_IDX = -1;
+  const sectionRef = useRef(null);
   const contentList = JSONData.content;
+  useSectionInitialize(SECTION_IDX, sectionRef);
 
   return (
-    <div className="w-full p-6 flex justify-center ">
+    <section ref={sectionRef} className="w-full p-6 flex justify-center ">
       <div className="w-full max-w-[1200px] flex flex-col gap-20 md:gap-30 lg:gap-40">
         <div className="flex flex-col text-black font-bold pt-[240px]">
           <span className="text-title-s md:text-title-m">
@@ -19,6 +24,6 @@ export default function SimpleInformation() {
           <ContentSection key={index} content={content} />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
