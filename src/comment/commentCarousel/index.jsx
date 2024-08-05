@@ -7,7 +7,7 @@ import CommentCarouselSkeleton from "./CommentCarouselSkeleton.jsx";
 import CommentCarouselError from "./CommentCarouselError.jsx";
 
 function CommentCarouselView() {
-  const resource = useMemo(()=>fetchResource("/api/v1/comment"), []);
+  const resource = useMemo(() => fetchResource("/api/v1/comment"), []);
   return (
     <ErrorBoundary fallback={<CommentCarouselError />}>
       <Suspense fallback={<CommentCarouselSkeleton />}>

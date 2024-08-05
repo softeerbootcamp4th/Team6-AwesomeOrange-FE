@@ -88,11 +88,9 @@ function useAutoCarousel(speed = 1) {
     ref: childRef,
     eventListener: {
       onMouseEnter() {
-        setIsControlled(true);
         setIsHovered(true);
       },
       onMouseLeave() {
-        setIsControlled(false);
         setIsHovered(false);
       },
       onPointerDown(e) {
