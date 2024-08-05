@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Input from "@/common/Input.jsx";
 import PhoneInput from "@/common/PhoneInput.jsx";
+import Button from "@/common/Button.jsx";
 import { fetchServer, HTTPError } from "@/common/fetchServer.js";
 
 function AuthFirstSection({name, setName, phone, setPhone})
@@ -59,7 +60,7 @@ function AuthFirstSection({name, setName, phone, setPhone})
 				</div>
 			</div>
 			<div className="w-full flex justify-center relative">
-				<button type="submit" className="w-36 min-h-14 px-6 py-4 text-center bg-black text-white group-[:invalid]:bg-neutral-500">인증 요청하기</button>
+				<Button styleType="ghost" type="submit" className="w-36 min-h-14">인증 요청하기</Button>
 				<button type="button" className="absolute top-[calc(100%+1.25rem)] text-detail-l font-medium text-neutral-300">이미 정보를 입력하신 적이 있으신가요?</button>
 			</div>
 		</form>
