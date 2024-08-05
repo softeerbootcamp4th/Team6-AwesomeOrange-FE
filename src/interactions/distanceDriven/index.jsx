@@ -36,7 +36,7 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
       />
       <div className="absolute top-1/2">
         <div
-          className="rounded-full size-8 bg-blue-500 cursor-pointer transition-transform duration-300 active:duration-0 before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50"
+          className="rounded-full size-8 bg-blue-500 cursor-pointer touch-none transition-transform duration-300 active:duration-0 before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50"
           onPointerDown={(e) => {
             onPointerDown(e);
             pulseAnimation(e);
