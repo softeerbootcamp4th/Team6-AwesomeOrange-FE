@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import Suspense from "@/common/Suspense.jsx";
 import ErrorBoundary from "@/common/ErrorBoundary.jsx";
 import { fetchResource } from "@/common/fetchServer.js";
@@ -6,7 +7,7 @@ import CommentCarouselSkeleton from "./CommentCarouselSkeleton.jsx";
 import CommentCarouselError from "./CommentCarouselError.jsx";
 
 function CommentCarouselView() {
-  const resource = fetchResource("/api/v1/comment");
+  const resource = useMemo(() => fetchResource("/api/v1/comment"), []);
   return (
     <ErrorBoundary fallback={<CommentCarouselError />}>
       <Suspense fallback={<CommentCarouselSkeleton />}>
