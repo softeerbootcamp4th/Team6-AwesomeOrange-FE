@@ -14,11 +14,11 @@ function AuthFirstSection({name, setName, phone, setPhone})
 				<div className="flex flex-col gap-6">
 					<label className="flex flex-col gap-3">
 						<span className="text-body-m font-bold">이름</span>
-						<Input text={name} setText={setName} placeholder="ex) 홍길동" />
+						<Input text={name} setText={setName} placeholder="ex) 홍길동" required minLength="2"/>
 					</label>
 					<label className="flex flex-col gap-3">
 						<span className="text-body-m font-bold">전화번호</span>
-						<PhoneInput text={phone} setText={setPhone} />
+						<PhoneInput text={phone} setText={setPhone} required/>
 						<p className="w-full h-4">{null}</p>
 					</label>
 				</div>
