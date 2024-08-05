@@ -4,7 +4,7 @@ import PhoneInput from "@/common/PhoneInput.jsx";
 import Button from "@/common/Button.jsx";
 import { fetchServer, HTTPError } from "@/common/fetchServer.js";
 
-function AuthFirstSection({name, setName, phone, setPhone})
+function AuthFirstSection({name, setName, phone, setPhone, goNext})
 {
 	const [errorMessage, setErrorMessage] = useState("");
 
@@ -19,7 +19,7 @@ function AuthFirstSection({name, setName, phone, setPhone})
 			const body = {name, phoneNumber: phone.replace(/\D+/g, "")};
 			await fetchServer("/api/v1/event-user/send-auth", {method:"post", body});
 			setErrorMessage("");
-			console.log("성공했다!");
+			goNext();
 		} catch(e) {
 			if( e instanceof HTTPError ) {
 				if(e.status === 400) return setErrorMessage("잘못된 요청 형식입니다.");
@@ -60,7 +60,7 @@ function AuthFirstSection({name, setName, phone, setPhone})
 				</div>
 			</div>
 			<div className="w-full flex justify-center relative">
-				<Button styleType="ghost" type="submit" className="w-36 min-h-14">인증 요청하기</Button>
+				<Button styleType="filled" type="submit" className="w-36 min-h-14">인증 요청하기</Button>
 				<button type="button" className="absolute top-[calc(100%+1.25rem)] text-detail-l font-medium text-neutral-300">이미 정보를 입력하신 적이 있으신가요?</button>
 			</div>
 		</form>
