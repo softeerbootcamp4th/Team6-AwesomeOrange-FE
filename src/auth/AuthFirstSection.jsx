@@ -1,8 +1,7 @@
+import Input from "@/common/Input.jsx";
+
 function AuthFirstSection({name, setName, phone, setPhone})
 {
-	const inputboxStyle = `w-full h-14 p-4 bg-neutral-50 rounded text-body-m font-medium
-	focus:bg-white focus:outline-neutral-800
-	placeholder:text-neutral-200`;
 	const checkboxStyle = `size-4 appearance-none 
 	border border-neutral-300 checked:bg-blue-400 checked:border-0 
 	checked:bg-checked bg-center`;
@@ -14,11 +13,11 @@ function AuthFirstSection({name, setName, phone, setPhone})
 				<div className="flex flex-col gap-6">
 					<label className="flex flex-col gap-3">
 						<span className="text-body-m font-bold">이름</span>
-						<input className={inputboxStyle} type="text" placeholder="ex) 홍길동" />
+						<Input text={name} setText={setName} placeholder="ex) 홍길동" />
 					</label>
 					<label className="flex flex-col gap-3">
 						<span className="text-body-m font-bold">전화번호</span>
-						<input className={inputboxStyle} type="text" placeholder="ex) 01012345678" />
+						<Input text={phone} setText={setPhone} placeholder="ex) 01012345678" />
 						<p className="w-full h-4">{null}</p>
 					</label>
 				</div>
