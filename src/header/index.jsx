@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "./index.module.css";
+import scrollTo from "../scroll/scrollTo";
 
 export default function Header() {
   const ITEM_WIDTH = 96; // w-24
@@ -17,10 +18,7 @@ export default function Header() {
   }
 
   function onClickScrollSection(index) {
-    /*
-     *  클릭시 하단의 다양한 영역으로 스크롤되는 코드 미작성
-     */
-
+    scrollTo(index);
     if (index !== scrollState) {
       setScrollState(index);
     }

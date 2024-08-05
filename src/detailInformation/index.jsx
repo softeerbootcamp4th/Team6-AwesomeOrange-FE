@@ -1,10 +1,23 @@
 import DetailSwiper from "./DetailSwiper.jsx";
 import content from "./content.json";
 import decoration from "./assets/decoration.svg";
+import { useEffect, useRef } from "react";
+import { useSectionStore } from "../scroll/store.js";
 
 function DetailInformation() {
+  const sectionRef = useRef(null);
+  const uploadSection = useSectionStore((state) => state.uploadSection);
+  useEffect(() => {
+    if (sectionRef) {
+      uploadSection(1, sectionRef.current);
+    }
+  }, [sectionRef, uploadSection]);
+
   return (
-    <section className="w-full flex flex-col items-center py-24 lg:py-60 gap-16 lg:gap-40">
+    <section
+      ref={sectionRef}
+      className="w-full flex flex-col items-center py-24 lg:py-60 gap-16 lg:gap-40"
+    >
       <div className="relative flex flex-col gap-3 lg:gap-9 text-center font-bold items-center">
         <p className="text-body-m text-neutral-600 w-fit py-3 lg:py-5">
           차량 상세 정보

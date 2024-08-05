@@ -1,9 +1,22 @@
 import CommentCarousel from "./commentCarousel";
 import decoration from "./assets/decoration.svg";
+import { useEffect, useRef } from "react";
+import { useSectionStore } from "../scroll/store";
 
 function CommentSection() {
+  const sectionDOM = useRef(null);
+  const uploadSection = useSectionStore((state) => state.uploadSection);
+  useEffect(() => {
+    if (sectionDOM) {
+      uploadSection(2, sectionDOM.current);
+    }
+  }, [sectionDOM, uploadSection]);
+
   return (
-    <section className="w-full flex flex-col items-center py-24 lg:py-60 gap-40">
+    <section
+      ref={sectionDOM}
+      className="w-full flex flex-col items-center py-24 lg:py-60 gap-40"
+    >
       <div className="w-full flex flex-col items-center">
         <div className="relative flex flex-col gap-3 lg:gap-9 text-center font-bold items-center">
           <p className="text-body-m text-neutral-600 w-fit py-3 lg:py-5">
