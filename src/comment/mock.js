@@ -38,19 +38,20 @@ const handlers = [
   http.get("/api/v1/comment", () => {
     return HttpResponse.json({ comments: getCommentMock() });
   }),
-  http.post("/api/v1/comment/:eventFrameId", async ({request}) => {
+  http.post("/api/v1/comment/:eventFrameId", async ({ request }) => {
     const token = request.headers.get("authorization");
 
-    if(token === null) return HttpResponse.json(false, { status: 401 });
+    if (token === null) return HttpResponse.json(false, { status: 401 });
 
     const { content } = await request.json();
 
     if (commentSet.has(token)) return HttpResponse.json(true, { status: 409 });
-    if (content.includes("시발")) return HttpResponse.json(true, { status: 400 });
+    if (content.includes("시발"))
+      return HttpResponse.json(true, { status: 400 });
 
     commentSet.add(token);
     return HttpResponse.json(true, { status: 200 });
-  })
+  }),
 ];
 
 export default handlers;

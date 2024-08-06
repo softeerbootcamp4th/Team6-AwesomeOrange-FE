@@ -4,17 +4,16 @@ import Button from "@/common/Button.jsx";
 import scrollTo from "@/scroll/scrollTo.js";
 import { INTERACTION_SECTION } from "@/common/constants.js";
 
-function CommentNoUserModal()
-{
-	const close = useContext(ModalCloseContext);
+function CommentNoUserModal() {
+  const close = useContext(ModalCloseContext);
 
-  function toMoveInteraction()
-  {
+  function toMoveInteraction() {
     close();
     scrollTo(INTERACTION_SECTION);
   }
 
-	return <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[31.25rem] p-10 shadow bg-white relative flex flex-col justify-between items-center">
+  return (
+    <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[31.25rem] p-10 shadow bg-white relative flex flex-col justify-between items-center">
       <div className="flex flex-col gap-2 items-center">
         <p className="text-body-l font-bold text-neutral-700">
           아직 기대평을 작성할 수 없습니다.
@@ -30,17 +29,18 @@ function CommentNoUserModal()
           alt="추첨 이벤트 참여 바랍니다"
           width="208"
           height="40"
-        /> 
+        />
       </div>
       <div className="w-full flex flex-wrap justify-center gap-5">
         <Button styleType="filled" onClick={toMoveInteraction}>
           추첨 이벤트 참여하기
-      </Button>
+        </Button>
         <Button styleType="ghost" onClick={close}>
-        	닫기
-  		</Button>
+          닫기
+        </Button>
       </div>
     </div>
+  );
 }
 
 export default CommentNoUserModal;

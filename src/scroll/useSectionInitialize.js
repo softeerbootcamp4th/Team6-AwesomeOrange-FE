@@ -27,10 +27,5 @@ export default function useSectionInitialize(SECTION_IDX, sectionRef) {
         observer.unobserve(sectionDOM);
       }
     };
-  }, [
-    SECTION_IDX,
-    sectionRef,
-    uploadSection,
-    setIsVisibleList,
-  ]);
+  }, [SECTION_IDX, sectionRef, uploadSection, setIsVisibleList]);
 }
