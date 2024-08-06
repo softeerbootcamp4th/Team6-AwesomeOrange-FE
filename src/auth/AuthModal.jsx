@@ -1,37 +1,39 @@
 import { useState, useContext } from "react";
 import InfoInputStage from "./InfoInput";
 import AuthCodeStage from "./AuthCode";
+import UserFindStage from "./UserFind";
 import { ModalCloseContext } from "@/modal/modal.jsx";
 
 const AUTH_INPUT_PAGE = Symbol("input");
 const AUTH_CODE_PAGE = Symbol("code");
+const AUTH_FIND_PAGE = Symbol("find");
 
 function AuthModal({onComplete: onCompleteCallback}) {
   const close = useContext(ModalCloseContext);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [page, setPage] = useState(AUTH_INPUT_PAGE);
+  function onComplete(isFreshMember) {
+    onCompleteCallback(isFreshMember);
+    close();
+  }
+
   const firstSectionProps = {
     name,
     setName,
     phone,
     setPhone,
     goNext: () => setPage(AUTH_CODE_PAGE),
+    goFindUser: () => setPage(AUTH_FIND_PAGE),
   };
-
-  function onComplete(isFreshMember) {
-    onCompleteCallback(isFreshMember);
-    close();
-  }
   const secondSectionProps = { name, phone, onComplete };
+  const findSectionProps = { onComplete, goPrev: ()=>setPage(AUTH_INPUT_PAGE) };
 
   return (
     <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 sm:p-10 py-10 shadow bg-white relative flex flex-col gap-14">
-      {page === AUTH_CODE_PAGE ? (
-        <AuthCodeStage {...secondSectionProps} />
-      ) : (
-        <InfoInputStage {...firstSectionProps} />
-      )}
+      {page === AUTH_INPUT_PAGE && <InfoInputStage {...firstSectionProps} /> }
+      {page === AUTH_CODE_PAGE && <AuthCodeStage {...secondSectionProps} />}
+      {page === AUTH_FIND_PAGE && <UserFindStage {...findSectionProps} />}
       <button
         className="absolute top-10 right-8"
         onClick={close}
