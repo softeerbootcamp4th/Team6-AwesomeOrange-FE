@@ -74,7 +74,7 @@ function IntroSection() {
 
   return (
     <>
-      <div ref={introRef} className="h-[2160px] flex flex-col items-center">
+      <section ref={introRef} className="flex flex-col items-center">
         <div className="z-50 fixed w-full flex justify-center top-[500px] -translate-y-1/2 pointer-events-none">
           <h1
             className={`${style.openTitle} ease-in text-8xl font-bold text-black  z-50`}
@@ -99,7 +99,7 @@ function IntroSection() {
             <video
               src={SpinningCarVideo}
               ref={videoRef}
-              className="w-dvw scale-110 z-0 pointer-events-none select-none"
+              className="w-full scale-[2.0] lg:scale-110 z-0 pointer-events-none select-none"
             />
           </div>
 
@@ -116,9 +116,9 @@ function IntroSection() {
         <img
           src={Pointer}
           alt="다음으로 넘어가기"
-          className="pt-[100px] animate-bounce"
+          className="pt-32 pb-32 animate-bounce"
         />
-      </div>
+      </section>
 
       <div
         onClick={onClickTimer}

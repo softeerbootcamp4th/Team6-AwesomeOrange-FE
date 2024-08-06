@@ -1,5 +1,10 @@
+import { useRef } from "react";
+import useSectionInitialize from "../scroll/useSectionInitialize";
+
 export default function InteractionPage() {
-  return <div>
-    인터랙션페이지
-  </div>;
+  const SECTION_IDX = 1;
+  const sectionRef = useRef(null);
+  useSectionInitialize(SECTION_IDX, sectionRef);
+
+  return <div ref={sectionRef} className="bg-black h-[2017px]"></div>;
 }
