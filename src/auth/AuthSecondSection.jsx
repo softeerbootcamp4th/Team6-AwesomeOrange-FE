@@ -1,19 +1,25 @@
 import { useState } from "react";
 import InputWithTimer from "./InputWithTimer.jsx";
 import useTimer from "./useTimer.js";
+import requestAuthCode from "./requestAuthCode.js";
 import Button from "@/common/Button.jsx";
 
 const AUTH_MAX_DURATION = 1 * 60;
 
-function AuthSecondSection({ phone }) {
+function AuthSecondSection({ name, phone }) {
   const [authNumber, setAuthNumber] = useState("");
   const [timer, resetTimer] = useTimer(AUTH_MAX_DURATION);
 
-  //const [ errorMessage, setErrorMessage ] = useState("");
+  const [ errorMessage, setErrorMessage ] = useState("");
 
-  function retryAuthCode()
-  {
-    resetTimer();
+  function retryAuthCode(e) {
+    e.preventDefault();
+    requestAuthCode(name, phone)
+      .then( ()=>{
+        setErrorMessage("");
+        resetTimer();
+      })
+      .catch( (error)=>setErrorMessage(error.message) );
   }
 
   const josa = "013678".includes(phone[phone.length - 1]) ? "으" : "";
