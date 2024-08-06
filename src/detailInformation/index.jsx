@@ -5,7 +5,7 @@ import { useRef } from "react";
 import useSectionInitialize from "../scroll/useSectionInitialize.js";
 
 function DetailInformation() {
-  const SECTION_IDX = 1;
+  const SECTION_IDX = 2;
   const sectionRef = useRef(null);
   useSectionInitialize(SECTION_IDX, sectionRef);
 
