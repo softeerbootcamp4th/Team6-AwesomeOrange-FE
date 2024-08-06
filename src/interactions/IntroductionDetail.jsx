@@ -1,9 +1,9 @@
-export default function IntroductionDetail() {
+export default function IntroductionDetail({ contentList }) {
   return (
     <div className="flex flex-col">
-      <span className="text-body-l text-neutral-50 font-bold">상세 안내</span>
+      <span className="text-body-l pb-10 text-neutral-50 font-bold">상세 안내</span>
 
-      <div className="mt-10 flex gap-5">
+      <div className="flex gap-5">
         <div className="bg-neutral-900 p-6 flex flex-col font-bold">
           <span className="text-body-m text-neutral-300">이벤트 기간</span>
 
@@ -30,16 +30,25 @@ export default function IntroductionDetail() {
         </div>
       </div>
 
-      <div className="mt-5 p-6 bg-neutral-900 flex flex-col">
-        <span className="text-body-m text-neutral-300 font-bold">참여방법</span>
+      <div className="mt-5 p-6 bg-neutral-900 flex flex-col font-bold">
+        <span className="pb-6 text-body-m text-neutral-300">참여방법</span>
 
-        <div className="pt-6">
-          <span className="bg-neutral-100 text-neutral-900 text-body-s px-2 py-0.5 rounded-[4px]">
-            1
-          </span>
+        {contentList.map((contentSubList, index) => (
+          <div key={index} className="mt-[9px]">
+            <span className="bg-neutral-100 text-neutral-900 text-body-s px-2 py-0.5 rounded-[4px] mr-4">
+              {index + 1}
+            </span>
 
-          <span className=""></span>
-        </div>
+            {contentSubList.map((content, index) => (
+              <span
+                key={index}
+                className={`${index % 2 ? "text-neutral-400" : "text-white"} text-body-m`}
+              >
+                {content}
+              </span>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );
