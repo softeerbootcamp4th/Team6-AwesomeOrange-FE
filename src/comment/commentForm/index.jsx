@@ -1,5 +1,7 @@
 import { useState } from "react";
 import CommentSuccessModal from "../modals/CommentSuccessModal.jsx";
+import CommentNegativeModal from "../modals/CommentNegativeModal.jsx";
+
 import Button from "@/common/Button.jsx";
 import {fetchServer, handleError} from "@/common/fetchServer.js";
 import {EVENT_ID} from "@/common/constants.js";
@@ -17,7 +19,7 @@ function CommentForm()
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const successModal = <CommentSuccessModal />;
-	const negativeModal = <div>네거티브함</div>;
+	const negativeModal = <CommentNegativeModal />;
 	const noUserModal = <div>사용자 없음</div>;
 	const noServerModal = <div>서버가 없음</div>;
 

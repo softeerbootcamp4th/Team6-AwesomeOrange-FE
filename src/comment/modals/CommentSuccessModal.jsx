@@ -6,7 +6,7 @@ function CommentSuccessModal()
 {
 	const close = useContext(ModalCloseContext);
 
-	return <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[40.625rem] p-10 shadow bg-white relative flex flex-col justify-between items-center">
+	return <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[31.25rem] p-10 shadow bg-white relative flex flex-col justify-between items-center">
       <p className="text-body-l font-bold text-neutral-700">
         기대평이 등록되었습니다!
       </p>
@@ -21,13 +21,6 @@ function CommentSuccessModal()
       <Button styleType="ghost" onClick={close}>
       	확인
 		</Button>
-      <button
-        className="absolute top-10 right-8"
-        onClick={close}
-        aria-label="닫기"
-      >
-        <img src="/icons/close.svg" alt="닫기" width="24" height="24" />
-      </button>
     </div>
 }
 
