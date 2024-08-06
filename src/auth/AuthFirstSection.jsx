@@ -1,8 +1,8 @@
 import { useState } from "react";
+import requestAuthCode from "./requestAuthCode.js";
 import Input from "@/common/Input.jsx";
 import PhoneInput from "@/common/PhoneInput.jsx";
 import Button from "@/common/Button.jsx";
-import { fetchServer, HTTPError } from "@/common/fetchServer.js";
 
 function AuthFirstSection({ name, setName, phone, setPhone, goNext }) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -11,28 +11,11 @@ function AuthFirstSection({ name, setName, phone, setPhone, goNext }) {
 	border border-neutral-300 checked:bg-blue-400 checked:border-0 
 	checked:bg-checked bg-center`;
 
-  async function onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    try {
-      const body = { name, phoneNumber: phone.replace(/\D+/g, "") };
-      await fetchServer("/api/v1/event-user/send-auth", {
-        method: "post",
-        body,
-      });
-      setErrorMessage("");
-      goNext();
-    } catch (e) {
-      if (e instanceof HTTPError) {
-        if (e.status === 400) return setErrorMessage("잘못된 요청 형식입니다.");
-        if (e.status === 409)
-          return setErrorMessage("등록된 참여자 정보가 있습니다.");
-        return setErrorMessage("서버와의 통신 중 오류가 발생했습니다.");
-      }
-      console.error(e);
-      setErrorMessage(
-        "알 수 없는 오류입니다. 프론트엔드 개발자에게 제보하세요.",
-      );
-    }
+    requestAuthCode(name, phone)
+      .then( ()=>goNext())
+      .catch( (error)=>setErrorMessage(error.message) );
   }
 
   return (
