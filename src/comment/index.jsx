@@ -1,7 +1,8 @@
-import CommentCarousel from "./commentCarousel";
-import decoration from "./assets/decoration.svg";
 import { useRef } from "react";
+import CommentCarousel from "./commentCarousel";
+import CommentForm from "./commentForm";
 import useSectionInitialize from "../scroll/useSectionInitialize";
+import decoration from "./assets/decoration.svg";
 
 function CommentSection() {
   const SECTION_IDX = 3;
@@ -34,6 +35,7 @@ function CommentSection() {
         </p>
         <CommentCarousel />
       </div>
+      <CommentForm />
     </section>
   );
 }

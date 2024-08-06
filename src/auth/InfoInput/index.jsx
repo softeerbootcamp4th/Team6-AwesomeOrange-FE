@@ -1,42 +1,32 @@
 import { useState } from "react";
+import requestAuthCode from "../requestAuthCode.js";
 import Input from "@/common/Input.jsx";
 import PhoneInput from "@/common/PhoneInput.jsx";
 import Button from "@/common/Button.jsx";
-import { fetchServer, HTTPError } from "@/common/fetchServer.js";
 
-function AuthFirstSection({ name, setName, phone, setPhone, goNext }) {
+function AuthFirstSection({
+  name,
+  setName,
+  phone,
+  setPhone,
+  goNext,
+  goFindUser,
+}) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const checkboxStyle = `size-4 appearance-none 
 	border border-neutral-300 checked:bg-blue-400 checked:border-0 
 	checked:bg-checked bg-center`;
 
-  async function onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    try {
-      const body = { name, phoneNumber: phone.replace(/\D+/g, "") };
-      await fetchServer("/api/v1/event-user/send-auth", {
-        method: "post",
-        body,
-      });
-      setErrorMessage("");
-      goNext();
-    } catch (e) {
-      if (e instanceof HTTPError) {
-        if (e.status === 400) return setErrorMessage("잘못된 요청 형식입니다.");
-        if (e.status === 409)
-          return setErrorMessage("등록된 참여자 정보가 있습니다.");
-        return setErrorMessage("서버와의 통신 중 오류가 발생했습니다.");
-      }
-      console.error(e);
-      setErrorMessage(
-        "알 수 없는 오류입니다. 프론트엔드 개발자에게 제보하세요.",
-      );
-    }
+    requestAuthCode(name, phone)
+      .then(() => goNext())
+      .catch((error) => setErrorMessage(error.message));
   }
 
   return (
-    <>
+    <div className="w-full h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 min-[520px]:px-20 py-10 relative flex flex-col gap-14">
       <p className="text-body-l font-bold text-neutral-700">
         이벤트 응모를 위해
         <br />
@@ -95,12 +85,13 @@ function AuthFirstSection({ name, setName, phone, setPhone, goNext }) {
           <button
             type="button"
             className="absolute top-[calc(100%+1.25rem)] text-detail-l font-medium text-neutral-300"
+            onClick={goFindUser}
           >
             이미 정보를 입력하신 적이 있으신가요?
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 

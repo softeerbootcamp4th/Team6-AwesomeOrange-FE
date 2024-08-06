@@ -1,4 +1,29 @@
 .moveBar {
-  transition: all 0.2s ease-in-out;
-  transform: translateX(calc(var(--pos) * 1px));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moveBar::after {
+  content: "";
+  width: 50px;
+  height: 3px;
+  background-color: #0d0d0d;
+}
+
+@media (min-width: 768px) {
+  .moveBar {
+    transform: translateX(
+      calc((var(--section) - 1) * (var(--item-width) + var(--item-gap)))
+    );
+    --item-width: 80px;
+    --item-gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .moveBar {
+    --item-width: 96px;
+    --item-gap: 32px;
+  }
 }

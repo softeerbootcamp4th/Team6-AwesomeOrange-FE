@@ -57,6 +57,11 @@ export default {
     },
     black: "#0D0D0D",
   },
+  spacing: {
+    "11.5": "2.875rem", //46px
+    "15": "3.75rem", //60px
+    "17.5": "4.375rem", //70px
+  },
   fontSize: {
     "detail-s": ["10px", "13px"],
     "detail-m": ["11px", "14px"],
