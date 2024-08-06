@@ -1,0 +1,36 @@
+{
+  "howto": [
+    ["매일매일 공개되는", " 더 뉴 아이오닉5과 관련한 ", "인터랙션을 수행한다."],
+    ["", "이벤트 경품을 받기 위한 ", "필수 정보를 입력하면 응모 완료!"],
+    ["", "날마다 응모하고", " 기대평을 작성하면 당첨 확률 UP!"]
+  ],
+  "gift": [
+    {
+      "src": "gift_jeju.png",
+      "name": "제주 여행 패키지",
+      "num": 10,
+      "desc": "항공권, 숙박비, 아이오닉5 렌터카\n(충전 비용 포함)",
+      "star": "1st",
+      "starColor": "#F9BB44",
+      "starTextColor": "#957029"
+    },
+    {
+      "src": "gift_car.png",
+      "name": "더뉴 아이오닉5 시승권",
+      "num": 50,
+      "desc": "10-12월 중 날짜 선택 가능",
+      "star": "2nd",
+      "starColor": "#CFF0FF",
+      "starTextColor": "#36B1E6"
+    },
+    {
+      "src": "gift_portable.png",
+      "name": "포터블 인덕션",
+      "num": 100,
+      "desc": "블랙/화이트 컬러 랜덤 증정",
+      "star": "3rd",
+      "starColor": "#B6423C",
+      "starTextColor": "#F9BB44"
+    }
+  ]
+}
