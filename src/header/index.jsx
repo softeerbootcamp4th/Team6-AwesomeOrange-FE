@@ -3,6 +3,7 @@ import scrollTo from "../scroll/scrollTo";
 import { useSectionStore } from "../scroll/store";
 import openModal from "@/modal/openModal.js";
 import AuthModal from "@/auth/AuthModal.jsx";
+import WelcomeModal from "@/auth/Welcome";
 
 export default function Header() {
   const currentSection = useSectionStore((state) => {
@@ -14,8 +15,8 @@ export default function Header() {
     "기대평",
     "선착순 이벤트",
   ];
-  const welcomeModal = <div>화녕해!</div>;
-  const authModal = <AuthModal onComplete={(isFreshMember)=>openModal(welcomeModal)} />;
+  const welcomeModal = <WelcomeModal />;
+  const authModal = <AuthModal onComplete={(isFreshMember)=>isFreshMember && openModal(welcomeModal)} />;
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });

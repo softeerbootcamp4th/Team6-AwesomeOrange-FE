@@ -75,16 +75,17 @@ function IntroSection() {
   return (
     <>
       <section ref={introRef} className="flex flex-col items-center">
-        <div className="z-50 fixed w-full flex justify-center top-[500px] -translate-y-1/2 pointer-events-none">
+        <div className="z-50 sticky w-full flex justify-center top-[50vh] -translate-y-1/2 pointer-events-none">
           <h1
-            className={`${style.openTitle} ease-in text-8xl font-bold text-black  z-50`}
+            className={`${style.openTitle} ease-in text-head-l md:text-7xl lg:text-8xl font-bold text-black z-50 text-center`}
             style={titleStyle}
           >
-            The new IONIQ 5
+            The new <br className="inline min-[500px]:hidden" />
+            <span className="max-[500px]:sketch-line">IONIQ 5</span>
           </h1>
 
           <div
-            className="absolute top-[66px] z-0 overflow-hidden"
+            className="absolute hidden min-[500px]:block top-10 md:top-11 lg:top-[66px] z-0 overflow-hidden scale-[60%] md:scale-75 lg:scale-100"
             style={titleStyle}
           >
             <LineHighlight />
