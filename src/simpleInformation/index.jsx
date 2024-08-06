@@ -4,7 +4,7 @@ import ContentSection from "./contentSection";
 import useSectionInitialize from "../scroll/useSectionInitialize";
 
 export default function SimpleInformation() {
-  const SECTION_IDX = -1;
+  const SECTION_IDX = 0;
   const sectionRef = useRef(null);
   const contentList = JSONData.content;
   useSectionInitialize(SECTION_IDX, sectionRef);

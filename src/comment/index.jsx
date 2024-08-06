@@ -4,7 +4,7 @@ import { useRef } from "react";
 import useSectionInitialize from "../scroll/useSectionInitialize";
 
 function CommentSection() {
-  const SECTION_IDX = 2;
+  const SECTION_IDX = 3;
   const sectionRef = useRef(null);
   useSectionInitialize(SECTION_IDX, sectionRef);
 
