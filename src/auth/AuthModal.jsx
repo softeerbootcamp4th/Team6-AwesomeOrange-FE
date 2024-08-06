@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import AuthFirstSection from "./AuthFirstSection.jsx";
-import AuthSecondSection from "./AuthSecondSection.jsx";
+import InfoInputStage from "./InfoInput";
+import AuthCodeStage from "./AuthCode";
 import { ModalCloseContext } from "@/modal/modal.jsx";
 
 const AUTH_INPUT_PAGE = Symbol("input");
@@ -23,9 +23,9 @@ function AuthModal() {
   return (
     <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 sm:p-10 py-10 shadow bg-white relative flex flex-col gap-14">
       {page === AUTH_CODE_PAGE ? (
-        <AuthSecondSection {...secondSectionProps} />
+        <AuthCodeStage {...secondSectionProps} />
       ) : (
-        <AuthFirstSection {...firstSectionProps} />
+        <InfoInputStage {...firstSectionProps} />
       )}
       <button
         className="absolute top-10 right-8"

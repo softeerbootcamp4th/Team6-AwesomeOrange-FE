@@ -1,5 +1,5 @@
 import { useState } from "react";
-import requestAuthCode from "./requestAuthCode.js";
+import requestAuthCode from "../requestAuthCode.js";
 import Input from "@/common/Input.jsx";
 import PhoneInput from "@/common/PhoneInput.jsx";
 import Button from "@/common/Button.jsx";
