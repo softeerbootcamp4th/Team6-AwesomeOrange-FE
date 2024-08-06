@@ -39,7 +39,7 @@ function AuthSecondSection({ name, phone, onComplete }) {
 
   const josa = "013678".includes(phone[phone.length - 1]) ? "으" : "";
   return (
-    <>
+    <div className="w-full h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 min-[520px]:px-[5rem] py-10 relative flex flex-col gap-14">
       <p className="text-body-l font-bold text-neutral-700">
         {phone}
         {josa}로<br />
@@ -83,7 +83,7 @@ function AuthSecondSection({ name, phone, onComplete }) {
           </Button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 

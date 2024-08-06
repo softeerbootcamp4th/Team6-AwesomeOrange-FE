@@ -29,8 +29,10 @@ function AuthModal({onComplete: onCompleteCallback}) {
   const secondSectionProps = { name, phone, onComplete };
   const findSectionProps = { onComplete, goPrev: ()=>setPage(AUTH_INPUT_PAGE) };
 
+  const containerClass = `w-[calc(100%-1rem)] max-w-[31.25rem] shadow bg-white relative flex flex-col gap-14`;
+
   return (
-    <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 sm:p-10 py-10 shadow bg-white relative flex flex-col gap-14">
+    <div className={containerClass}>
       {page === AUTH_INPUT_PAGE && <InfoInputStage {...firstSectionProps} /> }
       {page === AUTH_CODE_PAGE && <AuthCodeStage {...secondSectionProps} />}
       {page === AUTH_FIND_PAGE && <UserFindStage {...findSectionProps} />}
