@@ -14,8 +14,8 @@ function AuthFirstSection({ name, setName, phone, setPhone, goNext }) {
   function onSubmit(e) {
     e.preventDefault();
     requestAuthCode(name, phone)
-      .then( ()=>goNext())
-      .catch( (error)=>setErrorMessage(error.message) );
+      .then(() => goNext())
+      .catch((error) => setErrorMessage(error.message));
   }
 
   return (
