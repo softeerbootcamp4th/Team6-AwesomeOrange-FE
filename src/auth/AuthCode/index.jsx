@@ -7,7 +7,7 @@ import Button from "@/common/Button.jsx";
 
 const AUTH_MAX_DURATION = 5 * 60;
 
-function AuthSecondSection({ name, phone }) {
+function AuthSecondSection({ name, phone, onComplete }) {
   // 상태
   const [authCode, setAuthCode] = useState("");
   const [timer, resetTimer] = useTimer(AUTH_MAX_DURATION);
@@ -30,7 +30,7 @@ function AuthSecondSection({ name, phone }) {
     submitAuthCode(name, phone, authCode)
       .then(() => {
         setErrorMessage("");
-        console.log("성공!");
+        onComplete(true);
       })
       .catch((error) => {
         setErrorMessage(error.message);

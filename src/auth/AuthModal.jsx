@@ -6,7 +6,7 @@ import { ModalCloseContext } from "@/modal/modal.jsx";
 const AUTH_INPUT_PAGE = Symbol("input");
 const AUTH_CODE_PAGE = Symbol("code");
 
-function AuthModal() {
+function AuthModal({onComplete: onCompleteCallback}) {
   const close = useContext(ModalCloseContext);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -18,7 +18,12 @@ function AuthModal() {
     setPhone,
     goNext: () => setPage(AUTH_CODE_PAGE),
   };
-  const secondSectionProps = { name, phone };
+
+  function onComplete(isFreshMember) {
+    onCompleteCallback(isFreshMember);
+    close();
+  }
+  const secondSectionProps = { name, phone, onComplete };
 
   return (
     <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 sm:p-10 py-10 shadow bg-white relative flex flex-col gap-14">
