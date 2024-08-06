@@ -41,13 +41,13 @@ function fetchServer(url, options = {}) {
     };
     fetchOptions.body = JSON.stringify(options.body);
   }
-  
+
   // token이 존재한다면, 토큰을 요청할 때 끼워넣습니다.
-  if(tokenSaver.has()) {
+  if (tokenSaver.has()) {
     fetchOptions.headers = {
       ...(fetchOptions.headers ?? {}),
-      Authorization: `Bearer ${tokenSaver.get()}`
-    }
+      Authorization: `Bearer ${tokenSaver.get()}`,
+    };
   }
 
   const promise = fetch(url, fetchOptions)
@@ -74,19 +74,23 @@ function fetchResource(url) {
   return wrapPromise(fetchServer(url));
 }
 
-function handleError(errorDescriptor)
-{
-  return error=>{
-    if(error instanceof HTTPError) {
-      throw new Error( errorDescriptor[error.status] ?? errorDescriptor.http ?? "서버와의 통신 중 오류가 발생했습니다." );
+function handleError(errorDescriptor) {
+  return (error) => {
+    if (error instanceof HTTPError) {
+      throw new Error(
+        errorDescriptor[error.status] ??
+          errorDescriptor.http ??
+          "서버와의 통신 중 오류가 발생했습니다.",
+      );
     }
-    if(error instanceof ServerCloseError) {
-      if(errorDescriptor.offlineFallback !== undefined) return errorDescriptor.offlineFallback;
+    if (error instanceof ServerCloseError) {
+      if (errorDescriptor.offlineFallback !== undefined)
+        return errorDescriptor.offlineFallback;
       throw new Error(errorDescriptor.offline ?? "서버가 닫혔습니다.");
     }
     console.error(error);
     throw new Error("알 수 없는 오류입니다. 프론트엔드 개발자에게 제보하세요.");
-  }
+  };
 }
 
 export { fetchServer, fetchResource, handleError, HTTPError, ServerCloseError };

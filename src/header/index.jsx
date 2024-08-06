@@ -16,7 +16,11 @@ export default function Header() {
     "선착순 이벤트",
   ];
   const welcomeModal = <WelcomeModal />;
-  const authModal = <AuthModal onComplete={(isFreshMember)=>isFreshMember && openModal(welcomeModal)} />;
+  const authModal = (
+    <AuthModal
+      onComplete={(isFreshMember) => isFreshMember && openModal(welcomeModal)}
+    />
+  );
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -48,7 +52,9 @@ export default function Header() {
         The new IONIQ 5
       </span>
 
-      <div className={`hidden md:flex h-full gap-4 lg:gap-8 text-body-s lg:text-body-m relative`}>
+      <div
+        className={`hidden md:flex h-full gap-4 lg:gap-8 text-body-s lg:text-body-m relative`}
+      >
         {scrollSectionList.map((scrollSection, index) => (
           <div
             key={index}

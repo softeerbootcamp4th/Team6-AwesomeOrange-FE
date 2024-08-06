@@ -4,7 +4,14 @@ import Input from "@/common/Input.jsx";
 import PhoneInput from "@/common/PhoneInput.jsx";
 import Button from "@/common/Button.jsx";
 
-function AuthFirstSection({ name, setName, phone, setPhone, goNext, goFindUser }) {
+function AuthFirstSection({
+  name,
+  setName,
+  phone,
+  setPhone,
+  goNext,
+  goFindUser,
+}) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const checkboxStyle = `size-4 appearance-none 

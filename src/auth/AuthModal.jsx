@@ -8,7 +8,7 @@ const AUTH_INPUT_PAGE = Symbol("input");
 const AUTH_CODE_PAGE = Symbol("code");
 const AUTH_FIND_PAGE = Symbol("find");
 
-function AuthModal({onComplete: onCompleteCallback}) {
+function AuthModal({ onComplete: onCompleteCallback }) {
   const close = useContext(ModalCloseContext);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -27,13 +27,16 @@ function AuthModal({onComplete: onCompleteCallback}) {
     goFindUser: () => setPage(AUTH_FIND_PAGE),
   };
   const secondSectionProps = { name, phone, onComplete };
-  const findSectionProps = { onComplete, goPrev: ()=>setPage(AUTH_INPUT_PAGE) };
+  const findSectionProps = {
+    onComplete,
+    goPrev: () => setPage(AUTH_INPUT_PAGE),
+  };
 
   const containerClass = `w-[calc(100%-1rem)] max-w-[31.25rem] shadow bg-white relative flex flex-col gap-14`;
 
   return (
     <div className={containerClass}>
-      {page === AUTH_INPUT_PAGE && <InfoInputStage {...firstSectionProps} /> }
+      {page === AUTH_INPUT_PAGE && <InfoInputStage {...firstSectionProps} />}
       {page === AUTH_CODE_PAGE && <AuthCodeStage {...secondSectionProps} />}
       {page === AUTH_FIND_PAGE && <UserFindStage {...findSectionProps} />}
       <button

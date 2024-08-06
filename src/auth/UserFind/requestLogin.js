@@ -11,10 +11,10 @@ async function requestLogin(name, phoneNumber) {
     tokenSaver.set(token);
     return "";
   } catch (e) {
-  	return handleError({
-  		400: "잘못된 요청 형식입니다.",
-  		404: "등록된 참여자 정보가 없습니다."
-  	})(e);
+    return handleError({
+      400: "잘못된 요청 형식입니다.",
+      404: "등록된 참여자 정보가 없습니다.",
+    })(e);
   }
 }
 

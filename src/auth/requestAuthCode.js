@@ -11,7 +11,7 @@ async function requestAuthCode(name, phoneNumber) {
   } catch (e) {
     return handleError({
       400: "잘못된 요청 형식입니다.",
-      409: "등록된 참여자 정보가 있습니다."
+      409: "등록된 참여자 정보가 있습니다.",
     })(e);
   }
 }
