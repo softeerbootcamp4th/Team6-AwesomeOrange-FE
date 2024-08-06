@@ -26,7 +26,7 @@ function AuthFirstSection({
   }
 
   return (
-    <div className="w-full h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 min-[520px]:px-[5rem] py-10 relative flex flex-col gap-14">
+    <div className="w-full h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 min-[520px]:px-20 py-10 relative flex flex-col gap-14">
       <p className="text-body-l font-bold text-neutral-700">
         이벤트 응모를 위해
         <br />

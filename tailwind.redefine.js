@@ -61,7 +61,6 @@ export default {
     "11.5": "2.875rem", //46px
     "15": "3.75rem", //60px
     "17.5": "4.375rem", //70px
-    "20": "5rem" //80px
   },
   fontSize: {
     "detail-s": ["10px", "13px"],

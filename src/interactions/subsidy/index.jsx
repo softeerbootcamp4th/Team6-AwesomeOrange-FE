@@ -61,7 +61,7 @@ function SubsidyInteraction({ interactCallback, $ref }) {
         />
       </div>
       <p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s pointer-events-none select-none">
-        <span className="text-head-m md:text-head-l lg:text-[4.375rem] mr-1.5 lg:mr-2.5">
+        <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5">
           {count * 10}
         </span>
         만원
