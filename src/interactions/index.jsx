@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import useSectionInitialize from "../scroll/useSectionInitialize";
+import IntroductionDetail from "./IntroductionDetail";
+import GiftDetail from "./GiftDetail";
 
 export default function InteractionPage() {
   const SECTION_IDX = 1;
@@ -54,6 +56,14 @@ export default function InteractionPage() {
         ))}
       </div>
 
+      <div className="h-[456px] w-[500px] border border-white flex justify-center items-center text-white">
+        스크롤
+      </div>
+
+      <div className="flex gap-[140px]">
+        <IntroductionDetail />
+        <GiftDetail />
+      </div>
     </section>
   );
 }
