@@ -1,24 +1,19 @@
 import style from "./index.module.css";
 import scrollTo from "../scroll/scrollTo";
 import { useSectionStore } from "../scroll/store";
-import { useEffect, useState } from "react";
 
 export default function Header() {
   const ITEM_WIDTH = 96; // w-24
   const ITEM_GAP = 32; // gap-8
-  const isVisibleList = useSectionStore((state) => state.isVisibleList);
-  const [currentSection, setCurrentSection] = useState(0);
+  const currentSection = useSectionStore((state) => {
+    return state.isVisibleList.findIndex((value) => value === true);
+  });
   const scrollSectionList = [
     "추첨 이벤트",
     "차량 상세정보",
     "기대평",
     "선착순 이벤트",
   ];
-
-  useEffect(() => {
-    const idx = isVisibleList.findIndex((value) => value === true);
-    setCurrentSection(idx);
-  }, [isVisibleList]);
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -37,14 +32,14 @@ export default function Header() {
   }
 
   function scrollDynamicStyle() {
-    if (currentSection > 0) {
-      const position = Math.floor(
-        ITEM_WIDTH / 4 + (currentSection - 1) * (ITEM_WIDTH + ITEM_GAP),
-      );
-      return {
-        "--pos": position,
-      };
-    }
+    if (currentSection <= 0) return;
+
+    const position = Math.floor(
+      ITEM_WIDTH / 4 + (currentSection - 1) * (ITEM_WIDTH + ITEM_GAP),
+    );
+    return {
+      "--pos": position,
+    };
   }
 
   return (
