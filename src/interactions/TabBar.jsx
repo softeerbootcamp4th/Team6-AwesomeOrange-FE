@@ -1,7 +1,7 @@
 export default function TarBar({
   currentInteraction,
-  setCurrentInteraction,
   isJoinedList,
+  swiperRef,
 }) {
   return (
     <>
@@ -21,7 +21,7 @@ export default function TarBar({
         {isJoinedList.map((isJoined, index) => (
           <div
             key={index}
-            onClick={() => setCurrentInteraction(index)}
+            onClick={() => swiperRef.current.swiper.slideTo(index)}
             className="flex flex-col items-center select-none"
           >
             <img
