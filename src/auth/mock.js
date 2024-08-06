@@ -41,6 +41,25 @@ const handlers = [
       return HttpResponse.json({ token: "test_token" });
     },
   ),
+
+  http.post(
+    "/api/v1/event-user/login",
+    async ({ request }) => {
+      const { name, phoneNumber } = await request.json();
+
+      if (!isValidInput(name, phoneNumber))
+        return HttpResponse.json(
+          { error: "응답 내용이 잘못됨" },
+          { status: 400 },
+        );
+      if (name !== "오렌지" || phoneNumber !== "01019991999")
+        return HttpResponse.json(
+          { error: "사용자 없음" },
+          { status: 404 },
+        );
+      return HttpResponse.json({ token: "test_token" });
+    },
+  ),
 ];
 
 export default handlers;

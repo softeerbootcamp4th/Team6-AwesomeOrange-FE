@@ -1,4 +1,5 @@
 import { useState } from "react";
+import requestLogin from "./requestLogin.js";
 import Input from "@/common/Input.jsx";
 import PhoneInput from "@/common/PhoneInput.jsx";
 import Button from "@/common/Button.jsx";
@@ -10,6 +11,12 @@ function AuthFindSection({ goPrev, onComplete }) {
 
   function onSubmit(e) {
     e.preventDefault();
+    requestLogin(name, phone)
+      .then(()=>{
+        setErrorMessage("");
+        onComplete(false);
+      })
+      .catch((error) => setErrorMessage(error.message));
   }
 
   return (
@@ -45,7 +52,7 @@ function AuthFindSection({ goPrev, onComplete }) {
           </label>
         </div>
         <p className="w-full h-4 mt-1 text-center text-detail-l text-red-500">
-          에러
+          {errorMessage}
         </p>
         <div className="w-full flex flex-col items-center gap-5">
           <Button styleType="filled" type="submit" className="w-36 min-h-14">
