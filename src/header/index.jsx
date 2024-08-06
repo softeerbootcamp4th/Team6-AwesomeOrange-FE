@@ -33,12 +33,8 @@ export default function Header() {
 
   function scrollDynamicStyle() {
     if (currentSection <= 0) return;
-
-    const position = Math.floor(
-      ITEM_WIDTH / 4 + (currentSection - 1) * (ITEM_WIDTH + ITEM_GAP),
-    );
     return {
-      "--pos": position,
+      "--section": currentSection,
     };
   }
 
@@ -46,17 +42,17 @@ export default function Header() {
     <div className="sticky top-0 h-[60px] z-40 bg-white/[.36] backdrop-blur-xl flex justify-center items-center font-bold select-none">
       <span
         onClick={gotoTop}
-        className="absolute left-9 text-black text-body-l cursor-pointer"
+        className="absolute left-6 lg:left-9 text-black text-body-l cursor-pointer"
       >
         The new IONIQ 5
       </span>
 
-      <div className={`flex h-full gap-8 text-body-m relative`}>
+      <div className={`hidden md:flex h-full gap-4 lg:gap-8 text-body-s lg:text-body-m relative`}>
         {scrollSectionList.map((scrollSection, index) => (
           <div
             key={index}
             onClick={() => onClickScrollSection(index + 1)}
-            className={`flex justify-center items-center w-24 cursor-pointer ${currentSection - 1 === index ? "text-black" : "text-neutral-300"}`}
+            className={`flex justify-center items-center w-20 lg:w-24 cursor-pointer ${currentSection - 1 === index ? "text-black" : "text-neutral-300"}`}
           >
             {scrollSection}
           </div>
@@ -64,13 +60,13 @@ export default function Header() {
 
         <div
           style={scrollDynamicStyle()}
-          className={`w-[50px] h-[3px] bg-black transition ease-in-out duration-200 absolute bottom-0 left-0 ${currentSection > 0 ? style.moveBar : "hidden"}`}
+          className={`w-20 lg:w-24 h-[3px] transition-transform ease-in-out-cubic duration-200 absolute bottom-0 left-0 ${currentSection > 0 ? style.moveBar : "hidden"}`}
         />
       </div>
 
       <button
         onClick={openVerifyModal}
-        className="absolute right-[46px] bg-blue-400 text-white text-body-s py-3 px-4"
+        className="hidden md:block absolute right-6 lg:right-[2.875rem] bg-blue-400 text-white text-body-s py-3 px-4"
       >
         본인인증하기
       </button>
