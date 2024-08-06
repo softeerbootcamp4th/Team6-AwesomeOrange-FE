@@ -5,7 +5,7 @@ import submitAuthCode from "./submitAuthCode.js";
 import requestAuthCode from "../requestAuthCode.js";
 import Button from "@/common/Button.jsx";
 
-const AUTH_MAX_DURATION = 1 * 60;
+const AUTH_MAX_DURATION = 5 * 60;
 
 function AuthSecondSection({ name, phone }) {
   // 상태
@@ -52,6 +52,8 @@ function AuthSecondSection({ name, phone }) {
             setText={setAuthCode}
             timer={timer}
             required
+            minLength="6"
+            maxLength="6"
             placeholder="인증번호를 입력해주세요"
             isError={errorMessage !== "" || timer === 0}
           />
@@ -59,7 +61,7 @@ function AuthSecondSection({ name, phone }) {
             {errorMessage || (timer === 0 ? "입력시간이 종료되었습니다." : "")}
           </span>
         </div>
-        <div className="w-full flex justify-center gap-5">
+        <div className="w-full flex flex-wrap justify-center gap-5">
           <Button styleType="filled" type="submit" className="w-36 min-h-14" disabled={timer === 0}>
             인증 완료하기
           </Button>
