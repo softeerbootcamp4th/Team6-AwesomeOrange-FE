@@ -1,12 +1,14 @@
 import { fetchServer, handleError } from "@/common/fetchServer.js";
+import tokenSaver from "../tokenSaver.js";
 
 async function requestLogin(name, phoneNumber) {
   try {
     const body = { name, phoneNumber: phoneNumber.replace(/\D+/g, "") };
-    await fetchServer("/api/v1/event-user/login", {
+    const { token } = await fetchServer("/api/v1/event-user/login", {
       method: "post",
       body,
     });
+    tokenSaver.set(token);
     return "";
   } catch (e) {
   	return handleError({
