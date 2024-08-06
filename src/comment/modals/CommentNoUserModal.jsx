@@ -10,8 +10,8 @@ function CommentNoUserModal()
 
   function toMoveInteraction()
   {
-    scrollTo(INTERACTION_SECTION);
     close();
+    scrollTo(INTERACTION_SECTION);
   }
 
 	return <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[31.25rem] p-10 shadow bg-white relative flex flex-col justify-between items-center">

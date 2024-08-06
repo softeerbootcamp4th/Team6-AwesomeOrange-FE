@@ -41,7 +41,7 @@ const handlers = [
   http.post("/api/v1/comment/:eventFrameId", async ({request}) => {
     const token = request.headers.get("authorization");
 
-    if(token === undefined) return HttpResponse.json(false, { status: 401 });
+    if(token === null) return HttpResponse.json(false, { status: 401 });
 
     const { content } = await request.json();
 
