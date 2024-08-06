@@ -1,10 +1,20 @@
 import { useState } from "react";
 import InputWithTimer from "./InputWithTimer.jsx";
+import useTimer from "./useTimer.js";
 import Button from "@/common/Button.jsx";
+
+const AUTH_MAX_DURATION = 1 * 60;
 
 function AuthSecondSection({ phone }) {
   const [authNumber, setAuthNumber] = useState("");
+  const [timer, resetTimer] = useTimer(AUTH_MAX_DURATION);
+
   //const [ errorMessage, setErrorMessage ] = useState("");
+
+  function retryAuthCode()
+  {
+    resetTimer();
+  }
 
   const josa = "013678".includes(phone[phone.length - 1]) ? "으" : "";
   return (
@@ -19,6 +29,7 @@ function AuthSecondSection({ phone }) {
           <InputWithTimer
             text={authNumber}
             setText={setAuthNumber}
+            timer={timer}
             required
             placeholder="인증번호를 입력해주세요"
           />
@@ -30,7 +41,7 @@ function AuthSecondSection({ phone }) {
           <Button styleType="filled" type="submit" className="w-36 min-h-14">
             인증 완료하기
           </Button>
-          <Button styleType="ghost" type="button" className="min-h-14">
+          <Button styleType="ghost" type="button" className="min-h-14" onClick={retryAuthCode}>
             재전송
           </Button>
         </div>

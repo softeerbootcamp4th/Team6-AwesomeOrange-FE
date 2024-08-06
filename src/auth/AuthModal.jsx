@@ -10,7 +10,7 @@ function AuthModal() {
   const close = useContext(ModalCloseContext);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [page, setPage] = useState(AUTH_INPUT_PAGE);
+  const [page, setPage] = useState(AUTH_CODE_PAGE);
   const firstSectionProps = {
     name,
     setName,
