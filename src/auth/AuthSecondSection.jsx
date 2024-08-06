@@ -9,7 +9,6 @@ const AUTH_MAX_DURATION = 1 * 60;
 function AuthSecondSection({ name, phone }) {
   const [authNumber, setAuthNumber] = useState("");
   const [timer, resetTimer] = useTimer(AUTH_MAX_DURATION);
-
   const [ errorMessage, setErrorMessage ] = useState("");
 
   function retryAuthCode(e) {
@@ -40,7 +39,7 @@ function AuthSecondSection({ name, phone }) {
             placeholder="인증번호를 입력해주세요"
           />
           <span className="absolute bottom-5 text-detail-l font-bold text-red-400">
-            {"errorMessage"}
+            {errorMessage && (timer === 0 ? "입력시간이 종료되었습니다." : "")}
           </span>
         </div>
         <div className="w-full flex justify-center gap-5">
