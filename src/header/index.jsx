@@ -1,10 +1,10 @@
 import style from "./index.module.css";
 import scrollTo from "../scroll/scrollTo";
 import { useSectionStore } from "../scroll/store";
+import openModal from "@/modal/openModal.js";
+import AuthModal from "@/auth/AuthModal.jsx";
 
 export default function Header() {
-  const ITEM_WIDTH = 96; // w-24
-  const ITEM_GAP = 32; // gap-8
   const currentSection = useSectionStore((state) => {
     return state.isVisibleList.findIndex((value) => value === true);
   });
@@ -14,6 +14,8 @@ export default function Header() {
     "기대평",
     "선착순 이벤트",
   ];
+  const welcomeModal = <div>화녕해!</div>;
+  const authModal = <AuthModal onComplete={(isFreshMember)=>openModal(welcomeModal)} />;
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -26,9 +28,7 @@ export default function Header() {
   }
 
   function openVerifyModal() {
-    /*
-     *  본인인증 모달 여는 코드 미작성
-     */
+    openModal(authModal);
   }
 
   function scrollDynamicStyle() {
