@@ -1,5 +1,6 @@
 import { fetchServer, HTTPError } from "@/common/fetchServer.js";
 import { EVENT_ID } from "@/common/constants.js";
+import tokenSaver from "../tokenSaver.js";
 
 async function submitAuthCode(name, phoneNumber, authCode) {
   try {
@@ -8,10 +9,11 @@ async function submitAuthCode(name, phoneNumber, authCode) {
       phoneNumber: phoneNumber.replace(/\D+/g, ""),
       authCode,
     };
-    await fetchServer(`/api/v1/event-user/check-auth/${EVENT_ID}`, {
+    const { token } = await fetchServer(`/api/v1/event-user/check-auth/${EVENT_ID}`, {
       method: "post",
       body,
     });
+    tokenSaver.set(token);
     return "";
   } catch (e) {
     if (e instanceof HTTPError) {

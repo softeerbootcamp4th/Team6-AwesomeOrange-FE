@@ -1,4 +1,5 @@
 import wrapPromise from "./wrapPromise.js";
+import tokenSaver from "@/auth/tokenSaver.js";
 
 const cacheMap = new Map();
 const CACHE_DURATION = 0.2 * 1000;
@@ -29,10 +30,18 @@ function fetchServer(url, options = {}) {
       options.headers["Content-Type"] === "application/json")
   ) {
     fetchOptions.headers = {
-      ...(fetchOptions?.headers ?? {}),
+      ...(fetchOptions.headers ?? {}),
       "Content-Type": "application/json",
     };
     fetchOptions.body = JSON.stringify(options.body);
+  }
+  
+  // token이 존재한다면, 토큰을 요청할 때 끼워넣습니다.
+  if(tokenSaver.has()) {
+    fetchOptions.headers = {
+      ...(fetchOptions.headers ?? {}),
+      Authorization: `Bearer ${tokenSaver.get()}`
+    }
   }
 
   const promise = fetch(url, fetchOptions)
