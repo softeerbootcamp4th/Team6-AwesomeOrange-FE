@@ -70,8 +70,8 @@ function fetchServer(url, options = {}) {
   return promise;
 }
 
-function fetchResource(url) {
-  return wrapPromise(fetchServer(url));
+function fetchResource(url, loginStatus = false) {
+  return wrapPromise(fetchServer(url, {credentials : loginStatus ? "include" : "same-origin"}));
 }
 
 function handleError(errorDescriptor) {

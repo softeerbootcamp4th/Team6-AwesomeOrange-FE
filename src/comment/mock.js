@@ -52,6 +52,12 @@ const handlers = [
     commentSet.add(token);
     return HttpResponse.json(true, { status: 200 });
   }),
+  http.get("/api/v1/comment/info", ({request}) => {
+    const token = request.headers.get("authorization");
+
+    if (token === null) return HttpResponse.json({submitted: false});
+    return HttpResponse.json({submitted: commentSet.has(token)});
+  })
 ];
 
 export default handlers;
