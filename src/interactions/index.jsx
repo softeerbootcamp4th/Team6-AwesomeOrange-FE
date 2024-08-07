@@ -4,7 +4,7 @@ import useSwiperState from "@/common/useSwiperState";
 import IntroductionDetail from "./IntroductionDetail";
 import GiftDetail from "./GiftDetail";
 import JSONData from "./content.json";
-import TapBar from "./TabBar";
+import TapBar from "./TapBar";
 import InteractionSlide from "./InteractionSlide";
 
 export default function InteractionPage() {
