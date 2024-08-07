@@ -1,4 +1,4 @@
-export default function TarBar({
+export default function TapBar({
   currentInteraction,
   joinedList,
   swiperRef,

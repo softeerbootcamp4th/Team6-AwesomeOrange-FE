@@ -4,7 +4,7 @@ import useSwiperState from "@/common/useSwiperState";
 import IntroductionDetail from "./IntroductionDetail";
 import GiftDetail from "./GiftDetail";
 import JSONData from "./content.json";
-import TabBar from "./TabBar";
+import TapBar from "./TabBar";
 import InteractionSlide from "./InteractionSlide";
 
 export default function InteractionPage() {
@@ -20,7 +20,7 @@ export default function InteractionPage() {
       ref={sectionRef}
       className="bg-black py-60 flex flex-col items-center"
     >
-      <TabBar
+      <TapBar
         currentInteraction={currentInteraction}
         joinedList={joinedList}
         swiperRef={swiperRef}
