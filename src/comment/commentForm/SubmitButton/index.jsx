@@ -1,22 +1,18 @@
-import { useMemo } from "react";
-import useAuthStore from "@/auth/store.js";
-import CommentSubmitButtonContent from "./CommentSubmitButton.jsx";
 import Button from "@/common/Button.jsx";
-import {fetchResource} from "@/common/fetchServer.js";
-import Suspense from "@/common/Suspense.jsx";
-import ErrorBoundary from "@/common/Suspense.jsx";
 
-function CommentSubmitButton()
+function getMessageFromButtonFetchState(state)
 {
-	const isLogin = useAuthStore();
-	const resource = useMemo( ()=>fetchResource("/api/v1/comment/info", isLogin), [isLogin] );
-
-	return <ErrorBoundary fallback={<Button styleType="filled" disabled>에러</Button>}>
-		<Suspense fallback={<Button styleType="filled" disabled>...</Button>}>
-			<CommentSubmitButtonContent resource={resource} />
-		</Suspense>
-	</ErrorBoundary>
+	if(state === "pending") return "...";
+	if(state === "error") return "error";
+	if(state === "enabled") return "기대평 등록";
+	return "오늘의 기대평 등록이 완료되었어요";
 }
 
+function CommentSubmitButton({state})
+{
+	return <Button styleType="filled" type="submit" disabled={state !== "enabled"}>
+		{getMessageFromButtonFetchState(state)}
+	</Button>;
+}
 
 export default CommentSubmitButton;

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CommentSuccessModal from "../modals/CommentSuccessModal.jsx";
 import CommentNegativeModal from "../modals/CommentNegativeModal.jsx";
 import CommentNoUserModal from "../modals/CommentNoUserModal.jsx";
 import NoServerModal from "@/common/NoServerModal.jsx";
 import SubmitButton from "./SubmitButton";
+import useAuthState from "@/auth/store.js";
 
 import Button from "@/common/Button.jsx";
 import { fetchServer, handleError } from "@/common/fetchServer.js";
@@ -20,6 +21,27 @@ const submitCommentErrorHandle = {
 
 function CommentForm() {
   const [errorMessage, setErrorMessage] = useState("");
+  const [buttonFetchState, setButtonFetchState] = useState("pending");
+  const isLogin = useAuthState(state=>state.isLogin);
+
+  useEffect( ()=>{
+    const timeout = setTimeout( ()=>setErrorMessage("pending"), 300 );
+    fetchServer("/api/v1/comment/info", {credentials : isLogin ? "include" : "same-origin"})
+      .then( ({submitted})=>{
+        clearTimeout();
+        setButtonFetchState(submitted ? "disabled" : "enabled");
+      } )
+      .catch( (e)=>{
+        setButtonFetchState("error");
+      } )
+      .finally( ()=>{
+        clearTimeout(timeout);
+      } );
+
+    return ()=>{
+      clearTimeout(timeout);
+    }
+  }, [isLogin] );
 
   const successModal = <CommentSuccessModal />;
   const negativeModal = <CommentNegativeModal />;
@@ -40,6 +62,7 @@ function CommentForm() {
         body: { content },
       }).catch(handleError(submitCommentErrorHandle));
       openModal(successModal);
+      setButtonFetchState("disabled");
     } catch (e) {
       switch (e.message) {
         case submitCommentErrorHandle[400]:
@@ -48,6 +71,8 @@ function CommentForm() {
           return openModal(noUserModal);
         case submitCommentErrorHandle["offline"]:
           return openModal(noServerModal);
+        case submitCommentErrorHandle[409]:
+          return setButtonFetchState("disabled");
         default:
           setErrorMessage(e.message);
       }
@@ -67,7 +92,7 @@ function CommentForm() {
         className="w-full max-w-[1200px] h-20 px-3 py-6 placeholder:text-neutral-200 placeholder-shown:text-neutral-200 focus:outline-0 focus:bg-neutral-50 text-black text-body-l font-medium border-b-[3px] border-current"
         placeholder="최소 10, 최대 50자까지 입력해주세요."
       />
-      <SubmitButton />
+      <SubmitButton state={buttonFetchState} />
       <p className="absolute -bottom-6 text-detail-l font-bold text-red-400">
         {errorMessage}
       </p>

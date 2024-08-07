@@ -56,7 +56,7 @@ const handlers = [
     const token = request.headers.get("authorization");
 
     if (token === null) return HttpResponse.json({submitted: false});
-    return HttpResponse.json({submitted: commentSet.has(token)});
+    return HttpResponse.json({submitted: true});
   })
 ];
 
