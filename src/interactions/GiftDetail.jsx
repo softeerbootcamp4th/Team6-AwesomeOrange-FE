@@ -20,7 +20,7 @@ export default function GiftDetail({ contentList }) {
             </span>
           </div>
 
-          <div className="absolute right-0 top-0 z-40 translate-x-1/2 -translate-y-1/3">
+          <div className="absolute right-0 top-0 z-40 sm:translate-x-1/2 -translate-y-1/4">
             <Star fill={content.starColor} />
 
             <span
