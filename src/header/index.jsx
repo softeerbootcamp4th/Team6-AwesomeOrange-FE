@@ -1,9 +1,7 @@
 import style from "./index.module.css";
 import scrollTo from "../scroll/scrollTo";
 import { useSectionStore } from "../scroll/store";
-import openModal from "@/modal/openModal.js";
-import AuthModal from "@/auth/AuthModal.jsx";
-import WelcomeModal from "@/auth/Welcome";
+import AuthButtonSection from "./AuthButtonSection.jsx";
 
 export default function Header() {
   const currentSection = useSectionStore((state) => {
@@ -15,12 +13,6 @@ export default function Header() {
     "기대평",
     "선착순 이벤트",
   ];
-  const welcomeModal = <WelcomeModal />;
-  const authModal = (
-    <AuthModal
-      onComplete={(isFreshMember) => isFreshMember && openModal(welcomeModal)}
-    />
-  );
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -30,10 +22,6 @@ export default function Header() {
     if (index !== currentSection) {
       scrollTo(index);
     }
-  }
-
-  function openVerifyModal() {
-    openModal(authModal);
   }
 
   function scrollDynamicStyle() {
@@ -70,13 +58,7 @@ export default function Header() {
           className={`w-20 lg:w-24 h-[3px] transition-transform ease-in-out-cubic duration-200 absolute bottom-0 left-0 ${currentSection > 0 ? style.moveBar : "hidden"}`}
         />
       </div>
-
-      <button
-        onClick={openVerifyModal}
-        className="hidden md:block absolute right-6 lg:right-[2.875rem] bg-blue-400 text-white text-body-s py-3 px-4"
-      >
-        본인인증하기
-      </button>
+      <AuthButtonSection />
     </div>
   );
 }
