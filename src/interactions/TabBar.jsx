@@ -22,7 +22,7 @@ export default function TarBar({
           <div
             key={index}
             onClick={() => swiperRef.current.swiper.slideTo(index)}
-            className="flex flex-col items-center select-none"
+            className="flex flex-col items-center select-none cursor-pointer"
           >
             <img
               src="icons/check-mint.svg"

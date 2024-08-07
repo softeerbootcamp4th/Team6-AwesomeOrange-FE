@@ -1,3 +1,7 @@
+import openModal from "@/modal/openModal.js";
+import { lazy } from "react";
+import Suspense from "@/common/Suspense.jsx";
+
 export default function InteractionSlide({
   interactionDesc,
   index,
@@ -10,17 +14,42 @@ export default function InteractionSlide({
 
   function eventDate() {
     const day = ["일", "월", "화", "수", "목", "금", "토"];
-    const date = new Date(2024, 8, 9);
-    date.setDate(date.getDate() + index);
-    return `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}월 ${date.getDate() < 10 ? "0" : ""}${date.getDate()}일(${day[date.getDay()]})`;
+    const fullDate = new Date(2024, 8, 9);
+    fullDate.setDate(fullDate.getDate() + index);
+
+    const month = fullDate.getMonth();
+    const date = fullDate.getDate();
+
+    return `${month < 9 ? "0" : ""}${month + 1}월 ${date < 10 ? "0" : ""}${date}일(${day[fullDate.getDay()]})`;
   }
 
-  function onClickJoin() {
-    console.log("오픈");
+  const lazyInteractionList = [
+    lazy(() => import("./distanceDriven")),
+    lazy(() => import("./fastCharge")),
+    lazy(() => import("./univasalIsland")),
+    lazy(() => import("./v2l")),
+    lazy(() => import("./subsidy")),
+  ];
+
+  function onClickExperience() {
+    if (joined < 0) return;
+
+    const InteractionComponent = lazyInteractionList[index];
+    if (!InteractionComponent) return;
+
+    const InteractionModal = (
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="w-5/6 h-5/6 backdrop-blur-[100px] border border-neutral-600 rounded">
+          <InteractionComponent />
+        </div>
+      </Suspense>
+    );
+
+    openModal(InteractionModal, "interaction");
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
+    <div className="w-full h-full flex flex-col items-center select-none">
       <span className="pt-[150px] text-body-l text-white font-bold">
         {eventDate()}
       </span>
@@ -36,7 +65,7 @@ export default function InteractionSlide({
       </div>
 
       <button
-        onClick={onClickJoin}
+        onClick={onClickExperience}
         disabled={!isCurrent || joined < 0}
         className={`mt-8 py-4 px-10 bg-white ${joined < 0 ? "hidden" : isCurrent ? "opacity-100" : "opacity-50"}`}
       >
