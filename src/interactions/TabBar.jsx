@@ -1,6 +1,6 @@
 export default function TarBar({
   currentInteraction,
-  isJoinedList,
+  joinedList,
   swiperRef,
 }) {
   return (
@@ -17,8 +17,8 @@ export default function TarBar({
         {`The new IONIQ 5의 새로운 기능을 날마다 체험하고 이벤트에 응모하세요!\n추첨을 통해 IONIQ과 함께하는 제주 여행 패키지를 드립니다`}
       </span>
 
-      <div className="py-12 flex gap-[60px]">
-        {isJoinedList.map((isJoined, index) => (
+      <div className="py-12 flex gap-5 sm:gap-[60px]">
+        {joinedList.map((joined, index) => (
           <div
             key={index}
             onClick={() => swiperRef.current.swiper.slideTo(index)}
@@ -27,19 +27,19 @@ export default function TarBar({
             <img
               src="icons/check-mint.svg"
               alt="체크"
-              className={`${isJoined > 0 ? "" : "invisible"}`}
+              className={`${joined > 0 ? "" : "invisible"}`}
             />
 
             <span
-              className={`text-body-l  font-bold ${currentInteraction === index ? "text-neutral-100" : "text-neutral-500"}`}
+              className={`text-body-l font-bold transition ease-in-out duration-200 ${currentInteraction === index ? "text-neutral-100" : "text-neutral-500"}`}
             >
               Day{index + 1}
             </span>
 
             <span
-              className={`text-body-m font-bold ${isJoined > 0 ? "text-green-400" : "text-neutral-700"}`}
+              className={`text-body-m font-bold ${joined > 0 ? "text-green-400" : "text-neutral-700"}`}
             >
-              {isJoined > 0 ? "참여 완료" : !isJoined ? "미참여" : ""}
+              {joined > 0 ? "참여 완료" : !joined ? "미참여" : ""}
             </span>
           </div>
         ))}

@@ -13,7 +13,7 @@ export default function InteractionPage() {
   const [currentInteraction, swiperRef] = useSwiperState();
   useSectionInitialize(SECTION_IDX, sectionRef);
 
-  const isJoinedList = [1, 0, 0, 1, -1];
+  const joinedList = [1, 0, 0, 1, -1];
 
   return (
     <section
@@ -22,7 +22,7 @@ export default function InteractionPage() {
     >
       <TabBar
         currentInteraction={currentInteraction}
-        isJoinedList={isJoinedList}
+        joinedList={joinedList}
         swiperRef={swiperRef}
       />
 
@@ -34,9 +34,14 @@ export default function InteractionPage() {
         speed="200"
         ref={swiperRef}
       >
-        {JSONData.interaction.map((interaction) => (
-          <swiper-slide key={interaction} class="w-[566px] h-[456px] bg-white">
-            <InteractionSlide interaction={interaction} />
+        {JSONData.interaction.map((interactionDesc, index) => (
+          <swiper-slide key={index} class="w-[566px] h-[456px]">
+            <InteractionSlide
+              interactionDesc={interactionDesc}
+              index={index}
+              isCurrent={currentInteraction === index}
+              joined={joinedList[index]}
+            />
           </swiper-slide>
         ))}
       </swiper-container>
