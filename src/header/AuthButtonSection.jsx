@@ -15,7 +15,7 @@ function AuthButtonSection()
 		/>
 	);
 
-	if(isLogin) return <div>{userName}님 환영합니다.</div>
+	if(isLogin) return <div className="text-body-s lg:text-body-m text-black">{userName}님 환영합니다.</div>
 
 	return <button
 		onClick={()=>openModal(authModal)}
