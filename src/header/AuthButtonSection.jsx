@@ -19,7 +19,7 @@ function AuthButtonSection()
 
 	return <button
 		onClick={()=>openModal(authModal)}
-		className="hidden md:block absolute right-6 lg:right-[2.875rem] bg-blue-400 text-white text-body-s py-3 px-4"
+		className="lg:right-[2.875rem] bg-blue-400 text-white text-body-s py-3 px-4"
 	>
 		본인인증하기
 	</button>
