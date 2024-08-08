@@ -18,7 +18,9 @@ function formatDate(dateString) {
 }
 
 function CommentCarousel() {
-  const {comments} = useQuery( "comment-data", ()=>fetchServer("/api/v1/comment") );
+  const { comments } = useQuery("comment-data", () =>
+    fetchServer("/api/v1/comment"),
+  );
 
   return (
     <div className="w-full h-[29rem]">

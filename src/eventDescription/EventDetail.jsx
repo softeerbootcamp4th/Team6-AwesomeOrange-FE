@@ -1,6 +1,12 @@
 import makeHighlight from "./makeHighlight.jsx";
 
-export default function EventDetail({ durationYear, duration, announceDate, announceDateCaption, howto }) {
+export default function EventDetail({
+  durationYear,
+  duration,
+  announceDate,
+  announceDateCaption,
+  howto,
+}) {
   return (
     <div className="flex flex-col">
       <span className="text-body-l pb-10 text-neutral-50 font-bold">
@@ -13,9 +19,7 @@ export default function EventDetail({ durationYear, duration, announceDate, anno
 
           <span className="pt-6 text-body-m text-blue-100">{durationYear}</span>
 
-          <span className="text-body-l text-blue-400">
-            {duration}
-          </span>
+          <span className="text-body-l text-blue-400">{duration}</span>
         </div>
 
         <div className="bg-neutral-900 p-6 flex flex-col">
@@ -42,7 +46,9 @@ export default function EventDetail({ durationYear, duration, announceDate, anno
               <span className="size-6 flex justify-center items-center bg-neutral-100 text-neutral-900 text-body-s px-2 py-0.5 rounded flex-shrink-0">
                 {index + 1}
               </span>
-              <p className="text-neutral-400 text-body-m">{makeHighlight(description, "text-white")}</p>
+              <p className="text-neutral-400 text-body-m">
+                {makeHighlight(description, "text-white")}
+              </p>
             </li>
           ))}
         </ul>

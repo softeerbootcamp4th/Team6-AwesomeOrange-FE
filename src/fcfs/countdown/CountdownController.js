@@ -20,7 +20,7 @@ class CountdownController extends EventTarget {
     this.#isTicking = true;
 
     let delta = (this.targetTime - this.currentTime) % 1000;
-    if(delta < 0) delta += 1000;
+    if (delta < 0) delta += 1000;
     this.#expected = performance.now() + delta;
     this.#timeout = setTimeout(() => this.#step(delta), delta);
   }
@@ -34,11 +34,16 @@ class CountdownController extends EventTarget {
   }
   #step(originDelta) {
     const errorDelta = this.#expected - performance.now();
-    
+
     this.#expected += this.interval;
     this.currentTime += originDelta;
-    this.dispatchEvent(new CustomEvent("interval", {details: this.targetTime - this.currentTime}));
-    if(this.currentTime === this.targetTime) this.dispatchEvent(new Event("countover"));
+    this.dispatchEvent(
+      new CustomEvent("interval", {
+        details: this.targetTime - this.currentTime,
+      }),
+    );
+    if (this.currentTime === this.targetTime)
+      this.dispatchEvent(new Event("countover"));
     if (this.callback) this.callback();
     this.#timeout = setTimeout(
       () => this.#step(this.interval),
