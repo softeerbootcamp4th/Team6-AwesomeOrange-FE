@@ -6,6 +6,43 @@
 	transform: rotateY(180deg);
 }
 
+.front {
+	transition: filter 0.1s ease-out;
+}
+
+.pending {
+	animation: 0.2s linear 0.3s infinite shake; 
+}
+
+.pending .front {
+	filter: brightness(2.9) drop-shadow(0px 0px 40px white);
+	transition: filter 0.8s ease-out;
+}
+
 .back {
 	transform: translateZ(-0.1px) rotateY(180deg);
+}
+
+@keyframes shake {
+	0% {
+		transform: rotate(0deg);
+	}
+	10% {
+		transform: rotate(5deg);
+	}
+	30% {
+		transform: rotate(-3deg);
+	}
+	50% {
+		transform: rotate(6deg);
+	}
+	70% {
+		transform: rotate(-5deg);
+	}
+	90% {
+		transform: rotate(4deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
 }

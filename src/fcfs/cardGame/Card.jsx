@@ -10,27 +10,28 @@ import hidden2x from "./assets/hidden@2x.png";
 function Card({index, offline, locked, fliped, setGlobalLock})
 {
 	const [isFlipped, setFlipped] = useState(fliped);
+	const [isPending, setPending] = useState(false);
 	const [isCorrect, setIsCorrect] = useState(false);
 	const cardFaceBaseStyle = "absolute top-0 left-0 w-full h-full";
 
 	function flip()
 	{
 		setGlobalLock(true);
-		if(offline) return setFlipped(true);
+		if(offline) return setPending(true);
 
-		setFlipped(true);
+		setPending(true);
 	}
 
 	const answer1x = isCorrect ? correct1x : failed1x;
 	const answer2x = isCorrect ? correct2x : failed2x;
 
 	return <button 
-		className={`w-60 h-80 relative transition-all duration-200 ease-in-out-cubic ${style.card} ${isFlipped ? style.flipped : ""}`}
+		className={`w-60 h-80 relative transition-all duration-200 ease-in-out-cubic ${style.card} ${isPending && !isFlipped ? style.pending : ""} ${isFlipped ? style.flipped : ""}`}
 		onClick={flip}
 		onTransitionEnd={ ()=>setGlobalLock(false) }
 		disabled={locked || fliped || isFlipped}
 	>
-		<div className={`${cardFaceBaseStyle}`}>
+		<div className={`${cardFaceBaseStyle} ${style.front}`}>
 			<img src={hidden1x} srcSet={`${hidden1x} 1x, ${hidden2x} 2x`} alt="hidden" className="w-full h-full" draggable="false" />
 		</div>
 		<div className={`${cardFaceBaseStyle} ${style.back}`}>
