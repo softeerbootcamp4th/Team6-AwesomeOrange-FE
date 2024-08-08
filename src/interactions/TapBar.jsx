@@ -1,8 +1,4 @@
-export default function TapBar({
-  currentInteraction,
-  joinedList,
-  swiperRef,
-}) {
+export default function TapBar({ currentInteraction, joinedList, swiperRef }) {
   return (
     <>
       <span className="py-5 text-body-l text-neutral-200 font-bold items-center border-b-[3px] border-b-neutral-400">

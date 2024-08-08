@@ -10,7 +10,6 @@ import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
 import { EVENT_ID } from "@/common/constants.js";
 import openModal from "@/modal/openModal.js";
 
-
 const submitCommentErrorHandle = {
   400: "negative",
   401: "unauthorized",
@@ -21,27 +20,29 @@ const submitCommentErrorHandle = {
 function CommentForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [buttonFetchState, setButtonFetchState] = useState("pending");
-  const isLogin = useAuthState(state=>state.isLogin);
+  const isLogin = useAuthState((state) => state.isLogin);
 
-  useEffect( ()=>{
-    const timeout = setTimeout( ()=>setErrorMessage("pending"), 300 );
-    fetchServer("/api/v1/comment/info", {credentials : isLogin ? "include" : "same-origin"})
-      .then( ({submitted})=>{
+  useEffect(() => {
+    const timeout = setTimeout(() => setErrorMessage("pending"), 300);
+    fetchServer("/api/v1/comment/info", {
+      credentials: isLogin ? "include" : "same-origin",
+    })
+      .then(({ submitted }) => {
         clearTimeout();
         setButtonFetchState(submitted ? "disabled" : "enabled");
-      } )
-      .catch( (e)=>{
+      })
+      .catch((e) => {
         console.error(e);
         setButtonFetchState("error");
-      } )
-      .finally( ()=>{
+      })
+      .finally(() => {
         clearTimeout(timeout);
-      } );
+      });
 
-    return ()=>{
+    return () => {
       clearTimeout(timeout);
-    }
-  }, [isLogin] );
+    };
+  }, [isLogin]);
 
   const successModal = <CommentSuccessModal />;
   const negativeModal = <CommentNegativeModal />;

@@ -33,16 +33,11 @@ export default function Header() {
 
   return (
     <nav className="sticky top-0 h-[60px] z-40 bg-white/[.36] backdrop-blur-xl flex justify-between px-6 lg:px-9 items-center font-bold select-none">
-      <span
-        onClick={gotoTop}
-        className="text-black text-body-l cursor-pointer"
-      >
+      <span onClick={gotoTop} className="text-black text-body-l cursor-pointer">
         The new IONIQ 5
       </span>
 
-      <ul
-        className="hidden md:flex h-full gap-4 lg:gap-8 text-body-s lg:text-body-m relative"
-      >
+      <ul className="hidden md:flex h-full gap-4 lg:gap-8 text-body-s lg:text-body-m relative">
         {scrollSectionList.map((scrollSection, index) => (
           <li
             key={index}
