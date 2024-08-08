@@ -14,3 +14,5 @@ export function getQuery(key, promiseFn) {
 export function useQuery(key, promiseFn) {
 	return use(getQuery(key, promiseFn));
 }
+
+export const getQuerySuspense = useQuery;

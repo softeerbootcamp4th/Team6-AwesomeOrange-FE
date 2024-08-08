@@ -1,20 +1,20 @@
-import { useSyncExternalStore, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 
-const mountedStore = {
-  mounted: false,
-  listeners: new Set(),
-  mount() {
-    mountedStore.mounted = true;
-    mountedStore.listeners.forEach((listener) => listener());
-  },
-  subscribe(listener) {
-    mountedStore.listeners.add(listener);
-    return () => mountedStore.listeners.delete(listener);
-  },
-  getSnapshot() {
-    return mountedStore.mounted;
-  },
-};
+// const mountedStore = {
+//   mounted: false,
+//   listeners: new Set(),
+//   mount() {
+//     mountedStore.mounted = true;
+//     mountedStore.listeners.forEach((listener) => listener());
+//   },
+//   subscribe(listener) {
+//     mountedStore.listeners.add(listener);
+//     return () => mountedStore.listeners.delete(listener);
+//   },
+//   getSnapshot() {
+//     return mountedStore.mounted;
+//   },
+// };
 
 /**
  * react 클라이언트 only 래퍼 입니다.
@@ -23,13 +23,10 @@ const mountedStore = {
  */
 export default function ClientOnly({ children, fallback }) {
   const mounted = useSyncExternalStore(
-    mountedStore.subscribe,
-    mountedStore.getSnapshot,
+    () => {},
+    () => true,
     () => false,
   );
-  useEffect(() => {
-    mountedStore.mount();
-  }, []);
 
   if (!mounted) return fallback;
   return children;
