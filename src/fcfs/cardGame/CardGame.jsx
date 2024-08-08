@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useFcfsStore from "../store.js";
 import * as Status from "../constants.js";
 import CardGameTitle from "./CardGameTitle.jsx";
@@ -13,14 +14,16 @@ function getLocked(eventStatus, isParticipated, offline)
 
 function CardGame({offline})
 {
+	const [transLocked, setTransLocked] = useState(false);
 	const eventStatus = useFcfsStore( store=>store.eventStatus );
 	const isParticipated = useFcfsStore( store=>store.isParticipated );
 	const isOffline = offline || (eventStatus === Status.OFFLINE);
 	const isLocked = getLocked(eventStatus, isParticipated, offline);
 	const cardProps = {
 		offline: isOffline,
-		locked: isLocked,
-		fliped: isParticipated
+		locked: isLocked || transLocked,
+		fliped: isParticipated,
+		setGlobalLock: setTransLocked
 	};
 
 	return <>

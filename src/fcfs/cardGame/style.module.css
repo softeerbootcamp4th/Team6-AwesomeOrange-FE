@@ -6,19 +6,6 @@
 	transform: rotateY(180deg);
 }
 
-.front {
-	background-color: #24adaf;
-}
-
 .back {
-	background-color: white;
 	transform: translateZ(-0.1px) rotateY(180deg);
-}
-
-.back.answer {
-	background-color: #123456;
-}
-
-.back.wrong {
-	background-color: #789123;
 }
