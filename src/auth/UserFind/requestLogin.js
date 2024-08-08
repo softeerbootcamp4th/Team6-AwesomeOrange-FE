@@ -1,4 +1,4 @@
-import { fetchServer, handleError } from "@/common/fetchServer.js";
+import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
 
 async function requestLogin(name, phoneNumber) {
   try {

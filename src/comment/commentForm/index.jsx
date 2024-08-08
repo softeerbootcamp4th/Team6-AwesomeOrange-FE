@@ -7,7 +7,7 @@ import SubmitButton from "./SubmitButton";
 import useAuthState from "@/auth/store.js";
 
 import Button from "@/common/Button.jsx";
-import { fetchServer, handleError } from "@/common/fetchServer.js";
+import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
 import { EVENT_ID } from "@/common/constants.js";
 import openModal from "@/modal/openModal.js";
 
