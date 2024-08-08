@@ -7,6 +7,7 @@ export default function InteractionSlide({
   index,
   isCurrent,
   joined,
+  swiperRef,
 }) {
   const activeImgPath = `active${index + 1}.png`;
   const inactiveImgPath = `inactive${index + 1}.png`;
@@ -49,7 +50,10 @@ export default function InteractionSlide({
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center select-none">
+    <div
+      onClick={() => swiperRef.current.swiper.slideTo(index)}
+      className="w-full h-full flex flex-col items-center select-none"
+    >
       <span className="pt-[150px] text-body-l text-white font-bold">
         {eventDate()}
       </span>
@@ -70,7 +74,7 @@ export default function InteractionSlide({
         className={`mt-8 py-4 px-10 bg-white ${joined < 0 ? "hidden" : isCurrent ? "opacity-100" : "opacity-50"}`}
       >
         <span className="text-body-s text-black font-bold">
-          안터랙션 체험하기
+          인터랙션 체험하기
         </span>
       </button>
 
