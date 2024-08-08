@@ -1,6 +1,5 @@
 import openModal from "@/modal/openModal.js";
-import { lazy } from "react";
-import Suspense from "@/common/Suspense.jsx";
+import InteractionModal from "./InteractionModal";
 
 export default function InteractionSlide({
   interactionDesc,
@@ -24,29 +23,10 @@ export default function InteractionSlide({
     return `${month < 9 ? "0" : ""}${month + 1}월 ${date < 10 ? "0" : ""}${date}일(${day[fullDate.getDay()]})`;
   }
 
-  const lazyInteractionList = [
-    lazy(() => import("./distanceDriven")),
-    lazy(() => import("./fastCharge")),
-    lazy(() => import("./univasalIsland")),
-    lazy(() => import("./v2l")),
-    lazy(() => import("./subsidy")),
-  ];
-
   function onClickExperience() {
     if (joined < 0) return;
 
-    const InteractionComponent = lazyInteractionList[index];
-    if (!InteractionComponent) return;
-
-    const InteractionModal = (
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="w-5/6 h-5/6 backdrop-blur-[100px] border border-neutral-600 rounded">
-          <InteractionComponent />
-        </div>
-      </Suspense>
-    );
-
-    openModal(InteractionModal, "interaction");
+    openModal(<InteractionModal index={index}/>, "interaction");
   }
 
   return (
