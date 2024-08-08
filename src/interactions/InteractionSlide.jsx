@@ -1,12 +1,13 @@
 import openModal from "@/modal/openModal.js";
-import { lazy } from "react";
-import Suspense from "@/common/Suspense.jsx";
+import InteractionModal from "./InteractionModal";
 
 export default function InteractionSlide({
   interactionDesc,
   index,
   isCurrent,
   joined,
+  swiperRef,
+  answer,
 }) {
   const activeImgPath = `active${index + 1}.png`;
   const inactiveImgPath = `inactive${index + 1}.png`;
@@ -23,33 +24,20 @@ export default function InteractionSlide({
     return `${month < 9 ? "0" : ""}${month + 1}월 ${date < 10 ? "0" : ""}${date}일(${day[fullDate.getDay()]})`;
   }
 
-  const lazyInteractionList = [
-    lazy(() => import("./distanceDriven")),
-    lazy(() => import("./fastCharge")),
-    lazy(() => import("./univasalIsland")),
-    lazy(() => import("./v2l")),
-    lazy(() => import("./subsidy")),
-  ];
-
   function onClickExperience() {
     if (joined < 0) return;
 
-    const InteractionComponent = lazyInteractionList[index];
-    if (!InteractionComponent) return;
-
-    const InteractionModal = (
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="w-5/6 h-5/6 backdrop-blur-[100px] border border-neutral-600 rounded">
-          <InteractionComponent />
-        </div>
-      </Suspense>
+    openModal(
+      <InteractionModal index={index} answer={answer} />,
+      "interaction",
     );
-
-    openModal(InteractionModal, "interaction");
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center select-none">
+    <div
+      onClick={() => swiperRef.current.swiper.slideTo(index)}
+      className="w-full h-full flex flex-col items-center select-none"
+    >
       <span className="pt-[150px] text-body-l text-white font-bold">
         {eventDate()}
       </span>
@@ -70,7 +58,7 @@ export default function InteractionSlide({
         className={`mt-8 py-4 px-10 bg-white ${joined < 0 ? "hidden" : isCurrent ? "opacity-100" : "opacity-50"}`}
       >
         <span className="text-body-s text-black font-bold">
-          안터랙션 체험하기
+          인터랙션 체험하기
         </span>
       </button>
 
