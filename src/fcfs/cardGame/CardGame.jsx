@@ -1,4 +1,5 @@
 import useFcfsStore from "../store.js";
+import { OFFLINE }from "../constants.js";
 import CardGameTitle from "./CardGameTitle.jsx";
 
 function CardGame({offline})
@@ -7,7 +8,7 @@ function CardGame({offline})
 
 	return <div>
 		<div className="h-32 flex justify-center items-center">
-			<CardGameTitle status={offline ? "unknown" : eventStatus} />
+			<CardGameTitle status={offline ? OFFLINE : eventStatus} />
 		</div>
 	</div>
 }

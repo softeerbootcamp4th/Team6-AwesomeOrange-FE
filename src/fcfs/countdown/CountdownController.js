@@ -13,7 +13,6 @@ class CountdownController extends EventTarget {
     this.interval = 1000;
     this.currentTime = serverTime;
     this.targetTime = targetTime;
-    this.signiture = Math.floor(Math.random() * 10000);
   }
   start() {
     if (this.#isTicking) return;
@@ -38,7 +37,6 @@ class CountdownController extends EventTarget {
     
     this.#expected += this.interval;
     this.currentTime += originDelta;
-    console.log(this.signiture);
     this.dispatchEvent(new CustomEvent("interval", {details: this.targetTime - this.currentTime}));
     if(this.currentTime === this.targetTime) this.dispatchEvent(new Event("countover"));
     if (this.callback) this.callback();

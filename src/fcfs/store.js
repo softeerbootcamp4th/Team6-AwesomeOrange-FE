@@ -1,8 +1,11 @@
 import {create} from "zustand";
+import * as Status from "./constants.js";
 import CountdownController from "./countdown/CountdownController.js";
 import {fetchServer, HTTPError, ServerCloseError} from "@/common/dataFetch/fetchServer.js";
 import {getQuerySuspense} from "@/common/dataFetch/getQuery.js";
 import { EVENT_ID } from "@/common/constants.js";
+
+const HOURS = 60 * 60;
 
 async function getServerPresiseTime()
 {
@@ -26,11 +29,19 @@ async function getFcfsEventInfo()
 	}
 }
 
+function getEventStatusFromCount(countdown)
+{
+	if(countdown <= -7 * HOURS)  return Status.OFFLINE; 
+	if(countdown <= 0) return Status.PROGRESS;
+	if(countdown <= 3 * HOURS) return Status.COUNTDOWN;
+	return Status.WAITING;
+}
+
 const fcfsStore = create( (set, get)=>({
 	countdown: 0,
 	currentServerTime: 0,
 	currentEventTime: 0,
-	eventStatus: "unknown",
+	eventStatus: Status.OFFLINE,
 	getData: () => {
 		const promiseFn = async function () {
 			// get server time and event info
@@ -48,7 +59,10 @@ const fcfsStore = create( (set, get)=>({
 		return getQuerySuspense("fcfs-info-data", promiseFn, [set]);
 	},
 	setEventStatus: (eventStatus)=>set({eventStatus}) ,
-	handleCountdown: ()=>set( state=>({countdown: state.countdown - 1}) )
+	handleCountdown: ()=>set( state=>({
+		countdown: state.countdown - 1,
+		eventStatus: getEventStatusFromCount(state.countdown - 1)
+	}) )
 }) );
 
 export default fcfsStore;

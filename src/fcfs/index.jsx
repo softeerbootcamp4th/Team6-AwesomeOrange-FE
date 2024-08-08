@@ -2,6 +2,7 @@ import { useRef } from "react";
 import useSectionInitialize from "@/scroll/useSectionInitialize.js";
 import { FCFS_SECTION } from "@/common/constants.js";
 import CardGame from "./cardGame";
+import CountStarter from "./countdown/CountStarter.jsx";
 
 function FcfsSection() {
   const sectionRef = useRef(null);
@@ -23,6 +24,7 @@ function FcfsSection() {
       <div>
       	<CardGame />
       </div>
+      <CountStarter />
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import useFcfsStore from "../store.js";
+import * as Status from "../constants.js";
 import {convertSecondsToString} from "@/common/utils.js";
 
 function CardGameCountdown()
@@ -13,9 +14,9 @@ function CardGameTitle({status})
 {
 	const commonStyle =  "text-head-l md:text-7xl font-bold text-center";
 
-	if(status === "progress") return <h3 className={`${commonStyle} graphic-gradient text-transparent bg-clip-text`}>카드를 뒤집어 주세요!</h3>;
-	if(status === "countdown") return <CardGameCountdown />
-	if(status === "waiting") return <h3 className={`${commonStyle} text-white`}>오후 
+	if(status === Status.PROGRESS) return <h3 className={`${commonStyle} graphic-gradient text-transparent bg-clip-text`}>카드를 뒤집어 주세요!</h3>;
+	if(status === Status.COUNTDOWN) return <CardGameCountdown />
+	if(status === Status.WAITING) return <h3 className={`${commonStyle} text-white`}>오후 
 		<span className="text-6xl min-[420px]:text-8xl font-bold text-green-400 font-ds-digital align-sub md:align-text-bottom"> 05 : 00</span>
 	에 다시 만나요!</h3>;
 	return <div className="relative flex justify-center">
