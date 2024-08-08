@@ -7,7 +7,7 @@ function getLocked(eventStatus, isParticipated, offline)
 {
 	if(offline) return false;
 	if(isParticipated) return true;
-	if(eventStatus === Status.PROGRESS || eventStatus === OFFLINE) return false;
+	if(eventStatus === Status.PROGRESS || eventStatus === Status.OFFLINE) return false;
 	return true;
 }
 
@@ -20,7 +20,7 @@ function CardGame({offline})
 	const cardProps = {
 		offline: isOffline,
 		locked: isLocked,
-		filped: isParticipated
+		fliped: isParticipated
 	};
 
 	return <>
