@@ -6,7 +6,7 @@ export default function InteractionSlide({
   index,
   isCurrent,
   joined,
-  swiperRef,
+  slideTo,
   answer,
 }) {
   const activeImgPath = `active${index + 1}.png`;
@@ -35,7 +35,7 @@ export default function InteractionSlide({
 
   return (
     <div
-      onClick={() => swiperRef.current.swiper.slideTo(index)}
+      onClick={() => slideTo(index)}
       className="w-full h-full flex flex-col items-center select-none"
     >
       <span className="pt-[150px] text-body-l text-white font-bold">

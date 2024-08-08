@@ -41,7 +41,7 @@ export default function InteractionPage() {
               index={index}
               isCurrent={currentInteraction === index}
               joined={joinedList[index]}
-              swiperRef={swiperRef}
+              slideTo={(_index) => swiperRef.current.swiper.slideTo(_index)}
               answer={JSONData.answer[index]}
             />
           </swiper-slide>
