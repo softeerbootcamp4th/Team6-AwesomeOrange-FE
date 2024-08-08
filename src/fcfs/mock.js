@@ -7,6 +7,9 @@ const handlers = [
   http.get("/api/v1/event/fcfs/:eventFrameId/info", async ({ request }) => {
     return HttpResponse.json({ nowDateTime: "2024-08-08T05:00:02.000Z", eventStatus: "waiting" });
   }),
+  http.get("/api/v1/event/fcfs/participated", async ({ request }) => {
+    return HttpResponse.json({ answerResult: true, winner: false });
+  }),
 ];
 
 export default handlers;

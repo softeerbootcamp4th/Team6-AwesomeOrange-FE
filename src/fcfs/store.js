@@ -29,6 +29,19 @@ async function getFcfsEventInfo()
 	}
 }
 
+async function getFcfsParticipated()
+{
+	try {
+		const eventData = fetchServer(`/api/v1/event/fcfs/participated`); // ???
+		return eventData;
+	}
+	catch(e) {
+		if(e instanceof HTTPError && e.status === 404) return {answerResult: false, winner: false};
+		if(e instanceof ServerCloseError) return {answerResult: false, winner: false};
+		throw e;
+	}
+}
+
 function getEventStatusFromCount(countdown)
 {
 	if(countdown <= -7 * HOURS)  return Status.OFFLINE; 
@@ -42,19 +55,27 @@ const fcfsStore = create( (set, get)=>({
 	currentServerTime: 0,
 	currentEventTime: 0,
 	eventStatus: Status.OFFLINE,
+	isParticipated: false,
 	getData: () => {
 		const promiseFn = async function () {
 			// get server time and event info
-			const [serverTime, eventInfo] = await Promise.all( [ 
+			const [serverTime, eventInfo, participated] = await Promise.all( [ 
 				getServerPresiseTime(), 
-				getFcfsEventInfo()
+				getFcfsEventInfo(),
+				getFcfsParticipated()
 			]);
 			const currentServerTime = serverTime;
 			const currentEventTime = new Date(eventInfo.nowDateTime).getTime();
 
 			// get countdown and syncronize state
 			const countdown = Math.ceil((currentEventTime - currentServerTime) / 1000);
-			set( { currentServerTime, currentEventTime, countdown, eventStatus: eventInfo.eventStatus } );
+			set( { 
+				currentServerTime, 
+				currentEventTime, 
+				countdown, 
+				eventStatus: eventInfo.eventStatus,
+				isParticipated: participated.answerResult
+			} );
 		}
 		return getQuerySuspense("fcfs-info-data", promiseFn, [set]);
 	},
