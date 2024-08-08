@@ -1,7 +1,9 @@
 export default function IntroductionDetail({ contentList }) {
   return (
     <div className="flex flex-col">
-      <span className="text-body-l pb-10 text-neutral-50 font-bold">상세 안내</span>
+      <span className="text-body-l pb-10 text-neutral-50 font-bold">
+        상세 안내
+      </span>
 
       <div className="flex gap-5">
         <div className="bg-neutral-900 p-6 flex flex-col font-bold">

@@ -1,5 +1,4 @@
-import { fetchServer, handleError } from "@/common/fetchServer.js";
-import tokenSaver from "../tokenSaver.js";
+import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
 
 async function requestLogin(name, phoneNumber) {
   try {
@@ -8,8 +7,7 @@ async function requestLogin(name, phoneNumber) {
       method: "post",
       body,
     });
-    tokenSaver.set(token);
-    return "";
+    return token;
   } catch (e) {
     return handleError({
       400: "잘못된 요청 형식입니다.",

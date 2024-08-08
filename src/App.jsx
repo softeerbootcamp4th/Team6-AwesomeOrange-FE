@@ -8,11 +8,13 @@ import QnA from "./qna";
 import Footer from "./footer";
 import Modal from "./modal/modal.jsx";
 import InteractionPage from "./interactions";
+import { initLoginState } from "./auth/store.js";
 
 function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
     history.scrollRestoration = "manual";
+    initLoginState();
   }, []);
 
   return (

@@ -1,6 +1,5 @@
-import { fetchServer, handleError } from "@/common/fetchServer.js";
+import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
 import { EVENT_ID } from "@/common/constants.js";
-import tokenSaver from "../tokenSaver.js";
 
 async function submitAuthCode(name, phoneNumber, authCode) {
   try {
@@ -16,8 +15,7 @@ async function submitAuthCode(name, phoneNumber, authCode) {
         body,
       },
     );
-    tokenSaver.set(token);
-    return "";
+    return token;
   } catch (e) {
     return handleError({
       400: "잘못된 요청 형식입니다.",

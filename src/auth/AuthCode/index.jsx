@@ -28,9 +28,9 @@ function AuthSecondSection({ name, phone, onComplete }) {
   function onSubmit(e) {
     e.preventDefault();
     submitAuthCode(name, phone, authCode)
-      .then(() => {
+      .then((token) => {
         setErrorMessage("");
-        onComplete(true);
+        onComplete(token, true);
       })
       .catch((error) => {
         setErrorMessage(error.message);

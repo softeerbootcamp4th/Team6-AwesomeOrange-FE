@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import Suspense from "@/common/Suspense.jsx";
 import ErrorBoundary from "@/common/ErrorBoundary.jsx";
-import { fetchResource } from "@/common/fetchServer.js";
+import { fetchResource } from "@/common/dataFetch/fetchServer.js";
 import CommentCarousel from "./CommentCarousel.jsx";
 import CommentCarouselSkeleton from "./CommentCarouselSkeleton.jsx";
 import CommentCarouselError from "./CommentCarouselError.jsx";

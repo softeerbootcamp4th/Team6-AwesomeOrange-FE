@@ -3,6 +3,7 @@ import InfoInputStage from "./InfoInput";
 import AuthCodeStage from "./AuthCode";
 import UserFindStage from "./UserFind";
 import { ModalCloseContext } from "@/modal/modal.jsx";
+import { login } from "./store.js";
 
 const AUTH_INPUT_PAGE = Symbol("input");
 const AUTH_CODE_PAGE = Symbol("code");
@@ -13,7 +14,9 @@ function AuthModal({ onComplete: onCompleteCallback }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [page, setPage] = useState(AUTH_INPUT_PAGE);
-  function onComplete(isFreshMember) {
+
+  function onComplete(token, isFreshMember) {
+    login(token);
     onCompleteCallback(isFreshMember);
     close();
   }

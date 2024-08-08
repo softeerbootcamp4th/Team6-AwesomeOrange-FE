@@ -12,9 +12,9 @@ function AuthFindSection({ goPrev, onComplete }) {
   function onSubmit(e) {
     e.preventDefault();
     requestLogin(name, phone)
-      .then(() => {
+      .then((token) => {
         setErrorMessage("");
-        onComplete(false);
+        onComplete(token, false);
       })
       .catch((error) => setErrorMessage(error.message));
   }
