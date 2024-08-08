@@ -33,7 +33,7 @@ const handlers = [
           { error: "응답 내용이 잘못됨" },
           { status: 400 },
         );
-      if (authCode !== "726679")
+      if (+authCode < 500000 === false)
         return HttpResponse.json(
           { error: "인증번호 일치 안 함" },
           { status: 401 },

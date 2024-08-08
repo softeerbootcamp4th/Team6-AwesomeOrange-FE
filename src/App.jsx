@@ -4,6 +4,7 @@ import Header from "./header";
 import SimpleInformation from "./simpleInformation";
 import DetailInformation from "./detailInformation";
 import CommentSection from "./comment";
+import FcfsSection from "./fcfs";
 import QnA from "./qna";
 import Footer from "./footer";
 import Modal from "./modal/modal.jsx";
@@ -25,6 +26,7 @@ function App() {
       <InteractionPage />
       <DetailInformation />
       <CommentSection />
+      <FcfsSection />
       <QnA />
       <Footer />
       <Modal layer="interaction" />
