@@ -7,6 +7,7 @@ export default function InteractionSlide({
   isCurrent,
   joined,
   swiperRef,
+  answer,
 }) {
   const activeImgPath = `active${index + 1}.png`;
   const inactiveImgPath = `inactive${index + 1}.png`;
@@ -26,7 +27,10 @@ export default function InteractionSlide({
   function onClickExperience() {
     if (joined < 0) return;
 
-    openModal(<InteractionModal index={index}/>, "interaction");
+    openModal(
+      <InteractionModal index={index} answer={answer} />,
+      "interaction",
+    );
   }
 
   return (
