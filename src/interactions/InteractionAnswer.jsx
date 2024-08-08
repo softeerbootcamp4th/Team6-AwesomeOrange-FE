@@ -1,7 +1,7 @@
 import userStore from "@/auth/store.js";
 import scrollTo from "@/scroll/scrollTo";
 import style from "./InteractionAnswer.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function InteractionAnswer({
   isAnswerUp,
@@ -11,6 +11,17 @@ export default function InteractionAnswer({
 }) {
   const isLogin = userStore((state) => state.isLogin);
   const [isAniPlaying, setIsAniPlaying] = useState(false);
+  const [isEventToday, setIsEventToday] = useState(false);
+  const [isJoined, setIsJoined] = useState(false);
+
+  useEffect(() => {
+    /*
+     *  서버에서 해당 날짜의 사용자 응모 여부와, 시간을 받아온 후 이벤트 날짜와 비교하는 코드 미구현
+     */
+
+    setIsEventToday(true);
+    setIsJoined(false);
+  }, []);
 
   function onClickWrite() {
     close();
@@ -21,8 +32,11 @@ export default function InteractionAnswer({
     setIsAniPlaying(true);
 
     /*
-     *  서버에서 받아온 단축 url을 클립보드에 복사하는 코드 미구현
+     *  서버에서 단축 url을 받아오는 코드 미구현
      */
+
+    const simpleURL = "https://youtu.be/KMU0tzLwhbE";
+    navigator.clipboard.writeText(simpleURL);
   }
 
   return (
@@ -58,12 +72,16 @@ export default function InteractionAnswer({
         {isLogin ? (
           <>
             <span className="text-body-m text-green-400 font-bold">
-              오늘 응모가 완료되었습니다!
+              {isJoined
+                ? "오늘 응모가 완료되었습니다!"
+                : "응모 기간이 지났습니다!"}
             </span>
 
             <div className="flex gap-4 items-end">
               <div className="flex flex-col gap-2">
-                <div className="relative flex flex-col items-center animate-bounce">
+                <div
+                  className={`${isEventToday ? "" : "hidden"} relative flex flex-col items-center animate-bounce`}
+                >
                   <span className=" bg-green-400 text-nowrap text-body-m text-neutral-800 rounded-full px-8 py-2 font-bold">
                     당첨확률 UP!
                   </span>
