@@ -1,3 +1,5 @@
+import { useQuery } from "@/common/dataFetch/getQuery.js";
+import { fetchServer } from "@/common/dataFetch/fetchServer.js";
 import AutoScrollCarousel from "../autoScrollCarousel";
 
 function mask(string) {
@@ -15,8 +17,8 @@ function formatDate(dateString) {
   return `${year}. ${month}. ${day}`;
 }
 
-function CommentCarousel({ resource }) {
-  const comments = resource().comments;
+function CommentCarousel() {
+  const {comments} = useQuery( "comment-data", ()=>fetchServer("/api/v1/comment") );
 
   return (
     <div className="w-full h-[29rem]">

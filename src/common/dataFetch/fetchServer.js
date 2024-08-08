@@ -1,8 +1,4 @@
-import wrapPromise from "./wrapPromise.js";
 import tokenSaver from "@/auth/tokenSaver.js";
-
-const cacheMap = new Map();
-const CACHE_DURATION = 0.2 * 1000;
 
 class HTTPError extends Error {
   constructor(response) {
@@ -20,12 +16,6 @@ class ServerCloseError extends Error {
 }
 
 function fetchServer(url, options = {}) {
-  const key = JSON.stringify({ url, options });
-  if (cacheMap.has(key)) {
-    const { promise, date } = cacheMap.get(key);
-    if (Date.now() - date < CACHE_DURATION) return promise;
-  }
-
   // 기본적으로 옵션을 그대로 가져오지만, body가 존재하고 header.content-type을 설정하지 않는다면
   // json으로 간주하여 option을 생성합니다.
   const fetchOptions = { ...options };
@@ -65,15 +55,8 @@ function fetchServer(url, options = {}) {
       }
       throw e;
     });
-  cacheMap.set(key, { promise, date: Date.now() });
 
   return promise;
-}
-
-function fetchResource(url, loginStatus = false) {
-  return wrapPromise(
-    fetchServer(url, { credentials: loginStatus ? "include" : "same-origin" }),
-  );
 }
 
 function handleError(errorDescriptor) {
@@ -95,4 +78,4 @@ function handleError(errorDescriptor) {
   };
 }
 
-export { fetchServer, fetchResource, handleError, HTTPError, ServerCloseError };
+export { fetchServer, handleError, HTTPError, ServerCloseError };
