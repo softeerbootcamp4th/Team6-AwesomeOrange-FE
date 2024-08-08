@@ -30,7 +30,7 @@ const fcfsStore = create( (set, get)=>({
 	countdown: 0,
 	currentServerTime: 0,
 	currentEventTime: 0,
-	eventStatus: "ended",
+	eventStatus: "unknown",
 	getData: () => {
 		const promiseFn = async function () {
 			// get server time and event info
