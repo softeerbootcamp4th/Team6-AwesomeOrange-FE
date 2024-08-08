@@ -1,38 +1,30 @@
-import Suspense from "@/common/Suspense.jsx";
-import ErrorBoundary from "@/common/ErrorBoundary.jsx";
-import useFcfsStore from "./store.js";
-import CountStarter from "./countdown/CountStarter.jsx";
+import { useRef } from "react";
+import useSectionInitialize from "@/scroll/useSectionInitialize.js";
+import { FCFS_SECTION } from "@/common/constants.js";
 
-function Consumer()
-{
-	const getData = useFcfsStore( store=>store.getData );
-	const countdown = useFcfsStore( store=>store.countdown );
-	const eventStatus = useFcfsStore( store=>store.eventStatus );
+function FcfsSection() {
+  const sectionRef = useRef(null);
+  useSectionInitialize(FCFS_SECTION, sectionRef);
 
-	getData();
-
-	return <div>
-		<p>{countdown}</p>
-		<p>{eventStatus}</p>
-	</div>
-}
-
-function Test()
-{
-	return <ErrorBoundary fallback={"error"}>
-		<Suspense fallback={"suspense"}>
-			<Consumer />
-		</Suspense>
-	</ErrorBoundary>
-}
-
-
-function FcfsSection()
-{
-	return <>
-		<Test />
-		<CountStarter />
-	</>
+  return (
+    <section
+      ref={sectionRef}
+      className="w-full flex flex-col items-center bg-black py-24 lg:py-60 gap-16 lg:gap-30"
+    >
+      <div className="relative w-full max-w-[1200px] px-6 flex flex-col gap-3 lg:gap-9 text-center font-bold items-center">
+        <p className="text-body-m text-neutral-200 w-fit py-1 lg:py-5 border-b-2 border-neutral-200">
+          EVENT 2
+        </p>
+        <h2 className="text-head-s lg:text-head-m text-white">
+          가득찬 배터리 카드를 찾으면 경품은 나의 것!
+        </h2>
+      </div>
+      <div>
+      	<p>카드를 뒤집어 주세요!</p>
+      	
+      </div>
+    </section>
+  );
 }
 
 export default FcfsSection;
