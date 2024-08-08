@@ -3,6 +3,7 @@ import useSectionInitialize from "@/scroll/useSectionInitialize.js";
 import { FCFS_SECTION } from "@/common/constants.js";
 import CardGame from "./cardGame";
 import CountStarter from "./countdown/CountStarter.jsx";
+import FcfsDescription from "./FcfsDescription.jsx";
 
 function FcfsSection() {
   const sectionRef = useRef(null);
@@ -24,6 +25,7 @@ function FcfsSection() {
       <div className="w-full max-w-[1200px] flex flex-col justify-center items-center gap-10">
       	<CardGame />
         <p className="text-body-s md:text-body-m lg:text-body-l text-neutral-200 font-medium">※ 개인정보 인증 후 참여할 수 있습니다.</p>
+        <FcfsDescription />
       </div>
       <CountStarter />
     </section>

@@ -17,9 +17,9 @@ function Card({index, offline, locked, fliped, setGlobalLock})
 	function flip()
 	{
 		setGlobalLock(true);
-		if(offline) return setPending(true);
+		if(offline) return setFlipped(true);
 
-		setPending(true);
+		setFlipped(true);
 	}
 
 	const answer1x = isCorrect ? correct1x : failed1x;
