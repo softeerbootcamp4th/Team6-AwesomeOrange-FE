@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
-function DelaySkeleton({children, delay = 200})
-{
+function DelaySkeleton({children, delay = 200}) {
 	const [long, setLong] = useState(false);
 	useEffect( ()=>{
 		const timeout = setTimeout( ()=>setLong(true), delay );

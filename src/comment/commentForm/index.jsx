@@ -6,7 +6,6 @@ import NoServerModal from "@/common/NoServerModal.jsx";
 import SubmitButton from "./SubmitButton";
 import useAuthState from "@/auth/store.js";
 
-import Button from "@/common/Button.jsx";
 import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
 import { EVENT_ID } from "@/common/constants.js";
 import openModal from "@/modal/openModal.js";
@@ -32,6 +31,7 @@ function CommentForm() {
         setButtonFetchState(submitted ? "disabled" : "enabled");
       } )
       .catch( (e)=>{
+        console.error(e);
         setButtonFetchState("error");
       } )
       .finally( ()=>{

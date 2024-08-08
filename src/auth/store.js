@@ -1,32 +1,28 @@
 import { create } from "zustand";
 import tokenSaver from "./tokenSaver.js";
 
-const userStore = create( (set)=>({
+const userStore = create( ()=>({
 	isLogin: false,
 	userName: ""
 }) );
 
-function parseTokenToUserName(token)
-{
+function parseTokenToUserName(token) {
 	if(token === null) return "";
 	return "사용자";
 }
 
-export function login(token)
-{
+export function login(token) {
 	tokenSaver.set(token);
 	const userName = parseTokenToUserName(token);
 	userStore.setState( ()=>({isLogin: true, userName}) );
 }
 
-export function logout()
-{
+export function logout() {
 	tokenSaver.remove();
 	userStore.setState( ()=>({isLogin: false, userName: ""}) );
 }
 
-export function initLoginState()
-{
+export function initLoginState() {
 	tokenSaver.init();
 	const token = tokenSaver.get();
 	const userName = parseTokenToUserName(token);

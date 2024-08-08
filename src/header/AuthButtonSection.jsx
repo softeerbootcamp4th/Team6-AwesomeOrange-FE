@@ -3,8 +3,7 @@ import AuthModal from "@/auth/AuthModal.jsx";
 import WelcomeModal from "@/auth/Welcome";
 import useAuthStore from "@/auth/store.js";
 
-function AuthButtonSection()
-{
+function AuthButtonSection() {
 	const isLogin = useAuthStore( store=>store.isLogin );
 	const userName = useAuthStore( store=>store.userName );
 
