@@ -1,8 +1,14 @@
 import { useState } from "react";
-import useFcfsStore from "../store.js";
-import * as Status from "../constants.js";
 import CardGameTitle from "./CardGameTitle.jsx";
 import Card from "./Card.jsx";
+
+import openModal from "@/modal/openModal.js";
+
+import useFcfsStore from "../store.js";
+import * as Status from "../constants.js";
+import { EVENT_ID } from "@/common/constants.js";
+import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
+
 
 function getLocked(eventStatus, isParticipated, offline) {
   if (offline) return false;
@@ -12,17 +18,62 @@ function getLocked(eventStatus, isParticipated, offline) {
   return true;
 }
 
+const submitCardgameErrorHandle = {
+  400: "banned",
+  401: "unauthorized",
+  offline: "offline",
+};
+
 function CardGame({ offline }) {
-  const [transLocked, setTransLocked] = useState(false);
   const eventStatus = useFcfsStore((store) => store.eventStatus);
   const isParticipated = useFcfsStore((store) => store.isParticipated);
+  const [flipState, setFlipState] = useState([false, false, false, false]);
+  const [transLocked, setTransLocked] = useState(false);
+  const [offlineAnswer, setOfflineAnswer] = useState(3);
+
   const isOffline = offline || eventStatus === Status.OFFLINE;
   const isLocked = getLocked(eventStatus, isParticipated, offline);
+
+  function reset()
+  {
+    setFlipState([false, false, false, false]);
+    setOfflineAnswer(Math.floor(Math.random() * 4) + 1);
+  }
+
+  function getCardAnswerOffline(index)
+  {
+    return new Promise( resolve => {
+      setTimeout( ()=>resolve(offlineAnswer === index), 1000 );
+    } );
+  }
+
+  async function getCardAnswerOnline(index)
+  {
+    const fetchConfig = {method:"post", body:{eventAnswer: index}};
+    try {
+      const {answerResult, winner} = await fetchServer(`/api/v1/event/fcfs/${EVENT_ID}`, fetchConfig).catch(handleError(submitCardgameErrorHandle));
+      if(answerResult) 
+      {
+        if(winner) openModal(<div className="bg-white">당첨됨!</div>);
+        else openModal(<div className="bg-white">쟌넨데시타!</div>)
+      }
+      return answerResult;
+    }
+    catch(e) {
+      switch(e.message) {
+        case submitCardgameErrorHandle[400]: openModal(<div className="bg-white">이 치터!</div>); break;
+        case submitCardgameErrorHandle[401]: openModal(<div className="bg-white">인증 안 했잖아!</div>); break;
+        case submitCardgameErrorHandle["offline"]: setOfflineMode(true); reset(); return false;
+      }
+      throw e;
+    }
+  }
+
   const cardProps = {
     offline: isOffline,
     locked: isLocked || transLocked,
-    fliped: isParticipated,
     setGlobalLock: setTransLocked,
+    getCardAnswer: isOffline ? getCardAnswerOffline : getCardAnswerOnline
   };
 
   return (
@@ -39,11 +90,19 @@ function CardGame({ offline }) {
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
-        <Card index={1} {...cardProps} />
-        <Card index={2} {...cardProps} />
-        <Card index={3} {...cardProps} />
-        <Card index={4} {...cardProps} />
+        {[1,2,3,4].map( (index, i)=>(
+          <Card index={index} 
+            isFlipped={flipState[i]} 
+            setFlipped={(flipState)=>setFlipState( state=>{ 
+              const newState = [...state];
+              newState[i] = flipState;
+              return newState; 
+            } )}
+            key={`card ${index}`} 
+            {...cardProps} />
+        ) )}
       </div>
+      <button onClick={reset}>리셋하기</button>
     </>
   );
 }
