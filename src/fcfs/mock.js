@@ -18,7 +18,7 @@ const handlers = [
     const token = request.headers.get("authorization");
     if (token === null) return HttpResponse.json({ answerResult: false, winner: false });
 
-    await delay(10000);
+    //await delay(1000);
 
     return HttpResponse.json({ answerResult: true, winner: false });
   }),

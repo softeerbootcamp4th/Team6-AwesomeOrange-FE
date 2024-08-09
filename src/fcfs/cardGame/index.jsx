@@ -1,3 +1,4 @@
+import { useDeferredValue } from "react";
 import Suspense from "@/common/Suspense.jsx";
 import ErrorBoundary from "@/common/ErrorBoundary.jsx";
 import useFcfsStore from "../store.js";
@@ -12,8 +13,9 @@ function CardGameInitializer() {
 
 function CardGamePariticipatedInitializer() {
   const isLogin = useAuthStore((state) => state.isLogin);
+  const defferedLogin = useDeferredValue(isLogin);
   const getPariticipatedData = useFcfsStore((store) => store.getPariticipatedData);
-  getPariticipatedData(isLogin);
+  getPariticipatedData(defferedLogin);
   return null;
 }
 
