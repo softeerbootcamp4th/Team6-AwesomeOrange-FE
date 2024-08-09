@@ -14,13 +14,16 @@ const handlers = [
       eventStatus: "progress",
     });
   }),
-  http.get("/api/v1/event/fcfs/participated", () => {
-    return HttpResponse.json({ answerResult: false, winner: false });
+  http.get("/api/v1/event/fcfs/participated", async ({ request }) => {
+    const token = request.headers.get("authorization");
+    if (token === null) return HttpResponse.json({ answerResult: false, winner: false });
+
+    await delay(10000);
+
+    return HttpResponse.json({ answerResult: true, winner: false });
   }),
   http.post("/api/v1/event/fcfs/:eventFrameId", async ({ request }) => {
     const { eventAnswer } = await request.json();
-
-    await delay(2000);
 
     const answerResult = eventAnswer === 3;
     const winner = false;
