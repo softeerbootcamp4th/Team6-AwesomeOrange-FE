@@ -10,17 +10,17 @@ const handlers = [
   }),
   http.get("/api/v1/event/fcfs/:eventFrameId/info", () => {
     return HttpResponse.json({
-      nowDateTime: "2024-08-08T06:01:10.000Z",
+      nowDateTime: "2024-08-08T06:00:10.000Z",
       eventStatus: "progress",
-    });
+    }, {status: 404});
   }),
   http.get("/api/v1/event/fcfs/participated", async ({ request }) => {
     const token = request.headers.get("authorization");
     if (token === null) return HttpResponse.json({ answerResult: false, winner: false });
 
-    //await delay(1000);
+    //await delay(10000);
 
-    return HttpResponse.json({ answerResult: true, winner: false });
+    return HttpResponse.json({ answerResult: false, winner: false });
   }),
   http.post("/api/v1/event/fcfs/:eventFrameId", async ({ request }) => {
     const { eventAnswer } = await request.json();
