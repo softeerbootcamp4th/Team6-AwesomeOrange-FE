@@ -1,18 +1,30 @@
-import userStore from "@/auth/store.js";
 import scrollTo from "@/scroll/scrollTo";
 import style from "./InteractionAnswer.module.css";
 import { useEffect, useState } from "react";
+import openModal from "@/modal/openModal.js";
+import AuthModal from "@/auth/AuthModal.jsx";
+// import fcfsStore from "@/fcfs/store";
 
 export default function InteractionAnswer({
   isAnswerUp,
   setIsAnswerUp,
   answer,
   close,
+  isLogin,
 }) {
-  const isLogin = userStore((state) => state.isLogin);
+  // const currentServerTime = fcfsStore((state) => state.currentServerTime);
   const [isAniPlaying, setIsAniPlaying] = useState(false);
   const [isEventToday, setIsEventToday] = useState(false);
   const [isJoined, setIsJoined] = useState(false);
+  const authModal = (
+    <AuthModal
+      onComplete={() => {
+        /*
+         *  비로그인자가 정보등록을 성공시켰을 때 서버로 추첨이벤트 참여 api를 보내는 코드 미구현
+         */
+      }}
+    />
+  );
 
   useEffect(() => {
     /*
@@ -106,7 +118,10 @@ export default function InteractionAnswer({
             </div>
           </>
         ) : (
-          <button className="text-body-m text-black bg-white px-10 py-4">
+          <button
+            onClick={() => openModal(authModal)}
+            className="text-body-m text-black bg-white px-10 py-4"
+          >
             응모하기
           </button>
         )}
