@@ -8,7 +8,14 @@ import hidden1x from "./assets/hidden@1x.png";
 import hidden2x from "./assets/hidden@2x.png";
 
 // 빠진 것: index props, setPending, setCorrect state
-function Card({ index, offline, locked, isFlipped, setFlipped, setGlobalLock, getCardAnswer }) {
+function Card({
+  index,
+  locked,
+  isFlipped,
+  setFlipped,
+  setGlobalLock,
+  getCardAnswer,
+}) {
   const [isPending, setPending] = useState(false);
   const [isCorrect, setCorrect] = useState(false);
   const cardFaceBaseStyle = "absolute top-0 left-0 w-full h-full";
@@ -17,17 +24,17 @@ function Card({ index, offline, locked, isFlipped, setFlipped, setGlobalLock, ge
     setGlobalLock(true);
     setPending(true);
     getCardAnswer(index)
-      .then( (isAnswer)=>{
+      .then((isAnswer) => {
         setCorrect(isAnswer);
         setFlipped(true);
-      } )
-      .catch( ()=>{
+      })
+      .catch(() => {
         setFlipped(false);
-      } )
-      .finally( ()=>{
+      })
+      .finally(() => {
         setPending(false);
         setGlobalLock(false);
-      } );
+      });
   }
 
   const answer1x = isCorrect ? correct1x : failed1x;
@@ -39,14 +46,18 @@ function Card({ index, offline, locked, isFlipped, setFlipped, setGlobalLock, ge
       onClick={flip}
       disabled={locked || isFlipped}
     >
-      <div className={`${cardFaceBaseStyle} ${isPending && !isFlipped ? style.pending : ""}`}>
-        <img className={`${cardFaceBaseStyle} ${style.front}`}
-            src={hidden1x}
-            srcSet={`${hidden1x} 1x, ${hidden2x} 2x`}
-            alt="hidden"
-            draggable="false"
+      <div
+        className={`${cardFaceBaseStyle} ${isPending && !isFlipped ? style.pending : ""}`}
+      >
+        <img
+          className={`${cardFaceBaseStyle} ${style.front}`}
+          src={hidden1x}
+          srcSet={`${hidden1x} 1x, ${hidden2x} 2x`}
+          alt="hidden"
+          draggable="false"
         />
-        <img className={`${cardFaceBaseStyle} ${style.back}`}
+        <img
+          className={`${cardFaceBaseStyle} ${style.back}`}
           src={answer1x}
           srcSet={`${answer1x} 1x, ${answer2x} 2x`}
           alt={

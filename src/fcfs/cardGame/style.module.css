@@ -1,4 +1,5 @@
-.card, .card>div {
+.card,
+.card > div {
   transform-style: preserve-3d;
 }
 

@@ -8,7 +8,7 @@ function CardGameInitializer() {
 
   getData();
 
-  return <CardGame/>;
+  return <CardGame />;
 }
 
 function CardGameSection() {

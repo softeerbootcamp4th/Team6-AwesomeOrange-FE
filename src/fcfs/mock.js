@@ -1,8 +1,7 @@
 import { http, HttpResponse } from "msw";
 
-function delay(ms)
-{
-  return new Promise(res=>setTimeout(res, ms));
+function delay(ms) {
+  return new Promise((res) => setTimeout(res, ms));
 }
 
 const handlers = [
@@ -18,7 +17,7 @@ const handlers = [
   http.get("/api/v1/event/fcfs/participated", () => {
     return HttpResponse.json({ answerResult: false, winner: false });
   }),
-  http.post("/api/v1/event/fcfs/:eventFrameId", async ({request}) => {
+  http.post("/api/v1/event/fcfs/:eventFrameId", async ({ request }) => {
     const { eventAnswer } = await request.json();
 
     await delay(2000);
@@ -29,9 +28,10 @@ const handlers = [
     const token = request.headers.get("authorization");
     if (token === null) return HttpResponse.json(false, { status: 401 });
 
-    if(typeof eventAnswer !== "number") return HttpResponse.json(false, { status: 400 });
+    if (typeof eventAnswer !== "number")
+      return HttpResponse.json(false, { status: 400 });
 
-    return HttpResponse.json({answerResult, winner});
+    return HttpResponse.json({ answerResult, winner });
   }),
 ];
 

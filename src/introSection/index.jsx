@@ -11,12 +11,6 @@ function IntroSection() {
   const introRef = useRef(null);
   const [isTimerVisible, setIsTimerVisible] = useState(false);
 
-  function onClickTimer() {
-    /*
-     *  타이머 클릭시 선착순 이벤트 섹션으로 이동하는 코드 미구현
-     */
-  }
-
   const titleOpacity = useScrollTransition({
     scrollStart: 0,
     scrollEnd: 500,

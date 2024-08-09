@@ -33,7 +33,11 @@ function FcfsLoseModal() {
         />
       </div>
       <div className="w-full flex flex-wrap justify-center gap-5">
-        <Button styleType="filled" hidden={!shouldInteraction} onClick={toMoveInteraction}>
+        <Button
+          styleType="filled"
+          hidden={!shouldInteraction}
+          onClick={toMoveInteraction}
+        >
           추첨 이벤트 참여하기
         </Button>
         <Button styleType="ghost" onClick={close}>
