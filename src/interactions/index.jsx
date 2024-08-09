@@ -18,7 +18,7 @@ export default function InteractionPage() {
   return (
     <section
       ref={sectionRef}
-      className="bg-black py-60 flex flex-col items-center"
+      className="bg-black py-20 sm:py-60 flex flex-col items-center"
     >
       <TapBar
         currentInteraction={currentInteraction}
@@ -35,18 +35,20 @@ export default function InteractionPage() {
         ref={swiperRef}
       >
         {JSONData.interaction.map((interactionDesc, index) => (
-          <swiper-slide key={index} class="w-[566px] h-[456px]">
+          <swiper-slide key={index} class="w-5/6 sm:w-[566px] h-[456px]">
             <InteractionSlide
               interactionDesc={interactionDesc}
               index={index}
               isCurrent={currentInteraction === index}
               joined={joinedList[index]}
+              slideTo={(_index) => swiperRef.current.swiper.slideTo(_index)}
+              answer={JSONData.answer[index]}
             />
           </swiper-slide>
         ))}
       </swiper-container>
 
-      <div className="pt-32 flex flex-col xl:flex-row gap-[140px]">
+      <div className="pt-10 sm:pt-32 flex flex-col xl:flex-row gap-16 sm:gap-[140px]">
         <IntroductionDetail contentList={JSONData.howto} />
         <GiftDetail contentList={JSONData.gift} />
       </div>

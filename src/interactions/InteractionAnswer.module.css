@@ -1,0 +1,18 @@
+.toast {
+  animation: toast-ani 5s linear;
+}
+
+@keyframes toast-ani {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
