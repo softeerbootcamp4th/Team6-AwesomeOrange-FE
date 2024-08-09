@@ -95,15 +95,16 @@ function IntroSection() {
             <video
               src={SpinningCarVideo}
               ref={videoRef}
-              className="w-full scale-[2.0] lg:scale-110 z-0 pointer-events-none select-none"
+              className="w-full scale-[2.0] lg:scale-125 z-0 pointer-events-none select-none"
             />
           </div>
 
-          <div className="font-bold flex flex-col items-center text-black absolute bottom-10 z-40">
-            <span className="text-title-s">
+          <div className="font-bold flex flex-col items-center text-black absolute -bottom-20 lg:bottom-10 z-40">
+            <span className="text-body-l sm:text-title-s">
               더뉴 아이오닉5 신차 출시 이벤트
             </span>
-            <span className="text-head-s">09/09 (mon) - 09/13 (fri)</span>
+
+            <span className="text-center text-title-l sm:text-head-s">09/09 (mon) - 09/13 (fri)</span>
           </div>
 
           <div className="absolute -bottom-2 w-full h-4 bg-white" />
