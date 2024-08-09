@@ -3,6 +3,10 @@ import CardGameTitle from "./CardGameTitle.jsx";
 import Card from "./Card.jsx";
 
 import openModal from "@/modal/openModal.js";
+import FcfsWinModal from "../modals/FcfsWinModal.jsx";
+import FcfsLoseModal from "../modals/FcfsLoseModal.jsx";
+import FcfsInvalidModal from "../modals/FcfsInvalidModal.jsx";
+import AuthModal from "@/auth/AuthModal.jsx";
 
 import useFcfsStore from "../store.js";
 import * as Status from "../constants.js";
@@ -25,12 +29,14 @@ const submitCardgameErrorHandle = {
 };
 
 function CardGame({ offline }) {
+  // states
   const eventStatus = useFcfsStore((store) => store.eventStatus);
   const isParticipated = useFcfsStore((store) => store.isParticipated);
   const [flipState, setFlipState] = useState([false, false, false, false]);
   const [transLocked, setTransLocked] = useState(false);
   const [offlineAnswer, setOfflineAnswer] = useState(3);
 
+  // derived values
   const isOffline = offline || eventStatus === Status.OFFLINE;
   const isLocked = getLocked(eventStatus, isParticipated, offline);
 
@@ -54,15 +60,15 @@ function CardGame({ offline }) {
       const {answerResult, winner} = await fetchServer(`/api/v1/event/fcfs/${EVENT_ID}`, fetchConfig).catch(handleError(submitCardgameErrorHandle));
       if(answerResult) 
       {
-        if(winner) openModal(<div className="bg-white">당첨됨!</div>);
-        else openModal(<div className="bg-white">쟌넨데시타!</div>)
+        if(winner) openModal(<FcfsWinModal />);
+        else openModal(<FcfsLoseModal />)
       }
       return answerResult;
     }
     catch(e) {
       switch(e.message) {
-        case submitCardgameErrorHandle[400]: openModal(<div className="bg-white">이 치터!</div>); break;
-        case submitCardgameErrorHandle[401]: openModal(<div className="bg-white">인증 안 했잖아!</div>); break;
+        case submitCardgameErrorHandle[400]: openModal(<FcfsInvalidModal />); break;
+        case submitCardgameErrorHandle[401]: openModal(<AuthModal onComplete={ ()=>getCardAnswerOnline(index) }/>); break;
         case submitCardgameErrorHandle["offline"]: setOfflineMode(true); reset(); return false;
       }
       throw e;
