@@ -64,19 +64,20 @@ export default function InteractionAnswer({
 
       <button
         onClick={() => setIsAnswerUp(false)}
-        className="absolute top-10 left-10 p-3 bg-neutral-800 rounded-full"
+        className="absolute top-5 xl:top-10 left-5 xl:left-10 p-1 xl:p-3 bg-neutral-800 rounded-full"
       >
         <img src="icons/left-arrow.svg" alt="뒤로가기" />
       </button>
 
-      <div className="w-1/2 flex gap-8">
-        <span className="text-head-l text-blue-400 font-bold whitespace-pre">
+      <div className="w-2/3 xl:w-1/2 flex flex-col xl:flex-row gap-2 xl:gap-8">
+        <span className="text-head-s xl:text-head-l text-blue-400 font-bold whitespace-pre">
           {answer.head}
         </span>
-        <div className="flex flex-col gap-4">
-          <span className="text-title-s text-neutral-50">{answer.desc}</span>
 
-          <span className="text-body-s text-neutral-300">{answer.subdesc}</span>
+        <div className="flex flex-col gap-4">
+          <span className="text-body-l xl:text-title-s text-neutral-50">{answer.desc}</span>
+
+          <span className="text-detail-l xl:text-body-s text-neutral-300">{answer.subdesc}</span>
         </div>
       </div>
 
@@ -94,7 +95,7 @@ export default function InteractionAnswer({
                 <div
                   className={`${isEventToday ? "" : "hidden"} relative flex flex-col items-center animate-bounce`}
                 >
-                  <span className=" bg-green-400 text-nowrap text-body-m text-neutral-800 rounded-full px-8 py-2 font-bold">
+                  <span className=" bg-green-400 text-nowrap text-body-s xl:text-body-m text-neutral-800 rounded-full px-4 xl:px-8 py-1 xl:py-2 font-bold">
                     당첨확률 UP!
                   </span>
 
@@ -103,7 +104,7 @@ export default function InteractionAnswer({
 
                 <button
                   onClick={onClickWrite}
-                  className="bg-white text-body-m text-black px-10 py-4"
+                  className="bg-white text-body-m text-black px-5 xl:px-10 py-2 xl:py-4"
                 >
                   기대평 작성하기
                 </button>
@@ -111,7 +112,7 @@ export default function InteractionAnswer({
 
               <button
                 onClick={onClickShare}
-                className="border-2 border-neutral-300 text-body-m text-white px-10 py-[14px]"
+                className="border-2 border-neutral-300 text-body-m text-white px-5 xl:px-10 py-[7px] xl:py-[14px]"
               >
                 공유하기
               </button>

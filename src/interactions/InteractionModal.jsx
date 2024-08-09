@@ -36,7 +36,7 @@ export default function InteractionModal({ index, answer }) {
       <div className="w-5/6 h-5/6 relative backdrop-blur-[100px] border border-neutral-600 rounded overflow-hidden">
         <button
           onClick={close}
-          className="z-10 absolute top-10 right-10 bg-neutral-800 p-3 rounded-full"
+          className="z-10 absolute top-5 right-5 xl:top-10 xl:right-10 bg-neutral-800 p-1 xl:p-3 rounded-full"
         >
           <img src="icons/close-white.svg" alt="닫기" />
         </button>
@@ -50,14 +50,14 @@ export default function InteractionModal({ index, answer }) {
           <button
             onClick={joinEvent}
             disabled={!isActive}
-            className={`${isActive ? "opacity-100" : "opacity-50"} bg-white px-10 py-4 text-black text-body-s`}
+            className={`${isActive ? "opacity-100" : "opacity-50"} bg-white px-4 py-2 xl:px-10 xl:py-4 text-black text-body-s`}
           >
             확인하기
           </button>
 
           <button
             onClick={() => interactionRef.current.reset()}
-            className="border-2 border-neutral-100 p-2"
+            className="border-2 border-neutral-100 p-1 xl:p-2"
           >
             <img src="icons/refresh.svg" alt="다시하기" />
           </button>
