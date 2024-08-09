@@ -4,17 +4,12 @@ import style from "./index.module.css";
 import SpinningCarVideo from "./car-spin.webm";
 import Pointer from "./pointer.svg";
 import { useEffect, useRef, useState } from "react";
+import scrollTo from "../scroll/scrollTo.js";
 
 function IntroSection() {
   const videoRef = useRef(null);
   const introRef = useRef(null);
   const [isTimerVisible, setIsTimerVisible] = useState(false);
-
-  function onClickTimer() {
-    /*
-     *  타이머 클릭시 선착순 이벤트 섹션으로 이동하는 코드 미구현
-     */
-  }
 
   const titleOpacity = useScrollTransition({
     scrollStart: 0,
@@ -122,7 +117,7 @@ function IntroSection() {
       </section>
 
       <div
-        onClick={onClickTimer}
+        onClick={() => scrollTo(4)}
         className={`${isTimerVisible ? "-translate-y-24" : ""} -bottom-20 transition duration-150 ease-in-out fixed left-1/2 -translate-x-1/2 graphic-gradient rounded-full p-px shadow-[0_4px_12px_0px_rgba(0,0,0,0.25)] z-40 select-none`}
       >
         <div className=" bg-black flex items-center gap-[10px] px-10 py-4 rounded-full">

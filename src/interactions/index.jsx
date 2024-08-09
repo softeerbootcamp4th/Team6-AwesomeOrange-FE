@@ -18,7 +18,7 @@ export default function InteractionPage() {
   return (
     <section
       ref={sectionRef}
-      className="bg-black py-60 flex flex-col items-center"
+      className="bg-black py-20 sm:py-60 flex flex-col items-center"
     >
       <TapBar
         currentInteraction={currentInteraction}
