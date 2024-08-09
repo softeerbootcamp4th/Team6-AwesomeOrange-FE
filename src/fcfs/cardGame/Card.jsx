@@ -42,7 +42,7 @@ function Card({
 
   return (
     <button
-      className={`w-60 h-80 relative transition-all duration-200 ease-in-out-cubic ${style.card} ${isFlipped ? style.flipped : ""}`}
+      className={`w-[7.5rem] h-40 sm:w-60 sm:h-80 relative transition-transform duration-200 ease-in-out-cubic ${style.card} ${isFlipped ? style.flipped : ""}`}
       onClick={flip}
       disabled={locked || isFlipped}
     >

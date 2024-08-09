@@ -102,7 +102,7 @@ function CardGame({ offline }) {
           }
         />
       </div>
-      <div className="relative grid grid-cols-1 sm:grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
+      <div className="relative grid grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
         {[1, 2, 3, 4].map((index, i) => (
           <Card
             index={index}
