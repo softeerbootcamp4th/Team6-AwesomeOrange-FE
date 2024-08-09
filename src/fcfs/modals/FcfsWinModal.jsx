@@ -23,7 +23,7 @@ function FcfsWinModal() {
           width="320"
           height="320"
         />
-      </div>
+      </div>벤
       <Button styleType="filled" onClick={close}>
         확인
       </Button>
