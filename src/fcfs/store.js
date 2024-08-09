@@ -44,7 +44,7 @@ async function getFcfsParticipated() {
     const eventData = await fetchServer(`/api/v1/event/fcfs/participated`); // ???
     return eventData;
   } catch (e) {
-    if (e instanceof HTTPError && e.status === 404)
+    if (e instanceof HTTPError && (e.status === 401 || e.status == 404))
       return { answerResult: false, winner: false };
     if (e instanceof ServerCloseError)
       return { answerResult: false, winner: false };
