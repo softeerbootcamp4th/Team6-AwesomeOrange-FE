@@ -1,5 +1,6 @@
 import useScrollTransition from "@/common/useScrollTransition.js";
 import LineHighlight from "./LineHighlight.jsx";
+import FcfsNotifier from "./notifier";
 import style from "./index.module.css";
 import SpinningCarVideo from "./car-spin.webm";
 import Pointer from "./pointer.svg";
@@ -9,12 +10,6 @@ function IntroSection() {
   const videoRef = useRef(null);
   const introRef = useRef(null);
   const [isTimerVisible, setIsTimerVisible] = useState(false);
-
-  function onClickTimer() {
-    /*
-     *  타이머 클릭시 선착순 이벤트 섹션으로 이동하는 코드 미구현
-     */
-  }
 
   const titleOpacity = useScrollTransition({
     scrollStart: 0,
@@ -121,19 +116,7 @@ function IntroSection() {
         />
       </section>
 
-      <div
-        onClick={onClickTimer}
-        className={`${isTimerVisible ? "-translate-y-24" : ""} -bottom-20 transition duration-150 ease-in-out fixed left-1/2 -translate-x-1/2 graphic-gradient rounded-full p-px shadow-[0_4px_12px_0px_rgba(0,0,0,0.25)] z-40 select-none`}
-      >
-        <div className=" bg-black flex items-center gap-[10px] px-10 py-4 rounded-full">
-          <span className="text-body-m font-bold text-white">
-            선착순 이벤트까지
-          </span>
-          <span className="font-ds-digital text-transparent text-[20px] bg-clip-text graphic-gradient font-bold">
-            01 : 23 : 45
-          </span>
-        </div>
-      </div>
+      <FcfsNotifier visible={isTimerVisible} />
     </>
   );
 }
