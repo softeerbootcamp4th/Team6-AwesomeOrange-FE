@@ -11,7 +11,7 @@ const handlers = [
   }),
   http.get("/api/v1/event/fcfs/:eventFrameId/info", () => {
     return HttpResponse.json({
-      nowDateTime: "2024-08-08T06:00:25.000Z",
+      nowDateTime: "2024-08-08T06:01:10.000Z",
       eventStatus: "progress",
     });
   }),
