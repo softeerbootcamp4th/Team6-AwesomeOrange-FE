@@ -42,6 +42,7 @@ function CardGame({ offline }) {
 
   function reset()
   {
+    if(transLocked || !isOffline) return;
     setFlipState([false, false, false, false]);
     setOfflineAnswer(Math.floor(Math.random() * 4) + 1);
   }
@@ -95,7 +96,7 @@ function CardGame({ offline }) {
           }
         />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
+      <div className="relative grid grid-cols-1 sm:grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
         {[1,2,3,4].map( (index, i)=>(
           <Card index={index} 
             isFlipped={flipState[i]} 
@@ -107,8 +108,8 @@ function CardGame({ offline }) {
             key={`card ${index}`} 
             {...cardProps} />
         ) )}
+        <button className="absolute size-16 rounded-full bg-white right-0 -bottom-20" hidden={!isOffline} onClick={reset}>리셋하기</button>
       </div>
-      <button onClick={reset}>리셋하기</button>
     </>
   );
 }
