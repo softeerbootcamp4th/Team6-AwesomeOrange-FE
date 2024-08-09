@@ -35,7 +35,7 @@ export default function InteractionPage() {
         ref={swiperRef}
       >
         {JSONData.interaction.map((interactionDesc, index) => (
-          <swiper-slide key={index} class="w-[566px] h-[456px]">
+          <swiper-slide key={index} class="w-5/6 sm:w-[566px] h-[456px]">
             <InteractionSlide
               interactionDesc={interactionDesc}
               index={index}
@@ -48,7 +48,7 @@ export default function InteractionPage() {
         ))}
       </swiper-container>
 
-      <div className="pt-32 flex flex-col xl:flex-row gap-[140px]">
+      <div className="pt-10 sm:pt-32 flex flex-col xl:flex-row gap-16 sm:gap-[140px]">
         <IntroductionDetail contentList={JSONData.howto} />
         <GiftDetail contentList={JSONData.gift} />
       </div>
