@@ -5,7 +5,6 @@ import style from "./index.module.css";
 import SpinningCarVideo from "./car-spin.webm";
 import Pointer from "./pointer.svg";
 import { useEffect, useRef, useState } from "react";
-import scrollTo from "../scroll/scrollTo.js";
 
 function IntroSection() {
   const videoRef = useRef(null);
