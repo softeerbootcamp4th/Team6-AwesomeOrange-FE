@@ -6,7 +6,7 @@ export default function InteractionSlide({
   index,
   isCurrent,
   joined,
-  swiperRef,
+  slideTo,
   answer,
 }) {
   const activeImgPath = `active${index + 1}.png`;
@@ -35,10 +35,10 @@ export default function InteractionSlide({
 
   return (
     <div
-      onClick={() => swiperRef.current.swiper.slideTo(index)}
-      className="w-full h-full flex flex-col items-center select-none"
+      onClick={() => slideTo(index)}
+      className="w-full h-full flex flex-col justify-center items-center select-none"
     >
-      <span className="pt-[150px] text-body-l text-white font-bold">
+      <span className="sm:pt-10 text-body-m sm:text-body-l text-white font-bold">
         {eventDate()}
       </span>
 
@@ -46,7 +46,7 @@ export default function InteractionSlide({
         <img src={numberImgPath} />
 
         <span
-          className={`${isCurrent ? "opacity-100" : "opacity-50"} pl-3 text-head-s text-white font-bold`}
+          className={`${isCurrent ? "opacity-100" : "opacity-50"} pl-3 text-title-m sm:text-head-s text-white font-bold`}
         >
           {interactionDesc}
         </span>
@@ -55,9 +55,9 @@ export default function InteractionSlide({
       <button
         onClick={onClickExperience}
         disabled={!isCurrent || joined < 0}
-        className={`mt-8 py-4 px-10 bg-white ${joined < 0 ? "hidden" : isCurrent ? "opacity-100" : "opacity-50"}`}
+        className={`mt-8 py-1 sm:py-4 px-5 sm:px-10 bg-white ${joined < 0 ? "hidden" : isCurrent ? "opacity-100" : "opacity-50"}`}
       >
-        <span className="text-body-s text-black font-bold">
+        <span className="text-detail-l sm:text-body-s text-black font-bold">
           인터랙션 체험하기
         </span>
       </button>
@@ -76,7 +76,7 @@ export default function InteractionSlide({
       <img
         src={activeImgPath}
         alt="activeImage"
-        className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-100" : "opacity-0"}`}
+        className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-100" : "opacity-30 sm:opacity-0"}`}
       />
     </div>
   );

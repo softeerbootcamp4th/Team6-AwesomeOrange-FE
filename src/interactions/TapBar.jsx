@@ -5,11 +5,11 @@ export default function TapBar({ currentInteraction, joinedList, swiperRef }) {
         EVENT 1
       </span>
 
-      <span className="pt-9 text-head-m text-white font-bold">
+      <span className="pt-9 text-title-l sm:text-head-m text-white font-bold text-center">
         The 새로워진 IONIQ 5, 인터랙션으로 만나다
       </span>
 
-      <span className="pt-4 text-title-s text-neutral-300 whitespace-pre-wrap text-center">
+      <span className="pt-4 text-body-m sm:text-title-s text-neutral-300 whitespace-pre-wrap text-center">
         {`The new IONIQ 5의 새로운 기능을 날마다 체험하고 이벤트에 응모하세요!\n추첨을 통해 IONIQ과 함께하는 제주 여행 패키지를 드립니다`}
       </span>
 
