@@ -55,7 +55,7 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
             y1="0"
             x2={x}
             y2={y}
-            strokeWidth="4"
+            strokeWidth="5"
             strokeLinecap="round"
           ></line>
         </svg>
