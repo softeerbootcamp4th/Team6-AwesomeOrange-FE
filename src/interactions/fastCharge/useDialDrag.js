@@ -67,6 +67,7 @@ function useDialDrag() {
     ref: dialRef,
     onPointerDown,
     resetAngle,
+    isDragging: dragState
   };
 }
 
