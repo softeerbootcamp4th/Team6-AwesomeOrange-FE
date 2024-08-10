@@ -4,6 +4,10 @@ class ModalStore {
   constructor() {
     this.callback = new Set();
     this.modalChildren = new Map();
+    this.scrollPosition = 0;
+  }
+  get hasActiveModal() {
+    return [...this.modalChildren.values()].some( component=>component );
   }
   subscribe(callback) {
     this.callback.add(callback);
@@ -21,6 +25,21 @@ class ModalStore {
   }
   #update() {
     this.callback.forEach((update) => update());
+    this.#lockBodyScroll(this.hasActiveModal);
+  }
+  #lockBodyScroll(isLocked) {
+    const body = document.body;
+    const prevLocked = body.classList.contains("scrollLocked");
+    if(isLocked && !prevLocked) {
+      this.scrollPosition = window.pageYOffset;
+      body.classList.add("scrollLocked");
+      body.style.top = `-${this.scrollPosition}px`;
+    }
+    if(!isLocked && prevLocked) {
+      body.classList.remove("scrollLocked");
+      body.style.removeProperty("top");
+      window.scrollTo(0, this.scrollPosition);
+    }
   }
   getSnapshot(layer) {
     return () => {
