@@ -106,14 +106,16 @@ function useIslandDrag() {
   const islandStyle = useMemo(
     () => ({
       transform: `translateY(${islandY}px)`,
+      transition: !islandIsDrag ? "transform 0.2s" : "none",
     }),
-    [islandY],
+    [islandY, islandIsDrag],
   );
 
   // phone style은 상당히 많은 state 종속성을 가지고 있으므로 useMemo가 의미가 없음
   const phoneStyle = {
     transform: `translate(${phoneX}px, ${phoneY}px)`,
-    transition: phoneShouldSnapped ? "transform 0.5s" : "none",
+    transition: phoneShouldSnapped ? "transform 0.5s" :
+      (!phoneIsSnapping && !phoneIsDrag) ? "transform 0.2s" : "none",
   };
 
   return {
