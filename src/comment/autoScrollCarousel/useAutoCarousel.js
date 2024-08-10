@@ -11,7 +11,6 @@ function useAutoCarousel(speed = 1) {
   const [isControlled, setIsControlled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const timestamp = useRef(null);
-  const dragging = useRef(false);
   const prevDragState = useRef({ x: 0, mouseX: 0, prevMouseX: 0 });
   const momentum = useRef(speed);
   const raf = useRef(null);
@@ -55,10 +54,19 @@ function useAutoCarousel(speed = 1) {
     };
   }, [isControlled, animate]);
 
+
+  // 드래그 시작 함수
+  const onDragStart = useCallback(({x}) => {
+    setIsControlled(true);
+    setIsHovered(true);
+    prevDragState.current.x = position;
+    prevDragState.current.mouseX = x;
+    prevDragState.current.prevMouseX = x;
+  }, [position])
+
+
   // 드래그 도중 함수
   const onDrag = useCallback(({ x: mouseX }) => {
-    if (!dragging.current) return;
-
     // 새로운 포지션 계산
     let newPos =
       prevDragState.current.x - mouseX + prevDragState.current.mouseX;
@@ -72,16 +80,15 @@ function useAutoCarousel(speed = 1) {
     } else momentum.current = 0;
     prevDragState.current.prevMouseX = mouseX;
   }, []);
+  
 
   // 드래그 종료 함수
   const onDragEnd = useCallback((e) => {
-    if (!dragging.current) return;
-    dragging.current = false;
     setIsControlled(false);
     if (e.pointerType === "touch") setIsHovered(false);
   }, []);
 
-  useMountDragEvent(onDrag, onDragEnd);
+  const {onPointerDown} = useMountDragEvent({onDragStart, onDrag, onDragEnd});
 
   return {
     position,
@@ -93,14 +100,7 @@ function useAutoCarousel(speed = 1) {
       onMouseLeave() {
         setIsHovered(false);
       },
-      onPointerDown(e) {
-        setIsControlled(true);
-        setIsHovered(true);
-        dragging.current = true;
-        prevDragState.current.x = position;
-        prevDragState.current.mouseX = e.clientX;
-        prevDragState.current.prevMouseX = e.clientX;
-      },
+      onPointerDown,
     },
   };
 }

@@ -17,44 +17,38 @@ function getAngleDelta(prev, current) {
 }
 
 function useDialDrag() {
-  const [isDrag, setIsDrag] = useState(false);
   const [angle, setAngle] = useState(0);
   const dialRef = useRef(null);
   const dialCenter = useRef({ x: 0, y: 0 });
   const prevAngle = useRef(0);
   const angleCache = useRef(0);
 
-  const applyPointerMove = useCallback(
+  const onDragStart = useCallback((cursor)=>{
+    if (dialRef.current === null) return;
+
+    const boundRect = dialRef.current.getBoundingClientRect();
+    dialCenter.current.x = boundRect.x + boundRect.width / 2;
+    dialCenter.current.y = boundRect.y + boundRect.height / 2;
+    prevAngle.current = getAngle(
+      cursor,
+      dialCenter.current,
+    );
+  }, [])
+  const onDrag = useCallback(
     (cursor) => {
-      if (!isDrag) return;
       const currentAngle = getAngle(cursor, dialCenter.current);
       angleCache.current += getAngleDelta(prevAngle.current, currentAngle);
       setAngle(angleCache.current);
       prevAngle.current = currentAngle;
     },
-    [isDrag],
+    [],
   );
-  const onPointerEnd = useCallback(() => {
-    setIsDrag(false);
+  const onDragEnd = useCallback(() => {
     angleCache.current = clamp(angleCache.current, -Math.PI * 2, 0);
     setAngle(angleCache.current);
   }, []);
-  useMountDragEvent(applyPointerMove, onPointerEnd);
 
-  function onPointerStart(e) {
-    if (dialRef.current === null) return;
-
-    const { clientX, clientY } = e;
-    const boundRect = dialRef.current.getBoundingClientRect();
-    dialCenter.current.x = boundRect.x + boundRect.width / 2;
-    dialCenter.current.y = boundRect.y + boundRect.height / 2;
-    prevAngle.current = getAngle(
-      { x: clientX, y: clientY },
-      dialCenter.current,
-    );
-
-    setIsDrag(true);
-  }
+  const { onPointerDown, dragState } = useMountDragEvent({onDragStart, onDrag, onDragEnd});
 
   const resetAngle = useCallback(() => {
     setAngle(0);
@@ -64,14 +58,14 @@ function useDialDrag() {
 
   const style = {
     transform: `rotate(${angle}rad)`,
-    transition: isDrag ? "none" : "transform 0.5s",
+    transition: dragState ? "none" : "transform 0.5s",
   };
 
   return {
     angle,
     style,
     ref: dialRef,
-    onPointerStart,
+    onPointerDown,
     resetAngle,
   };
 }

@@ -18,7 +18,7 @@ function FastChargeInteraction({ interactCallback, $ref }) {
     angle,
     style: dialStyle,
     ref: dialRef,
-    onPointerStart,
+    onPointerDown,
     resetAngle,
   } = useDialDrag(0);
 
@@ -53,7 +53,7 @@ function FastChargeInteraction({ interactCallback, $ref }) {
           style={dialStyle}
           ref={dialRef}
           onPointerDown={(e) => {
-            onPointerStart(e);
+            onPointerDown(e);
             interactCallback?.();
           }}
           draggable="false"

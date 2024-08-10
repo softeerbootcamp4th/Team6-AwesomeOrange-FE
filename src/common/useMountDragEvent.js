@@ -1,33 +1,55 @@
-import { useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import throttleRaf from "@/common/throttleRaf.js";
 
-function useMountDragEvent(dragging, dragEnd) {
+function useMountDragEvent({onDragStart: userDragStart, onDrag, onDragEnd: userDragEnd}={}) {
+  const [dragState, setDragState] = useState(false);
+  const isDragging = useRef(false);
+
   useEffect(() => {
     const onPointerMove = throttleRaf((e) => {
       if (e.pointerType === "touch") return;
+      if (!isDragging.current) return;
       const { clientX, clientY } = e;
-      dragging({ x: clientX, y: clientY });
+      onDrag({ x: clientX, y: clientY });
     });
     const onTouchMove = throttleRaf((e) => {
       const { clientX, clientY } = e.touches[0];
-      dragging({ x: clientX, y: clientY });
+      if (!isDragging.current) return;
+      onDrag({ x: clientX, y: clientY });
     });
+    const onDragEnd = (e) => {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      setDragState(false);
+      userDragEnd?.(e);
+    }
 
     window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("pointerup", dragEnd);
-    window.addEventListener("pointercancel", dragEnd);
+    window.addEventListener("pointerup", onDragEnd);
+    window.addEventListener("pointercancel", onDragEnd);
     window.addEventListener("touchmove", onTouchMove);
-    window.addEventListener("touchend", dragEnd);
-    window.addEventListener("touchcancel", dragEnd);
+    window.addEventListener("touchend", onDragEnd);
+    window.addEventListener("touchcancel", onDragEnd);
     return () => {
       window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", dragEnd);
-      window.removeEventListener("pointercancel", dragEnd);
+      window.removeEventListener("pointerup", onDragEnd);
+      window.removeEventListener("pointercancel", onDragEnd);
       window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", dragEnd);
-      window.removeEventListener("touchcancel", dragEnd);
+      window.removeEventListener("touchend", onDragEnd);
+      window.removeEventListener("touchcancel", onDragEnd);
     };
-  }, [dragging, dragEnd]);
+  }, [onDrag, userDragEnd]);
+
+  const onPointerDown = useCallback( (e)=>{
+    isDragging.current = true;
+    setDragState(true);
+    userDragStart?.({ x: e.clientX, y: e.clientY });
+  }, [userDragStart] );
+
+  return {
+    onPointerDown,
+    dragState
+  };
 }
 
 export default useMountDragEvent;
