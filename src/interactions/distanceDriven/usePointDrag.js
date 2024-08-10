@@ -3,16 +3,15 @@ import useMountDragEvent from "@/common/useMountDragEvent.js";
 
 function usePointDrag() {
   const isDragging = useRef(false);
+  const [dragState, setDragState] = useState(false);
   const prevState = useRef({ x: 0, y: 0, mouseX: 0, mouseY: 0 });
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
-  function onDragStart(e) {
+  function onDragStart({clientX: mouseX, clientY: mouseY}) {
     isDragging.current = true;
-    prevState.current.mouseX = e.clientX;
-    prevState.current.mouseY = e.clientY;
-    prevState.current.x = x;
-    prevState.current.y = y;
+    Object.assign(prevState.current, {mouseX, mouseY, x, y});
+    setDragState(true);
   }
   const onDrag = useCallback(function (mouse) {
     if (!isDragging.current) return;
@@ -22,6 +21,7 @@ function usePointDrag() {
   const onDragEnd = useCallback(function () {
     if (!isDragging.current) return;
     isDragging.current = false;
+    setDragState(false);
   }, []);
 
   useMountDragEvent(onDrag, onDragEnd);
@@ -33,6 +33,7 @@ function usePointDrag() {
       setX(0);
       setY(0);
     },
+    isDragging: dragState,
     onPointerDown: onDragStart,
   };
 }
