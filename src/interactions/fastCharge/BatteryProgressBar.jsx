@@ -1,8 +1,12 @@
 import style from "./batteryStyle.module.css";
 
+const RED_BAR_SIZE = 50;
+const YELLOW_BAR_SIZE = 190;
+const MAX_BAR_SIZE = 330;
+
 function getBatteryColor(progress) {
-  if (progress <= 50 / 330) return "bg-red-500";
-  if (progress <= 190 / 330) return "bg-yellow-400";
+  if (progress <= RED_BAR_SIZE / MAX_BAR_SIZE) return "bg-red-500";
+  if (progress <= YELLOW_BAR_SIZE / MAX_BAR_SIZE) return "bg-yellow-400";
   return "bg-blue-400";
 }
 
