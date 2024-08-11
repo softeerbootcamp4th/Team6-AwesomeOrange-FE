@@ -1,7 +1,5 @@
-function getButtonStyle(styleType, backdrop, isSubmit)
-{
-  switch(`${backdrop}-${styleType}`)
-  {
+function getButtonStyle(styleType, backdrop, isSubmit) {
+  switch(`${backdrop}-${styleType}`) {
   case "light-ghost":
     return `bg-white text-black shadow-[0_0_0_2px_inset_currentColor]
     active:bg-neutral-50 active:text-neutral-400

@@ -1,8 +1,8 @@
 import { http, HttpResponse } from "msw";
 
-function delay(ms) {
-  return new Promise((res) => setTimeout(res, ms));
-}
+// function delay(ms) {
+//   return new Promise((res) => setTimeout(res, ms));
+// }
 
 const handlers = [
   http.get("/api/serverTime", () => {

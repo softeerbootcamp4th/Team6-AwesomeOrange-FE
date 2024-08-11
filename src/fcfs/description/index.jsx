@@ -6,7 +6,7 @@ function FcfsDescription() {
   return (
     <EventDescriptionLayout detail={content.detail}>
       <div className="flex flex-col gap-5">
-          {content.prizes.map( (eachData, i)=><DateEventPrize {...eachData} key={eachData.id} /> )}
+          {content.prizes.map( (eachData)=><DateEventPrize {...eachData} key={eachData.id} /> )}
         </div>
     </EventDescriptionLayout>
   );

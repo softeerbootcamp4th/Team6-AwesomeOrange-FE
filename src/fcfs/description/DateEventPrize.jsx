@@ -1,9 +1,6 @@
-function DateEventPrize({date, title, capacity, image})
-{
+function DateEventPrize({date, title, capacity, image}) {
 	const dateObj = new Date(date);
 	const dateStatus = "default";
-	const isActive = false;
-
 
 	const bgColor = dateStatus === "active" ? "bg-blue-100" : "bg-neutral-900";
 	const opacity = dateStatus === "ended" ? "opacity-50" : "opacity-100";

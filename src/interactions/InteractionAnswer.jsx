@@ -83,7 +83,7 @@ export default function InteractionAnswer({
       </div>
 
       <div className="absolute bottom-10 flex flex-col items-center gap-10">
-        {true ? (
+        {isLogin ? (
           <>
             <span className="text-body-m text-green-400 font-bold">
               {isJoined

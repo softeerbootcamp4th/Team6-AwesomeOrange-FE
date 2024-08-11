@@ -1,6 +1,6 @@
 import EventDescriptionLayout from "@/eventDescription/EventDescriptionLayout.jsx";
 
-export default function IntroductionDetail({ details, prizes }) {
+export default function IntroductionDetail({ prizes }) {
   return (
     <EventDescriptionLayout>
       {prizes.map((contentSubList, index) => (
