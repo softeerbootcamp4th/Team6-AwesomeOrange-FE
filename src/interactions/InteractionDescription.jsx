@@ -1,5 +1,12 @@
-function InteractionDescription({ order, title, description, directive, shouldNotSelect=false }) {
-  const divStyle = "w-full max-w-[1200px] px-10 lg:px-20 flex gap-2 items-start mt-16 lg:mt-[6.25rem]";
+function InteractionDescription({
+  order,
+  title,
+  description,
+  directive,
+  shouldNotSelect = false,
+}) {
+  const divStyle =
+    "w-full max-w-[1200px] px-10 lg:px-20 flex gap-2 items-start mt-16 lg:mt-[6.25rem]";
 
   return (
     <div className={`${divStyle} ${shouldNotSelect ? "select-none" : ""}`}>

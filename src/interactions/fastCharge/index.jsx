@@ -20,10 +20,10 @@ function FastChargeInteraction({ interactCallback, $ref }) {
     ref: dialRef,
     onPointerDown,
     resetAngle: reset,
-    isDragging
+    isDragging,
   } = useDialDrag(0);
 
-  useImperativeHandle($ref, ()=>({reset}), [reset]);
+  useImperativeHandle($ref, () => ({ reset }), [reset]);
   const progress = getProgress(angle);
 
   return (

@@ -18,7 +18,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
     reset,
     phoneSnapArea,
     phoneIsSnapping,
-    isDragging
+    isDragging,
   } = useIslandDrag();
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);

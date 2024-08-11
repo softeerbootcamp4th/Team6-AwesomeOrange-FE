@@ -120,7 +120,7 @@ function CardGame({ offline }) {
           />
         ))}
         <div className="absolute right-0 -bottom-20" hidden={!isOffline}>
-          <ResetButton onClick={reset}/>
+          <ResetButton onClick={reset} />
         </div>
       </div>
     </>

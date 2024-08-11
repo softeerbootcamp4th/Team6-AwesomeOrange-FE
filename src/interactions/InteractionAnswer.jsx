@@ -76,9 +76,13 @@ export default function InteractionAnswer({
         </span>
 
         <div className="flex flex-col gap-4">
-          <span className="text-body-l xl:text-title-s text-neutral-50">{answer.desc}</span>
+          <span className="text-body-l xl:text-title-s text-neutral-50">
+            {answer.desc}
+          </span>
 
-          <span className="text-detail-l xl:text-body-s text-neutral-300">{answer.subdesc}</span>
+          <span className="text-detail-l xl:text-body-s text-neutral-300">
+            {answer.subdesc}
+          </span>
         </div>
       </div>
 

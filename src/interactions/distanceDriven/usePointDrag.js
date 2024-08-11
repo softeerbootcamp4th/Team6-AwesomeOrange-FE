@@ -6,15 +6,21 @@ function usePointDrag() {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
-  const onDragStart = useCallback(function ({x: mouseX, y: mouseY}) {
-    Object.assign(prevState.current, {mouseX, mouseY, x, y});
-  }, [x, y]);
+  const onDragStart = useCallback(
+    function ({ x: mouseX, y: mouseY }) {
+      Object.assign(prevState.current, { mouseX, mouseY, x, y });
+    },
+    [x, y],
+  );
   const onDrag = useCallback(function (mouse) {
     setX(prevState.current.x + mouse.x - prevState.current.mouseX);
     setY(prevState.current.y + mouse.y - prevState.current.mouseY);
   }, []);
 
-  const {onPointerDown, dragState} = useMountDragEvent({onDragStart, onDrag});
+  const { onPointerDown, dragState } = useMountDragEvent({
+    onDragStart,
+    onDrag,
+  });
 
   return {
     x,

@@ -54,16 +54,17 @@ function useAutoCarousel(speed = 1) {
     };
   }, [isControlled, animate]);
 
-
   // 드래그 시작 함수
-  const onDragStart = useCallback(({x}) => {
-    setIsControlled(true);
-    setIsHovered(true);
-    prevDragState.current.x = position;
-    prevDragState.current.mouseX = x;
-    prevDragState.current.prevMouseX = x;
-  }, [position])
-
+  const onDragStart = useCallback(
+    ({ x }) => {
+      setIsControlled(true);
+      setIsHovered(true);
+      prevDragState.current.x = position;
+      prevDragState.current.mouseX = x;
+      prevDragState.current.prevMouseX = x;
+    },
+    [position],
+  );
 
   // 드래그 도중 함수
   const onDrag = useCallback(({ x: mouseX }) => {
@@ -80,7 +81,6 @@ function useAutoCarousel(speed = 1) {
     } else momentum.current = 0;
     prevDragState.current.prevMouseX = mouseX;
   }, []);
-  
 
   // 드래그 종료 함수
   const onDragEnd = useCallback((e) => {
@@ -88,7 +88,11 @@ function useAutoCarousel(speed = 1) {
     if (e.pointerType === "touch") setIsHovered(false);
   }, []);
 
-  const {onPointerDown} = useMountDragEvent({onDragStart, onDrag, onDragEnd});
+  const { onPointerDown } = useMountDragEvent({
+    onDragStart,
+    onDrag,
+    onDragEnd,
+  });
 
   return {
     position,

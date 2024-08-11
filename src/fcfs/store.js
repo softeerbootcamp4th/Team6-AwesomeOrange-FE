@@ -91,9 +91,11 @@ const fcfsStore = create((set) => ({
   getPariticipatedData: (isLogin) => {
     const promiseFn = async function () {
       const participated = await getFcfsParticipated();
-      set({isParticipated: participated.answerResult});
+      set({ isParticipated: participated.answerResult });
     };
-    return getQuerySuspense(`fcfs-participated-data-${isLogin}`, promiseFn, [set]);
+    return getQuerySuspense(`fcfs-participated-data-${isLogin}`, promiseFn, [
+      set,
+    ]);
   },
   setEventStatus: (eventStatus) => set({ eventStatus }),
   handleCountdown: () =>

@@ -16,7 +16,7 @@ function CountStarterDummy() {
   getData();
 
   useEffect(() => {
-    if(eventStatus === OFFLINE) return;
+    if (eventStatus === OFFLINE) return;
 
     controller.current = new CountdownController(
       currentServerTime,

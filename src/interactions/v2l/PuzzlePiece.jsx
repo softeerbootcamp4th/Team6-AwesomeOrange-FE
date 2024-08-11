@@ -19,7 +19,7 @@ function PuzzlePiece({ shape, onClick, fixRotate }) {
         if (shape.rotate < 4) return;
         setFixing(true);
         fixRotate();
-        setTimeout( ()=>setFixing(false), 60 );
+        setTimeout(() => setFixing(false), 60);
       }}
     >
       <svg

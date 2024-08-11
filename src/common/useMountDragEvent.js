@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import throttleRaf from "@/common/throttleRaf.js";
 
-function useMountDragEvent({onDragStart: userDragStart, onDrag, onDragEnd: userDragEnd}={}) {
+function useMountDragEvent({
+  onDragStart: userDragStart,
+  onDrag,
+  onDragEnd: userDragEnd,
+} = {}) {
   const [dragState, setDragState] = useState(false);
   const isDragging = useRef(false);
 
@@ -22,7 +26,7 @@ function useMountDragEvent({onDragStart: userDragStart, onDrag, onDragEnd: userD
       isDragging.current = false;
       setDragState(false);
       userDragEnd?.(e);
-    }
+    };
 
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onDragEnd);
@@ -40,15 +44,18 @@ function useMountDragEvent({onDragStart: userDragStart, onDrag, onDragEnd: userD
     };
   }, [onDrag, userDragEnd]);
 
-  const onPointerDown = useCallback( (e)=>{
-    isDragging.current = true;
-    setDragState(true);
-    userDragStart?.({ x: e.clientX, y: e.clientY });
-  }, [userDragStart] );
+  const onPointerDown = useCallback(
+    (e) => {
+      isDragging.current = true;
+      setDragState(true);
+      userDragStart?.({ x: e.clientX, y: e.clientY });
+    },
+    [userDragStart],
+  );
 
   return {
     onPointerDown,
-    dragState
+    dragState,
   };
 }
 

@@ -23,32 +23,30 @@ function useDialDrag() {
   const prevAngle = useRef(0);
   const angleCache = useRef(0);
 
-  const onDragStart = useCallback((cursor)=>{
+  const onDragStart = useCallback((cursor) => {
     if (dialRef.current === null) return;
 
     const boundRect = dialRef.current.getBoundingClientRect();
     dialCenter.current.x = boundRect.x + boundRect.width / 2;
     dialCenter.current.y = boundRect.y + boundRect.height / 2;
-    prevAngle.current = getAngle(
-      cursor,
-      dialCenter.current,
-    );
-  }, [])
-  const onDrag = useCallback(
-    (cursor) => {
-      const currentAngle = getAngle(cursor, dialCenter.current);
-      angleCache.current += getAngleDelta(prevAngle.current, currentAngle);
-      setAngle(angleCache.current);
-      prevAngle.current = currentAngle;
-    },
-    [],
-  );
+    prevAngle.current = getAngle(cursor, dialCenter.current);
+  }, []);
+  const onDrag = useCallback((cursor) => {
+    const currentAngle = getAngle(cursor, dialCenter.current);
+    angleCache.current += getAngleDelta(prevAngle.current, currentAngle);
+    setAngle(angleCache.current);
+    prevAngle.current = currentAngle;
+  }, []);
   const onDragEnd = useCallback(() => {
     angleCache.current = clamp(angleCache.current, -Math.PI * 2, 0);
     setAngle(angleCache.current);
   }, []);
 
-  const { onPointerDown, dragState } = useMountDragEvent({onDragStart, onDrag, onDragEnd});
+  const { onPointerDown, dragState } = useMountDragEvent({
+    onDragStart,
+    onDrag,
+    onDragEnd,
+  });
 
   const resetAngle = useCallback(() => {
     setAngle(0);
@@ -67,7 +65,7 @@ function useDialDrag() {
     ref: dialRef,
     onPointerDown,
     resetAngle,
-    isDragging: dragState
+    isDragging: dragState,
   };
 }
 

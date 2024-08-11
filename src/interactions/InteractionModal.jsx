@@ -35,7 +35,6 @@ export default function InteractionModal({ index, answer }) {
 
   // backdrop-blur-[100px]을 적용시키면 느린 성능의 컴퓨터에서 인터랙션이 매우 느리게 동작함
   return (
-    
     <div className="w-[calc(100%-2rem)] h-[calc(100%-2rem)] md:size-5/6 relative bg-[url('/images/interactionBackdrop.webp')] bg-cover bg-center bg-black/80 border border-neutral-600 rounded overflow-hidden">
       <button
         onClick={close}
@@ -45,10 +44,10 @@ export default function InteractionModal({ index, answer }) {
       </button>
 
       <Suspense fallback={<div>Loading...</div>}>
-      <InteractionComponent
-        interactCallback={() => setIsActive(true)}
-        $ref={interactionRef}
-      />
+        <InteractionComponent
+          interactCallback={() => setIsActive(true)}
+          $ref={interactionRef}
+        />
       </Suspense>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">

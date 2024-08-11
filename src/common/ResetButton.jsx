@@ -1,8 +1,9 @@
 import Button from "./Button.jsx";
 import RefreshIcon from "./assets/refresh.svg?react";
 
-export default function ResetButton({onClick}) {
-	return <Button
+export default function ResetButton({ onClick }) {
+  return (
+    <Button
       onClick={onClick}
       styleType="ghost"
       backdrop="dark"
@@ -10,4 +11,5 @@ export default function ResetButton({onClick}) {
     >
       <RefreshIcon />
     </Button>
+  );
 }
