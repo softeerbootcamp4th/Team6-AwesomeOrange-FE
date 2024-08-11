@@ -97,7 +97,7 @@ function CardGame({ offline }) {
           status={
             offlineMode
               ? Status.OFFLINE
-              : isParticipated
+              : eventStatus === Status.PROGRESS && isParticipated
                 ? Status.ALREADY
                 : eventStatus
           }
