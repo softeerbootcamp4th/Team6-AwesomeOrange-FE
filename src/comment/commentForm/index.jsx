@@ -36,6 +36,7 @@ function CommentForm() {
         setButtonFetchState("error");
       })
       .finally(() => {
+        setErrorMessage("");
         clearTimeout(timeout);
       });
 
