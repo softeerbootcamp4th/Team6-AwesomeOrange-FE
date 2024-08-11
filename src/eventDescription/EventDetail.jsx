@@ -8,7 +8,7 @@ export default function EventDetail({
   howto,
 }) {
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col flex-grow gap-10">
       <h4 className="text-body-l text-neutral-50 font-bold">
         상세 안내
       </h4>

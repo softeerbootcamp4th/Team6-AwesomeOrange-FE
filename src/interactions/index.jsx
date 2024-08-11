@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import useSectionInitialize from "@/scroll/useSectionInitialize";
 import useSwiperState from "@/common/useSwiperState";
-import IntroductionDetail from "./IntroductionDetail";
+import EventDescriptionLayout from "@/eventDescription/EventDescriptionLayout.jsx";
 import GiftDetail from "./GiftDetail";
 import JSONData from "./content.json";
 import TapBar from "./TapBar";
@@ -47,10 +47,10 @@ export default function InteractionPage() {
           </swiper-slide>
         ))}
       </swiper-container>
-
-      <div className="pt-10 sm:pt-32 flex flex-col xl:flex-row gap-16 sm:gap-[140px]">
-        <IntroductionDetail contentList={JSONData.howto} />
-        <GiftDetail contentList={JSONData.gift} />
+      <div className="w-full px-6 flex flex-col justify-center items-center">
+        <EventDescriptionLayout detail={JSONData.detail}>
+          <GiftDetail contentList={JSONData.gift} />
+        </EventDescriptionLayout>
       </div>
     </section>
   );
