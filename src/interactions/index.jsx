@@ -15,6 +15,8 @@ export default function InteractionPage() {
 
   const joinedList = [1, 0, 0, 1, -1];
 
+  const slideTo = (_index) => swiperRef.current.swiper.slideTo(_index);
+
   return (
     <section
       ref={sectionRef}
@@ -23,7 +25,7 @@ export default function InteractionPage() {
       <TapBar
         currentInteraction={currentInteraction}
         joinedList={joinedList}
-        swiperRef={swiperRef}
+        slideTo={slideTo}
       />
 
       <swiper-container
@@ -41,7 +43,7 @@ export default function InteractionPage() {
               index={index}
               isCurrent={currentInteraction === index}
               joined={joinedList[index]}
-              slideTo={(_index) => swiperRef.current.swiper.slideTo(_index)}
+              slideTo={slideTo}
               answer={JSONData.answer[index]}
             />
           </swiper-slide>

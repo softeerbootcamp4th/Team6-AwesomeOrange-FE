@@ -1,4 +1,4 @@
-export default function TapBar({ currentInteraction, joinedList, swiperRef }) {
+export default function TapBar({ currentInteraction, joinedList, slideTo }) {
   return (
     <>
       <span className="py-5 text-body-l text-neutral-200 font-bold items-center border-b-[3px] border-b-neutral-400">
@@ -17,7 +17,7 @@ export default function TapBar({ currentInteraction, joinedList, swiperRef }) {
         {joinedList.map((joined, index) => (
           <div
             key={index}
-            onClick={() => swiperRef.current.swiper.slideTo(index)}
+            onClick={() => slideTo(index)}
             className="flex flex-col items-center select-none cursor-pointer"
           >
             <img
