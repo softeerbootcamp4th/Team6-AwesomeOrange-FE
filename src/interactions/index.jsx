@@ -20,7 +20,7 @@ export default function InteractionPage() {
   return (
     <section
       ref={sectionRef}
-      className="bg-black py-20 sm:py-60 flex flex-col items-center"
+      className="bg-black py-24 lg:py-60 flex flex-col items-center"
     >
       <TapBar
         currentInteraction={currentInteraction}
@@ -49,7 +49,7 @@ export default function InteractionPage() {
           </swiper-slide>
         ))}
       </swiper-container>
-      <div className="w-full px-6 flex flex-col justify-center items-center">
+      <div className="w-full pt-[7.5rem] px-6 flex flex-col justify-center items-center">
         <EventDescriptionLayout detail={JSONData.detail}>
           <GiftDetail contentList={JSONData.gift} />
         </EventDescriptionLayout>
