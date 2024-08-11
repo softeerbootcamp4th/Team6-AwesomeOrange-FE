@@ -6,13 +6,13 @@ import { http, HttpResponse } from "msw";
 
 const handlers = [
   http.get("/api/serverTime", () => {
-    return HttpResponse.json({ timestamp: "2024-08-08T06:00:00.500+00:00" });
+    return HttpResponse.json({ timestamp: "2024-09-10T06:00:00.500+00:00" });
   }),
   http.get("/api/v1/event/fcfs/:eventFrameId/info", () => {
     return HttpResponse.json({
-      nowDateTime: "2024-08-08T06:00:10.000Z",
-      eventStatus: "progress",
-    }, {status: 404});
+      nowDateTime: "2024-09-10T06:00:10.000Z",
+      eventStatus: "countdown",
+    });
   }),
   http.get("/api/v1/event/fcfs/participated", async ({ request }) => {
     const token = request.headers.get("authorization");
