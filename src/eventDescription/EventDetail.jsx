@@ -28,7 +28,7 @@ export default function EventDetail({
           </span>
 
           <span className="pt-6 text-body-l text-white font-bold">
-            {makeHighlight(announceDate, "font-normal text-neutral-300")}
+            {makeHighlight(announceDate, "font-medium text-neutral-300")}
           </span>
 
           <span className="pt-2 text-body-s text-neutral-300">
