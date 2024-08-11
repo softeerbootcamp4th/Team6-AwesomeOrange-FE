@@ -3,6 +3,7 @@ import { ModalCloseContext } from "@/modal/modal.jsx";
 import { lazy, useContext, useRef, useState } from "react";
 import InteractionAnswer from "./InteractionAnswer";
 import userStore from "@/auth/store.js";
+import ResetButton from "@/common/ResetButton.jsx";
 
 const lazyInteractionList = [
   lazy(() => import("./distanceDriven")),
@@ -57,13 +58,7 @@ export default function InteractionModal({ index, answer }) {
         >
           확인하기
         </button>
-
-        <button
-          onClick={() => interactionRef.current.reset()}
-          className="border-2 border-neutral-100 p-1 xl:p-2"
-        >
-          <img src="icons/refresh.svg" alt="다시하기" />
-        </button>
+        <ResetButton onClick={() => interactionRef.current.reset()} />
       </div>
 
       <InteractionAnswer

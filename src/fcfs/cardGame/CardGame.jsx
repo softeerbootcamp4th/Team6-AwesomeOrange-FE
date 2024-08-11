@@ -12,6 +12,7 @@ import useFcfsStore from "../store.js";
 import * as Status from "../constants.js";
 import { EVENT_ID } from "@/common/constants.js";
 import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
+import ResetButton from "@/common/ResetButton.jsx";
 
 function getLocked(eventStatus, isParticipated, offline) {
   if (offline) return false;
@@ -118,13 +119,9 @@ function CardGame({ offline }) {
             {...cardProps}
           />
         ))}
-        <button
-          className="absolute size-16 rounded-full bg-white right-0 -bottom-20"
-          hidden={!isOffline}
-          onClick={reset}
-        >
-          리셋하기
-        </button>
+        <div className="absolute right-0 -bottom-20" hidden={!isOffline}>
+          <ResetButton onClick={reset}/>
+        </div>
       </div>
     </>
   );
