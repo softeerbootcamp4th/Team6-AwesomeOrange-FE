@@ -3,6 +3,7 @@ import { ModalCloseContext } from "@/modal/modal.jsx";
 import { lazy, useContext, useRef, useState } from "react";
 import InteractionAnswer from "./InteractionAnswer";
 import userStore from "@/auth/store.js";
+import Button from "@/common/Button.jsx";
 import ResetButton from "@/common/ResetButton.jsx";
 
 const lazyInteractionList = [
@@ -51,13 +52,15 @@ export default function InteractionModal({ index, answer }) {
       </Suspense>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-        <button
+        <Button
           onClick={joinEvent}
+          styleType="filled"
+          backdrop="dark"
           disabled={!isActive}
-          className={`${isActive ? "opacity-100" : "opacity-50"} bg-white px-4 py-2 xl:px-10 xl:py-4 text-black text-body-s`}
+          className="px-4 py-2 xl:px-10 xl:py-4 text-black text-body-s"
         >
           확인하기
-        </button>
+        </Button>
         <ResetButton onClick={() => interactionRef.current.reset()} />
       </div>
 
