@@ -1,7 +1,7 @@
 import { build } from "vite";
-import { parse, resolve } from "node:path";
+import { parse, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { readFile, writeFile, rm } from "node:fs/promises";
+import { readFile, writeFile, rm, mkdir } from "node:fs/promises";
 import config from "./vite.config.js";
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -81,13 +81,20 @@ async function injectSSGToHtml(mode)
 	const urlEntryPoint = buildConfig[mode].url ?? ["index"];
 
 	const promises = urlEntryPoint.map( async (path)=>{
-		const html = template.replace("<!--hydrate_root-->", render(path));
 		const absolutePath = toAbsolute(`dist/${mode}/${path}.html`);
+		try {
+			const html = template.replace("<!--hydrate_root-->", render(path));
 
-		await writeFile(absolutePath, html);
-		console.log(`pre-rendered : ${absolutePath}`);
+			const dir = dirname(absolutePath);
+			await mkdir(dir, { recursive: true });
+			await writeFile(absolutePath, html);
+			console.log(`pre-rendered : ${path}`);
+		}
+		catch {
+			console.log(`pre-rendered failed : ${path}`);
+		}
 	} );
-	await Promise.allSettled(promises);
+	Promise.allSettled(promises);
 	console.log("--successfully build completed!--");
 }
 
