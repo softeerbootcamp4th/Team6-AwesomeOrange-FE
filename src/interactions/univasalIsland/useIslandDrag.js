@@ -15,13 +15,11 @@ function aabbCheck(bound1, bound2) {
 
 function useIslandDrag() {
   // island state
-  const islandIsDrag = useRef(false);
   const islandStartMouseYPosition = useRef(0);
   const islandStartPosition = useRef(0);
   const [islandY, setIslandY] = useState(0);
 
   // phone state
-  const phoneIsDrag = useRef(false);
   const phoneStartMousePosition = useRef({ x: 0, y: 0 });
   const phoneStartPosition = useRef({ x: PHONE_INITIAL_X, y: PHONE_INITIAL_Y });
   const [phoneIsSnapping, setPhoneIsSnapping] = useState(false);
@@ -33,15 +31,16 @@ function useIslandDrag() {
   const phoneSnapArea = useRef(null);
 
   // mount island drag event
-  const islandOnDragStart = function (e) {
-    islandIsDrag.current = true;
-    setPhoneShouldSnapped(false);
-    islandStartMouseYPosition.current = e.clientY;
-    islandStartPosition.current = islandY;
-  };
+  const islandOnDragStart = useCallback(
+    ({ y }) => {
+      setPhoneShouldSnapped(false);
+      islandStartMouseYPosition.current = y;
+      islandStartPosition.current = islandY;
+    },
+    [islandY],
+  );
   const islandOnDragging = useCallback(
     function ({ y: mouseY }) {
-      if (!islandIsDrag.current) return;
       const rawY =
         mouseY -
         islandStartMouseYPosition.current +
@@ -57,22 +56,22 @@ function useIslandDrag() {
     },
     [phoneIsSnapping],
   );
-  const islandOnDragEnd = useCallback(() => {
-    if (!islandIsDrag.current) return;
-    islandIsDrag.current = false;
-  }, []);
-  useMountDragEvent(islandOnDragging, islandOnDragEnd);
+  const { onPointerDown: islandOnPointerDown, dragState: islandIsDrag } =
+    useMountDragEvent({
+      onDragStart: islandOnDragStart,
+      onDrag: islandOnDragging,
+    });
 
   // mount phone drag event
-  const phoneOnDragStart = function (e) {
-    phoneIsDrag.current = true;
-    setPhoneShouldSnapped(false);
-    phoneStartMousePosition.current = { x: e.clientX, y: e.clientY };
-    phoneStartPosition.current = { x: phoneX, y: phoneY };
-  };
+  const phoneOnDragStart = useCallback(
+    (position) => {
+      setPhoneShouldSnapped(false);
+      phoneStartMousePosition.current = position;
+      phoneStartPosition.current = { x: phoneX, y: phoneY };
+    },
+    [phoneX, phoneY],
+  );
   const phoneOnDragging = useCallback(function ({ x: mouseX, y: mouseY }) {
-    if (!phoneIsDrag.current) return;
-
     const x =
       mouseX - phoneStartMousePosition.current.x + phoneStartPosition.current.x;
     const y =
@@ -83,9 +82,6 @@ function useIslandDrag() {
   }, []);
   const phoneOnDragEnd = useCallback(
     (e) => {
-      if (!phoneIsDrag.current) return;
-
-      phoneIsDrag.current = false;
       const isSnapped = aabbCheck(
         e.target.getBoundingClientRect(),
         phoneSnapArea.current.getBoundingClientRect(),
@@ -97,9 +93,14 @@ function useIslandDrag() {
         setPhoneShouldSnapped(true);
       }
     },
-    [islandY, phoneIsDrag],
+    [islandY],
   );
-  useMountDragEvent(phoneOnDragging, phoneOnDragEnd);
+  const { onPointerDown: phoneOnPointerDown, dragState: phoneIsDrag } =
+    useMountDragEvent({
+      onDragStart: phoneOnDragStart,
+      onDrag: phoneOnDragging,
+      onDragEnd: phoneOnDragEnd,
+    });
 
   // reset function interface
   const reset = useCallback(() => {
@@ -107,8 +108,6 @@ function useIslandDrag() {
     phoneStartMousePosition.current = { x: 0, y: 0 };
     islandStartPosition.current = 0;
     phoneStartPosition.current = { x: PHONE_INITIAL_X, y: PHONE_INITIAL_Y };
-    islandIsDrag.current = false;
-    phoneIsDrag.current = false;
     setIslandY(0);
     setPhoneIsSnapping(false);
     setPhoneShouldSnapped(false);
@@ -120,14 +119,19 @@ function useIslandDrag() {
   const islandStyle = useMemo(
     () => ({
       transform: `translateY(${islandY}px)`,
+      transition: !islandIsDrag ? "transform 0.2s" : "none",
     }),
-    [islandY],
+    [islandY, islandIsDrag],
   );
 
   // phone style은 상당히 많은 state 종속성을 가지고 있으므로 useMemo가 의미가 없음
   const phoneStyle = {
     transform: `translate(${phoneX}px, ${phoneY}px)`,
-    transition: phoneShouldSnapped ? "transform 0.5s" : "none",
+    transition: phoneShouldSnapped
+      ? "transform 0.5s"
+      : !phoneIsSnapping && !phoneIsDrag
+        ? "transform 0.2s"
+        : "none",
   };
 
   return {
@@ -135,9 +139,10 @@ function useIslandDrag() {
     islandStyle,
     phoneStyle,
     phoneIsSnapping,
-    islandEventListener: { onPointerDown: islandOnDragStart },
-    phoneEventListener: { onPointerDown: phoneOnDragStart },
+    islandEventListener: { onPointerDown: islandOnPointerDown },
+    phoneEventListener: { onPointerDown: phoneOnPointerDown },
     phoneSnapArea,
+    isDragging: islandIsDrag || phoneIsDrag,
   };
 }
 

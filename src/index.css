@@ -26,6 +26,11 @@
   body {
     font-family: "hdsans";
   }
+  body.scrollLocked {
+    position: fixed;
+    width: 100%;
+    overflow-y: scroll;
+  }
 }
 
 @layer components {

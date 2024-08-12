@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import useSectionInitialize from "@/scroll/useSectionInitialize";
 import useSwiperState from "@/common/useSwiperState";
-import IntroductionDetail from "./IntroductionDetail";
+import EventDescriptionLayout from "@/eventDescription/EventDescriptionLayout.jsx";
 import GiftDetail from "./GiftDetail";
 import JSONData from "./content.json";
 import TapBar from "./TapBar";
@@ -15,15 +15,17 @@ export default function InteractionPage() {
 
   const joinedList = [1, 0, 0, 1, -1];
 
+  const slideTo = (_index) => swiperRef.current.swiper.slideTo(_index);
+
   return (
     <section
       ref={sectionRef}
-      className="bg-black py-20 sm:py-60 flex flex-col items-center"
+      className="bg-black py-24 lg:py-60 flex flex-col items-center"
     >
       <TapBar
         currentInteraction={currentInteraction}
         joinedList={joinedList}
-        swiperRef={swiperRef}
+        slideTo={slideTo}
       />
 
       <swiper-container
@@ -41,16 +43,16 @@ export default function InteractionPage() {
               index={index}
               isCurrent={currentInteraction === index}
               joined={joinedList[index]}
-              slideTo={(_index) => swiperRef.current.swiper.slideTo(_index)}
+              slideTo={slideTo}
               answer={JSONData.answer[index]}
             />
           </swiper-slide>
         ))}
       </swiper-container>
-
-      <div className="pt-10 sm:pt-32 flex flex-col xl:flex-row gap-16 sm:gap-[140px]">
-        <IntroductionDetail contentList={JSONData.howto} />
-        <GiftDetail contentList={JSONData.gift} />
+      <div className="w-full pt-[7.5rem] px-6 flex flex-col justify-center items-center">
+        <EventDescriptionLayout detail={JSONData.detail}>
+          <GiftDetail contentList={JSONData.gift} />
+        </EventDescriptionLayout>
       </div>
     </section>
   );
