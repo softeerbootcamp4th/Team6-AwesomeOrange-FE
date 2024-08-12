@@ -1,17 +1,17 @@
 {
-  "name": "vite-project",
+  "name": "awesome-orange-project",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build && npm run build:server && node prerender.js && rm dist/mockServiceWorker.js",
-    "build:client": "vite build",
-    "build:server": "vite build --ssr src/main-server.jsx --outDir dist-ssg",
+    "build": "node build.js main",
+    "build-admin": "node build.js admin",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css}'",
     "lint": "eslint . --ext js,jsx --max-warnings 0",
     "lint-fix": "eslint . --ext js,jsx --fix",
-    "preview": "vite preview"
+    "preview": "vite preview --outDir dist/main",
+    "preview-admin": "vite preview --outDir dist/admin"
   },
   "dependencies": {
     "react": "^18.3.1",
