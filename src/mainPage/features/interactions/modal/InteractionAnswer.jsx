@@ -5,9 +5,12 @@ import { COMMENT_SECTION } from "@main/scroll/constants.js";
 import AuthModal from "@main/auth/AuthModal.jsx";
 import openModal from "@common/modal/openModal.js";
 import Button from "@common/components/Button.jsx";
+import { fetchServer } from "@common/dataFetch/fetchServer";
+import { EVENT_DRAW_ID, EVENT_START_DATE } from "@common/constants.js";
+import useEventStore from "@main/realtimeEvent/store.js";
+import getEventDateState from "@main/realtimeEvent/getEventDateState";
 
 import style from "./InteractionAnswer.module.css";
-// import useEventStore from "@main/realtimeEvent/store";
 
 export default function InteractionAnswer({
   isAnswerUp,
@@ -15,29 +18,35 @@ export default function InteractionAnswer({
   answer,
   close,
   isLogin,
+  index,
 }) {
-  // const currentServerTime = fcfsStore((state) => state.currentServerTime);
+  const currentServerTime = useEventStore((state) => state.currentServerTime);
+  const eventDate = EVENT_START_DATE.getTime() + index * 24 * 60 * 60 * 1000;
   const [isAniPlaying, setIsAniPlaying] = useState(false);
-  const [isEventToday, setIsEventToday] = useState(false);
   const [isJoined, setIsJoined] = useState(false);
   const authModal = (
     <AuthModal
       onComplete={() => {
-        /*
-         *  비로그인자가 정보등록을 성공시켰을 때 서버로 추첨이벤트 참여 api를 보내는 코드 미구현
-         */
+        // 추첨 이벤트 참가 전송. API 주소 추후 바뀔 수 있음
+        fetchServer(`/api/v1/draw/${EVENT_DRAW_ID}`, {
+          method: "POST",
+        })
+          .then((res) => {
+            console.log(res);
+            setIsJoined(true);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       }}
     />
   );
 
   useEffect(() => {
-    /*
-     *  서버에서 해당 날짜의 사용자 응모 여부와, 시간을 받아온 후 이벤트 날짜와 비교하는 코드 미구현
-     */
-
-    setIsEventToday(true);
-    setIsJoined(false);
-  }, []);
+    if (getEventDateState(currentServerTime, eventDate) === "active") {
+      setIsJoined(true);
+    }
+  }, [currentServerTime, eventDate]);
 
   async function onClickWrite() {
     await close();
@@ -47,12 +56,20 @@ export default function InteractionAnswer({
   function onClickShare() {
     setIsAniPlaying(true);
 
-    /*
-     *  서버에서 단축 url을 받아오는 코드 미구현
-     */
-
-    const simpleURL = "https://youtu.be/KMU0tzLwhbE";
-    navigator.clipboard.writeText(simpleURL);
+    // 단축 URL 받아오는 요청. 추후 수정 필요
+    fetchServer(
+      `/api/v1/url/shorten?originalUrl=https%3A%2F%2Fsofteer-awesome-orange.vercel.app%2F&userId=1`,
+      {
+        method: "POST",
+      },
+    )
+      .then((res) => {
+        console.log(res);
+        navigator.clipboard.writeText("https://youtu.be/KMU0tzLwhbE");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   return (
@@ -101,7 +118,7 @@ export default function InteractionAnswer({
             <div className="flex gap-4 items-end">
               <div className="flex flex-col gap-2">
                 <div
-                  className={`${isEventToday ? "" : "hidden"} relative flex flex-col items-center animate-bounce`}
+                  className={`${isJoined ? "" : "hidden"} relative flex flex-col items-center animate-bounce`}
                 >
                   <span className=" bg-green-400 text-nowrap text-body-s xl:text-body-m text-neutral-800 rounded-full px-4 xl:px-8 py-1 xl:py-2 font-bold">
                     당첨확률 UP!
