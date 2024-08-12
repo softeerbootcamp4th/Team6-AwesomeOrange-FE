@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import IntervalController from "@/common/IntervalController.js";
+import IntervalController from "../IntervalController.js";
 
 function useTimer(remainTime) {
   const [timer, setTimer] = useState(remainTime);

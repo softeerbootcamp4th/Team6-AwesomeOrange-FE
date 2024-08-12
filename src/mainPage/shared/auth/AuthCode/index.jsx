@@ -3,7 +3,7 @@ import InputWithTimer from "./InputWithTimer.jsx";
 import useTimer from "./useTimer.js";
 import submitAuthCode from "./submitAuthCode.js";
 import requestAuthCode from "../requestAuthCode.js";
-import Button from "@/common/Button.jsx";
+import Button from "@common/components/Button.jsx";
 
 const AUTH_MAX_DURATION = 5 * 60;
 
