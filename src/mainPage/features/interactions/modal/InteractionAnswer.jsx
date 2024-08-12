@@ -6,7 +6,8 @@ import AuthModal from "@main/auth/AuthModal.jsx";
 import openModal from "@common/modal/openModal.js";
 import Button from "@common/components/Button.jsx";
 
-import style from "./InteractionAnswer.module.css"
+import style from "./InteractionAnswer.module.css";
+import { fetchServer } from "@common/dataFetch/fetchServer";
 // import useEventStore from "@main/realtimeEvent/store";
 
 export default function InteractionAnswer({
@@ -44,15 +45,23 @@ export default function InteractionAnswer({
     scrollTo(COMMENT_SECTION);
   }
 
-  function onClickShare() {
+  async function onClickShare() {
     setIsAniPlaying(true);
 
-    /*
-     *  서버에서 단축 url을 받아오는 코드 미구현
-     */
-
-    const simpleURL = "https://youtu.be/KMU0tzLwhbE";
-    navigator.clipboard.writeText(simpleURL);
+    await fetchServer(
+      // 추후 수정 필요
+      `/api/v1/url/shorten?originalUrl=https%3A%2F%2Fsofteer-awesome-orange.vercel.app%2F&userId=1`,
+      {
+        method: "POST",
+      },
+    )
+      .then((res) => {
+        console.log(res);
+        navigator.clipboard.writeText("https://youtu.be/KMU0tzLwhbE");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   return (
