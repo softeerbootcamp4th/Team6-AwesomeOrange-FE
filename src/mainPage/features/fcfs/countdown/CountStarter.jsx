@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
-import useFcfsStore from "../store.js";
-import { OFFLINE } from "../constants.js";
+import useFcfsStore from "@main/realtimeEvent/store.js";
+import { OFFLINE } from "@main/realtimeEvent/constants.js";
 import CountdownController from "./CountdownController";
-import Suspense from "@/common/Suspense.jsx";
-import ErrorBoundary from "@/common/ErrorBoundary.jsx";
+import Suspense from "@common/components/Suspense.jsx";
+import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
 
 function CountStarterDummy() {
   const controller = useRef(new CountdownController(0, 0));

@@ -1,4 +1,4 @@
-import EventDescriptionLayout from "@/eventDescription/EventDescriptionLayout.jsx";
+import EventDescriptionLayout from "@main/eventDescription/EventDescriptionLayout.jsx";
 import DateEventPrize from "./DateEventPrize.jsx";
 import content from "./content.json";
 

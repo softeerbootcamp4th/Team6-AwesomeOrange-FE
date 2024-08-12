@@ -2,17 +2,17 @@ import { useState } from "react";
 import CardGameTitle from "./CardGameTitle.jsx";
 import Card from "./Card.jsx";
 
-import openModal from "@/modal/openModal.js";
+import openModal from "@common/modal/openModal.js";
 import FcfsWinModal from "../modals/FcfsWinModal.jsx";
 import FcfsLoseModal from "../modals/FcfsLoseModal.jsx";
 import FcfsInvalidModal from "../modals/FcfsInvalidModal.jsx";
-import AuthModal from "@/auth/AuthModal.jsx";
+import AuthModal from "@main/auth/AuthModal.jsx";
 
-import useFcfsStore from "../store.js";
-import * as Status from "../constants.js";
-import { EVENT_ID } from "@/common/constants.js";
-import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
-import ResetButton from "@/common/ResetButton.jsx";
+import useFcfsStore from "@main/realtimeEvent/store.js";
+import * as Status from "@main/realtimeEvent/constants.js";
+import { EVENT_ID } from "@common/constants.js";
+import { fetchServer, handleError } from "@common/dataFetch/fetchServer.js";
+import ResetButton from "@main/components/ResetButton.jsx";
 
 function getLocked(eventStatus, isParticipated, offline) {
   if (offline) return false;

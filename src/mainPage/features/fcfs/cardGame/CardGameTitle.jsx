@@ -1,6 +1,6 @@
-import useFcfsStore from "../store.js";
-import * as Status from "../constants.js";
-import { convertSecondsToString } from "@/common/utils.js";
+import useFcfsStore from "@main/realtimeEvent/store.js";
+import * as Status from "@main/realtimeEvent/constants.js";
+import { convertSecondsToString } from "@common/utils.js";
 
 function CardGameCountdown() {
   const countdown = useFcfsStore((store) => store.countdown);
