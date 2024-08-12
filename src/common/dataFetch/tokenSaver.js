@@ -1,31 +1,31 @@
-import { TOKEN_ID } from "@common/constants.js";
-
 class TokenSaver {
   initialized = false;
   token = null;
-  init() {
+  tokenId = null;
+  init(tokenId) {
     if (typeof window === "undefined") return;
-    this.token = localStorage.getItem(TOKEN_ID) ?? null;
+    this.tokenId = tokenId;
+    this.token = localStorage.getItem(this.tokenId) ?? null;
     this.initialized = true;
   }
-  get() {
+  get(tokenId = this.tokenId) {
     if (this.initialized) return this.token;
-    this.init();
+    this.init(tokenId);
     return this.token;
   }
   set(token) {
     this.token = token;
-    if (typeof window !== "undefined") localStorage.setItem(TOKEN_ID, token);
+    if (typeof window !== "undefined") localStorage.setItem(this.tokenId, token);
     this.initialzed = true;
   }
-  has() {
+  has(tokenId = this.tokenId) {
     if (this.initialized) return this.token !== null;
-    this.init();
+    this.init(tokenId);
     return this.token !== null;
   }
   remove() {
     this.token = null;
-    if (typeof window !== "undefined") localStorage.removeItem(TOKEN_ID);
+    if (typeof window !== "undefined") localStorage.removeItem(this.tokenId);
     this.initialzed = true;
   }
 }
