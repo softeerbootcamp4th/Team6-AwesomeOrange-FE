@@ -1,8 +1,8 @@
-import useFcfsStore from "@/fcfs/store.js";
-import { convertSecondsToString } from "@/common/utils.js";
+import useEventStore from "@main/realtimeEvent/store.js";
+import { convertSecondsToString } from "@common/utils.js";
 
 function FcfsNotifierCountdown() {
-  const countdown = useFcfsStore((store) => store.countdown);
+  const countdown = useEventStore((store) => store.countdown);
 
   return (
     <>

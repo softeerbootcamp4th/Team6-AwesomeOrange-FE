@@ -1,4 +1,4 @@
-import Star from "./star.svg?react";
+import Star from "./assets/star.svg?react";
 
 export default function GiftDetail({ contentList }) {
   return (

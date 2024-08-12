@@ -1,10 +1,13 @@
-import scrollTo from "@/scroll/scrollTo";
-import style from "./InteractionAnswer.module.css";
 import { useEffect, useState } from "react";
-import openModal from "@/modal/openModal.js";
-import AuthModal from "@/auth/AuthModal.jsx";
-import Button from "@/common/Button.jsx";
-// import fcfsStore from "@/fcfs/store";
+
+import scrollTo from "@main/scroll/scrollTo.js";
+import { COMMENT_SECTION } from "@main/scroll/constants.js";
+import AuthModal from "@main/auth/AuthModal.jsx";
+import openModal from "@common/modal/openModal.js";
+import Button from "@common/components/Button.jsx";
+
+import style from "./InteractionAnswer.module.css"
+// import useEventStore from "@main/realtimeEvent/store";
 
 export default function InteractionAnswer({
   isAnswerUp,

@@ -1,10 +1,12 @@
-import Suspense from "@/common/Suspense.jsx";
-import { ModalCloseContext } from "@/modal/modal.jsx";
 import { lazy, useContext, useRef, useState } from "react";
-import InteractionAnswer from "./InteractionAnswer";
-import userStore from "@/auth/store.js";
-import Button from "@/common/Button.jsx";
-import ResetButton from "@/common/ResetButton.jsx";
+
+import InteractionAnswer from "./InteractionAnswer.jsx";
+import { ModalCloseContext } from "@common/modal/modal.jsx";
+import Suspense from "@common/components/Suspense.jsx";
+import Button from "@common/components/Button.jsx";
+import ResetButton from "@main/components/ResetButton.jsx"
+
+import userStore from "@main/auth/store.js";
 
 const lazyInteractionList = [
   lazy(() => import("./distanceDriven")),
