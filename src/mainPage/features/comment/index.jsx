@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import CommentCarousel from "./commentCarousel";
 import CommentForm from "./commentForm";
-import useSectionInitialize from "@main/shared/scroll/useSectionInitialize";
+import useSectionInitialize from "@main/scroll/useSectionInitialize";
 import decoration from "./assets/decoration.svg";
 
 function CommentSection() {
