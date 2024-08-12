@@ -16,17 +16,22 @@ if (import.meta.env.DEV) {
   };
   enableMocking().then(() => {
     const root = createRoot($root);
-    root.render(<StrictMode>
-      <BrowserRouter basename="/admin">
-        <App />
-      </BrowserRouter>
-    </StrictMode>);
+    root.render(
+      <StrictMode>
+        <BrowserRouter basename="/admin">
+          <App />
+        </BrowserRouter>
+      </StrictMode>,
+    );
   });
 } else {
   // 배포 시
-  hydrateRoot($root, <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>);
+  hydrateRoot(
+    $root,
+    <StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StrictMode>,
+  );
 }

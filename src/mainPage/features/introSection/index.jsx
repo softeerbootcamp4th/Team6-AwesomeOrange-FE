@@ -7,7 +7,6 @@ import style from "./index.module.css";
 import SpinningCarVideo from "./car-spin.webm";
 import Pointer from "./pointer.svg";
 
-
 function IntroSection() {
   const videoRef = useRef(null);
   const introRef = useRef(null);
@@ -106,7 +105,9 @@ function IntroSection() {
               더뉴 아이오닉5 신차 출시 이벤트
             </span>
 
-            <span className="text-center text-title-l sm:text-head-s">09/09 (mon) - 09/13 (fri)</span>
+            <span className="text-center text-title-l sm:text-head-s">
+              09/09 (mon) - 09/13 (fri)
+            </span>
           </div>
 
           <div className="absolute -bottom-2 w-full h-4 bg-white" />

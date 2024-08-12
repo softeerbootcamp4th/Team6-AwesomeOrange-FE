@@ -10,15 +10,15 @@ function Modal({ layer }) {
   const child = useModalStore(layer);
   const [opacity, setOpacity] = useState(0);
   const close = useCallback(() => {
-    return new Promise( (resolve)=>{
+    return new Promise((resolve) => {
       setOpacity(0);
-      
+
       if (timeoutRef.current !== null) return resolve();
-      timeoutRef.current = setTimeout( ()=>{
+      timeoutRef.current = setTimeout(() => {
         closeModal(layer);
         resolve();
-      }, 150 );
-    } );
+      }, 150);
+    });
   }, [layer]);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { build } from "vite";
-import { parse, resolve, dirname } from "node:path";
+import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import process from "node:process";
 import { readFile, writeFile, rm, mkdir } from "node:fs/promises";
 import config from "./vite.config.js";
 
@@ -30,14 +31,12 @@ const buildConfig = {
 	},
 }
 
-async function processBuild(mode)
-{
+async function processBuild(mode) {
 	await Promise.all([buildClient(mode), buildSSG(mode)]);
 	await injectSSGToHtml(mode);
 }
 
-async function buildClient(mode)
-{
+async function buildClient(mode) {
 	await build({
 		...config,
 		build: {
@@ -54,8 +53,7 @@ async function buildClient(mode)
 	await rm(toAbsolute(`dist/${mode}/mockServiceWorker.js`));
 }
 
-function buildSSG(mode)
-{
+function buildSSG(mode) {
 	return build({
 		...config,
 		build: {
@@ -72,8 +70,7 @@ function buildSSG(mode)
 	});
 }
 
-async function injectSSGToHtml(mode)
-{
+async function injectSSGToHtml(mode) {
 	console.log("--ssg result--");
 	const {default: render} = await import(`./dist-ssg/${mode}/entry.js`);
 	const template = await readFile(`dist/${mode}/${buildConfig[mode].clientEntry}`, "utf-8");
@@ -89,8 +86,7 @@ async function injectSSGToHtml(mode)
 			await mkdir(dir, { recursive: true });
 			await writeFile(absolutePath, html);
 			console.log(`pre-rendered : ${path}`);
-		}
-		catch {
+		} catch {
 			console.log(`pre-rendered failed : ${path}`);
 		}
 	} );

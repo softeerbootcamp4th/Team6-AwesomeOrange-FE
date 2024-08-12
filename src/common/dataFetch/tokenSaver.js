@@ -15,7 +15,8 @@ class TokenSaver {
   }
   set(token) {
     this.token = token;
-    if (typeof window !== "undefined") localStorage.setItem(this.tokenId, token);
+    if (typeof window !== "undefined")
+      localStorage.setItem(this.tokenId, token);
     this.initialzed = true;
   }
   has(tokenId = this.tokenId) {
