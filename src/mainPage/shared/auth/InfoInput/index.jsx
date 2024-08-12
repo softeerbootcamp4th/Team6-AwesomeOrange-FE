@@ -1,8 +1,8 @@
 import { useState } from "react";
 import requestAuthCode from "../requestAuthCode.js";
-import Input from "@/common/Input.jsx";
-import PhoneInput from "@/common/PhoneInput.jsx";
-import Button from "@/common/Button.jsx";
+import Input from "@common/components/Input.jsx";
+import PhoneInput from "@common/components/PhoneInput.jsx";
+import Button from "@common/components/Button.jsx";
 
 function AuthFirstSection({
   name,

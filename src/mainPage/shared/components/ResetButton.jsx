@@ -1,4 +1,4 @@
-import Button from "./Button.jsx";
+import Button from "@common/components/Button.jsx";
 import RefreshIcon from "./assets/refresh.svg?react";
 
 export default function ResetButton({ onClick }) {

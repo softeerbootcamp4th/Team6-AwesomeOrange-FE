@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { ModalCloseContext } from "@/modal/modal.jsx";
-import Button from "@/common/Button.jsx";
+import { ModalCloseContext } from "@common/modal/modal.jsx";
+import Button from "@common/components/Button.jsx";
 
 function NoServerModal() {
   const close = useContext(ModalCloseContext);

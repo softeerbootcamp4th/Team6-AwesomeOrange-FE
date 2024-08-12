@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import throttleRaf from "@/common/throttleRaf.js";
+import throttleRaf from "@common/throttleRaf.js";
 
 function useMountDragEvent({
   onDragStart: userDragStart,

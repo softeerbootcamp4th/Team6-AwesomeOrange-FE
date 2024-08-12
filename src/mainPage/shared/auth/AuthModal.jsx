@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import InfoInputStage from "./InfoInput";
 import AuthCodeStage from "./AuthCode";
 import UserFindStage from "./UserFind";
-import { ModalCloseContext } from "@/modal/modal.jsx";
+import { ModalCloseContext } from "@common/modal/modal.jsx";
 import { login } from "./store.js";
 
 const AUTH_INPUT_PAGE = Symbol("input");

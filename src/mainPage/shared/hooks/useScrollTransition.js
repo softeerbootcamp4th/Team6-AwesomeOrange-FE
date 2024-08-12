@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import throttleRaf from "./throttleRaf.js";
-import { clamp } from "./utils.js";
+import throttleRaf from "@common/throttleRaf.js";
+import { clamp } from "@common/utils.js";
 
 /**
  * 스크롤 트랜지션을 더 쉽게 사용할 수 있게 하는 커스텀 훅입니다.
