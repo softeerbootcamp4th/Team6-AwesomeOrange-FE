@@ -2,7 +2,7 @@ import DetailSwiper from "./DetailSwiper.jsx";
 import content from "./content.json";
 import decoration from "./assets/decoration.svg";
 import { useRef } from "react";
-import useSectionInitialize from "@main/shared/scroll/useSectionInitialize.js";
+import useSectionInitialize from "@main/scroll/useSectionInitialize.js";
 
 function DetailInformation() {
   const SECTION_IDX = 2;
