@@ -1,4 +1,4 @@
-import { TOKEN_ID } from "@/common/constants.js";
+import { TOKEN_ID } from "@common/constants.js";
 
 class TokenSaver {
   initialized = false;
