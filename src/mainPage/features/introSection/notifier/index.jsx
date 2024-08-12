@@ -2,11 +2,11 @@ import FcfsNotifierCountdown from "./FcfsNotifierCountdown.jsx";
 import scrollTo from "@main/scroll/scrollTo.js";
 import { FCFS_SECTION } from "@main/scroll/constants.js";
 
-import useFcfsStore from "@main/realTimeEvent/store.js";
+import useEventStore from "@main/realTimeEvent/store.js";
 import { PROGRESS, OFFLINE } from "@main/realTimeEvent/constants.js";
 
 function FcfsNotifier({ visible }) {
-  const eventStatus = useFcfsStore((store) => store.eventStatus);
+  const eventStatus = useEventStore((store) => store.eventStatus);
 
   function onClick() {
     scrollTo(FCFS_SECTION);

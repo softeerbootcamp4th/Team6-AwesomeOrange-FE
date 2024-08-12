@@ -1,6 +1,6 @@
-import openModal from "@/modal/openModal.js";
-import InteractionModal from "./InteractionModal";
-import { padNumber } from "@/common/utils.js";
+import InteractionModal from "../modal/InteractionModal";
+import openModal from "@common/modal/openModal.js";
+import { padNumber } from "@common/utils.js";
 
 function getEventDate(index) {
   const day = ["일", "월", "화", "수", "목", "금", "토"];

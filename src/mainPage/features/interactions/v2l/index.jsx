@@ -1,4 +1,4 @@
-import ClientOnly from "@/common/ClientOnly.jsx";
+import ClientOnly from "@common/components/ClientOnly.jsx";
 import InteractionDescription from "../InteractionDescription.jsx";
 import Puzzle from "./Puzzle.jsx";
 import style from "./style.module.css";

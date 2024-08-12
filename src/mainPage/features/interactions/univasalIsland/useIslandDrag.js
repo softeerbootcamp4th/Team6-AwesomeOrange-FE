@@ -1,6 +1,6 @@
 import { useState, useRef, useMemo, useCallback } from "react";
-import { clamp } from "@/common/utils.js";
-import useMountDragEvent from "@/common/useMountDragEvent.js";
+import useMountDragEvent from "@main/hooks/useMountDragEvent.js";
+import { clamp } from "@common/utils.js";
 
 const PHONE_INITIAL_X = 150;
 const PHONE_INITIAL_Y = 100;

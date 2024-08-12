@@ -1,17 +1,19 @@
 import { useRef } from "react";
-import useSectionInitialize from "@/scroll/useSectionInitialize";
-import useSwiperState from "@/common/useSwiperState";
-import EventDescriptionLayout from "@/eventDescription/EventDescriptionLayout.jsx";
-import GiftDetail from "./GiftDetail";
+import TapBar from "./description/TapBar.jsx";
+import InteractionSlide from ".description/InteractionSlide.jsx";
+import GiftDetail from "./description/GiftDetail.jsx";
+
+import EventDescriptionLayout from "@main/eventDescription/EventDescriptionLayout.jsx";
+import useSectionInitialize from "@main/scroll/useSectionInitialize.js";
+import { INTERACTION_SECTION } from "@main/scroll/constants.js";
+import useSwiperState from "@main/hooks/useSwiperState.js";
+
 import JSONData from "./content.json";
-import TapBar from "./TapBar";
-import InteractionSlide from "./InteractionSlide";
 
 export default function InteractionPage() {
-  const SECTION_IDX = 1;
   const sectionRef = useRef(null);
   const [currentInteraction, swiperRef] = useSwiperState();
-  useSectionInitialize(SECTION_IDX, sectionRef);
+  useSectionInitialize(INTERACTION_SECTION, sectionRef);
 
   const joinedList = [1, 0, 0, 1, -1];
 

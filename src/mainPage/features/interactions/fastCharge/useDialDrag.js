@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
-import { clamp } from "@/common/utils.js";
-import useMountDragEvent from "@/common/useMountDragEvent.js";
+import useMountDragEvent from "@main/hooks/useMountDragEvent.js";
+import { clamp } from "@common/utils.js";
 
 function getAngle(pointer, center) {
   const vx = pointer.x - center.x;
