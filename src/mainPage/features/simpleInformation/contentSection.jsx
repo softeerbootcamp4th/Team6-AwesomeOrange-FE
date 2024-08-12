@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import makeHighlight from "@main/makeHighlight.js";
 import style from "./contentSection.module.css";
 
 export default function ContentSection({ content }) {
@@ -57,16 +58,8 @@ export default function ContentSection({ content }) {
       </span>
 
       <div className="pt-3 flex flex-col md:flex-row justify-between items-start md:items-end">
-        <p className="flex-shrink-0">
-          {content.desc.map((str, index) => (
-            <span
-              key={index}
-              style={highlightDynamicStyle}
-              className={`${index % 2 ? style.highlightAnim : "text-neutral-800"} text-title-s min-[440px]:text-title-m whitespace-pre-wrap`}
-            >
-              {str}
-            </span>
-          ))}
+        <p style={highlightDynamicStyle} className="flex-shrink-0 text-title-s min-[440px]:text-title-m text-neutral-800 whitespace-pre-wrap">
+          {makeHighlight(content.desc, style.highlightAnim)}
         </p>
 
         <p className="w-full md:w-auto text-right text-body-s text-neutral-300">

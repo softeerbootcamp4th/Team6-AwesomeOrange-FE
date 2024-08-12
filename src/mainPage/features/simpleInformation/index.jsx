@@ -1,13 +1,13 @@
 import { useRef } from "react";
-import JSONData from "./contentList.json";
-import ContentSection from "./contentSection";
-import useSectionInitialize from "../scroll/useSectionInitialize";
+import ContentSection from "./contentSection.jsx";
+import useSectionInitialize from "@main/scroll/useSectionInitialize.js";
+import { OTHER_SECTION } from "@main/scroll/constants.js";
+import JSONData from "./content.json";
 
 export default function SimpleInformation() {
-  const SECTION_IDX = 0;
   const sectionRef = useRef(null);
   const contentList = JSONData.content;
-  useSectionInitialize(SECTION_IDX, sectionRef);
+  useSectionInitialize(OTHER_SECTION, sectionRef);
 
   return (
     <section ref={sectionRef} className="w-full p-6 flex justify-center ">

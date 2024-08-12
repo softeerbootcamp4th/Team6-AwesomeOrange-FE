@@ -1,4 +1,4 @@
-import makeHighlight from "./makeHighlight.jsx";
+import makeHighlight from "@main/makeHighlight.jsx";
 
 export default function EventDetail({
   durationYear,
