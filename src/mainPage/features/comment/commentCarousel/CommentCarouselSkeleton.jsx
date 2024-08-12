@@ -1,5 +1,5 @@
-import Spinner from "@/common/Spinner.jsx";
-import DelaySkeleton from "@/common/DelaySkeleton.jsx";
+import Spinner from "@common/components/Spinner.jsx";
+import DelaySkeleton from "@common/components/DelaySkeleton.jsx";
 
 function CommentCarouselSkeleton() {
   return (

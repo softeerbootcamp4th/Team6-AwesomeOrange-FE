@@ -1,5 +1,5 @@
-import { useQuery } from "@/common/dataFetch/getQuery.js";
-import { fetchServer } from "@/common/dataFetch/fetchServer.js";
+import { useQuery } from "@common/dataFetch/getQuery.js";
+import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import AutoScrollCarousel from "../autoScrollCarousel";
 
 function mask(string) {
