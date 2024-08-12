@@ -1,4 +1,4 @@
-import Button from "@/common/Button.jsx";
+import Button from "@common/components/Button.jsx";
 
 function getMessageFromButtonFetchState(state) {
   if (state === "pending") return "...";

@@ -1,5 +1,5 @@
-import Suspense from "@/common/Suspense.jsx";
-import ErrorBoundary from "@/common/ErrorBoundary.jsx";
+import Suspense from "@common/components/Suspense.jsx";
+import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
 import CommentCarousel from "./CommentCarousel.jsx";
 import CommentCarouselSkeleton from "./CommentCarouselSkeleton.jsx";
 import CommentCarouselError from "./CommentCarouselError.jsx";

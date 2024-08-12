@@ -1,4 +1,4 @@
-import useSwiperState from "@/common/useSwiperState.js";
+import useSwiperState from "@main/shared/hooks/useSwiperState.js";
 import DetailItem from "./DetailItem.jsx";
 import left from "./assets/left.svg";
 import right from "./assets/right.svg";
