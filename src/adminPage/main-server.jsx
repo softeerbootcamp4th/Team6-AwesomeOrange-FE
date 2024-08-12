@@ -1,13 +1,18 @@
 import { StrictMode } from "react";
 import { renderToString } from "react-dom/server";
+import { StaticRouter } from "react-router-dom/server";
 import App from "./App.jsx";
 
-export default function render() {
-  return renderToString(
+export default function render(url) {
+  const path = url === "index" ? "/" : `/${url}`;
+  const nye = renderToString(
     <StrictMode>
-      <App />
+      <StaticRouter location={path}>
+        <App />
+      </StaticRouter>
     </StrictMode>,
   );
+  return nye;
 }
 
 /**

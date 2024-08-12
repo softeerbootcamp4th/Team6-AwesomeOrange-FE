@@ -1,7 +1,12 @@
+import { Route, Routes } from "react-router-dom";
+
 function App() {
   return (
     <>
-      <div>Hello, this is admin page!</div>
+      <Routes>
+        <Route path="/events" element={<div>events</div>} />
+        <Route path="/" element={<div>hello</div>} />
+      </Routes>
     </>
   );
 }

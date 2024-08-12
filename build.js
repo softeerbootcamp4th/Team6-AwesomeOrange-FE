@@ -94,7 +94,7 @@ async function injectSSGToHtml(mode)
 			console.log(`pre-rendered failed : ${path}`);
 		}
 	} );
-	Promise.allSettled(promises);
+	await Promise.allSettled(promises);
 	console.log("--successfully build completed!--");
 }
 
