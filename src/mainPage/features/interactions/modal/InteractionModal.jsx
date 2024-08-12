@@ -9,11 +9,11 @@ import ResetButton from "@main/components/ResetButton.jsx"
 import userStore from "@main/auth/store.js";
 
 const lazyInteractionList = [
-  lazy(() => import("./distanceDriven")),
-  lazy(() => import("./fastCharge")),
-  lazy(() => import("./univasalIsland")),
-  lazy(() => import("./v2l")),
-  lazy(() => import("./subsidy")),
+  lazy(() => import("../distanceDriven")),
+  lazy(() => import("../fastCharge")),
+  lazy(() => import("../univasalIsland")),
+  lazy(() => import("../v2l")),
+  lazy(() => import("../subsidy")),
 ];
 
 export default function InteractionModal({ index, answer }) {

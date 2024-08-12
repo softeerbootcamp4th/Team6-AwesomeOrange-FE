@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from "react";
-import useMountDragEvent from "@/common/useMountDragEvent.js";
+import useMountDragEvent from "@main/hooks/useMountDragEvent.js";
 
 function usePointDrag() {
   const prevState = useRef({ x: 0, y: 0, mouseX: 0, mouseY: 0 });

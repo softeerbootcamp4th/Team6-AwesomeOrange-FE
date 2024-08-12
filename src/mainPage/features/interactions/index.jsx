@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import TapBar from "./description/TapBar.jsx";
-import InteractionSlide from ".description/InteractionSlide.jsx";
+import InteractionSlide from "./description/InteractionSlide.jsx";
 import GiftDetail from "./description/GiftDetail.jsx";
 
 import EventDescriptionLayout from "@main/eventDescription/EventDescriptionLayout.jsx";

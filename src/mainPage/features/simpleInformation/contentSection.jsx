@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import makeHighlight from "@main/makeHighlight.js";
+import makeHighlight from "@main/makeHighlight.jsx";
 import style from "./contentSection.module.css";
 
 export default function ContentSection({ content }) {

@@ -1,5 +1,5 @@
 import { fetchServer, handleError } from "@common/dataFetch/fetchServer.js";
-import { EVENT_ID } from "@common/components/constants.js";
+import { EVENT_ID } from "@common/constants.js";
 
 async function submitAuthCode(name, phoneNumber, authCode) {
   try {

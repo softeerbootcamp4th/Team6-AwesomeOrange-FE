@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import tokenSaver from "./tokenSaver.js";
+import tokenSaver from "@common/dataFetch/tokenSaver.js";
 
 const userStore = create(() => ({
   isLogin: false,
