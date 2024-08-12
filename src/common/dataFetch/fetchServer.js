@@ -1,4 +1,4 @@
-import tokenSaver from "@/auth/tokenSaver.js";
+import tokenSaver from "./tokenSaver.js";
 
 class HTTPError extends Error {
   constructor(response) {
