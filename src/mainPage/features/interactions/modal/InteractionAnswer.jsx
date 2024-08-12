@@ -6,7 +6,7 @@ import AuthModal from "@main/auth/AuthModal.jsx";
 import openModal from "@common/modal/openModal.js";
 import Button from "@common/components/Button.jsx";
 
-import style from "./InteractionAnswer.module.css"
+import style from "./InteractionAnswer.module.css";
 // import useEventStore from "@main/realtimeEvent/store";
 
 export default function InteractionAnswer({

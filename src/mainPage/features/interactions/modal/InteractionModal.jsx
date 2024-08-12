@@ -4,7 +4,7 @@ import InteractionAnswer from "./InteractionAnswer.jsx";
 import { ModalCloseContext } from "@common/modal/modal.jsx";
 import Suspense from "@common/components/Suspense.jsx";
 import Button from "@common/components/Button.jsx";
-import ResetButton from "@main/components/ResetButton.jsx"
+import ResetButton from "@main/components/ResetButton.jsx";
 
 import userStore from "@main/auth/store.js";
 
