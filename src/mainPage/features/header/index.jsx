@@ -1,7 +1,8 @@
-import style from "./index.module.css";
-import scrollTo from "../scroll/scrollTo";
-import { useSectionStore } from "../scroll/store";
+import scrollTo from "@main/scroll/scrollTo";
+import { useSectionStore } from "@main/scroll/store";
 import AuthButtonSection from "./AuthButtonSection.jsx";
+
+import style from "./index.module.css";
 
 export default function Header() {
   const currentSection = useSectionStore((state) => {

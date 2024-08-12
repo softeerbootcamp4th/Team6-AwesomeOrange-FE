@@ -1,7 +1,7 @@
-import openModal from "@/modal/openModal.js";
-import AuthModal from "@/auth/AuthModal.jsx";
-import WelcomeModal from "@/auth/Welcome";
-import useAuthStore from "@/auth/store.js";
+import openModal from "@common/modal/openModal.js";
+import AuthModal from "@main/auth/AuthModal.jsx";
+import WelcomeModal from "@main/auth/Welcome";
+import useAuthStore from "@main/auth/store.js";
 
 function AuthButtonSection() {
   const isLogin = useAuthStore((store) => store.isLogin);
