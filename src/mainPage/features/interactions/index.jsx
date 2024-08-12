@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import TapBar from "./description/TapBar.jsx";
 import InteractionSlide from "./description/InteractionSlide.jsx";
 import GiftDetail from "./description/GiftDetail.jsx";
@@ -9,15 +9,29 @@ import { INTERACTION_SECTION } from "@main/scroll/constants.js";
 import useSwiperState from "@main/hooks/useSwiperState.js";
 
 import JSONData from "./content.json";
+import { fetchServer } from "@common/dataFetch/fetchServer.js";
+import { EVENT_DRAW_ID } from "@common/constants.js";
 
 export default function InteractionPage() {
   const sectionRef = useRef(null);
   const [currentInteraction, swiperRef] = useSwiperState();
+  const [joinedList, setJoinedList] = useState([-1, -1, -1, -1, -1]);
+  const slideTo = (_index) => swiperRef.current.swiper.slideTo(_index);
   useSectionInitialize(INTERACTION_SECTION, sectionRef);
 
-  const joinedList = [1, 0, 0, 1, -1];
-
-  const slideTo = (_index) => swiperRef.current.swiper.slideTo(_index);
+  useEffect(() => {
+    fetchServer(`/api/v1/draw/${EVENT_DRAW_ID}`)
+      .then((res) => {
+        console.log(res);
+        /*
+         * 사용자가 참여한 이벤트 날짜 문자열이 들어간 가변적 길이의 리스트를 서버로부터 받아올 예정. 그런데 그 문자열의 형식을 아직 모른다..
+         */
+        setJoinedList([0, 1, 1, 0, -1]);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <section

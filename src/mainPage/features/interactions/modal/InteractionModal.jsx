@@ -1,11 +1,13 @@
 import { lazy, useContext, useRef, useState } from "react";
 
 import InteractionAnswer from "./InteractionAnswer.jsx";
+
 import { ModalCloseContext } from "@common/modal/modal.jsx";
+import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import Suspense from "@common/components/Suspense.jsx";
 import Button from "@common/components/Button.jsx";
-import ResetButton from "@main/components/ResetButton.jsx"
-
+import ResetButton from "@main/components/ResetButton.jsx";
+import { EVENT_DRAW_ID } from "@common/constants.js";
 import userStore from "@main/auth/store.js";
 
 const lazyInteractionList = [
@@ -29,9 +31,16 @@ export default function InteractionModal({ index, answer }) {
   function joinEvent() {
     setIsAnswerUp(true);
     if (isLogin) {
-      /*
-       *  로그인 유저가 서버로 추첨이벤트 참여 api 전송하는 코드 미구현
-       */
+      // 추첨 이벤트 참가 전송. API 주소 추후 바뀔 수 있음
+      fetchServer(`/api/v1/draw/${EVENT_DRAW_ID}`, {
+        method: "POST",
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
   }
 
@@ -71,6 +80,7 @@ export default function InteractionModal({ index, answer }) {
         answer={answer}
         close={close}
         isLogin={isLogin}
+        index={index}
       />
     </div>
   );
