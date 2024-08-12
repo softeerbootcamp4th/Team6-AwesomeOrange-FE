@@ -41,7 +41,7 @@ export default function InteractionAnswer({
 
   function onClickWrite() {
     close();
-    scrollTo(3);
+    scrollTo(COMMENT_SECTION);
   }
 
   function onClickShare() {
