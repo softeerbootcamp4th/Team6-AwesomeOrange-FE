@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ModalCloseContext } from "@common/modal/modal.jsx";
 import Button from "@common/components/Button.jsx";
-import scrollTo from "@main/shared/scroll/scrollTo.js";
+import scrollTo from "@main/scroll/scrollTo.js";
 import { INTERACTION_SECTION } from "@common/constants.js";
 
 function CommentNoUserModal() {

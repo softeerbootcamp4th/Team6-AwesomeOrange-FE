@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import useMountDragEvent from "@/common/useMountDragEvent";
+import useMountDragEvent from "@main/hooks/useMountDragEvent";
 
 const FRICTION_RATE = 0.1;
 const MOMENTUM_THRESHOLD = 0.6;

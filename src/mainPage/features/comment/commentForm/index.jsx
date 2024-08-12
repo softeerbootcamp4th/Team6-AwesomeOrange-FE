@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import CommentSuccessModal from "../modals/CommentSuccessModal.jsx";
 import CommentNegativeModal from "../modals/CommentNegativeModal.jsx";
 import CommentNoUserModal from "../modals/CommentNoUserModal.jsx";
-import NoServerModal from "@/common/NoServerModal.jsx";
+import NoServerModal from "@main/components/NoServerModal.jsx";
 import SubmitButton from "./SubmitButton";
-import useAuthState from "@/auth/store.js";
+import useAuthState from "@main/auth/store.js";
 
-import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
-import { EVENT_ID } from "@/common/constants.js";
-import openModal from "@/modal/openModal.js";
+import { fetchServer, handleError } from "@common/dataFetch/fetchServer.js";
+import { EVENT_ID } from "@common/constants.js";
+import openModal from "@common/modal/openModal.js";
 
 const submitCommentErrorHandle = {
   400: "negative",
