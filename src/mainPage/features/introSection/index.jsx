@@ -1,10 +1,12 @@
-import useScrollTransition from "@/common/useScrollTransition.js";
+import { useEffect, useRef, useState } from "react";
 import LineHighlight from "./LineHighlight.jsx";
 import FcfsNotifier from "./notifier";
+
+import useScrollTransition from "@common/hooks/useScrollTransition.js";
 import style from "./index.module.css";
 import SpinningCarVideo from "./car-spin.webm";
 import Pointer from "./pointer.svg";
-import { useEffect, useRef, useState } from "react";
+
 
 function IntroSection() {
   const videoRef = useRef(null);

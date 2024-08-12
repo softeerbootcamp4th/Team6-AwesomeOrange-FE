@@ -1,15 +1,6 @@
-import useFcfsStore from "../store.js";
-import { OFFLINE } from "../constants.js";
-
-const ONE_DAY = 24 * 60 * 60 * 1000;
-function getEventDateState(currrentTimeDate, eventTimeDate) {
-  const currentTime = currrentTimeDate.valueOf();
-  const eventTime = eventTimeDate.valueOf();
-  const eventEndTime = eventTimeDate.valueOf() + ONE_DAY;
-  if (currentTime < eventTime) return "default";
-  if (currentTime < eventEndTime) return "active";
-  return "ended";
-}
+import useFcfsStore from "@main/realtimeEvent/store.js";
+import { OFFLINE } from "@main/realtimeEvent/constants.js";
+import getEventDateState from "@main/realtimeEvent/getEventDateState.js";
 
 function DateEventPrize({ date, title, capacity, image }) {
   const currentServerTime = useFcfsStore((store) => store.currentServerTime);
