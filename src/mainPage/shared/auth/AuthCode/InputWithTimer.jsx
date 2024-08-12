@@ -1,4 +1,4 @@
-import Input from "@/common/Input.jsx";
+import Input from "@common/components/Input.jsx";
 
 const ONE_MINUTES = 60;
 
