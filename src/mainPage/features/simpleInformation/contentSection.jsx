@@ -58,7 +58,10 @@ export default function ContentSection({ content }) {
       </span>
 
       <div className="pt-3 flex flex-col md:flex-row justify-between items-start md:items-end">
-        <p style={highlightDynamicStyle} className="flex-shrink-0 text-title-s min-[440px]:text-title-m text-neutral-800 whitespace-pre-wrap">
+        <p
+          style={highlightDynamicStyle}
+          className="flex-shrink-0 text-title-s min-[440px]:text-title-m text-neutral-800 whitespace-pre-wrap"
+        >
           {makeHighlight(content.desc, style.highlightAnim)}
         </p>
 

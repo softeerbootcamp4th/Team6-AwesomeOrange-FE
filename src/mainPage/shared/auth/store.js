@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import tokenSaver from "@common/dataFetch/tokenSaver.js";
+import { SERVICE_TOKEN_ID } from "@common/constants.js";
 
 const userStore = create(() => ({
   isLogin: false,
@@ -23,8 +24,8 @@ export function logout() {
 }
 
 export function initLoginState() {
-  tokenSaver.init();
-  const token = tokenSaver.get();
+  tokenSaver.init(SERVICE_TOKEN_ID);
+  const token = tokenSaver.get(SERVICE_TOKEN_ID);
   const userName = parseTokenToUserName(token);
   if (token === null)
     userStore.setState(() => ({ isLogin: false, userName: "" }));

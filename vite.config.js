@@ -1,12 +1,23 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { resolve } from "path";
+import devRouter from "./vite-devRouter.js";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import svgr from "vite-plugin-svgr";
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "./",
-  plugins: [react(), svgr()],
+  plugins: [
+    devRouter([
+      ["/admin", "/admin.html"],
+      ["/admin/*", "/admin.html"],
+    ]),
+    react(), 
+    svgr()
+  ],
   resolve: {
     alias: [
       { find: "@", replacement: resolve(__dirname, "src") },

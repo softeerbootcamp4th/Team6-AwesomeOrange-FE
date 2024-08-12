@@ -20,8 +20,8 @@ export default function InteractionSlide({
   slideTo,
   answer,
 }) {
-  const activeImgPath = `active${index + 1}.png`;
-  const inactiveImgPath = `inactive${index + 1}.png`;
+  const activeImgPath = `images/active${index + 1}.png`;
+  const inactiveImgPath = `images/inactive${index + 1}.png`;
   const numberImgPath = `icons/rect${index + 1}.svg`;
 
   function onClickExperience() {
@@ -43,7 +43,7 @@ export default function InteractionSlide({
       </span>
 
       <div className="pt-5 flex items-center">
-        <img src={numberImgPath} />
+        <img src={numberImgPath} alt="" />
 
         <span
           className={`${isCurrent ? "opacity-100" : "opacity-50"} pl-3 text-title-m sm:text-head-s text-white font-bold`}

@@ -1,6 +1,5 @@
 import { createContext, useCallback, useEffect, useState, useRef } from "react";
 import useModalStore, { closeModal } from "./store.js";
-import { delay } from "@common/utils.js";
 
 export const ModalCloseContext = createContext(() => {
   console.log("모달이 닫힙니다.");
@@ -10,12 +9,16 @@ function Modal({ layer }) {
   const timeoutRef = useRef(null);
   const child = useModalStore(layer);
   const [opacity, setOpacity] = useState(0);
-  const close = useCallback(async () => {
-    setOpacity(0);
-    if (timeoutRef.current === null) {
-      await delay(150);
-      closeModal(layer);
-    }
+  const close = useCallback(() => {
+    return new Promise((resolve) => {
+      setOpacity(0);
+
+      if (timeoutRef.current !== null) return resolve();
+      timeoutRef.current = setTimeout(() => {
+        closeModal(layer);
+        resolve();
+      }, 150);
+    });
   }, [layer]);
 
   useEffect(() => {

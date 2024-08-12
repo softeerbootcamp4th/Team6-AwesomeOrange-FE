@@ -46,7 +46,7 @@
   },
   "gift": [
     {
-      "src": "gift_jeju.png",
+      "src": "images/gift_jeju.png",
       "name": "제주 여행 패키지",
       "num": 10,
       "desc": "항공권, 숙박비, 아이오닉5 렌터카\n(충전 비용 포함)",
@@ -55,7 +55,7 @@
       "starTextColor": "#957029"
     },
     {
-      "src": "gift_car.png",
+      "src": "images/gift_car.png",
       "name": "더뉴 아이오닉5 시승권",
       "num": 50,
       "desc": "10-12월 중 날짜 선택 가능",
@@ -64,7 +64,7 @@
       "starTextColor": "#36B1E6"
     },
     {
-      "src": "gift_portable.png",
+      "src": "images/gift_portable.png",
       "name": "포터블 인덕션",
       "num": 100,
       "desc": "블랙/화이트 컬러 랜덤 증정",
