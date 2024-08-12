@@ -1,8 +1,8 @@
 import { useDeferredValue } from "react";
-import Suspense from "@/common/Suspense.jsx";
-import ErrorBoundary from "@/common/ErrorBoundary.jsx";
-import useFcfsStore from "../store.js";
-import useAuthStore from "@/auth/store.js";
+import Suspense from "@common/components/Suspense.jsx";
+import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
+import useFcfsStore from "@main/realtimeEvent/store.js";
+import useAuthStore from "@main/auth/store.js";
 import CardGame from "./CardGame.jsx";
 
 function CardGameInitializer() {

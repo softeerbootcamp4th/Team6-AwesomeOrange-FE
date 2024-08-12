@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { ModalCloseContext } from "@/modal/modal.jsx";
-import Button from "@/common/Button.jsx";
-import scrollTo from "@/scroll/scrollTo.js";
-import { INTERACTION_SECTION } from "@/common/constants.js";
+import { ModalCloseContext } from "@components/modal/modal.jsx";
+import Button from "@common/components/Button.jsx";
+import scrollTo from "@main/scroll/scrollTo.js";
+import { INTERACTION_SECTION } from "@common/constants.js";
 
 function FcfsLoseModal() {
   const close = useContext(ModalCloseContext);
