@@ -26,3 +26,7 @@ export function convertSecondsToString(time) {
 
   return `${days > 0 ? days + " : " : ""}${[hours, minutes, seconds].map(padNumber).join(" : ")}`;
 }
+
+export function delay(ms) {
+  return new Promise( resolve=>setTimeout(resolve, ms) );
+}

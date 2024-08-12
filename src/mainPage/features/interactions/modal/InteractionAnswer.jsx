@@ -39,8 +39,8 @@ export default function InteractionAnswer({
     setIsJoined(false);
   }, []);
 
-  function onClickWrite() {
-    close();
+  async function onClickWrite() {
+    await close();
     scrollTo(COMMENT_SECTION);
   }
 

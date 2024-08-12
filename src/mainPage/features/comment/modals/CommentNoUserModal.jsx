@@ -7,8 +7,8 @@ import { INTERACTION_SECTION } from "@main/scroll/constants.js";
 function CommentNoUserModal() {
   const close = useContext(ModalCloseContext);
 
-  function toMoveInteraction() {
-    close();
+  async function toMoveInteraction() {
+    await close();
     scrollTo(INTERACTION_SECTION);
   }
 

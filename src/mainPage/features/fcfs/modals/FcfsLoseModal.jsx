@@ -8,8 +8,8 @@ function FcfsLoseModal() {
   const close = useContext(ModalCloseContext);
   const shouldInteraction = false; // 향후 통합 예정
 
-  function toMoveInteraction() {
-    close();
+  async function toMoveInteraction() {
+    await close();
     scrollTo(INTERACTION_SECTION);
   }
 
