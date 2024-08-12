@@ -18,6 +18,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
     reset,
     phoneSnapArea,
     phoneIsSnapping,
+    isDragging,
   } = useIslandDrag();
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);
@@ -33,6 +34,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
         title="나에게 맞게, 자유자재로"
         description="새로워진 The new IONIQ 5의 유니버설 아일랜드는 어떤 모습일까요?"
         directive="유니버설 아일랜드를 드래그하여 이동시키고 스마트폰을 충전해보세요!"
+        shouldNotSelect={isDragging}
       />
       <div className={seatHullStyle}>
         <img

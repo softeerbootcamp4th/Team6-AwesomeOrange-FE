@@ -1,0 +1,50 @@
+{
+  "detail": {
+    "durationYear": "2024년",
+    "duration": "9/9(월)~9/13(금), 매일 오후5시",
+    "announceDate": "2024년 9월 20일 **(예정)**",
+    "announceDateCaption": "* 인증 시 입력한 연락처로 개별 안내",
+    "howto": [
+      "**오후 5시**에 맞춰 **카드를 클릭**한다.",
+      "**완충된 카드**를 **누구보다 빠르게** 찾으면 당첨!",
+      "**경품**을 위해 미리 **개인정보 인증은 필수!**"
+    ]
+  },
+  "prizes": [
+    {
+      "id": "1st_fcfs_event_prize",
+      "date": "2024-09-09",
+      "title": "보조 배터리",
+      "capacity": 100,
+      "image": "/images/fcfs_prize1.png"
+    },
+    {
+      "id": "2nd_fcfs_event_prize",
+      "date": "2024-09-10",
+      "title": "배스킨라빈스 기프티콘",
+      "capacity": 100,
+      "image": "/images/fcfs_prize2.png"
+    },
+    {
+      "id": "3rd_fcfs_event_prize",
+      "date": "2024-09-11",
+      "title": "스타벅스 e카드 교환권",
+      "capacity": 100,
+      "image": "/images/fcfs_prize3.png"
+    },
+    {
+      "id": "4th_fcfs_event_prize",
+      "date": "2024-09-12",
+      "title": "치킨 기프티콘",
+      "capacity": 100,
+      "image": "/images/fcfs_prize4.png"
+    },
+    {
+      "id": "5th_fcfs_event_prize",
+      "date": "2024-09-13",
+      "title": "미니 선풍기",
+      "capacity": 100,
+      "image": "/images/fcfs_prize5.png"
+    }
+  ]
+}

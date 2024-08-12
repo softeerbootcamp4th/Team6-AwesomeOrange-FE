@@ -3,8 +3,6 @@ import Star from "./star.svg?react";
 export default function GiftDetail({ contentList }) {
   return (
     <div className="flex flex-col font-bold">
-      <span className="text-center sm:text-left text-body-l text-neutral-50 pb-10">경품 안내</span>
-
       {contentList.map((content, index) => (
         <div key={index} className="bg-neutral-900 p-6 mb-5 flex z-0 relative">
           <img src={content.src} alt="경품" />
@@ -20,7 +18,7 @@ export default function GiftDetail({ contentList }) {
             </span>
           </div>
 
-          <div className="absolute right-0 top-0 z-40 sm:translate-x-1/2 -translate-y-1/4">
+          <div className="absolute right-0 top-0 z-40 translate-x-1/4 -translate-y-1/4">
             <Star fill={content.starColor} />
 
             <span

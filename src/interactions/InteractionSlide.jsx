@@ -1,5 +1,16 @@
 import openModal from "@/modal/openModal.js";
 import InteractionModal from "./InteractionModal";
+import { padNumber } from "@/common/utils.js";
+
+function getEventDate(index) {
+  const day = ["일", "월", "화", "수", "목", "금", "토"];
+  const fullDate = new Date(2024, 8, 9 + index);
+
+  const month = fullDate.getMonth() + 1;
+  const date = fullDate.getDate();
+
+  return `${padNumber(month)}월 ${padNumber(date)}일(${day[fullDate.getDay()]})`;
+}
 
 export default function InteractionSlide({
   interactionDesc,
@@ -12,17 +23,6 @@ export default function InteractionSlide({
   const activeImgPath = `active${index + 1}.png`;
   const inactiveImgPath = `inactive${index + 1}.png`;
   const numberImgPath = `icons/rect${index + 1}.svg`;
-
-  function eventDate() {
-    const day = ["일", "월", "화", "수", "목", "금", "토"];
-    const fullDate = new Date(2024, 8, 9);
-    fullDate.setDate(fullDate.getDate() + index);
-
-    const month = fullDate.getMonth();
-    const date = fullDate.getDate();
-
-    return `${month < 9 ? "0" : ""}${month + 1}월 ${date < 10 ? "0" : ""}${date}일(${day[fullDate.getDay()]})`;
-  }
 
   function onClickExperience() {
     if (joined < 0) return;
@@ -39,7 +39,7 @@ export default function InteractionSlide({
       className="w-full h-full flex flex-col justify-center items-center select-none"
     >
       <span className="sm:pt-10 text-body-m sm:text-body-l text-white font-bold">
-        {eventDate()}
+        {getEventDate(index)}
       </span>
 
       <div className="pt-5 flex items-center">

@@ -3,6 +3,7 @@ import style from "./InteractionAnswer.module.css";
 import { useEffect, useState } from "react";
 import openModal from "@/modal/openModal.js";
 import AuthModal from "@/auth/AuthModal.jsx";
+import Button from "@/common/Button.jsx";
 // import fcfsStore from "@/fcfs/store";
 
 export default function InteractionAnswer({
@@ -75,9 +76,13 @@ export default function InteractionAnswer({
         </span>
 
         <div className="flex flex-col gap-4">
-          <span className="text-body-l xl:text-title-s text-neutral-50">{answer.desc}</span>
+          <span className="text-body-l xl:text-title-s text-neutral-50">
+            {answer.desc}
+          </span>
 
-          <span className="text-detail-l xl:text-body-s text-neutral-300">{answer.subdesc}</span>
+          <span className="text-detail-l xl:text-body-s text-neutral-300">
+            {answer.subdesc}
+          </span>
         </div>
       </div>
 
@@ -102,29 +107,34 @@ export default function InteractionAnswer({
                   <img src="icons/polygon-tri.svg" alt="역삼각형" />
                 </div>
 
-                <button
+                <Button
                   onClick={onClickWrite}
-                  className="bg-white text-body-m text-black px-5 xl:px-10 py-2 xl:py-4"
+                  styleType="filled"
+                  backdrop="dark"
+                  className="text-body-m px-4 sm:px-10 py-4"
                 >
                   기대평 작성하기
-                </button>
+                </Button>
               </div>
-
-              <button
+              <Button
                 onClick={onClickShare}
-                className="border-2 border-neutral-300 text-body-m text-white px-5 xl:px-10 py-[7px] xl:py-[14px]"
+                styleType="ghost"
+                backdrop="dark"
+                className="text-body-m px-4 sm:px-10 py-4"
               >
                 공유하기
-              </button>
+              </Button>
             </div>
           </>
         ) : (
-          <button
+          <Button
             onClick={() => openModal(authModal)}
-            className="text-body-m text-black bg-white px-10 py-4"
+            styleType="filled"
+            backdrop="dark"
+            className="text-body-m px-10 py-4"
           >
             응모하기
-          </button>
+          </Button>
         )}
       </div>
     </div>

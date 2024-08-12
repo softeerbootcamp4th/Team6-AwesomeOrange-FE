@@ -1,26 +1,30 @@
 import { http, HttpResponse } from "msw";
 
-function delay(ms) {
-  return new Promise((res) => setTimeout(res, ms));
-}
+// function delay(ms) {
+//   return new Promise((res) => setTimeout(res, ms));
+// }
 
 const handlers = [
   http.get("/api/serverTime", () => {
-    return HttpResponse.json({ timestamp: "2024-08-08T06:00:00.500+00:00" });
+    return HttpResponse.json({ timestamp: "2024-09-10T06:00:00.500+00:00" });
   }),
   http.get("/api/v1/event/fcfs/:eventFrameId/info", () => {
     return HttpResponse.json({
-      nowDateTime: "2024-08-08T06:01:10.000Z",
-      eventStatus: "progress",
+      nowDateTime: "2024-09-10T06:00:10.000Z",
+      eventStatus: "countdown",
     });
   }),
-  http.get("/api/v1/event/fcfs/participated", () => {
+  http.get("/api/v1/event/fcfs/participated", async ({ request }) => {
+    const token = request.headers.get("authorization");
+    if (token === null)
+      return HttpResponse.json({ answerResult: false, winner: false });
+
+    //await delay(10000);
+
     return HttpResponse.json({ answerResult: false, winner: false });
   }),
   http.post("/api/v1/event/fcfs/:eventFrameId", async ({ request }) => {
     const { eventAnswer } = await request.json();
-
-    await delay(2000);
 
     const answerResult = eventAnswer === 3;
     const winner = false;

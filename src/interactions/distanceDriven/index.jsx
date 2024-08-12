@@ -3,7 +3,7 @@ import InteractionDescription from "../InteractionDescription.jsx";
 import usePointDrag from "./usePointDrag.js";
 
 function DistanceDrivenInteraction({ interactCallback, $ref }) {
-  const { x, y, reset, onPointerDown } = usePointDrag();
+  const { x, y, reset, isDragging, onPointerDown } = usePointDrag();
 
   const circleStyle = {
     transform: `translate(${x}px, ${y}px)`,
@@ -33,10 +33,11 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
         title="걱정 없이, 더 멀리"
         description="The new IONIQ 5는 한 번의 충전으로 얼마나 멀리 주행할 수 있을까요?"
         directive="가운데 점을 드래그하여 최대 주행거리를 예측해보세요!"
+        shouldNotSelect={isDragging}
       />
       <div className="absolute top-1/2">
         <div
-          className="rounded-full size-8 bg-blue-500 cursor-pointer touch-none transition-transform duration-300 active:duration-0 before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50"
+          className="rounded-full size-8 bg-blue-500 cursor-pointer touch-none before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50"
           onPointerDown={(e) => {
             onPointerDown(e);
             pulseAnimation(e);
@@ -54,7 +55,7 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
             y1="0"
             x2={x}
             y2={y}
-            strokeWidth="4"
+            strokeWidth="5"
             strokeLinecap="round"
           ></line>
         </svg>

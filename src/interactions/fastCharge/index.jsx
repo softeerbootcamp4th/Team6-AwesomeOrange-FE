@@ -18,19 +18,12 @@ function FastChargeInteraction({ interactCallback, $ref }) {
     angle,
     style: dialStyle,
     ref: dialRef,
-    onPointerStart,
-    resetAngle,
+    onPointerDown,
+    resetAngle: reset,
+    isDragging,
   } = useDialDrag(0);
 
-  useImperativeHandle(
-    $ref,
-    () => ({
-      reset() {
-        resetAngle();
-      },
-    }),
-    [resetAngle],
-  );
+  useImperativeHandle($ref, () => ({ reset }), [reset]);
   const progress = getProgress(angle);
 
   return (
@@ -40,6 +33,7 @@ function FastChargeInteraction({ interactCallback, $ref }) {
         title="불편함 없이, 더 빠르게"
         description="The new IONIQ 5의 배터리를 충전하는 데 얼마만큼의 시간이 걸릴까요?"
         directive="다이얼을 돌려 충전에 필요한 시간을 확인해보세요!"
+        shouldNotSelect={isDragging}
       />
       <div className="absolute top-[clamp(240px,40%,384px)] w-72 md:w-96 h-32 border-solid border-2 border-neutral-600 rounded-[30px] p-3.5">
         <div className="absolute w-5 h-9 bg-neutral-600 right-[-1.25rem] top-[2.875rem] rounded-r-md"></div>
@@ -53,7 +47,7 @@ function FastChargeInteraction({ interactCallback, $ref }) {
           style={dialStyle}
           ref={dialRef}
           onPointerDown={(e) => {
-            onPointerStart(e);
+            onPointerDown(e);
             interactCallback?.();
           }}
           draggable="false"

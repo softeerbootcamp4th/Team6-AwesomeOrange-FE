@@ -22,18 +22,18 @@ async function getServerPresiseTime() {
 
 async function getFcfsEventInfo() {
   try {
-    const eventData = fetchServer(`/api/v1/event/fcfs/${EVENT_ID}/info`);
+    const eventData = await fetchServer(`/api/v1/event/fcfs/${EVENT_ID}/info`);
     return eventData;
   } catch (e) {
     if (e instanceof HTTPError && e.status === 404)
       return {
         nowDateTime: "9999-12-31T11:59:59.000Z",
-        eventStatus: "unknown",
+        eventStatus: Status.OFFLINE,
       };
     if (e instanceof ServerCloseError)
       return {
         currentEventTime: "9999-12-31T11:59:59.000Z",
-        eventStatus: "unknown",
+        eventStatus: Status.OFFLINE,
       };
     throw e;
   }
@@ -41,10 +41,10 @@ async function getFcfsEventInfo() {
 
 async function getFcfsParticipated() {
   try {
-    const eventData = fetchServer(`/api/v1/event/fcfs/participated`); // ???
+    const eventData = await fetchServer(`/api/v1/event/fcfs/participated`); // ???
     return eventData;
   } catch (e) {
-    if (e instanceof HTTPError && e.status === 404)
+    if (e instanceof HTTPError && (e.status === 401 || e.status == 404))
       return { answerResult: false, winner: false };
     if (e instanceof ServerCloseError)
       return { answerResult: false, winner: false };
@@ -68,10 +68,9 @@ const fcfsStore = create((set) => ({
   getData: () => {
     const promiseFn = async function () {
       // get server time and event info
-      const [serverTime, eventInfo, participated] = await Promise.all([
+      const [serverTime, eventInfo] = await Promise.all([
         getServerPresiseTime(),
         getFcfsEventInfo(),
-        getFcfsParticipated(),
       ]);
       const currentServerTime = serverTime;
       const currentEventTime = new Date(eventInfo.nowDateTime).getTime();
@@ -85,10 +84,18 @@ const fcfsStore = create((set) => ({
         currentEventTime,
         countdown,
         eventStatus: eventInfo.eventStatus,
-        isParticipated: participated.answerResult,
       });
     };
     return getQuerySuspense("fcfs-info-data", promiseFn, [set]);
+  },
+  getPariticipatedData: (isLogin) => {
+    const promiseFn = async function () {
+      const participated = await getFcfsParticipated();
+      set({ isParticipated: participated.answerResult });
+    };
+    return getQuerySuspense(`fcfs-participated-data-${isLogin}`, promiseFn, [
+      set,
+    ]);
   },
   setEventStatus: (eventStatus) => set({ eventStatus }),
   handleCountdown: () =>

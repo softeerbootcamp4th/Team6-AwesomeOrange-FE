@@ -3,7 +3,7 @@ import useSectionInitialize from "@/scroll/useSectionInitialize.js";
 import { FCFS_SECTION } from "@/common/constants.js";
 import CardGame from "./cardGame";
 import CountStarter from "./countdown/CountStarter.jsx";
-import FcfsDescription from "./FcfsDescription.jsx";
+import FcfsDescription from "./description";
 
 function FcfsSection() {
   const sectionRef = useRef(null);
