@@ -1,3 +1,6 @@
+import ascArrow from "./assets/upArrow.svg";
+import descArrow from "./assets/downArrow.svg";
+
 function TableSorter({className, children, state, setState})
 {
 	function onClick()
@@ -6,9 +9,9 @@ function TableSorter({className, children, state, setState})
 		if(state === "desc") return setState( "none" );
 		return setState( "asc" );
 	}
-	return <button className={`${className ?? ""}`} onClick={ onClick }>
+	return <button className={`${className ?? ""} flex justify-center items-center`} onClick={ onClick }>
 		{children}
-		{state === "asc" ? "^" : state === "desc" ? "V" : ""}
+		{state !== "none" && <img src={state === "desc" ? descArrow : ascArrow} className="size-4" alt={state === "desc" ? "내림차순정렬" : "오름차순정렬"} />}
 	</button>
 }
 

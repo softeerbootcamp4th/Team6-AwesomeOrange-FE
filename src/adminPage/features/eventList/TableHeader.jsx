@@ -16,11 +16,11 @@ function TableHeader({state, dispatch})
 		return (value)=>dispatch({type: "set_sort", target, value});
 	}
 
-	return <div className={`${tableTemplateCol}`}>
-		<div>선택</div>
-		{headerData.map( ({key, name})=><TableSorter key={key} state={state[key]} setState={changeSort(key)} >{name}</TableSorter> )}
-		<div>상태</div>
-		<div>상세</div>
+	return <div className={`${tableTemplateCol} w-full h-12 py-2 bg-neutral-50 rounded-lg text-black`}>
+		<div className="border-r border-neutral-200 flex justify-center items-center">선택</div>
+		{headerData.map( ({key, name})=><TableSorter key={key} className="border-r border-neutral-200" state={state[key]} setState={changeSort(key)} >{name}</TableSorter> )}
+		<div className="border-r border-neutral-200 flex justify-center items-center">상태</div>
+		<div className="flex justify-center items-center">상세</div>
 	</div>
 }
 
