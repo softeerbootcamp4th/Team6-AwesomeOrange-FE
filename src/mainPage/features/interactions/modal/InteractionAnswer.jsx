@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import scrollTo from "@main/scroll/scrollTo.js";
 import { COMMENT_SECTION } from "@main/scroll/constants.js";
@@ -23,7 +23,8 @@ export default function InteractionAnswer({
   const currentServerTime = useEventStore((state) => state.currentServerTime);
   const eventDate = EVENT_START_DATE.getTime() + index * 24 * 60 * 60 * 1000;
   const [isAniPlaying, setIsAniPlaying] = useState(false);
-  const [isJoined, setIsJoined] = useState(false);
+  const isEventToday =
+    getEventDateState(currentServerTime, eventDate) === "active";
   const authModal = (
     <AuthModal
       onComplete={() => {
@@ -33,7 +34,6 @@ export default function InteractionAnswer({
         })
           .then((res) => {
             console.log(res);
-            setIsJoined(true);
           })
           .catch((e) => {
             console.log(e);
@@ -41,12 +41,6 @@ export default function InteractionAnswer({
       }}
     />
   );
-
-  useEffect(() => {
-    if (getEventDateState(currentServerTime, eventDate) === "active") {
-      setIsJoined(true);
-    }
-  }, [currentServerTime, eventDate]);
 
   async function onClickWrite() {
     await close();
@@ -107,19 +101,19 @@ export default function InteractionAnswer({
       </div>
 
       <div className="absolute bottom-10 flex flex-col items-center gap-10">
-        {isLogin ? (
+        {isLogin || !isEventToday ? (
           <>
             <span className="text-body-m text-green-400 font-bold">
-              {isJoined
+              {isEventToday
                 ? "오늘 응모가 완료되었습니다!"
                 : "응모 기간이 지났습니다!"}
             </span>
 
             <div className="flex gap-4 items-end">
-              <div className="flex flex-col gap-2">
-                <div
-                  className={`${isJoined ? "" : "hidden"} relative flex flex-col items-center animate-bounce`}
-                >
+              <div
+                className={`${isEventToday ? "flex" : "hidden"} flex-col gap-2}`}
+              >
+                <div className="flex relative flex-col items-center animate-bounce">
                   <span className=" bg-green-400 text-nowrap text-body-s xl:text-body-m text-neutral-800 rounded-full px-4 xl:px-8 py-1 xl:py-2 font-bold">
                     당첨확률 UP!
                   </span>
@@ -136,6 +130,7 @@ export default function InteractionAnswer({
                   기대평 작성하기
                 </Button>
               </div>
+
               <Button
                 onClick={onClickShare}
                 styleType="ghost"

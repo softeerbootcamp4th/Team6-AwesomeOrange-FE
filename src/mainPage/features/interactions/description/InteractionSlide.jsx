@@ -1,10 +1,11 @@
 import InteractionModal from "../modal/InteractionModal";
 import openModal from "@common/modal/openModal.js";
 import { padNumber } from "@common/utils.js";
+import { EVENT_START_DATE } from "@common/constants";
 
 function getEventDate(index) {
   const day = ["일", "월", "화", "수", "목", "금", "토"];
-  const fullDate = new Date(2024, 8, 9 + index);
+  const fullDate = new Date(EVENT_START_DATE.getTime() + index * 24 * 60 * 60 * 1000);
 
   const month = fullDate.getMonth() + 1;
   const date = fullDate.getDate();
