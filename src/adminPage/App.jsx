@@ -10,8 +10,6 @@ import useLogoutMiddleware from "@common/dataFetch/initLogoutMiddleware";
 
 function App() {
   useEffect(() => {
-    window.scrollTo(0, 0);
-    history.scrollRestoration = "manual";
     initLoginState();
   }, []);
   useLogoutMiddleware(logout);
