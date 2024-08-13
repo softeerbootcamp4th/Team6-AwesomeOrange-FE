@@ -7,40 +7,43 @@ function Filter({state, dispatch})
 		return (value)=>dispatch({type: "set_filter", target, value});
 	}
 
-	return <div className="grid grid-cols-2">
-		<fieldset>
-			<legend>상태</legend>
-			<div>
-				<label>
+	const fieldsetStyle = "border border-neutral-200 rounded px-3 pb-3";
+	const labelStyle = "inline-flex items-center gap-1 text-body-s";
+
+	return <div className="grid grid-cols-2 gap-4">
+		<fieldset className={fieldsetStyle}>
+			<legend className="px-2 text-body-l">상태</legend>
+			<div className="flex flex-wrap gap-2 px-2">
+				<label className={labelStyle}>
 					<Checkbox name="event-state-scheduled" defaultChecked />
 					예정
 				</label>
-				<label>
+				<label className={labelStyle}>
 					<Checkbox name="event-state-ongoing" defaultChecked />
-					진행
+					진행중
 				</label>
-				<label>
+				<label className={labelStyle}>
 					<Checkbox name="event-state-pending-draw" defaultChecked />
 					추첨대기
 				</label>
-				<label>
+				<label className={labelStyle}>
 					<Checkbox name="event-state-ended" defaultChecked />
 					종료
 				</label>
-				<label>
+				<label className={labelStyle}>
 					<Checkbox name="event-state-temp" defaultChecked />
 					임시저장
 				</label>
 			</div>
 		</fieldset>
-		<fieldset>
-			<legend>레전드</legend>
-			<div>
-				<label>
+		<fieldset className={fieldsetStyle}>
+			<legend className="px-2 text-body-l">레전드</legend>
+			<div className="flex flex-wrap gap-2 px-2">
+				<label className={labelStyle}>
 					<Checkbox name="event-type-fcfs" checked={state.fcfs} onChange={changeFilter("fcfs")} />
 					선착순
 				</label>
-				<label>
+				<label className={labelStyle}>
 					<Checkbox name="event-type-draw" checked={state.draw} onChange={changeFilter("draw")} />
 					추첨
 				</label>
