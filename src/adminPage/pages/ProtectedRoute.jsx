@@ -1,18 +1,20 @@
-import { useEffect } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 import Container from "@admin/components/Container.jsx";
 import useUserStore from "@admin/auth/store.js";
 
 function ProtectedRoute() {
   const isLogin = useUserStore((store) => store.isLogin);
-  const navigate = useNavigate();
+  const initialized = useUserStore((store) => store.initialized);
 
-  useEffect(() => {
-    if (!isLogin) navigate("/login", { replace: true });
-  }, [isLogin, navigate]);
-
-  if (!isLogin) return <Container />;
+  if (!initialized) return <Container />;
+  if (!isLogin)
+    return (
+      <>
+        <Container />
+        <Navigate to="/login" replace={true} />
+      </>
+    );
   return <Outlet />;
 }
 

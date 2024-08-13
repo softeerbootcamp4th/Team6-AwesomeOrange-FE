@@ -3,6 +3,7 @@ import requestAuthCode from "../requestAuthCode.js";
 import Input from "@common/components/Input.jsx";
 import PhoneInput from "@common/components/PhoneInput.jsx";
 import Button from "@common/components/Button.jsx";
+import Checkbox from "@common/components/Checkbox.jsx";
 
 function AuthFirstSection({
   name,
@@ -13,10 +14,6 @@ function AuthFirstSection({
   goFindUser,
 }) {
   const [errorMessage, setErrorMessage] = useState("");
-
-  const checkboxStyle = `size-4 appearance-none 
-	border border-neutral-300 checked:bg-blue-400 checked:border-0 
-	checked:bg-checked bg-center`;
 
   function onSubmit(e) {
     e.preventDefault();
@@ -63,14 +60,14 @@ function AuthFirstSection({
           </div>
           <div className="flex flex-col gap-4 text-detail-l">
             <label className="flex gap-2 items-center">
-              <input type="checkbox" className={checkboxStyle} required />
+              <Checkbox required />
               <span className="font-bold text-neutral-600">
                 개인정보 수집 동의(필수)
               </span>
               <span className="font-medium text-neutral-300">자세히 보기</span>
             </label>
             <label className="flex gap-2 items-center">
-              <input type="checkbox" className={checkboxStyle} />
+              <Checkbox required />
               <span className="font-bold text-neutral-600">
                 마케팅 수신 동의(선택)
               </span>
