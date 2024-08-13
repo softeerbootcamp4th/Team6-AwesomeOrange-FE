@@ -113,7 +113,7 @@ export default function InteractionAnswer({
               <div
                 className={`${isEventToday ? "flex" : "hidden"} flex-col gap-2}`}
               >
-                <div className="relative flex-col items-center animate-bounce">
+                <div className="flex relative flex-col items-center animate-bounce">
                   <span className=" bg-green-400 text-nowrap text-body-s xl:text-body-m text-neutral-800 rounded-full px-4 xl:px-8 py-1 xl:py-2 font-bold">
                     당첨확률 UP!
                   </span>
