@@ -4,10 +4,8 @@ import { searchReducer, setDefaultState, searchStateToQuery } from "./reducer.js
 
 import SearchBar from "./SearchBar.jsx";
 import Filter from "./Filter.jsx";
+import TableHeader from "./TableHeader.jsx";
 import Button from "@common/components/Button.jsx";
-import Checkbox from "@common/components/Checkbox.jsx";
-
-
 
 function EventList()
 {
@@ -19,6 +17,7 @@ function EventList()
 		</div>
 		<SearchBar />
 		<Filter state={state.filter} dispatch={dispatch} />
+		<TableHeader state={state.sort} dispatch={dispatch}/>
 	</div>
 }
 

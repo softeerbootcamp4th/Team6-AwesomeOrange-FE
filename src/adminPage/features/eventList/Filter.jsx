@@ -37,7 +37,7 @@ function Filter({state, dispatch})
 			</div>
 		</fieldset>
 		<fieldset className={fieldsetStyle}>
-			<legend className="px-2 text-body-l">레전드</legend>
+			<legend className="px-2 text-body-l">종류</legend>
 			<div className="flex flex-wrap gap-2 px-2">
 				<label className={labelStyle}>
 					<Checkbox name="event-type-fcfs" checked={state.fcfs} onChange={changeFilter("fcfs")} />
