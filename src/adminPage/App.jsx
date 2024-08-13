@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import EventsPage from "./pages/EventsPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import RootRoute from "./pages/RootRoute.jsx";
+import CommentsPage from "./pages/CommentsPage.jsx";
 
 import { initLoginState, logout } from "@admin/auth/store.js";
 import useLogoutMiddleware from "@common/dataFetch/initLogoutMiddleware";
@@ -26,7 +27,7 @@ function App() {
           <Route path="/events/:id" element={<div>event 보는 화면</div>} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/comments/:id" element={<div>기대평 화면</div>} />
-          <Route path="/comments" element={<div>기대평 검색 화면</div>} />
+          <Route path="/comments" element={<CommentsPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<RootRoute />} />

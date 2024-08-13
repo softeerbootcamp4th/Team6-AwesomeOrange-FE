@@ -31,13 +31,9 @@ export default function InteractionAnswer({
         // 추첨 이벤트 참가 전송. API 주소 추후 바뀔 수 있음
         fetchServer(`/api/v1/draw/${EVENT_DRAW_ID}`, {
           method: "POST",
-        })
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        }).catch((e) => {
+          console.log(e);
+        });
       }}
     />
   );
