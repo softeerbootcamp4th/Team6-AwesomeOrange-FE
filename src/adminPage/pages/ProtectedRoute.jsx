@@ -7,11 +7,14 @@ function ProtectedRoute() {
   const isLogin = useUserStore((store) => store.isLogin);
   const initialized = useUserStore((store) => store.initialized);
 
-  if (!initialized) return <Container />
-  if (!isLogin) return <>
-    <Container />
-    <Navigate to="/login" replace={true} />
-  </>;
+  if (!initialized) return <Container />;
+  if (!isLogin)
+    return (
+      <>
+        <Container />
+        <Navigate to="/login" replace={true} />
+      </>
+    );
   return <Outlet />;
 }
 
