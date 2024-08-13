@@ -1,8 +1,9 @@
 import Container from "@admin/components/Container.jsx";
+import LoginSection from "@admin/auth/LoginSection.jsx";
 function LoginPage()
 {
 	return <Container>
-		<div className="h-[3000px]">컨테이너 테스트</div>
+		<LoginSection />
 	</Container>
 }
 
