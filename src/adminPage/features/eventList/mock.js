@@ -20,6 +20,46 @@ function getEventsMock() {
 
 const dummyData = getEventsMock();
 
+function filterData(filterParam)
+{
+  const filterKey = filterParam.split(",");
+  return function(data)
+  {
+    if(filterKey.length === 0) return true;
+    for(let key of filterKey)
+    {
+      if(key === "fcfs" && data.eventType === "fcfs") return true;
+      if(key === "draw" && data.eventType === "draw") return true;
+    }
+    return false;
+  }
+}
+
+function compareString(a, b)
+{
+  if(a < b) return -1;
+  if(a > b) return 1;
+  return 0;
+}
+
+
+function sortData(sortParam)
+{
+  const sortKey = sortParam.split(",").map( keyValue=>keyValue.split(":") );
+  return function(a, b)
+  {
+    for(let [key, sorter] of sortKey)
+    {
+      const pm = sorter === "desc" ? -1 : 1;
+      if(key === "eventId") return compareString(a.eventId, b.eventId) * pm;
+      if(key === "name") return compareString(a.name, b.name) * pm;
+      if(key === "startTime") return (a.startTime - b.startTime) * pm;
+      if(key === "endTime") return (a.endTime - b.endTime) * pm;
+    }
+    return 0;
+  }
+}
+
 const handlers = [
   http.get("/api/v1/admin/events", async ({ request }) => {
     const url = new URL(request.url);
@@ -31,7 +71,10 @@ const handlers = [
 
     const result = dummyData
       .filter( ({name})=>search === null ? true : name.includes(search) )
+      .filter( filterData(filter) )
+      .sort( sortData(sort) )
       .slice( page * size, (page + 1) * size );
+    console.log({search, filter, sort, page, size, result});
 
     return HttpResponse.json(result);
   }),
