@@ -17,6 +17,7 @@ checkDispatch})
 		dependencyArray: [query],
 		deferred: true
 	});
+	const page = 10;
 
 	const checkSelect = () =>{
 		const keys = dataList.map( ({eventId})=>eventId );
@@ -28,7 +29,9 @@ checkDispatch})
 		<SearchResultBody data={dataList} checkState={checkState} setCheck={ (key)=>{
 			return (value)=>checkDispatch({type:"check_key", key, value});
 		} } />
-		<Pagination currentPage={queryState.page} setPage={value=>queryDispatch({type:"set_page", value})} maxPage={10} />
+		<div className="flex justify-center items-center">
+			<Pagination currentPage={queryState.page} setPage={value=>queryDispatch({type:"set_page", value})} maxPage={page} />
+		</div>
 	</>
 }
 

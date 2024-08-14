@@ -15,6 +15,7 @@ function EventList() {
   const [state, dispatch] = useReducer(searchReducer, null, setDefaultState);
   const [checkSet, setCheck] = useReducer(checkReducer, new Set());
   const query = useDeferredValue(searchStateToQuery(state));
+  const resetCheck = ()=>setCheck({type:"reset"});
 
   return (
     <div className="w-full h-full flex flex-col gap-4">
@@ -23,11 +24,11 @@ function EventList() {
       </div>
       <SearchBar onSearch={ (value)=>{
         dispatch({type:"set_query", value});
-        setCheck({type:"reset"});
+        resetCheck();
       } } />
       <Filter state={state.filter} dispatch={dispatch} />
       <div className="flex justify-end">
-        <DeleteButton selected={checkSet} />
+        <DeleteButton selected={checkSet} reset={resetCheck} />
       </div>
       <ErrorBoundary fallback={<div>Error</div>}>
         <Suspense fallback={<div>login</div>}>

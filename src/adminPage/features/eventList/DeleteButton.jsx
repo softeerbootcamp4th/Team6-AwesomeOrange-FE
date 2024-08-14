@@ -2,7 +2,7 @@ import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import { useMutation } from "@common/dataFetch/getQuery.js";
 import Button from "@common/components/Button.jsx";
 
-function DeleteButton({selected})
+function DeleteButton({selected, reset})
 {
 	const mutate = useMutation(
 		"admin-event-list",
@@ -13,7 +13,9 @@ function DeleteButton({selected})
 			}
 		}),
 		{
-			onSuccess: ()=>console.log("success!")
+			onSuccess: ()=>{
+				reset();
+			}
 		}
 	)
 
