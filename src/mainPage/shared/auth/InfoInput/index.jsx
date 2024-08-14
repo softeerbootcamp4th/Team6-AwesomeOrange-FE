@@ -67,7 +67,7 @@ function AuthFirstSection({
               <span className="font-medium text-neutral-300">자세히 보기</span>
             </label>
             <label className="flex gap-2 items-center">
-              <Checkbox required />
+              <Checkbox />
               <span className="font-bold text-neutral-600">
                 마케팅 수신 동의(선택)
               </span>
