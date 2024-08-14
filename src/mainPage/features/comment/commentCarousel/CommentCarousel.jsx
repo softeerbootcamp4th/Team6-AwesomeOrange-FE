@@ -1,6 +1,7 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import AutoScrollCarousel from "../autoScrollCarousel";
+import { formatDate } from "@common/utils.js";
 import { EVENT_ID } from "@common/constants.js";
 
 function mask(string) {
@@ -8,14 +9,6 @@ function mask(string) {
   if (len <= 1) return "*";
   if (len === 2) return string[0] + "*";
   return string[0] + "*".repeat(len - 2) + string[len - 1];
-}
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${year}. ${month}. ${day}`;
 }
 
 function CommentCarousel() {
@@ -34,7 +27,7 @@ function CommentCarousel() {
             <p className="text-neutral-800 text-body-l">{content}</p>
             <div className="text-blue-400 flex flex-col gap-1">
               <p className="text-body-m">{mask(userName)} 님</p>
-              <p className="text-body-s">{formatDate(createdAt)}</p>
+              <p className="text-body-s">{formatDate(createdAt, "YYYY. MM. DD")}</p>
             </div>
           </div>
         ))}
