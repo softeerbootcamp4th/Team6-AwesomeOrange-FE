@@ -7,6 +7,7 @@ import EventsCreatePage from "./pages/EventsCreatePage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import RootRoute from "./pages/RootRoute.jsx";
 import CommentsPage from "./pages/CommentsPage.jsx";
+import CommentsIDPage from "./pages/CommentsIDPage.jsx";
 import ServerTimeInitializer from "./shared/serverTime/ServerTimeInitializer.jsx";
 
 import Modal from "@common/modal/modal.jsx";
@@ -31,7 +32,7 @@ function App() {
           />
           <Route path="/events/:id" element={<EventsDetailPage />} />
           <Route path="/events" element={<EventsPage />} />
-          <Route path="/comments/:id" element={<div>기대평 화면</div>} />
+          <Route path="/comments/:eventId" element={<CommentsIDPage />} />
           <Route path="/comments" element={<CommentsPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />

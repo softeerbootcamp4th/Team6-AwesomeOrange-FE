@@ -1,5 +1,6 @@
 import { setupWorker } from "msw/browser";
 import authHandler from "@admin/auth/mock.js";
+import commentHandler from "./features/comment/mock.js";
 import serverTimeHandler from "@admin/serverTime/mock.js";
 import eventSearchHandler from "./features/eventList/mock.js";
 
@@ -10,4 +11,5 @@ export default setupWorker(
   ...authHandler,
   ...eventSearchHandler,
   ...serverTimeHandler,
+  ...commentHandler,
 );
