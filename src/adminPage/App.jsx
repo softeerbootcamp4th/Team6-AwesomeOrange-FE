@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage.jsx";
 import EventsPage from "./pages/EventsPage.jsx";
+import EventsDetailPage from "./pages/EventsDetailPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import RootRoute from "./pages/RootRoute.jsx";
 import CommentsPage from "./pages/CommentsPage.jsx";
@@ -26,7 +27,7 @@ function App() {
             path="/events/create"
             element={<div>event 생성 화면</div>}
           />
-          <Route path="/events/:id" element={<div>event 보는 화면</div>} />
+          <Route path="/events/:id" element={<EventsDetailPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/comments/:id" element={<div>기대평 화면</div>} />
           <Route path="/comments" element={<CommentsPage />} />
