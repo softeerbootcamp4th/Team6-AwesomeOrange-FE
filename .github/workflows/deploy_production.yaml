@@ -9,7 +9,7 @@ on:
     paths:
       - "src/common/**"
       - "src/mainPage/**"
-      - "public"
+      - "public/**"
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
