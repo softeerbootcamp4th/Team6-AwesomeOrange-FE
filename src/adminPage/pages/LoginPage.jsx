@@ -2,7 +2,7 @@ import Container from "@admin/components/Container.jsx";
 import LoginSection from "@admin/auth/LoginSection.jsx";
 function LoginPage() {
   return (
-    <Container>
+    <Container shouldCenter>
       <LoginSection />
     </Container>
   );
