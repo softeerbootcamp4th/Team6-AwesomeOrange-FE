@@ -28,6 +28,11 @@ function App() {
             path="/events/create"
             element={<EventsCreatePage />}
           />
+          <Route
+            exact
+            path="/events/:id/edit"
+            element={<div>이벤트 수정하는 페이지</div>}
+          />
           <Route path="/events/:id" element={<EventsDetailPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/comments/:id" element={<div>기대평 화면</div>} />

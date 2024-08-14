@@ -1,9 +1,13 @@
 import Container from "@admin/components/Container.jsx";
+import EventEditContainer from "../features/eventEdit/Container.jsx";
+import EventEditor from "../features/eventEdit/index.jsx";
 
 function EventsCreatePage() {
   return (
     <Container>
-      <div>이벤트 생성 화면 들어갈 예정</div>
+      <EventEditContainer title="이벤트 등록">
+        <EventEditor />
+      </EventEditContainer>
     </Container>
   );
 }
