@@ -73,7 +73,7 @@ const handlers = [
       .filter( ({name})=>search === null ? true : name.includes(search) )
       .filter( filterData(filter) )
       .sort( sortData(sort) )
-      .slice( page * size, (page + 1) * size );
+      .slice( (page-1) * size, (page) * size );
     console.log({search, filter, sort, page, size, result});
 
     return HttpResponse.json(result);

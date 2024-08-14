@@ -19,7 +19,7 @@ function EventList() {
       <div className="flex justify-end">
         <Button>+ 이벤트 등록</Button>
       </div>
-      <SearchBar />
+      <SearchBar onSearch={ (value)=>dispatch({type:"set_query", value}) } />
       <Filter state={state.filter} dispatch={dispatch} />
       <TableHeader state={state.sort} dispatch={dispatch} />
       <ErrorBoundary fallback={<div>Error</div>}>
