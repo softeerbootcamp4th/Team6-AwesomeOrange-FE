@@ -93,6 +93,18 @@ const handlers = [
 
     return HttpResponse.json(result);
   }),
+  http.delete("/api/v1/admin/events", async ({ request }) => {
+    const { eventIds } = await request.json();
+
+    for(let id of eventIds)
+    {
+      const index = dummyData.findIndex( ({eventId})=>eventId === id );
+      if(index === -1) continue;
+      dummyData.splice(index, 1);
+    }
+
+    return HttpResponse.json(true);
+  }),
 ];
 
 export default handlers;

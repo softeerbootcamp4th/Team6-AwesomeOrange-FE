@@ -1,3 +1,5 @@
+import { useDeferredValue } from "react";
+
 import TableHeader from "./TableHeader.jsx";
 import SearchResultBody from "./SearchResultBody.jsx";
 
@@ -10,7 +12,10 @@ queryDispatch,
 checkState,
 checkDispatch})
 {
-	const dataList = useQuery("admin-event-list", ()=>fetchServer(query), [query] );
+	const dataList = useQuery("admin-event-list", ()=>fetchServer(query), {
+		dependencyArray: [query],
+		deferred: true
+	});
 
 	const checkSelect = () =>{
 		const keys = dataList.map( ({eventId})=>eventId );

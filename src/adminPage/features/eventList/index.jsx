@@ -6,6 +6,7 @@ import checkReducer from "./checkReducer.js";
 import SearchBar from "./SearchBar.jsx";
 import Filter from "./Filter.jsx";
 import SearchResult from "./table";
+import DeleteButton from "./DeleteButton.jsx";
 import Button from "@common/components/Button.jsx";
 import Suspense from "@common/components/Suspense.jsx";
 import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
@@ -25,6 +26,9 @@ function EventList() {
         setCheck({type:"reset"});
       } } />
       <Filter state={state.filter} dispatch={dispatch} />
+      <div className="flex justify-end">
+        <DeleteButton selected={checkSet} />
+      </div>
       <ErrorBoundary fallback={<div>Error</div>}>
         <Suspense fallback={<div>login</div>}>
           <SearchResult query={query} queryState={state} queryDispatch={dispatch} checkState={checkSet} checkDispatch={setCheck} />
