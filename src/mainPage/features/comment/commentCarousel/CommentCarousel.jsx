@@ -27,7 +27,9 @@ function CommentCarousel() {
             <p className="text-neutral-800 text-body-l">{content}</p>
             <div className="text-blue-400 flex flex-col gap-1">
               <p className="text-body-m">{mask(userName)} 님</p>
-              <p className="text-body-s">{formatDate(createdAt, "YYYY. MM. DD")}</p>
+              <p className="text-body-s">
+                {formatDate(createdAt, "YYYY. MM. DD")}
+              </p>
             </div>
           </div>
         ))}

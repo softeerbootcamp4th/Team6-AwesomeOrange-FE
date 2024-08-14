@@ -16,4 +16,3 @@ export function makeLorem(min, max) {
   }
   return result.join(" ");
 }
-

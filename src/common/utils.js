@@ -31,28 +31,31 @@ export function formatDate(rawDate, format) {
   const date = new Date(rawDate);
 
   const components = {
-      'YYYY': date.getFullYear(),
-      'YY': String(date.getFullYear()).slice(-2),
-      'MM': String(date.getMonth() + 1).padStart(2, '0'),
-      'M': date.getMonth() + 1,
-      'DD': String(date.getDate()).padStart(2, '0'),
-      'D': date.getDate(),
-      'hh': String(date.getHours()).padStart(2, '0'),
-      'h': date.getHours(),
-      'mm': String(date.getMinutes()).padStart(2, '0'),
-      'm': date.getMinutes(),
-      'ss': String(date.getSeconds()).padStart(2, '0'),
-      's': date.getSeconds()
+    YYYY: date.getFullYear(),
+    YY: String(date.getFullYear()).slice(-2),
+    MM: String(date.getMonth() + 1).padStart(2, "0"),
+    M: date.getMonth() + 1,
+    DD: String(date.getDate()).padStart(2, "0"),
+    D: date.getDate(),
+    hh: String(date.getHours()).padStart(2, "0"),
+    h: date.getHours(),
+    mm: String(date.getMinutes()).padStart(2, "0"),
+    m: date.getMinutes(),
+    ss: String(date.getSeconds()).padStart(2, "0"),
+    s: date.getSeconds(),
   };
 
-  return format.replace(/YYYY|YY|MM|M|DD|D|hh|h|mm|m|ss|s/g, match => components[match]);
+  return format.replace(
+    /YYYY|YY|MM|M|DD|D|hh|h|mm|m|ss|s/g,
+    (match) => components[match],
+  );
 }
 
 export async function getServerPresiseTime() {
   const startClientTime = performance.now();
-  const { timestamp: serverTime } = await fetch("/api/serverTime").then((e) =>
-    e.json(),
-  ).catch( ()=>new Date() );
+  const { timestamp: serverTime } = await fetch("/api/serverTime")
+    .then((e) => e.json())
+    .catch(() => new Date());
   const networkPayloadTime = performance.now() - startClientTime;
 
   return new Date(serverTime).getTime() + networkPayloadTime;

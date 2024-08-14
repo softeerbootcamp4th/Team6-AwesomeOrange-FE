@@ -5,26 +5,24 @@ const queryMap = new Map();
 const queryObservers = new Map();
 const CACHE_DURATION = 10 * 60 * 1000;
 
-function subscribeQuery(key)
-{
-  return (callback)=>{
-    if(!queryObservers.has(key)) queryObservers.set(key, new Set());
+function subscribeQuery(key) {
+  return (callback) => {
+    if (!queryObservers.has(key)) queryObservers.set(key, new Set());
     const set = queryObservers.get(key);
     set.add(callback);
 
-    return ()=>{
+    return () => {
       const set = queryObservers.get(key);
       set.delete(callback);
-      if(set.size === 0) queryObservers.delete(key);
-    }
-  }
+      if (set.size === 0) queryObservers.delete(key);
+    };
+  };
 }
 
-function updateSubscribedQuery(key)
-{
+function updateSubscribedQuery(key) {
   queryMap.delete(key);
-  if(!queryObservers.has(key)) return;
-  queryObservers.get(key).forEach( callback=>callback() );
+  if (!queryObservers.has(key)) return;
+  queryObservers.get(key).forEach((callback) => callback());
 }
 
 function isSame(arr1, arr2) {
@@ -43,30 +41,31 @@ export function getQuery(key, promiseFn, dependencyArray = []) {
   return promise;
 }
 
-export function useQuery(key, promiseFn, config={}) {
-  let _config = {dependencyArray: []};
-  if(Array.isArray(config)) _config.dependencyArray = config;
+export function useQuery(key, promiseFn, config = {}) {
+  let _config = { dependencyArray: [] };
+  if (Array.isArray(config)) _config.dependencyArray = config;
   else _config = Object.assign(_config, config);
 
-  const query = useSyncExternalStore(subscribeQuery(key), ()=>getQuery(key, promiseFn, _config.dependencyArray));
+  const query = useSyncExternalStore(subscribeQuery(key), () =>
+    getQuery(key, promiseFn, _config.dependencyArray),
+  );
   const deferredQuery = useDeferredValue(query);
 
-  if(_config.deferred) return use( deferredQuery ); 
+  if (_config.deferred) return use(deferredQuery);
   return use(query);
 }
 
-export function useMutation(key, promiseFn, {onSuccess, onError}={}) {
-  return async ()=>{
+export function useMutation(key, promiseFn, { onSuccess, onError } = {}) {
+  return async () => {
     try {
       const value = await promiseFn();
       updateSubscribedQuery(key);
       onSuccess?.(value);
-    }
-    catch(e) {
+    } catch (e) {
       onError?.(e);
-      if(onError === undefined) throw e;
+      if (onError === undefined) throw e;
     }
-  }
+  };
 }
 
 export function getQuerySuspense(key, promiseFn, dependencyArray = []) {

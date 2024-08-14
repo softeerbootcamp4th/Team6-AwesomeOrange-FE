@@ -23,11 +23,7 @@ function App() {
     <>
       <Routes>
         <Route element={<ProtectedRoute />}>
-          <Route
-            exact
-            path="/events/create"
-            element={<EventsCreatePage />}
-          />
+          <Route exact path="/events/create" element={<EventsCreatePage />} />
           <Route
             exact
             path="/events/:id/edit"
