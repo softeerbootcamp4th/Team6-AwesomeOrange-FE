@@ -14,15 +14,18 @@ const handlers = [
       eventStatus: "countdown",
     });
   }),
-  http.get("/api/v1/event/fcfs/participated", async ({ request }) => {
-    const token = request.headers.get("authorization");
-    if (token === null)
+  http.get(
+    "/api/v1/event/fcfs/:eventFrameId/participated",
+    async ({ request }) => {
+      const token = request.headers.get("authorization");
+      if (token === null)
+        return HttpResponse.json({ answerResult: false, winner: false });
+
+      //await delay(10000);
+
       return HttpResponse.json({ answerResult: false, winner: false });
-
-    //await delay(10000);
-
-    return HttpResponse.json({ answerResult: false, winner: false });
-  }),
+    },
+  ),
   http.post("/api/v1/event/fcfs/:eventFrameId", async ({ request }) => {
     const { eventAnswer } = await request.json();
 

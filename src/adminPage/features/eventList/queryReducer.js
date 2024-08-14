@@ -6,7 +6,7 @@ export function setDefaultState() {
       draw: true,
     },
     sort: {
-      eventId: "asc",
+      eventId: "none",
       name: "none",
       startTime: "none",
       endTime: "none",
@@ -37,13 +37,16 @@ export function searchReducer(state, action) {
         },
       };
     case "set_page":
-      return { ...state, page: Math.isNaN(+action.value) ? 1 : +action.value };
+      return {
+        ...state,
+        page: Number.isNaN(+action.value) ? 1 : +action.value,
+      };
   }
   throw Error("unknown action.");
 }
 
 export function searchStateToQuery(state) {
-  const path = "api/v1/admin/events";
+  const path = "/api/v1/admin/events";
   const paramObj = {
     search: state.query,
     filter: Object.entries(state.filter)
@@ -55,7 +58,7 @@ export function searchStateToQuery(state) {
       .map(([key, value]) => `${key}:${value}`)
       .join(","),
     page: state.page,
-    size: 5,
+    size: 10,
   };
   if (state.query === "") delete paramObj.search;
 

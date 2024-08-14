@@ -11,7 +11,6 @@ function SearchBar({ onSearch = () => {} }) {
       onSubmit={(e) => {
         e.preventDefault();
         onSearch(query);
-        setQuery("");
       }}
     >
       <Input

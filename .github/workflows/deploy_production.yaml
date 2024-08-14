@@ -7,8 +7,9 @@ on:
     branches:
       - "main"
     paths:
-      - "common/**"
-      - "mainPage/**"
+      - "src/common/**"
+      - "src/mainPage/**"
+      - "public/**"
 jobs:
   deploy-production:
     runs-on: ubuntu-latest

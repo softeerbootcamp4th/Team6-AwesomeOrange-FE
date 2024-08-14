@@ -9,7 +9,7 @@ const headerData = [
   { key: "eventType", name: "종류" },
 ];
 
-function TableHeader({ state, dispatch }) {
+function TableHeader({ state, dispatch, checkSelect }) {
   function changeSort(target) {
     return (value) => dispatch({ type: "set_sort", target, value });
   }
@@ -18,9 +18,13 @@ function TableHeader({ state, dispatch }) {
     <div
       className={`${tableTemplateCol} w-full h-12 py-2 bg-neutral-50 rounded-lg text-black`}
     >
-      <div className="border-r border-neutral-200 flex justify-center items-center">
+      <button
+        type="button"
+        className="border-r border-neutral-200 flex justify-center items-center"
+        onClick={checkSelect}
+      >
         선택
-      </div>
+      </button>
       {headerData.map(({ key, name }) => (
         <TableSorter
           key={key}
