@@ -18,9 +18,9 @@ function TableHeader({ state, dispatch, checkSelect }) {
     <div
       className={`${tableTemplateCol} w-full h-12 py-2 bg-neutral-50 rounded-lg text-black`}
     >
-      <div className="border-r border-neutral-200 flex justify-center items-center" onClick={checkSelect}>
+      <button type="button" className="border-r border-neutral-200 flex justify-center items-center" onClick={checkSelect}>
         선택
-      </div>
+      </button>
       {headerData.map(({ key, name }) => (
         <TableSorter
           key={key}
