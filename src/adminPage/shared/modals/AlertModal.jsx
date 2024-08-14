@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ModalCloseContext } from "@common/modal/modal.jsx";
 import Button from "@common/components/Button.jsx";
 
-function ConfirmModal({title, description, onConfirm})
+function AlertModal({title, description})
 {
 	const close = useContext(ModalCloseContext);
 
@@ -20,10 +20,9 @@ function ConfirmModal({title, description, onConfirm})
 			<div className="text-body-s font-medium">{description}</div>
 		</div>
 		<div className="flex gap-4 justify-end">
-			<Button styleType="ghost" className="px-6 py-2" onClick={close}>취소</Button>
-			<Button styleType="filled" className="px-6 py-2" onClick={()=>{ close(); onConfirm(); }}>확인</Button>
+			<Button styleType="filled" className="px-6 py-2" onClick={close}>확인</Button>
 		</div>
 	</div>
 }
 
-export default ConfirmModal;
+export default AlertModal;

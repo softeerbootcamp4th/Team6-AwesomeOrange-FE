@@ -1,6 +1,7 @@
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import { useMutation } from "@common/dataFetch/getQuery.js";
 import ConfirmModal from "@admin/modals/ConfirmModal.jsx";
+import AlertModal from "@admin/modals/AlertModal.jsx";
 import Button from "@common/components/Button.jsx";
 import openModal from "@common/modal/openModal.js";
 
@@ -16,14 +17,15 @@ function DeleteButton({selected, reset})
 		}),
 		{
 			onSuccess: ()=>{
+				openModal(<AlertModal title="삭제" description="기대평이 삭제되었습니다." />);
 				reset();
 			}
 		}
 	);
 	const deleteConfirmModal = <ConfirmModal title="삭제" description={<>
-		<p>이 동작은 다시 돌이킬 수 없습니다.</p>
+		<span>이 동작은 다시 돌이킬 수 없습니다.</span>
 		<br/>
-		<p>{selected.keys().next().value}{selected.size > 1 && ` 외 ${selected.size - 1} 개의`} 이벤트를 삭제하시겠습니까?</p>
+		<span>{selected.keys().next().value}{selected.size > 1 && ` 외 ${selected.size - 1} 개의`} 이벤트를 삭제하시겠습니까?</span>
 	</>} onConfirm={mutate} />;
 
 	function onClick()
