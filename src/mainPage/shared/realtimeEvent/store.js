@@ -6,7 +6,7 @@ import {
   ServerCloseError,
 } from "@/common/dataFetch/fetchServer.js";
 import { getQuerySuspense } from "@/common/dataFetch/getQuery.js";
-import { EVENT_ID } from "@/common/constants.js";
+import { EVENT_FCFS_ID } from "@/common/constants.js";
 
 const HOURS = 60 * 60;
 
@@ -22,7 +22,7 @@ async function getServerPresiseTime() {
 
 async function getFcfsEventInfo() {
   try {
-    const eventData = await fetchServer(`/api/v1/event/fcfs/${EVENT_ID}/info`);
+    const eventData = await fetchServer(`/api/v1/event/fcfs/${EVENT_FCFS_ID}/info`);
     return eventData;
   } catch (e) {
     if (e instanceof HTTPError && e.status === 404)
@@ -41,7 +41,7 @@ async function getFcfsEventInfo() {
 
 async function getFcfsParticipated() {
   try {
-    const eventData = await fetchServer(`/api/v1/event/fcfs/participated`); // ???
+    const eventData = await fetchServer(`/api/v1/event/fcfs/${EVENT_FCFS_ID}/participated`); // ???
     return eventData;
   } catch (e) {
     if (e instanceof HTTPError && (e.status === 401 || e.status == 404))

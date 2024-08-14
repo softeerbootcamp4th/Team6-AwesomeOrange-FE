@@ -14,7 +14,7 @@ const handlers = [
       eventStatus: "countdown",
     });
   }),
-  http.get("/api/v1/event/fcfs/participated", async ({ request }) => {
+  http.get("/api/v1/event/fcfs/:eventFrameId/participated", async ({ request }) => {
     const token = request.headers.get("authorization");
     if (token === null)
       return HttpResponse.json({ answerResult: false, winner: false });

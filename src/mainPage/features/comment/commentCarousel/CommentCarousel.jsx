@@ -1,6 +1,7 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import AutoScrollCarousel from "../autoScrollCarousel";
+import { EVENT_ID } from "@common/constants.js";
 
 function mask(string) {
   const len = string.length;
@@ -19,7 +20,7 @@ function formatDate(dateString) {
 
 function CommentCarousel() {
   const { comments } = useQuery("comment-data", () =>
-    fetchServer("/api/v1/comment"),
+    fetchServer(`/api/v1/comment/${EVENT_ID}`),
   );
 
   return (
