@@ -1,5 +1,5 @@
-import ascArrow from "./assets/upArrow.svg";
-import descArrow from "./assets/downArrow.svg";
+import ascArrow from "../assets/upArrow.svg";
+import descArrow from "../assets/downArrow.svg";
 
 function TableSorter({ className, children, state, setState }) {
   function onClick() {

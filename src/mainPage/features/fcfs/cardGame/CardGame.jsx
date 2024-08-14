@@ -10,7 +10,7 @@ import AuthModal from "@main/auth/AuthModal.jsx";
 
 import useFcfsStore from "@main/realtimeEvent/store.js";
 import * as Status from "@main/realtimeEvent/constants.js";
-import { EVENT_ID } from "@common/constants.js";
+import { EVENT_FCFS_ID } from "@common/constants.js";
 import { fetchServer, handleError } from "@common/dataFetch/fetchServer.js";
 import ResetButton from "@main/components/ResetButton.jsx";
 
@@ -57,7 +57,7 @@ function CardGame({ offline }) {
     const fetchConfig = { method: "post", body: { eventAnswer: index } };
     try {
       const { answerResult, winner } = await fetchServer(
-        `/api/v1/event/fcfs/${EVENT_ID}`,
+        `/api/v1/event/fcfs/${EVENT_FCFS_ID}`,
         fetchConfig,
       ).catch(handleError(submitCardgameErrorHandle));
       if (answerResult) {
