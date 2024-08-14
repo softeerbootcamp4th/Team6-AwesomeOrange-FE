@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { fetchServer } from "@common/dataFetch/fetchServer";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminComment() {
+  const navigate = useNavigate();
   const [formString, setFormString] = useState("");
   const [isSpread, setIsSpread] = useState(false);
   const [searchList, setSearchList] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   function autoCorrect() {
     fetchServer(`/api/v1/admin/events/hints?search=${formString}`)
@@ -36,47 +37,38 @@ export default function AdminComment() {
     } else setIsSpread(false);
   }
 
-  function onKeyDownForm(e) {
-    if (!isSpread) return;
-    switch (e.key) {
-      case "ArrowUp":
-        setSelectedIndex((idx) => idx - 1);
-        break;
-      case "ArrowDown":
-        setSelectedIndex((idx) => idx + 1);
-        break;
+  function searchEvent(e, eventId) {
+    e.preventDefault();
+
+    const eventIDRegex = /^HD_\d{6}_\d{3}$/;
+    const searchID = eventId ? eventId : formString;
+
+    if (eventIDRegex.test(searchID)) {
+      navigate(`/comments/${searchID}`);
     }
   }
 
-  function searchComment(e) {
-    e.preventDefault();
-
-    console.log(formString + " 검색");
-  }
-
   return (
-    <form onSubmit={searchComment} className="relative mt-10 flex">
+    <form onSubmit={searchEvent} className="relative flex">
       <input
         type="text"
         inputMode="numeric"
-        onKeyDown={onKeyDownForm}
         onChange={onChangeForm}
         value={formString}
         placeholder="ID (숫자 9자리)"
-        className={`z-10 outline outline-1 outline-neutral-500 px-4 py-2 w-full ${isSpread ? "rounded-t-md" : "rounded-md"}`}
+        className={`z-10 bg-neutral-50 focus:bg-white px-4 py-2 w-full ${isSpread ? "rounded-t-md" : "rounded-md"}`}
       />
 
       <div
-        className={`absolute max-h-40 top-full outline outline-1 overflow-y-auto w-full outline-neutral-500 rounded-b-md px-3 py-2 flex flex-col gap-2 ${!isSpread && "hidden"}`}
+        className={`absolute max-h-40 top-full border overflow-y-auto w-full rounded-b-md px-3 py-2 flex flex-col gap-2 ${!isSpread && "hidden"}`}
       >
-        {searchList.map((evt, index) => (
+        {searchList.map((evt) => (
           <li
-            key={evt.id}
-            onMouseEnter={() => setSelectedIndex(index)}
-            onMouseDown={() => setFormString(evt.id)}
-            className={`list-none w-full rounded px-1 flex ${selectedIndex === index && "bg-blue-200"}`}
+            key={evt.eventId}
+            onClick={(e) => searchEvent(e, evt.eventId)}
+            className={`cursor-pointer list-none w-full rounded px-1 flex hover:bg-blue-200`}
           >
-            <span className="w-40">{evt.id}</span>
+            <span className="w-40">{evt.eventId}</span>
             <span>{evt.name}</span>
           </li>
         ))}
@@ -89,10 +81,10 @@ export default function AdminComment() {
       </div>
 
       <img
-        onClick={searchComment}
+        onClick={searchEvent}
         src="/icons/search.png"
         alt="검색"
-        className="absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer"
+        className="z-10 absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer"
       />
     </form>
   );
