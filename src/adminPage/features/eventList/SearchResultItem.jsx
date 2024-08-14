@@ -4,11 +4,11 @@ import Button from "@common/components/Button.jsx";
 import Checkbox from "@common/components/Checkbox.jsx";
 import { formatDate } from "@common/utils.js";
 
-function SearchResultItem({eventId, name, startTime, endTime, eventType })
+function SearchResultItem({eventId, name, startTime, endTime, eventType, checked, setCheck })
 {
-	return <div className={`${tableTemplateCol} h-8 text-body-s bg-white hover:bg-blue-100`}>
+	return <label className={`${tableTemplateCol} h-8 text-body-s bg-white hover:bg-blue-100`}>
 		<div className="flex justify-center items-center">
-			<Checkbox />
+			<Checkbox checked={checked} onChange={setCheck}/>
 		</div>
 		<div className="flex justify-center items-center">{eventId}</div>
 		<div className="flex justify-center items-center overflow-hidden">
@@ -21,7 +21,7 @@ function SearchResultItem({eventId, name, startTime, endTime, eventType })
 		<div className="flex justify-center items-center">
 			<Button styleType="ghost" className="px-2 py-1 text-body-s">상세보기</Button>
 		</div>
-	</div>
+	</label>
 }
 
 export default SearchResultItem;
