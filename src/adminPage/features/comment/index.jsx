@@ -19,11 +19,16 @@ export default function AdminComment() {
   ];
 
   function onChangeForm(e) {
-    const inputString = e.target.value;
-    const numberRegex = /^\d*$/;
+    const filteredString = e.target.value.replace(/[^0-9]/g, "");
 
-    if (inputString.length <= 6 && numberRegex.test(inputString)) {
-      setFormString(inputString);
+    if (!filteredString) {
+      setFormString("");
+    } else if (filteredString.length <= 4) {
+      setFormString("HD_" + filteredString);
+    } else if (filteredString.length <= 6) {
+      setFormString(
+        "HD_" + filteredString.slice(0, 4) + "_" + filteredString.slice(4),
+      );
     }
   }
 
@@ -53,6 +58,7 @@ export default function AdminComment() {
         {searchList.map((evt) => (
           <li
             key={evt.id}
+            onMouseDown={() => setFormString(evt.id)}
             className="list-none w-full hover:bg-blue-200 rounded px-1 flex"
           >
             <span className="w-40">{evt.id}</span>
