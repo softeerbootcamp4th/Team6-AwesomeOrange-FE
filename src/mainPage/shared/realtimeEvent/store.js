@@ -4,21 +4,12 @@ import {
   fetchServer,
   HTTPError,
   ServerCloseError,
-} from "@/common/dataFetch/fetchServer.js";
-import { getQuerySuspense } from "@/common/dataFetch/getQuery.js";
-import { EVENT_FCFS_ID } from "@/common/constants.js";
+} from "@common/dataFetch/fetchServer.js";
+import { getQuerySuspense } from "@common/dataFetch/getQuery.js";
+import { getServerPresiseTime } from "@common/utils.js";
+import { EVENT_FCFS_ID } from "@common/constants.js";
 
 const HOURS = 60 * 60;
-
-async function getServerPresiseTime() {
-  const startClientTime = performance.now();
-  const { timestamp: serverTime } = await fetch("/api/serverTime").then((e) =>
-    e.json(),
-  );
-  const networkPayloadTime = performance.now() - startClientTime;
-
-  return new Date(serverTime).getTime() + networkPayloadTime;
-}
 
 async function getFcfsEventInfo() {
   try {

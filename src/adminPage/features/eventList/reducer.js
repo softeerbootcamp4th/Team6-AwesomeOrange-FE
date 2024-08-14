@@ -6,7 +6,7 @@ export function setDefaultState() {
       draw: true,
     },
     sort: {
-      eventId: "asc",
+      eventId: "none",
       name: "none",
       startTime: "none",
       endTime: "none",
@@ -55,7 +55,7 @@ export function searchStateToQuery(state) {
       .map(([key, value]) => `${key}:${value}`)
       .join(","),
     page: state.page,
-    size: 5,
+    size: 10,
   };
   if (state.query === "") delete paramObj.search;
 

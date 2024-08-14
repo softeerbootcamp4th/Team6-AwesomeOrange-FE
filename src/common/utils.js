@@ -48,6 +48,16 @@ export function formatDate(rawDate, format) {
   return format.replace(/YYYY|YY|MM|M|DD|D|hh|h|mm|m|ss|s/g, match => components[match]);
 }
 
+export async function getServerPresiseTime() {
+  const startClientTime = performance.now();
+  const { timestamp: serverTime } = await fetch("/api/serverTime").then((e) =>
+    e.json(),
+  ).catch( ()=>new Date() );
+  const networkPayloadTime = performance.now() - startClientTime;
+
+  return new Date(serverTime).getTime() + networkPayloadTime;
+}
+
 export function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
