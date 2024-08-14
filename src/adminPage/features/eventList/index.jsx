@@ -5,8 +5,7 @@ import checkReducer from "./checkReducer.js";
 
 import SearchBar from "./SearchBar.jsx";
 import Filter from "./Filter.jsx";
-import TableHeader from "./TableHeader.jsx";
-import SearchResult from "./SearchResult.jsx";
+import SearchResult from "./table";
 import Button from "@common/components/Button.jsx";
 import Suspense from "@common/components/Suspense.jsx";
 import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
@@ -21,12 +20,14 @@ function EventList() {
       <div className="flex justify-end">
         <Button>+ 이벤트 등록</Button>
       </div>
-      <SearchBar onSearch={ (value)=>dispatch({type:"set_query", value}) } />
+      <SearchBar onSearch={ (value)=>{
+        dispatch({type:"set_query", value});
+        setCheck({type:"reset"});
+      } } />
       <Filter state={state.filter} dispatch={dispatch} />
-      <TableHeader state={state.sort} dispatch={dispatch} resetCheck={ ()=>setCheck({type:"reset"}) }/>
       <ErrorBoundary fallback={<div>Error</div>}>
         <Suspense fallback={<div>login</div>}>
-          <SearchResult query={query} checkState={checkSet} dispatch={setCheck} />
+          <SearchResult query={query} queryState={state} queryDispatch={dispatch} checkState={checkSet} checkDispatch={setCheck} />
         </Suspense>
       </ErrorBoundary>
     </div>
