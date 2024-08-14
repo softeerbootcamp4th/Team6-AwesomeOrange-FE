@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage.jsx";
 import EventsPage from "./pages/EventsPage.jsx";
 import EventsDetailPage from "./pages/EventsDetailPage.jsx";
+import EventsCreatePage from "./pages/EventsCreatePage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import RootRoute from "./pages/RootRoute.jsx";
 import CommentsPage from "./pages/CommentsPage.jsx";
@@ -25,7 +26,7 @@ function App() {
           <Route
             exact
             path="/events/create"
-            element={<div>event 생성 화면</div>}
+            element={<EventsCreatePage />}
           />
           <Route path="/events/:id" element={<EventsDetailPage />} />
           <Route path="/events" element={<EventsPage />} />

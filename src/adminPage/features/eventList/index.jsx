@@ -1,4 +1,5 @@
 import { useReducer, useDeferredValue } from "react";
+import { Link } from "react-router-dom";
 
 import { searchReducer, setDefaultState, searchStateToQuery } from "./queryReducer.js";
 import checkReducer from "./checkReducer.js";
@@ -20,7 +21,7 @@ function EventList() {
   return (
     <div className="w-full h-full flex flex-col gap-4">
       <div className="flex justify-end">
-        <Button>+ 이벤트 등록</Button>
+        <Link to="./create"><Button>+ 이벤트 등록</Button></Link>
       </div>
       <SearchBar onSearch={ (value)=>{
         dispatch({type:"set_query", value});
