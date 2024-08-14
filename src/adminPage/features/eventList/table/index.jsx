@@ -2,6 +2,7 @@ import { useDeferredValue } from "react";
 
 import TableHeader from "./TableHeader.jsx";
 import SearchResultBody from "./SearchResultBody.jsx";
+import Pagination from "@admin/components/Pagination.jsx";
 
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
@@ -27,6 +28,7 @@ checkDispatch})
 		<SearchResultBody data={dataList} checkState={checkState} setCheck={ (key)=>{
 			return (value)=>checkDispatch({type:"check_key", key, value});
 		} } />
+		<Pagination currentPage={queryState.page} setPage={value=>queryDispatch({type:"set_page", value})} maxPage={10} />
 	</>
 }
 

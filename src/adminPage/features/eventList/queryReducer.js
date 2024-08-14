@@ -37,7 +37,7 @@ export function searchReducer(state, action) {
         },
       };
     case "set_page":
-      return { ...state, page: Math.isNaN(+action.value) ? 1 : +action.value };
+      return { ...state, page: Number.isNaN(+action.value) ? 1 : +action.value };
   }
   throw Error("unknown action.");
 }
