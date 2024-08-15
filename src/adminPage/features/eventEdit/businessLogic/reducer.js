@@ -1,4 +1,23 @@
 import FcfsData from "./FcfsData.js";
+import DrawGradeData from "./DrawGradeData.js";
+import DrawPolicyData from "./DrawPolicyData.js";
+
+function makeVoidDrawData()
+{
+	return {
+		metadata: new DrawGradeData(),
+		policy: new DrawPolicyData()
+	};
+}
+
+function makeDrawData(rawData)
+{
+	return {
+		id: rawData.id,
+		metadata: new DrawGradeData(rawData.metadata),
+		policy: new DrawPolicyData(rawData.policy)
+	};
+}
 
 export function setDefaultState(defaultState) {
 	if(defaultState === null) {
@@ -22,12 +41,12 @@ export function setDefaultState(defaultState) {
 	if(tempState.eventType === "fcfs")
 	{
 		tempState.fcfs = new FcfsData(defaultState.fcfs);
-		tempState.draw = {};
+		tempState.draw = makeVoidDrawData();
 	}
 	if(tempState.eventType === "draw")
 	{
 		tempState.fcfs = new FcfsData();
-		tempState.draw = {...defaultState.draw};
+		tempState.draw = makeDrawData(defaultState.draw);
 	}
 
 	return tempState;
@@ -55,18 +74,39 @@ export function eventEditReducer(state, action) {
 			{
 				return {...state, eventType: "draw", fcfs: new FcfsData()};
 			}
-			return {...state, eventType: "fcfs", draw: {}};
+			return {...state, eventType: "fcfs", draw: makeVoidDrawData()};
 		case "set_event_frame":
 			return {...state, eventFrameId: action.value};
 		case "auto_fill_fcfs":
+			if(state.eventType === "draw") return state;
 			return {...state, fcfs: FcfsData.fillDefault(state.startTime, state.endTime, action.config)};
 		case "add_fcfs_item":
+			if(state.eventType === "draw") return state;
 			return {...state, fcfs: state.fcfs.add(action.value)};
 		case "delete_fcfs_item":
+			if(state.eventType === "draw") return state;
 			return {...state, fcfs: state.fcfs.delete(action.key)};
 		case "modify_fcfs_item":
+			if(state.eventType === "draw") return state;
 			return {...state, fcfs: state.fcfs.modify(action.key, action.value)};
 		case "modify_all_fcfs_item":
+			if(state.eventType === "draw") return state;
 			return {...state, fcfs: state.fcfs.modifyAll(action.value)};
+		case "modify_draw_total_grade":
+			if(state.eventType === "fcfs") return state;
+			if(action.value > 10 || action.value < 0) return state;
+			return {...state, draw: {...state.draw, metadata: state.draw.metadata.adjustCount(action.value)}};
+		case "modify_draw_grade_item":
+			if(state.eventType === "fcfs") return state;
+			return {...state, draw: {...state.draw, metadata: state.draw.metadata.modify(action.value)}};
+		case "add_draw_policy":
+			if(state.eventType === "fcfs") return state;
+			return {...state, draw: {...state.draw, policy: state.draw.policy.add()}};
+		case "delete_draw_policy":
+			if(state.eventType === "fcfs") return state;
+			return {...state, draw: {...state.draw, policy: state.draw.policy.delete(action.key)}};
+		case "modify_draw_policy":
+			if(state.eventType === "fcfs") return state;
+			return {...state, draw: {...state.draw, policy: state.draw.policy.modify(action.key, action.value)}};
 	}
 }
