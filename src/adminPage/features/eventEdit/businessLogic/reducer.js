@@ -104,7 +104,7 @@ export function eventEditReducer(state, action) {
 			return {...state, draw: {...state.draw, metadata: state.draw.metadata.modify(action.value)}};
 		case "add_draw_policy":
 			if(state.eventType === "fcfs") return state;
-			return {...state, draw: {...state.draw, policies: state.draw.policies.add()}};
+			return {...state, draw: {...state.draw, policies: state.draw.policies.add({action:"", score: 0})}};
 		case "delete_draw_policy":
 			if(state.eventType === "fcfs") return state;
 			return {...state, draw: {...state.draw, policies: state.draw.policies.delete(action.key)}};
