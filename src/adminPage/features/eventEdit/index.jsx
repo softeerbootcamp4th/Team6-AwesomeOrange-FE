@@ -7,12 +7,13 @@ import Button from "@common/components/Button.jsx";
 function EventEditor({mode, initialData = null} = {}) {
   const [state, dispatch] = useReducer(eventEditReducer, initialData, setDefaultState);
 
-  function submit()
+  function onSubmit(e)
   {
+    e.preventDefault();
     console.log(JSON.stringify(state, null, 4));
   }
 
-  return <section className="flex flex-col gap-8">
+  return <form className="flex flex-col gap-8 group" onSubmit={onSubmit}>
     <div className="flex w-full justify-between">
       <div>
         <h2 className="text-title-m font-bold">{mode === "edit" ? "이벤트 수정" : "이벤트 등록"}</h2>
@@ -21,13 +22,13 @@ function EventEditor({mode, initialData = null} = {}) {
       <div className="flex gap-4">
         <Button>임시저장 불러오기</Button>
         <Button>임시저장</Button>
-        <Button onClick={submit}>등록</Button>
+        <Button type="submit">등록</Button>
       </div>
     </div>
     <div className="w-full flex flex-col gap-3">
-      <EventBaseDataInput state={state} dispatch={dispatch} />
+      <EventBaseDataInput state={state} dispatch={dispatch} mode={mode} />
     </div>
-  </section>
+  </form>
 }
 
 export default EventEditor;

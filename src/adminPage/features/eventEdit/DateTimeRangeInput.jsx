@@ -33,7 +33,7 @@ function applyTimeInputToDateObj(inputValue, timeValue)
 	return date;
 }
 
-function DateTimeRangeInput({range=[null, null], setRange, wrapperClass, inputClass}={})
+function DateTimeRangeInput({range=[null, null], setRange, wrapperClass, inputClass, required}={})
 {
 	const [ startDate, startTime ] = dateToSplittedState(range[0]);
 	const [ endDate, endTime ] = dateToSplittedState(range[1]);
@@ -73,13 +73,13 @@ function DateTimeRangeInput({range=[null, null], setRange, wrapperClass, inputCl
 	return (
 	<div className={wrapperClass}>
 		<div className="flex gap-4">
-			<Input className={inputClass} text={startDate} setText={setStartDate} type="date" name="startDate" />
-			<Input className={inputClass} text={startTime} setText={setStartTime} type="time" name="startTime" step="300"/>
+			<Input className={inputClass} text={startDate} setText={setStartDate} type="date" name="startDate" required={required}/>
+			<Input className={inputClass} text={startTime} setText={setStartTime} type="time" name="startTime" step="300" required={required}/>
 		</div>
 		~
 		<div className="flex gap-4">
-			<Input className={inputClass} text={endDate} setText={setEndDate} type="date" name="endDate" />
-			<Input className={inputClass} text={endTime} setText={setEndTime} type="time" name="endTime" step="300"/>
+			<Input className={inputClass} text={endDate} setText={setEndDate} type="date" name="endDate" required={required}/>
+			<Input className={inputClass} text={endTime} setText={setEndTime} type="time" name="endTime" step="300" required={required}/>
 		</div>
 	</div>
 	);
