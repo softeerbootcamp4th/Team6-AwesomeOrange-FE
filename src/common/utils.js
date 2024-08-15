@@ -64,3 +64,37 @@ export async function getServerPresiseTime() {
 export function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export class GroupMap
+{
+  constructor()
+  {
+    this.map = new Map();
+  }
+  set(key, value)
+  {
+    const subset = this.map.get(key) ?? new Set();
+    subset.add(value);
+    this.map.set(key, subset);
+  }
+  get(key)
+  {
+    return this.map.get(key);
+  }
+  has(key)
+  {
+    return this.map.has(key);
+  }
+  delete(key, value)
+  {
+    if(!this.map.has(key)) return;
+    const subset = this.map.get(key);
+    subset.delete(value);
+    
+    if(subset.size === 0) this.map.delete(key);
+  }
+  deleteKey(key)
+  {
+    this.map.delete(key);
+  }
+}

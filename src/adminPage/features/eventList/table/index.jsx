@@ -12,8 +12,7 @@ function SearchResult({
   checkState,
   checkDispatch,
 }) {
-  const dataList = useQuery("admin-event-list", () => fetchServer(query), {
-    dependencyArray: [query],
+  const dataList = useQuery(`admin-event-list@${query}`, () => fetchServer(query), {
     deferred: true,
   });
   const page = 10;
