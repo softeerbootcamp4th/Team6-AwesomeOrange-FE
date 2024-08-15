@@ -3,9 +3,11 @@ import Loading from "./Loading.jsx";
 import Comments from "./Comments.jsx";
 import { useState } from "react";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
+import Pagination from "@admin/components/Pagination";
 
 export default function AdminCommentID({ eventId }) {
   const [checkedComments, setCheckedComments] = useState(new Set());
+  const [page, setPage] = useState(1);
 
   function deleteComments() {
     const num = checkedComments.size;
@@ -66,8 +68,11 @@ export default function AdminCommentID({ eventId }) {
           eventId={eventId}
           checkedComments={checkedComments}
           setCheckedComments={setCheckedComments}
+          page={page - 1}
         />
       </Suspense>
+
+      <Pagination currentPage={page} setPage={setPage} maxPage={10} />
     </div>
   );
 }

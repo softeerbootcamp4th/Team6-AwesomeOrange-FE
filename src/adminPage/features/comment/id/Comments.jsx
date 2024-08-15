@@ -5,11 +5,15 @@ export default function Comments({
   eventId,
   checkedComments,
   setCheckedComments,
+  page,
 }) {
-  const data = useQuery(eventId, () =>
-    fetchServer(
-      `/api/v1/admin/comments?eventId=${eventId}&page=${0}&size=15`,
-    ).then((res) => res.comments),
+  const data = useQuery(
+    eventId,
+    () =>
+      fetchServer(
+        `/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15`,
+      ).then((res) => res.comments),
+    [page],
   );
 
   function onChangeCheckbox(e, id) {
