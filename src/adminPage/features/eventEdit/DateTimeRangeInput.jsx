@@ -29,7 +29,7 @@ function applyTimeInputToDateObj(inputValue, timeValue)
 	let date = timeValue === null ? new Date() : new Date(timeValue);
 
 	date.setHours(h);
-	date.setMinutes(m);
+	date.setMinutes(Math.round(m / 5)*5);
 	return date;
 }
 

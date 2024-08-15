@@ -63,10 +63,16 @@ export function eventEditReducer(state, action) {
 			if(state.eventType === "fcfs") newState.fcfs = state.fcfs.verifyDate(action.value, state.endTime);
 			return newState;
 		}
-		case "set_end_date":
+		case "set_end_date":{
 			const newState = {...state, endTime: action.value};
 			if(state.eventType === "fcfs") newState.fcfs = state.fcfs.verifyDate(state.startTime, action.value);
 			return newState;
+		}
+		case "set_date_range":{
+			const newState = {...state, startTime:action.value[0], endTime: action.value[1]};
+			if(state.eventType === "fcfs") newState.fcfs = state.fcfs.verifyDate(...action.value);
+			return newState;
+		}
 		case "set_url":
 			return {...state, url: action.value};
 		case "set_event_type":
