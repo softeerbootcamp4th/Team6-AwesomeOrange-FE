@@ -31,7 +31,7 @@ export function formatDate(rawDate, format) {
   const date = new Date(rawDate);
 
   const components = {
-    YYYY: date.getFullYear(),
+    YYYY: String(date.getFullYear()).padStart(4, "0"),
     YY: String(date.getFullYear()).slice(-2),
     MM: String(date.getMonth() + 1).padStart(2, "0"),
     M: date.getMonth() + 1,
