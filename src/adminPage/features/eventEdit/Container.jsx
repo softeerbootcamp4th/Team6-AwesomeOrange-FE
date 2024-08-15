@@ -6,9 +6,9 @@ function EventEditContainer({ title, children }) {
       <div className="flex w-full justify-between">
         <div>
           <h2 className="text-title-m font-bold">{title}</h2>
-          <p className="text-detail-l">*는 필수 입력</p>
+          <p className="text-detail-l"><span className="text-red-500">*</span>는 필수 입력</p>
         </div>
-        <div>
+        <div className="flex gap-4">
           <Button>임시저장 불러오기</Button>
           <Button>임시저장</Button>
           <Button>등록</Button>

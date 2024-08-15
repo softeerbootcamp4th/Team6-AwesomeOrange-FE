@@ -24,10 +24,8 @@ function SearchResultItem({
       </div>
       <div className="flex justify-center items-center">{eventId}</div>
       <div className="flex justify-center items-center overflow-hidden">
-        <Link to={`./${eventId}`}>
-          <span className="w-full font-bold text-ellipsis overflow-hidden whitespace-nowrap hover:underline">
-            {name}
-          </span>
+        <Link className="w-full font-bold text-ellipsis overflow-hidden whitespace-nowrap hover:underline" to={`./${eventId}`}>
+          {name}
         </Link>
       </div>
       <div className="flex justify-center items-center">
