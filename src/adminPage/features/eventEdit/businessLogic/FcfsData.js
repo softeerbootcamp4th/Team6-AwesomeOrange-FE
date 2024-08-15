@@ -1,11 +1,16 @@
 import makeUUID from "./makeUUID.js";
 
+const MINUTES = 60 * 1000;
+const ONE_DAY = 24 * 60 * MINUTES;
+
+function extractHourMinutes(date)
+{
+	return date.getHours() * 60 + date.getMinutes();
+}
+
 function getDefaultFcfsArray(startTime, endTime, config = {start: 0, end: 1435, participantCount: 100})
 {
 	if(startTime === null || endTime === null) return [];
-
-	const MINUTES = 60 * 1000;
-	const ONE_DAY = 24 * 60 * MINUTES;
 
 	const TIME_ZONE_OFFSET = new Date().getTimezoneOffset() * MINUTES;
 	const startDate = Math.floor((startTime.valueOf() - TIME_ZONE_OFFSET) / ONE_DAY);
@@ -15,28 +20,51 @@ function getDefaultFcfsArray(startTime, endTime, config = {start: 0, end: 1435, 
 	const trueStartDate = startDate * ONE_DAY + TIME_ZONE_OFFSET;
 
 	return Array.from({length}, (_, i)=>{
-		const startTime = new Date(Math.max(trueStartDate + i * ONE_DAY + config.start * MINUTES, startTime.valueOf()));
-		const endTime = new Date(Math.min(trueStartDate + i * ONE_DAY + config.end * MINUTES, endTime.valueOf()));
+		const dateValue = trueStartDate + i * ONE_DAY;
+		const start = dateValue + config.start * MINUTES < startTime ? extractHourMinutes(startTime) : config.start;
+		const end = dateValue + config.end * MINUTES > endTime ? extractHourMinutes(endTime) : config.end;
 
 		return [
 			`auto_made_${i}`,
-			{startTime, endTime, participantCount: config.participantCount, prizeInfo: ""}
+			{date: new Date(dateValue), start, end, participantCount: config.participantCount, prizeInfo: ""}
 		];
-	}
+	});
 }
+
+function convertServerDataToClient({id, startTime, endTime, ...rest})
+{
+	const TIME_ZONE_OFFSET = new Date().getTimezoneOffset() * MINUTES;
+	const startDate = Math.floor((startTime.valueOf() - TIME_ZONE_OFFSET) / ONE_DAY);
+	const trueStartDate = new Date(startDate * ONE_DAY + TIME_ZONE_OFFSET);
+
+	return {
+		id,
+		date: trueStartDate,
+		start: extractHourMinutes(startTime),
+		end: extractHourMinutes(endTime),
+		...rest
+	};
+}
+
+function convertClientDataToServer({id, date, start, end, ...rest})
+{
+	const dateBase = date.valueOf();
+	return {
+		id,
+		startTime: new Date( dateBase + start * MINUTES ),
+		endTime: new Date( dateBase + end * MINUTES ),
+		...rest
+	};
+}
+
 
 class FcfsData
 {
 	constructor(rawData)
 	{
 		if(Array.isArray(rawData)) {
-			const mapArr = rawData.map( ({id, startTime, endTime, ...rest})=>{
-				return [`determined_${id}`, {
-					id,
-					startTime: new Date(startTime),
-					endTime: new Date(endTime)
-					...rest
-				}];
+			const mapArr = rawData.map( (item)=>{
+				return [`determined_${item.id}`, convertServerDataToClient(item)];
 			} );
 
 			this.map = new Map( mapArr );
@@ -49,7 +77,7 @@ class FcfsData
 		const mapArr = getDefaultFcfsArray(startTime, endTime, config);
 		return new FcfsData( new Map( mapArr ) );
 	}
-	add(data)
+	add(data = {startTime: null, endTime: null, participantCount: 100, prizeInfo: ""})
 	{
 		const newData = new FcfsData( this.map );
 		newData.map.set(`user_created_${makeUUID()}`, data);
@@ -68,12 +96,22 @@ class FcfsData
 		newData.map.set(key, {...oldItem, ...data});
 		return newData;
 	}
-	modifyAll(data)
+	modifyAll({date, ...data}={}, {startTime, endTime}={})
 	{
 		const newData = new FcfsData( this.map );
+		const {start: newStart, end: newEnd, ...others} = data;
+
 		for(let [key, item] of this.map)
 		{
-			newData.map.set(key, {...item, ...data});
+			const itemStartTime = item.date.valueOf() + newStart * MINUTES;
+			const itemEndTime = item.date.valueOf() + newEnd * MINUTES;
+
+			const start = newStart === undefined ? item.start : 
+				(itemStartTime < startTime ? extractHourMinutes(startTime) : newStart);
+			const end = newEnd === undefined ? item.end : 
+				(itemEndTime > endTime ? extractHourMinutes(endTime) : newEnd);
+
+			newData.map.set(key, {...item, start, end, ...others});
 		}
 		return newData;
 	}
@@ -82,12 +120,18 @@ class FcfsData
 		const newData = new FcfsData( this.map );
 		for(let [key, item] of this.map)
 		{
-			if(item.startTime > endTime || item.endTime < startTime) newData.map.delete(key);
-			if(startTime <= item.startTime && item.endTime <= endTime) continue;
+			const itemStartTime = item.date.valueOf() + item.start * MINUTES;
+			const itemEndTime = item.date.valueOf() + item.end * MINUTES;
+
+			if(itemStartTime > endTime || itemEndTime < startTime) {
+				newData.map.delete(key);
+				continue;
+			}
+			if(startTime <= itemStartTime && itemEndTime <= endTime) continue;
 
 			const copied = {...item};
-			if(item.endTime > endTime) copied.endTime = endTime;
-			if(item.startTime < startTime) copied.startTime = startTime;
+			if(itemEndTime > endTime) copied.end = extractHourMinutes(endTime);
+			if(itemStartTime < startTime) copied.start = extractHourMinutes(startTime);
 			newData.map.set(key, copied);
 		}
 		return newData;
@@ -100,7 +144,7 @@ class FcfsData
 		}
 	}
 	toJSON() {
-		return [...this.map.values()];
+		return [...this.map.values()].map( convertClientDataToServer );
 	}
 }
 

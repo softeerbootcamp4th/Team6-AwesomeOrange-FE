@@ -6,7 +6,7 @@ function makeVoidDrawData()
 {
 	return {
 		metadata: new DrawGradeData(),
-		policy: new DrawPolicyData()
+		policies: new DrawPolicyData()
 	};
 }
 
@@ -15,12 +15,12 @@ function makeDrawData(rawData)
 	return {
 		id: rawData.id,
 		metadata: new DrawGradeData(rawData.metadata),
-		policy: new DrawPolicyData(rawData.policy)
+		policies: new DrawPolicyData(rawData.policies)
 	};
 }
 
 export function setDefaultState(defaultState) {
-	if(defaultState === null) {
+	if(defaultState === null || defaultState === undefined) {
 		return {
 			name: "",
 			description: "",
@@ -30,7 +30,7 @@ export function setDefaultState(defaultState) {
 			eventType: "fcfs",
 			eventFrameId: "",
 			fcfs: new FcfsData(),
-			draw: {}
+			draw: makeVoidDrawData()
 		};
 	}
 
@@ -64,7 +64,7 @@ export function eventEditReducer(state, action) {
 			return newState;
 		}
 		case "set_end_date":
-			const newState = {...state, startTime: action.value};
+			const newState = {...state, endTime: action.value};
 			if(state.eventType === "fcfs") newState.fcfs = state.fcfs.verifyDate(state.startTime, action.value);
 			return newState;
 		case "set_url":
@@ -90,8 +90,11 @@ export function eventEditReducer(state, action) {
 			if(state.eventType === "draw") return state;
 			return {...state, fcfs: state.fcfs.modify(action.key, action.value)};
 		case "modify_all_fcfs_item":
-			if(state.eventType === "draw") return state;
-			return {...state, fcfs: state.fcfs.modifyAll(action.value)};
+			{
+				if(state.eventType === "draw") return state;
+				const { startTime, endTime } = state;
+				return {...state, fcfs: state.fcfs.modifyAll(action.value, { startTime, endTime })};
+			}
 		case "modify_draw_total_grade":
 			if(state.eventType === "fcfs") return state;
 			if(action.value > 10 || action.value < 0) return state;
@@ -101,12 +104,12 @@ export function eventEditReducer(state, action) {
 			return {...state, draw: {...state.draw, metadata: state.draw.metadata.modify(action.value)}};
 		case "add_draw_policy":
 			if(state.eventType === "fcfs") return state;
-			return {...state, draw: {...state.draw, policy: state.draw.policy.add()}};
+			return {...state, draw: {...state.draw, policies: state.draw.policies.add()}};
 		case "delete_draw_policy":
 			if(state.eventType === "fcfs") return state;
-			return {...state, draw: {...state.draw, policy: state.draw.policy.delete(action.key)}};
+			return {...state, draw: {...state.draw, policies: state.draw.policies.delete(action.key)}};
 		case "modify_draw_policy":
 			if(state.eventType === "fcfs") return state;
-			return {...state, draw: {...state.draw, policy: state.draw.policy.modify(action.key, action.value)}};
+			return {...state, draw: {...state.draw, policies: state.draw.policies.modify(action.key, action.value)}};
 	}
 }

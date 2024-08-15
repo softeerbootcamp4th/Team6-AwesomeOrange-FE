@@ -1,3 +1,8 @@
+function randInt(i)
+{
+	return Math.floor(Math.random() * i);
+}
+
 export default function makeUUID()
 {
 	const rawStr = Array.from({length:32}, ()=>randInt(16).toString(16) ).join('');
