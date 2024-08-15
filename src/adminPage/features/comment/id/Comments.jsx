@@ -28,12 +28,26 @@ export default function Comments({
     }
   }
 
+  function getDate(createdAt) {
+    const yy = createdAt.slice(2, 4);
+    const mm = createdAt.slice(5, 7);
+    const dd = createdAt.slice(8, 10);
+    return `${yy}-${mm}-${dd}`;
+  }
+
+  function getTime(createdAt) {
+    const hh = createdAt.slice(11, 13);
+    const mm = createdAt.slice(14, 16);
+    const ss = createdAt.slice(17, 19);
+    return `${hh}:${mm}:${ss}`;
+  }
+
   return (
-    <div className="mt-3 flex flex-col gap-1">
+    <div className="mt-3 mb-5 flex flex-col gap-1 w-full">
       {data.map((comment) => (
         <div
           key={comment.id}
-          className="py-1 grid grid-cols-[1fr_5fr_15fr] bg-neutral-50"
+          className="w-full py-1 grid grid-cols-[1fr_5fr_15fr] bg-neutral-50 items-center"
         >
           <input
             type="checkbox"
@@ -42,9 +56,11 @@ export default function Comments({
             className="w-4 h-4 place-self-center"
           />
 
-          <span className="text-body-s place-self-center">
-            {comment.createdAt}
-          </span>
+          <div className="place-self-center flex items-center gap-1 text-body-m">
+            <span>{getDate(comment.createdAt)}</span>
+
+            <span className="text-neutral-500">{getTime(comment.createdAt)}</span>
+          </div>
 
           <span className="text-body-s">{comment.content}</span>
         </div>
