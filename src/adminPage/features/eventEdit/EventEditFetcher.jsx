@@ -1,10 +1,10 @@
-import EventEditor from "../features/eventEdit/index.jsx";
+import EventEditor from "./index.jsx";
 import { useQuery } from "@common/dataFetch/getQuery.js";
-import { fetchData } from "@common/dataFetch/fetchData.js";
+import { fetchServer } from "@common/dataFetch/fetchServer.js";
 
 function EventEditFetcher({eventId})
 {
-  const data = useQuery(`event-detail-${eventId}`, ()=>fetchData(`/api/v1/admin/events/${eventId}`) );
+  const data = useQuery(`event-detail-${eventId}`, ()=>fetchServer(`/api/v1/admin/events/${eventId}`) );
   return <EventEditor mode="edit" initialData={data} />
 }
 

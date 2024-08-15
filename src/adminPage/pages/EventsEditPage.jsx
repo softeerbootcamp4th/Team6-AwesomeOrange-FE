@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import Container from "@admin/components/Container.jsx";
 import Suspense from "@common/components/Suspense.jsx";
 import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
-import EventEditFetcher from "../eventEdit/EventEditFetcher.jsx";
+import EventEditFetcher from "../features/eventEdit/EventEditFetcher.jsx";
 
 function EventsEditPage() {
   const { eventId } = useParams();
