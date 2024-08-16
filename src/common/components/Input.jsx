@@ -13,7 +13,7 @@ function Input({ text, setText, isError, ...otherProps }) {
       className={`${inputboxStyle} ${isError ? errorStyle : ""} ${/^\s*$/.test(text) ? "" : errorInputStyle}`}
       type="text"
       value={text}
-      onChange={(e) => setText(e.target.value)}
+      onChange={(e) => setText?.(e.target.value)}
       {...otherProps}
     />
   );
