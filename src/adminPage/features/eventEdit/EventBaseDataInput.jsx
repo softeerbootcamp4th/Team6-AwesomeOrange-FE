@@ -1,7 +1,13 @@
+import { useContext } from "react";
 import { Input, TextBox } from "@admin/components/SmallInput.jsx";
+import { EventEditContext, EventEditDispatchContext, EventEditModeContext } from "./businessLogic/context.js";
 import DateTimeRangeInput from "./DateTimeRangeInput.jsx";
 
-function EventBaseDataInput({ state, dispatch, mode }) {
+function EventBaseDataInput() {
+  const {name, eventId, eventFrameId, startTime, endTime, description, url} = useContext(EventEditContext);
+  const dispatch = useContext(EventEditDispatchContext);
+  const mode = useContext(EventEditModeContext);
+
   const columnsStyle = "grid grid-cols-[6rem_1fr] items-center gap-2";
   const NAME_MAX_LENGTH = 40;
   const DESCRIPTION_MAX_LENGTH = 100;
@@ -15,7 +21,7 @@ function EventBaseDataInput({ state, dispatch, mode }) {
         <div className="w-[25rem] h-8 relative flex items-center">
           <Input
             className="w-full h-full"
-            text={state.name}
+            text={name}
             setText={(value) => dispatch({ type: "set_name", value })}
             required
             maxLength="40"
@@ -24,9 +30,9 @@ function EventBaseDataInput({ state, dispatch, mode }) {
             }
           />
           <span
-            className={`absolute right-3 text-detail-l ${state.name.length >= NAME_MAX_LENGTH ? "text-red-500" : "text-neutral-600"}`}
+            className={`absolute right-3 text-detail-l ${name.length >= NAME_MAX_LENGTH ? "text-red-500" : "text-neutral-600"}`}
           >
-            {state.name.length}/{NAME_MAX_LENGTH}
+            {name.length}/{NAME_MAX_LENGTH}
           </span>
         </div>
       </label>
@@ -34,7 +40,7 @@ function EventBaseDataInput({ state, dispatch, mode }) {
         <span className="text-center">이벤트 ID</span>
         <Input
           className="w-[25rem] h-8"
-          defaultValue={state.eventId}
+          defaultValue={eventId}
           disabled
         />
       </label>
@@ -44,7 +50,7 @@ function EventBaseDataInput({ state, dispatch, mode }) {
         </span>
         <Input
           className="w-[25rem] h-8"
-          text={state.eventFrameId}
+          text={eventFrameId}
           setText={(value) => dispatch({ type: "set_event_frame", value })}
           required
           disabled={mode === "edit"}
@@ -55,7 +61,7 @@ function EventBaseDataInput({ state, dispatch, mode }) {
           이벤트 기간<sup className="text-red-500">*</sup>
         </span>
         <DateTimeRangeInput
-          range={[state.startTime, state.endTime]}
+          range={[startTime, endTime]}
           setRange={(range) => {
             dispatch({ type: "set_date_range", value: range });
           }}
@@ -69,15 +75,15 @@ function EventBaseDataInput({ state, dispatch, mode }) {
         <div className="relative">
           <TextBox
             className="w-full"
-            text={state.description}
+            text={description}
             setText={(value) => dispatch({ type: "set_description", value })}
             rows="4"
             maxLength="100"
           />
           <span
-            className={`absolute right-3 bottom-3 text-detail-l ${state.description.length >= DESCRIPTION_MAX_LENGTH ? "text-red-500" : "text-neutral-600"}`}
+            className={`absolute right-3 bottom-3 text-detail-l ${description.length >= DESCRIPTION_MAX_LENGTH ? "text-red-500" : "text-neutral-600"}`}
           >
-            {state.description.length}/{DESCRIPTION_MAX_LENGTH}
+            {description.length}/{DESCRIPTION_MAX_LENGTH}
           </span>
         </div>
       </label>
@@ -85,7 +91,7 @@ function EventBaseDataInput({ state, dispatch, mode }) {
         <span className="text-center">이벤트 URL</span>
         <Input
           className="w-[25rem] h-8"
-          text={state.url}
+          text={url}
           setText={(value) => dispatch({ type: "set_url", value })}
           type="url"
           pattern="https?://.*"

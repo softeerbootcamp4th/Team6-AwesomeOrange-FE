@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import Container from "@admin/components/Container.jsx";
 import Suspense from "@common/components/Suspense.jsx";
 import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
+import { EventEditModeContext } from "../features/eventEdit/businessLogic/context.js";
 import EventEditFetcher from "../features/eventEdit/EventEditFetcher.jsx";
 
 function EventsEditPage() {
@@ -11,7 +12,9 @@ function EventsEditPage() {
     <Container>
       <ErrorBoundary fallback={<div>error</div>}>
         <Suspense fallback={<div>loading</div>}>
-          <EventEditFetcher eventId={eventId} />
+          <EventEditModeContext.Provider value="edit">
+            <EventEditFetcher eventId={eventId} />
+          </EventEditModeContext.Provider>
         </Suspense>
       </ErrorBoundary>
     </Container>

@@ -1,4 +1,5 @@
 import makeUUID from "./makeUUID.js";
+import { DEFAULT_END_TIME, DEFATLT_PARTICIPANT } from "./constants.js";
 
 const MINUTES = 60 * 1000;
 const ONE_DAY = 24 * 60 * MINUTES;
@@ -10,7 +11,7 @@ function extractHourMinutes(date) {
 function getDefaultFcfsArray(
   startTime,
   endTime,
-  config = { start: 0, end: 1435, participantCount: 100 },
+  config = { start: 0, end: DEFAULT_END_TIME, participantCount: DEFATLT_PARTICIPANT },
 ) {
   if (startTime === null || endTime === null) return [];
 
@@ -92,7 +93,7 @@ class FcfsData {
     data = {
       startTime: null,
       endTime: null,
-      participantCount: 100,
+      participantCount: DEFATLT_PARTICIPANT,
       prizeInfo: "",
     },
   ) {

@@ -1,6 +1,7 @@
 import FcfsData from "./FcfsData.js";
 import DrawGradeData from "./DrawGradeData.js";
 import DrawPolicyData from "./DrawPolicyData.js";
+import { MAX_GRADE } from "./constants.js";
 
 function makeVoidDrawData() {
   return {
@@ -116,7 +117,7 @@ export function eventEditReducer(state, action) {
     }
     case "modify_draw_total_grade":
       if (state.eventType === "fcfs") return state;
-      if (action.value > 10 || action.value < 0) return state;
+      if (action.value > MAX_GRADE || action.value < 0) return state;
       return {
         ...state,
         draw: {
