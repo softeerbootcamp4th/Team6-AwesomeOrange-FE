@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { EventEditDispatchContext } from "../businessLogic/context.js";
+import { fcfsBatchControlReducer, getBatchTimeConfig } from "./reducer.js";
 import { Input } from "@admin/components/SmallInput.jsx";
 import Checkbox from "@common/components/Checkbox.jsx";
 
@@ -21,16 +23,23 @@ function timeStrToValue(str)
 
 function BatchTimeUpdateInput({caption, type, state, dispatch})
 {
+	const eventEditDispatch = useContext(EventEditDispatchContext);
 	const checked = state[`${type}Check`];
 	const timeStr = valueToTimeStr( state[type] );
 
 	function onCheckboxClick(newValue)
 	{
-		dispatch({type: `toggle_${type}_time`, value: newValue});
+		const action = {type: `toggle_${type}_time`, value: newValue};
+		const nextState = fcfsBatchControlReducer(state, action);
+		dispatch({type: "apply", value: nextState});
+		eventEditDispatch({type: "modify_all_fcfs_item", value: getBatchTimeConfig(nextState)});
 	}
 	function setTimeValue(newValue)
 	{
-		dispatch({type: `set_${type}_time`, value: timeStrToValue(newValue)});
+		const action = {type: `set_${type}_time`, value: timeStrToValue(newValue)};
+		const nextState = fcfsBatchControlReducer(state, action);
+		dispatch({type: "apply", value: nextState});
+		eventEditDispatch({type: "modify_all_fcfs_item", value: getBatchTimeConfig(nextState)});
 	}
 
 	return <label className="w-48 flex flex-col gap-2">

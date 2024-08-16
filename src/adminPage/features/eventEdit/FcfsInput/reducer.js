@@ -34,6 +34,9 @@ export function fcfsBatchControlReducer(state, action)
 			if(state.start + STEP > DEFAULT_END_TIME) return {...state, start: DEFAULT_END_TIME - STEP, end: DEFAULT_END_TIME};
 			return {...state, end: state.start + STEP};
 		}
+		case "apply": {
+			return action.value;
+		}
 	}
 }
 
