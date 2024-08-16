@@ -2,61 +2,66 @@ import Suspense from "@common/components/Suspense";
 import Loading from "./Loading.jsx";
 import Comments from "./Comments.jsx";
 import { useState } from "react";
-import { fetchServer } from "@common/dataFetch/fetchServer.js";
+import Pagination from "@admin/components/Pagination";
+import DeleteButton from "./DeleteButton.jsx";
 
 export default function AdminCommentID({ eventId }) {
   const [checkedComments, setCheckedComments] = useState(new Set());
+  const [page, setPage] = useState(1);
+  const [formString, setFormString] = useState("");
+  const [allId, setAllId] = useState([]);
 
-  function deleteComments() {
-    const num = checkedComments.size;
-    if (!num) return;
-
-    fetchServer("/api/v1/admin/comments", {
-      method: "DELETE",
-      body: {
-        commentIds: [...checkedComments],
-      },
-    })
-      .then(() => {
-        alert(num + "개의 기대평 삭제 완료.");
-        setCheckedComments(new Set());
-      })
-      .catch((e) => {
-        console.log(e);
+  function selectAll() {
+    if (allId.every((id) => checkedComments.has(id))) {
+      setCheckedComments((oldSet) => {
+        const newSet = new Set(oldSet);
+        allId.forEach((id) => {
+          newSet.delete(id);
+        });
+        return newSet;
       });
+    } else {
+      setCheckedComments((oldSet) => new Set([...oldSet, ...allId]));
+    }
   }
 
   function searchComment(e) {
     e.preventDefault();
-    console.log(e.target.searchText.value + "검색");
+
+    if (formString) {
+      console.log(formString + "검색");
+    }
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <button
-        onClick={deleteComments}
-        className="self-end px-5 py-1 bg-red-300 text-white hover:bg-red-500 rounded-lg"
-      >
-        삭제
-      </button>
+    <div className="flex flex-col w-full items-center">
+      <DeleteButton
+        eventId={eventId}
+        checkedComments={checkedComments}
+        setCheckedComments={setCheckedComments}
+      />
 
-      <form onSubmit={searchComment} className="mt-5 w-full relative">
+      <form onSubmit={searchComment} className="mt-3 w-full relative">
         <input
           type="text"
-          name="searchText"
+          value={formString}
+          onChange={(e) => setFormString(e.target.value)}
           placeholder="검색 단어 입력"
-          className="bg-neutral-50 focus:bg-white w-full px-4 py-2 rounded-lg"
+          className="bg-neutral-50 focus:bg-white w-full px-4 py-2 rounded-lg text-body-s"
         />
 
         <img
+          onClick={searchComment}
           src="/icons/search.png"
           alt="검색"
-          className="absolute top-1/2 -translate-y-1/2 right-4"
+          className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-4"
         />
       </form>
 
-      <div className="mt-3 py-2 grid grid-cols-[1fr_5fr_15fr] bg-blue-50 place-items-center">
-        <span>선택</span>
+      <div className="mt-3 py-1 w-full grid grid-cols-[1fr_5fr_15fr] bg-blue-50 place-items-center text-body-s select-none">
+        <span onClick={selectAll} className="cursor-pointer">
+          선택
+        </span>
         <span>작성 시간</span>
         <span>기대평 내용</span>
       </div>
@@ -66,8 +71,12 @@ export default function AdminCommentID({ eventId }) {
           eventId={eventId}
           checkedComments={checkedComments}
           setCheckedComments={setCheckedComments}
+          page={page - 1}
+          setAllId={setAllId}
         />
       </Suspense>
+
+      <Pagination currentPage={page} setPage={setPage} maxPage={10} />
     </div>
   );
 }
