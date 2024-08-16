@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import EventsPage from "./pages/EventsPage.jsx";
 import EventsDetailPage from "./pages/EventsDetailPage.jsx";
 import EventsCreatePage from "./pages/EventsCreatePage.jsx";
+import EventsEditPage from "./pages/EventsEditPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import RootRoute from "./pages/RootRoute.jsx";
 import CommentsPage from "./pages/CommentsPage.jsx";
@@ -27,10 +28,10 @@ function App() {
           <Route exact path="/events/create" element={<EventsCreatePage />} />
           <Route
             exact
-            path="/events/:id/edit"
-            element={<div>이벤트 수정하는 페이지</div>}
+            path="/events/:eventId/edit"
+            element={<EventsEditPage />}
           />
-          <Route path="/events/:id" element={<EventsDetailPage />} />
+          <Route path="/events/:eventId" element={<EventsDetailPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/comments/:eventId" element={<CommentsIDPage />} />
           <Route path="/comments" element={<CommentsPage />} />
