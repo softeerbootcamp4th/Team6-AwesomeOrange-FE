@@ -15,7 +15,7 @@ function CardGameSkeleton() {
         </DelaySkeleton>
       </div>
       <div className="relative grid grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
-        {[1, 2, 3, 4].map((index, i) => (
+        {[1, 2, 3, 4].map((index) => (
           <Card
             index={index}
             locked
