@@ -2,36 +2,49 @@ import { useEffect, useRef, useState } from "react";
 import TapBar from "./description/TapBar.jsx";
 import InteractionSlide from "./description/InteractionSlide.jsx";
 import GiftDetail from "./description/GiftDetail.jsx";
+import JSONData from "./content.json";
 
 import EventDescriptionLayout from "@main/eventDescription/EventDescriptionLayout.jsx";
 import useSectionInitialize from "@main/scroll/useSectionInitialize.js";
 import { INTERACTION_SECTION } from "@main/scroll/constants.js";
 import useSwiperState from "@main/hooks/useSwiperState.js";
+import useEventStore from "@main/realtimeEvent/store.js";
 
-import JSONData from "./content.json";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import { EVENT_DRAW_ID } from "@common/constants.js";
+import { getDayDifference } from "@common/utils.js";
+import { EVENT_START_DATE } from "@common/constants.js";
 
 export default function InteractionPage() {
   const sectionRef = useRef(null);
   const [currentInteraction, swiperRef] = useSwiperState();
+  const currentServerTime = useEventStore((state) => state.currentServerTime);
   const [joinedList, setJoinedList] = useState([-1, -1, -1, -1, -1]);
   const slideTo = (_index) => swiperRef.current.swiper.slideTo(_index);
   useSectionInitialize(INTERACTION_SECTION, sectionRef);
 
   useEffect(() => {
-    fetchServer(`/api/v1/draw/${EVENT_DRAW_ID}`)
-      .then((res) => {
-        console.log(res);
-        /*
-         * 사용자가 참여한 이벤트 날짜 문자열이 들어간 가변적 길이의 리스트를 서버로부터 받아올 예정. 그런데 그 문자열의 형식을 아직 모른다..
-         */
-        setJoinedList([0, 1, 1, 0, -1]);
+    fetchServer(`/api/v1/event/draw/${EVENT_DRAW_ID}/participation`)
+      .then(({ dates }) => {
+        let newJoinedList = [0, 0, 0, 0, 0];
+        dates.forEach((date) => {
+          const day = getDayDifference(EVENT_START_DATE, new Date(date));
+          newJoinedList[day] = 1;
+        });
+        for (let i = 0; i < newJoinedList.length; i++) {
+          if (
+            currentServerTime <
+            EVENT_START_DATE.getTime() + i * 24 * 60 * 60 * 1000
+          ) {
+            newJoinedList[i] = -1;
+          }
+        }
+        setJoinedList(newJoinedList);
       })
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [currentServerTime]);
 
   return (
     <section
