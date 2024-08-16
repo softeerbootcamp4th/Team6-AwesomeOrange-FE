@@ -91,3 +91,24 @@ export class GroupMap {
     this.map.delete(key);
   }
 }
+
+export function getDayDifference(_date1, _date2) {
+  const date1 = new Date(_date1);
+  const date2 = new Date(_date2);
+
+  const date1WithoutTime = Date.UTC(
+    date1.getFullYear(),
+    date1.getMonth(),
+    date1.getDate(),
+  );
+  const date2WithoutTime = Date.UTC(
+    date2.getFullYear(),
+    date2.getMonth(),
+    date2.getDate(),
+  );
+
+  const timeDifference = date2WithoutTime - date1WithoutTime;
+  const dayDifference = timeDifference / (1000 * HOURS * MINUTES * SECONDS);
+
+  return dayDifference;
+}

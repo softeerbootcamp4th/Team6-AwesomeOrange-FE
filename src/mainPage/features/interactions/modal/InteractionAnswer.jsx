@@ -6,37 +6,28 @@ import AuthModal from "@main/auth/AuthModal.jsx";
 import openModal from "@common/modal/openModal.js";
 import Button from "@common/components/Button.jsx";
 import { fetchServer } from "@common/dataFetch/fetchServer";
-import { EVENT_DRAW_ID, EVENT_START_DATE } from "@common/constants.js";
+import userStore from "@main/auth/store.js";
+import { EVENT_START_DATE } from "@common/constants.js";
 import useEventStore from "@main/realtimeEvent/store.js";
 import getEventDateState from "@main/realtimeEvent/getEventDateState";
 
 import style from "./InteractionAnswer.module.css";
+import joinEvent from "./joinEvent";
 
 export default function InteractionAnswer({
   isAnswerUp,
   setIsAnswerUp,
   answer,
   close,
-  isLogin,
   index,
 }) {
+  const isLogin = userStore((state) => state.isLogin);
   const currentServerTime = useEventStore((state) => state.currentServerTime);
   const eventDate = EVENT_START_DATE.getTime() + index * 24 * 60 * 60 * 1000;
   const [isAniPlaying, setIsAniPlaying] = useState(false);
   const isEventToday =
     getEventDateState(currentServerTime, eventDate) === "active";
-  const authModal = (
-    <AuthModal
-      onComplete={() => {
-        // 추첨 이벤트 참가 전송. API 주소 추후 바뀔 수 있음
-        fetchServer(`/api/v1/draw/${EVENT_DRAW_ID}`, {
-          method: "POST",
-        }).catch((e) => {
-          console.log(e);
-        });
-      }}
-    />
-  );
+  const authModal = <AuthModal onComplete={() => joinEvent(index)} />;
 
   async function onClickWrite() {
     await close();
