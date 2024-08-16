@@ -4,6 +4,7 @@ import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
 import useFcfsStore from "@main/realtimeEvent/store.js";
 import useAuthStore from "@main/auth/store.js";
 import CardGame from "./CardGame.jsx";
+import CardGameSkeleton from "./CardGameSkeleton.jsx";
 
 function CardGameInitializer() {
   const getData = useFcfsStore((store) => store.getData);
@@ -23,8 +24,8 @@ function CardGamePariticipatedInitializer() {
 
 function CardGameSection() {
   return (
-    <ErrorBoundary fallback={<div>에러남</div>}>
-      <Suspense fallback={<div>로딩중</div>}>
+    <ErrorBoundary fallback={<CardGame offline />}>
+      <Suspense fallback={<CardGameSkeleton />}>
         <CardGameInitializer />
         <CardGamePariticipatedInitializer />
       </Suspense>
