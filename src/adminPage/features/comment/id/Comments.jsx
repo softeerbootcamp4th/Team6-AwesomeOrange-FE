@@ -6,27 +6,19 @@ export default function Comments({
   checkedComments,
   setCheckedComments,
   page,
+  setAllId,
 }) {
   const data = useQuery(
     eventId,
     () =>
       fetchServer(
         `/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15`,
-      ).then((res) => res.comments),
+      ).then(({ comments }) => {
+        setAllId(comments.map((comment) => comment.id));
+        return comments;
+      }),
     [page],
   );
-
-  function onChangeCheckbox(e, id) {
-    if (e.target.checked) {
-      setCheckedComments((oldSet) => new Set([...oldSet, id]));
-    } else {
-      setCheckedComments((oldSet) => {
-        const newSet = new Set(oldSet);
-        newSet.delete(id);
-        return newSet;
-      });
-    }
-  }
 
   function getDate(createdAt) {
     const yy = createdAt.slice(2, 4);
@@ -42,24 +34,39 @@ export default function Comments({
     return `${hh}:${mm}:${ss}`;
   }
 
+  function checkComment(id) {
+    if (checkedComments.has(id)) {
+      setCheckedComments((oldSet) => {
+        const newSet = new Set(oldSet);
+        newSet.delete(id);
+        return newSet;
+      });
+    } else {
+      setCheckedComments((oldSet) => new Set([...oldSet, id]));
+    }
+  }
+
   return (
     <div className="mt-1 mb-5 flex flex-col gap-1 w-full">
       {data.map((comment) => (
         <div
           key={comment.id}
-          className="w-full py-1 grid grid-cols-[1fr_5fr_15fr] bg-neutral-50 items-center"
+          onClick={() => checkComment(comment.id)}
+          className="w-full py-1 grid grid-cols-[1fr_5fr_15fr] bg-neutral-50 items-center hover:bg-blue-100"
         >
           <input
             type="checkbox"
+            onChange={() => checkComment(comment.id)}
             checked={checkedComments.has(comment.id)}
-            onChange={(e) => onChangeCheckbox(e, comment.id)}
             className="w-4 h-4 place-self-center"
           />
 
           <div className="place-self-center flex items-center gap-1 text-body-s">
             <span>{getDate(comment.createdAt)}</span>
 
-            <span className="text-neutral-500">{getTime(comment.createdAt)}</span>
+            <span className="text-neutral-500">
+              {getTime(comment.createdAt)}
+            </span>
           </div>
 
           <span className="text-body-s">{comment.content}</span>

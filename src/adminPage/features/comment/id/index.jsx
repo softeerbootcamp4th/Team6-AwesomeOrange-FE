@@ -3,15 +3,27 @@ import Loading from "./Loading.jsx";
 import Comments from "./Comments.jsx";
 import { useState } from "react";
 import Pagination from "@admin/components/Pagination";
-
 import DeleteButton from "./DeleteButton.jsx";
 
 export default function AdminCommentID({ eventId }) {
   const [checkedComments, setCheckedComments] = useState(new Set());
   const [page, setPage] = useState(1);
   const [formString, setFormString] = useState("");
+  const [allId, setAllId] = useState([]);
 
-  function selectAll() {}
+  function selectAll() {
+    if (allId.every((id) => checkedComments.has(id))) {
+      setCheckedComments((oldSet) => {
+        const newSet = new Set(oldSet);
+        allId.forEach((id) => {
+          newSet.delete(id);
+        });
+        return newSet;
+      });
+    } else {
+      setCheckedComments((oldSet) => new Set([...oldSet, ...allId]));
+    }
+  }
 
   function searchComment(e) {
     e.preventDefault();
@@ -46,8 +58,10 @@ export default function AdminCommentID({ eventId }) {
         />
       </form>
 
-      <div className="mt-3 py-1 w-full grid grid-cols-[1fr_5fr_15fr] bg-blue-50 place-items-center text-body-s">
-        <span onClick={selectAll}>선택</span>
+      <div className="mt-3 py-1 w-full grid grid-cols-[1fr_5fr_15fr] bg-blue-50 place-items-center text-body-s select-none">
+        <span onClick={selectAll} className="cursor-pointer">
+          선택
+        </span>
         <span>작성 시간</span>
         <span>기대평 내용</span>
       </div>
@@ -58,6 +72,7 @@ export default function AdminCommentID({ eventId }) {
           checkedComments={checkedComments}
           setCheckedComments={setCheckedComments}
           page={page - 1}
+          setAllId={setAllId}
         />
       </Suspense>
 

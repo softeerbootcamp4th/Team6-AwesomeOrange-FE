@@ -36,7 +36,7 @@ export default function DeleteButton({
         <>
           <span>이 동작은 다시 돌이킬 수 없습니다.</span>
           <br />
-          <span>{num}개의 이벤트를 삭제하시겠습니까?</span>
+          <span>{num}개의 기대평을 삭제하시겠습니까?</span>
         </>
       }
       onConfirm={mutation}
