@@ -43,7 +43,7 @@ export default function Comments({
   }
 
   return (
-    <div className="mt-3 mb-5 flex flex-col gap-1 w-full">
+    <div className="mt-1 mb-5 flex flex-col gap-1 w-full">
       {data.map((comment) => (
         <div
           key={comment.id}
@@ -56,7 +56,7 @@ export default function Comments({
             className="w-4 h-4 place-self-center"
           />
 
-          <div className="place-self-center flex items-center gap-1 text-body-m">
+          <div className="place-self-center flex items-center gap-1 text-body-s">
             <span>{getDate(comment.createdAt)}</span>
 
             <span className="text-neutral-500">{getTime(comment.createdAt)}</span>

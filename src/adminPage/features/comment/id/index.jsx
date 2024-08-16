@@ -2,68 +2,40 @@ import Suspense from "@common/components/Suspense";
 import Loading from "./Loading.jsx";
 import Comments from "./Comments.jsx";
 import { useState } from "react";
-import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import Pagination from "@admin/components/Pagination";
+
+import DeleteButton from "./DeleteButton.jsx";
 
 export default function AdminCommentID({ eventId }) {
   const [checkedComments, setCheckedComments] = useState(new Set());
   const [page, setPage] = useState(1);
   const [formString, setFormString] = useState("");
 
-  function selectAll() {
-
-  }
-
-  function deleteComments() {
-    const num = checkedComments.size;
-    if (!num) return;
-
-    if (
-      confirm(
-        `이 동작은 다시 돌이킬 수 없습니다.\n${num}개의 기대평을 삭제하시겠습니까?`,
-      )
-    ) {
-      fetchServer("/api/v1/admin/comments", {
-        method: "DELETE",
-        body: {
-          commentIds: [...checkedComments],
-        },
-      })
-        .then(() => {
-          alert("기대평이 삭제되었습니다.");
-          setCheckedComments(new Set());
-          // Comments 컴포넌트 리렌더링
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
-  }
+  function selectAll() {}
 
   function searchComment(e) {
     e.preventDefault();
 
-    if(formString){
+    if (formString) {
       console.log(formString + "검색");
     }
   }
 
   return (
     <div className="flex flex-col w-full items-center">
-      <button
-        onClick={deleteComments}
-        className="self-end px-5 py-1 bg-red-300 text-white hover:bg-red-500 rounded-lg"
-      >
-        삭제
-      </button>
+      <DeleteButton
+        eventId={eventId}
+        checkedComments={checkedComments}
+        setCheckedComments={setCheckedComments}
+      />
 
-      <form onSubmit={searchComment} className="mt-5 w-full relative">
+      <form onSubmit={searchComment} className="mt-3 w-full relative">
         <input
           type="text"
           value={formString}
           onChange={(e) => setFormString(e.target.value)}
           placeholder="검색 단어 입력"
-          className="bg-neutral-50 focus:bg-white w-full px-4 py-2 rounded-lg"
+          className="bg-neutral-50 focus:bg-white w-full px-4 py-2 rounded-lg text-body-s"
         />
 
         <img
@@ -74,7 +46,7 @@ export default function AdminCommentID({ eventId }) {
         />
       </form>
 
-      <div className="mt-3 py-2 w-full grid grid-cols-[1fr_5fr_15fr] bg-blue-50 place-items-center">
+      <div className="mt-3 py-1 w-full grid grid-cols-[1fr_5fr_15fr] bg-blue-50 place-items-center text-body-s">
         <span onClick={selectAll}>선택</span>
         <span>작성 시간</span>
         <span>기대평 내용</span>
