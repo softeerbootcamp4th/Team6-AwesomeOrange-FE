@@ -52,9 +52,6 @@ async function fetchServerBase(url, options = {}) {
       throw new HTTPError(response);
     return await response.json();
   } catch (e) {
-    if (e instanceof HTTPError) {
-      e.data = await e.response.json();
-    }
     if (e instanceof TypeError && e.message === "Failed to fetch") {
       throw new ServerCloseError();
     }

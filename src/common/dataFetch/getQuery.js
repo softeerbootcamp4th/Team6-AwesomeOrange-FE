@@ -108,6 +108,7 @@ export function useMutation(key, promiseFn, { onSuccess, onError } = {}) {
       const value = await promiseFn();
       updateSubscribedQuery(key);
       onSuccess?.(value);
+      return value;
     } catch (e) {
       onError?.(e);
       if (onError === undefined) throw e;

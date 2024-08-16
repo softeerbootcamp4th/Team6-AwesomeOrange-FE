@@ -23,7 +23,7 @@ function CardGamePariticipatedInitializer() {
 
 function CardGameSection() {
   return (
-    <ErrorBoundary fallback={<div>에러남</div>}>
+    <ErrorBoundary fallback={<CardGame offline />}>
       <Suspense fallback={<div>로딩중</div>}>
         <CardGameInitializer />
         <CardGamePariticipatedInitializer />
