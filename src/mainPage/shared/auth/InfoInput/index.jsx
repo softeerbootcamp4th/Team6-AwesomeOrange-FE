@@ -5,14 +5,7 @@ import PhoneInput from "@common/components/PhoneInput.jsx";
 import Button from "@common/components/Button.jsx";
 import Checkbox from "@common/components/Checkbox.jsx";
 
-function AuthFirstSection({
-  name,
-  setName,
-  phone,
-  setPhone,
-  goNext,
-  goFindUser,
-}) {
+function AuthFirstSection({ name, setName, phone, setPhone, goNext, goFindUser }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   function onSubmit(e) {
@@ -47,30 +40,19 @@ function AuthFirstSection({
             </label>
             <label className="flex flex-col gap-3">
               <span className="text-body-m font-bold">전화번호</span>
-              <PhoneInput
-                text={phone}
-                setText={setPhone}
-                required
-                isError={errorMessage !== ""}
-              />
-              <p className="w-full h-4 text-detail-l text-red-500">
-                {errorMessage}
-              </p>
+              <PhoneInput text={phone} setText={setPhone} required isError={errorMessage !== ""} />
+              <p className="w-full h-4 text-detail-l text-red-500">{errorMessage}</p>
             </label>
           </div>
           <div className="flex flex-col gap-4 text-detail-l">
             <label className="flex gap-2 items-center">
               <Checkbox required />
-              <span className="font-bold text-neutral-600">
-                개인정보 수집 동의(필수)
-              </span>
+              <span className="font-bold text-neutral-600">개인정보 수집 동의(필수)</span>
               <span className="font-medium text-neutral-300">자세히 보기</span>
             </label>
             <label className="flex gap-2 items-center">
               <Checkbox />
-              <span className="font-bold text-neutral-600">
-                마케팅 수신 동의(선택)
-              </span>
+              <span className="font-bold text-neutral-600">마케팅 수신 동의(선택)</span>
               <span className="font-medium text-neutral-300">자세히 보기</span>
             </label>
           </div>

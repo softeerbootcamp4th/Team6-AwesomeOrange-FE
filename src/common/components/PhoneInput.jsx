@@ -6,8 +6,7 @@ function PhoneInput({ text, setText, ...otherProps }) {
 
     if (plain.length < 4) return plain;
     if (plain.length <= 7) return plain.replace(/^(\d{3})(\d{0,4})$/, "$1-$2");
-    if (plain.length <= 10)
-      return plain.replace(/^(\d{3})(\d{3})(\d{0,4})$/, "$1-$2-$3");
+    if (plain.length <= 10) return plain.replace(/^(\d{3})(\d{3})(\d{0,4})$/, "$1-$2-$3");
     return plain.replace(/^(\d{3})(\d{4})(\d{4,})$/, "$1-$2-$3");
   }
   return (

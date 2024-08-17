@@ -27,8 +27,7 @@ export function initLoginState() {
   tokenSaver.init(SERVICE_TOKEN_ID);
   const token = tokenSaver.get(SERVICE_TOKEN_ID);
   const userName = parseTokenToUserName(token);
-  if (token === null)
-    userStore.setState(() => ({ isLogin: false, userName: "" }));
+  if (token === null) userStore.setState(() => ({ isLogin: false, userName: "" }));
   else userStore.setState(() => ({ isLogin: true, userName }));
 }
 

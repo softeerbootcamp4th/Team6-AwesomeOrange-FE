@@ -20,7 +20,12 @@ export default function TapBar({ currentInteraction, isJoinedList, slideTo }) {
             onClick={() => slideTo(index)}
             className="flex flex-col items-center select-none cursor-pointer"
           >
-            <img src="/icons/check-mint.svg" alt="체크" className={`${!isJoined && "invisible"}`} draggable="false"/>
+            <img
+              src="/icons/check-mint.svg"
+              alt="체크"
+              className={`${!isJoined && "invisible"}`}
+              draggable="false"
+            />
 
             <span
               className={`text-body-l font-bold transition ease-in-out duration-200 ${currentInteraction === index ? "text-neutral-100" : "text-neutral-500"}`}

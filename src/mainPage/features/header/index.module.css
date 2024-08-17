@@ -13,9 +13,7 @@
 
 @media (min-width: 768px) {
   .moveBar {
-    transform: translateX(
-      calc((var(--section) - 1) * (var(--item-width) + var(--item-gap)))
-    );
+    transform: translateX(calc((var(--section) - 1) * (var(--item-width) + var(--item-gap))));
     --item-width: 80px;
     --item-gap: 16px;
   }

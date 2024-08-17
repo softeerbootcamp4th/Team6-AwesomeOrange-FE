@@ -88,10 +88,7 @@ function IntroSection() {
           </div>
         </div>
 
-        <div
-          className="relative mt-[800px] flex flex-col items-center"
-          style={videoStyle}
-        >
+        <div className="relative mt-[800px] flex flex-col items-center" style={videoStyle}>
           <div className="overflow-hidden">
             <video
               src={SpinningCarVideo}
@@ -101,9 +98,7 @@ function IntroSection() {
           </div>
 
           <div className="font-bold flex flex-col items-center text-black absolute -bottom-20 lg:bottom-10 z-40">
-            <span className="text-body-l sm:text-title-s">
-              더뉴 아이오닉5 신차 출시 이벤트
-            </span>
+            <span className="text-body-l sm:text-title-s">더뉴 아이오닉5 신차 출시 이벤트</span>
 
             <span className="text-center text-title-l sm:text-head-s">
               09/09 (mon) - 09/13 (fri)

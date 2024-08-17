@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import { Input, TextBox } from "@admin/components/SmallInput.jsx";
-import { EventEditContext, EventEditDispatchContext, EventEditModeContext } from "./businessLogic/context.js";
+import {
+  EventEditContext,
+  EventEditDispatchContext,
+  EventEditModeContext,
+} from "./businessLogic/context.js";
 import DateTimeRangeInput from "./DateTimeRangeInput.jsx";
 
 function EventBaseDataInput() {
-  const {name, eventId, eventFrameId, startTime, endTime, description, url} = useContext(EventEditContext);
+  const { name, eventId, eventFrameId, startTime, endTime, description, url } =
+    useContext(EventEditContext);
   const dispatch = useContext(EventEditDispatchContext);
   const mode = useContext(EventEditModeContext);
 
@@ -25,9 +30,7 @@ function EventBaseDataInput() {
             setText={(value) => dispatch({ type: "set_name", value })}
             required
             maxLength="40"
-            pattern={
-              "^[ㄱ-ㅎ가-힣A-Za-z0-9~!.,\\[\\]\\(\\):\\-_%*\\/+#$@'\"=\\s]*$"
-            }
+            pattern={"^[ㄱ-ㅎ가-힣A-Za-z0-9~!.,\\[\\]\\(\\):\\-_%*\\/+#$@'\"=\\s]*$"}
           />
           <span
             className={`absolute right-3 text-detail-l ${name.length >= NAME_MAX_LENGTH ? "text-red-500" : "text-neutral-600"}`}
@@ -38,11 +41,7 @@ function EventBaseDataInput() {
       </label>
       <label className={columnsStyle}>
         <span className="text-center font-bold">이벤트 ID</span>
-        <Input
-          className="w-[25rem] h-8"
-          defaultValue={eventId}
-          disabled
-        />
+        <Input className="w-[25rem] h-8" defaultValue={eventId} disabled />
       </label>
       <label className={columnsStyle}>
         <span className="text-center font-bold">

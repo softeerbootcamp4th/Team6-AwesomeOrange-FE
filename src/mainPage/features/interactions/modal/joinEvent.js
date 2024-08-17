@@ -15,7 +15,7 @@ export default function joinEvent(index) {
       method: "POST",
     }).catch((e) => {
       console.log(e);
-      alert("이벤트 참여 전송 실패.")
+      alert("이벤트 참여 전송 실패.");
     });
   }
 }

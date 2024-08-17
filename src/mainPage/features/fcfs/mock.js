@@ -14,18 +14,14 @@ const handlers = [
       eventStatus: "countdown",
     });
   }),
-  http.get(
-    "/api/v1/event/fcfs/:eventFrameId/participated",
-    async ({ request }) => {
-      const token = request.headers.get("authorization");
-      if (token === null)
-        return HttpResponse.json({ answerResult: false, winner: false });
+  http.get("/api/v1/event/fcfs/:eventFrameId/participated", async ({ request }) => {
+    const token = request.headers.get("authorization");
+    if (token === null) return HttpResponse.json({ answerResult: false, winner: false });
 
-      //await delay(10000);
+    //await delay(10000);
 
-      return HttpResponse.json({ answerResult: false, winner: false });
-    },
-  ),
+    return HttpResponse.json({ answerResult: false, winner: false });
+  }),
   http.post("/api/v1/event/fcfs/:eventFrameId", async ({ request }) => {
     const { eventAnswer } = await request.json();
 
@@ -34,11 +30,9 @@ const handlers = [
 
     const token = request.headers.get("authorization");
     if (token === null) return HttpResponse.json(false, { status: 401 });
-    if (token !== "Bearer test_token")
-      return HttpResponse.json(false, { status: 401 });
+    if (token !== "Bearer test_token") return HttpResponse.json(false, { status: 401 });
 
-    if (typeof eventAnswer !== "number")
-      return HttpResponse.json(false, { status: 400 });
+    if (typeof eventAnswer !== "number") return HttpResponse.json(false, { status: 400 });
 
     return HttpResponse.json({ answerResult, winner });
   }),

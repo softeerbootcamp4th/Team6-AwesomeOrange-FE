@@ -7,8 +7,7 @@ function DetailSwiper({ content }) {
   const [page, swiperElRef] = useSwiperState();
   const isLastPage = page === content.length - 1;
 
-  const slideClass =
-    "w-[calc(100%-96px)] min-[1024px]:w-full max-w-[1200px] bg-yellow-400";
+  const slideClass = "w-[calc(100%-96px)] min-[1024px]:w-full max-w-[1200px] bg-yellow-400";
   const navigationClass = `invisible absolute [--size:3rem] md:[--size:4.5rem] top-[calc(50%-var(--size)*0.5)] size-[var(--size)] p-2 md:p-4 
 	flex justify-center items-center rounded-full bg-neutral-100 active:bg-neutral-200 z-10 cursor-pointer select-none`;
 

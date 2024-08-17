@@ -45,17 +45,9 @@ export default function ContentSection({ content }) {
       onAnimationEnd={() => setIsHighlighted(true)}
       className={`${isVisible ? style.fadeIn : "opacity-0"} z-0 flex flex-col font-bold`}
     >
-      <img
-        src={content.src}
-        alt={content.title}
-        width="1200"
-        height="456"
-        className="w-full"
-      />
+      <img src={content.src} alt={content.title} width="1200" height="456" className="w-full" />
 
-      <span className="pt-10 text-body-m sm:text-body-l text-neutral-800">
-        {content.title}
-      </span>
+      <span className="pt-10 text-body-m sm:text-body-l text-neutral-800">{content.title}</span>
 
       <div className="pt-3 flex flex-col md:flex-row justify-between items-start md:items-end">
         <p
@@ -65,9 +57,7 @@ export default function ContentSection({ content }) {
           {makeHighlight(content.desc, style.highlightAnim)}
         </p>
 
-        <p className="w-full md:w-auto text-right text-body-s text-neutral-300">
-          {content.sub}
-        </p>
+        <p className="w-full md:w-auto text-right text-body-s text-neutral-300">{content.sub}</p>
       </div>
     </div>
   );

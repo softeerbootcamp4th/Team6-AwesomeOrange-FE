@@ -15,9 +15,7 @@ function CardGameInitializer() {
 function CardGamePariticipatedInitializer() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const defferedLogin = useDeferredValue(isLogin);
-  const getPariticipatedData = useFcfsStore(
-    (store) => store.getPariticipatedData,
-  );
+  const getPariticipatedData = useFcfsStore((store) => store.getPariticipatedData);
   getPariticipatedData(defferedLogin);
   return null;
 }

@@ -8,13 +8,10 @@ async function submitAuthCode(name, phoneNumber, authCode) {
       phoneNumber: phoneNumber.replace(/\D+/g, ""),
       authCode,
     };
-    const { token } = await fetchServer(
-      `/api/v1/event-user/check-auth/${EVENT_ID}`,
-      {
-        method: "post",
-        body,
-      },
-    );
+    const { token } = await fetchServer(`/api/v1/event-user/check-auth/${EVENT_ID}`, {
+      method: "post",
+      body,
+    });
     return token;
   } catch (e) {
     return handleError({

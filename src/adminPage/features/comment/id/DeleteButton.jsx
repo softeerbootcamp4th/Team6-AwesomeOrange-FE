@@ -4,11 +4,7 @@ import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import ConfirmModal from "@admin/modals/ConfirmModal.jsx";
 import AlertModal from "@admin/modals/AlertModal.jsx";
 
-export default function DeleteButton({
-  eventId,
-  checkedComments,
-  setCheckedComments,
-}) {
+export default function DeleteButton({ eventId, checkedComments, setCheckedComments }) {
   const num = checkedComments.size;
   const mutation = useMutation(eventId, () =>
     fetchServer("/api/v1/admin/comments", {
@@ -18,9 +14,7 @@ export default function DeleteButton({
       },
     })
       .then(() => {
-        openModal(
-          <AlertModal title="삭제" description="기대평이 삭제되었습니다." />,
-        );
+        openModal(<AlertModal title="삭제" description="기대평이 삭제되었습니다." />);
         setCheckedComments(new Set());
       })
       .catch((e) => {

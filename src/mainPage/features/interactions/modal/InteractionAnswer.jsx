@@ -70,9 +70,13 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
         </span>
 
         <div className="flex flex-col gap-4">
-          <span className="text-body-l xl:text-title-s text-neutral-50 font-bold">{answer.desc}</span>
+          <span className="text-body-l xl:text-title-s text-neutral-50 font-bold">
+            {answer.desc}
+          </span>
 
-          <span className="text-detail-l xl:text-body-s text-neutral-300 font-medium">{answer.subdesc}</span>
+          <span className="text-detail-l xl:text-body-s text-neutral-300 font-medium">
+            {answer.subdesc}
+          </span>
         </div>
       </div>
 

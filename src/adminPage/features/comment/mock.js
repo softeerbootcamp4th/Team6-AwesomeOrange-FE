@@ -1,7 +1,6 @@
 import { http, HttpResponse } from "msw";
 import getRandomString from "@common/mock/getRandomString";
 
-
 function getSampleEventList() {
   const len = 10;
   let eventList = [];
@@ -35,12 +34,8 @@ function getSampleCommentList() {
 }
 
 const handlers = [
-  http.get("/api/v1/admin/events/hints", () =>
-    HttpResponse.json(getSampleEventList()),
-  ),
-  http.get("/api/v1/admin/comments", () =>
-    HttpResponse.json(getSampleCommentList()),
-  ),
+  http.get("/api/v1/admin/events/hints", () => HttpResponse.json(getSampleEventList())),
+  http.get("/api/v1/admin/comments", () => HttpResponse.json(getSampleCommentList())),
   http.delete("/api/v1/admin/comments", () => HttpResponse.json(true)),
 ];
 

@@ -13,5 +13,5 @@ export default setupWorker(
   ...eventSearchHandler,
   ...serverTimeHandler,
   ...commentHandler,
-  ...eventCreateHandler
+  ...eventCreateHandler,
 );

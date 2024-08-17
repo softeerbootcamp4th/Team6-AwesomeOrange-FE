@@ -4,13 +4,9 @@ import { makeLorem } from "@common/mock/utils.js";
 function getEventsMock() {
   return Array.from({ length: 100 }, (_, i) => {
     const startTime = new Date(
-      Date.now() -
-        86400 * 30 * 1000 +
-        Math.floor(Math.random() * 86400 * 60 * 1000),
+      Date.now() - 86400 * 30 * 1000 + Math.floor(Math.random() * 86400 * 60 * 1000),
     );
-    const endTime = new Date(
-      startTime.getTime() + Math.floor(Math.random() * 86400 * 120) * 1000,
-    );
+    const endTime = new Date(startTime.getTime() + Math.floor(Math.random() * 86400 * 120) * 1000);
 
     return {
       name: makeLorem(3, 7),

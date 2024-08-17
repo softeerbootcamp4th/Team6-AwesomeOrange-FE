@@ -19,7 +19,7 @@ function subscribeQuery(key) {
 }
 
 function updateSubscribedQuery(key) {
-  if(queryGroupMap.has(key)) {
+  if (queryGroupMap.has(key)) {
     queryGroupMap.get(key).forEach((subKey) => queryMap.delete(subKey));
     queryGroupMap.deleteKey(key);
   }

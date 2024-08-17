@@ -35,9 +35,7 @@ function TableHeader({ state, dispatch, checkSelect }) {
           {name}
         </TableSorter>
       ))}
-      <div className="border-r border-neutral-200 flex justify-center items-center">
-        상태
-      </div>
+      <div className="border-r border-neutral-200 flex justify-center items-center">상태</div>
       <div className="flex justify-center items-center">상세</div>
     </div>
   );

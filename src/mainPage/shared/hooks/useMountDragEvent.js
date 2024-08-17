@@ -1,11 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import throttleRaf from "@common/throttleRaf.js";
 
-function useMountDragEvent({
-  onDragStart: userDragStart,
-  onDrag,
-  onDragEnd: userDragEnd,
-} = {}) {
+function useMountDragEvent({ onDragStart: userDragStart, onDrag, onDragEnd: userDragEnd } = {}) {
   const [dragState, setDragState] = useState(false);
   const isDragging = useRef(false);
 

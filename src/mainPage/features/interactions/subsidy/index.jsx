@@ -9,31 +9,27 @@ function SubsidyInteraction({ interactCallback, $ref }) {
   const [lotties, setLotties] = useState(new Set());
   const coinRef = useRef(null);
 
-  function onClick(e) {
+  function onClick() {
     setCount((count) => count + 1);
-    coinRef.current?.animate(
-      [{ transform: "rotateY(0)" }, { transform: "rotateY(360deg)" }],
-      {
-        duration: 500,
-        iteractions: 1,
-        easing: "cubic-bezier(0.215, 0.610, 0.355, 1.000)", // ease-out-cubic
-      },
-    );
-    setLotties( lotties=>{
+    coinRef.current?.animate([{ transform: "rotateY(0)" }, { transform: "rotateY(360deg)" }], {
+      duration: 500,
+      iteractions: 1,
+      easing: "cubic-bezier(0.215, 0.610, 0.355, 1.000)", // ease-out-cubic
+    });
+    setLotties((lotties) => {
       const newLotties = new Set(lotties);
-      newLotties.add( Math.floor(Math.random() * 10000000) );
+      newLotties.add(Math.floor(Math.random() * 10000000));
       return newLotties;
-    } );
+    });
     interactCallback?.();
   }
 
-  function deleteLottie(id)
-  {
-    setLotties( lotties=>{
+  function deleteLottie(id) {
+    setLotties((lotties) => {
       const newLotties = new Set(lotties);
       newLotties.delete(id);
       return newLotties;
-    } );
+    });
   }
 
   useImperativeHandle(
@@ -59,7 +55,10 @@ function SubsidyInteraction({ interactCallback, $ref }) {
           className="absolute size-[120px] active:scale-90 transition-transform"
           onClick={onClick}
         >
-          <div className="w-full h-full flex justify-center items-center rounded-full bg-blue-400 " ref={coinRef}>
+          <div
+            className="w-full h-full flex justify-center items-center rounded-full bg-blue-400 "
+            ref={coinRef}
+          >
             <img
               src={dollor}
               className="select-none"
@@ -71,14 +70,16 @@ function SubsidyInteraction({ interactCallback, $ref }) {
           </div>
         </div>
         <div className="absolute -z-10 w-full h-full">
-          { [...lotties].map( (id)=><Lottie
-            key={id}
-            className={`absolute top-0 left-0 ${id % 2 ? "-scale-x-100" : ""}`}
-            animationData={coinLottie}
-            onComplete={ ()=>deleteLottie(id) }
-            play={true}
-            loop={false}
-          /> )}
+          {[...lotties].map((id) => (
+            <Lottie
+              key={id}
+              className={`absolute top-0 left-0 ${id % 2 ? "-scale-x-100" : ""}`}
+              animationData={coinLottie}
+              onComplete={() => deleteLottie(id)}
+              play={true}
+              loop={false}
+            />
+          ))}
         </div>
       </div>
       <p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s font-bold pointer-events-none select-none">

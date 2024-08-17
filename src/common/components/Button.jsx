@@ -36,19 +36,13 @@ function Button({
 }) {
   const isSubmit = !(type === "reset" || type === "button");
 
-  const defaultPadding = /([\s:]+p[tblrxyse]?-|^p[tblrxyse]?-)/.test(className)
-    ? ""
-    : "px-6 py-4";
+  const defaultPadding = /([\s:]+p[tblrxyse]?-|^p[tblrxyse]?-)/.test(className) ? "" : "px-6 py-4";
   const defaultStyle = `${defaultPadding} text-body-m font-bold text-center 
 	disabled:cursor-default ${isSubmit ? "group-[:invalid]:cursor-default" : ""}`;
 
   const typedStyle = getButtonStyle(styleType, backdrop, isSubmit);
   return (
-    <button
-      className={`${defaultStyle} ${typedStyle} ${className}`}
-      type={type}
-      {...otherProps}
-    >
+    <button className={`${defaultStyle} ${typedStyle} ${className}`} type={type} {...otherProps}>
       {children}
     </button>
   );

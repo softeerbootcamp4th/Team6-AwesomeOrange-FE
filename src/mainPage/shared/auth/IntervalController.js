@@ -45,10 +45,7 @@ class IntervalController extends EventTarget {
     this.#expected += this.interval;
     this.dispatchEvent(new Event("interval"));
     if (this.callback) this.callback();
-    this.#timeout = setTimeout(
-      () => this.#step(),
-      Math.max(0, this.interval + delta),
-    );
+    this.#timeout = setTimeout(() => this.#step(), Math.max(0, this.interval + delta));
   }
 }
 

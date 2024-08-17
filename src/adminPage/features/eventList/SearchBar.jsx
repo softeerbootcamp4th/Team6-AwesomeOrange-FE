@@ -19,10 +19,7 @@ function SearchBar({ onSearch = () => {} }) {
         placeholder="이벤트 이름/ID(숫자 6자리)를 입력하시오"
         name="search"
       />
-      <button
-        type="submit"
-        className="absolute size-8 right-4 flex justify-center items-center"
-      >
+      <button type="submit" className="absolute size-8 right-4 flex justify-center items-center">
         <img src={search} alt="검색" className="size-6" draggable="false" />
       </button>
     </form>

@@ -31,9 +31,7 @@ export function searchReducer(state, action) {
         sort: {
           ...state.sort,
           [action.target]:
-            action.value === "asc" || action.value === "desc"
-              ? action.value
-              : "none",
+            action.value === "asc" || action.value === "desc" ? action.value : "none",
         },
       };
     case "set_page":

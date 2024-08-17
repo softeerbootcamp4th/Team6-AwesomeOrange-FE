@@ -67,9 +67,7 @@ function LoginSection() {
         <Button className="w-full" type="submit">
           로그인
         </Button>
-        <span className="absolute -bottom-4 text-detail-l text-red-400">
-          {errorMessage}
-        </span>
+        <span className="absolute -bottom-4 text-detail-l text-red-400">{errorMessage}</span>
       </div>
     </form>
   );

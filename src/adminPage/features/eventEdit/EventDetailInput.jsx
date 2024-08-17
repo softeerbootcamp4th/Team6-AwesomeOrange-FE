@@ -1,5 +1,9 @@
 import { useContext } from "react";
-import { EventEditContext, EventEditDispatchContext, EventEditModeContext } from "./businessLogic/context.js";
+import {
+  EventEditContext,
+  EventEditDispatchContext,
+  EventEditModeContext,
+} from "./businessLogic/context.js";
 
 import FcfsInput from "./FcfsInput";
 import DrawInput from "./DrawInput";
@@ -21,7 +25,7 @@ function EventTypeSelector({ selected, onClick, children }) {
 }
 
 function EventDetailInput() {
-  const {eventType} = useContext(EventEditContext);
+  const { eventType } = useContext(EventEditContext);
   const dispatch = useContext(EventEditDispatchContext);
   const mode = useContext(EventEditModeContext);
 
@@ -35,26 +39,16 @@ function EventDetailInput() {
   return (
     <div className="w-full">
       <div className="flex w-full border-b border-neutral-200 font-medium">
-        <EventTypeSelector
-          selected={eventType === "fcfs"}
-          onClick={selectEventType("fcfs")}
-        >
+        <EventTypeSelector selected={eventType === "fcfs"} onClick={selectEventType("fcfs")}>
           선착순
         </EventTypeSelector>
-        <EventTypeSelector
-          selected={eventType === "draw"}
-          onClick={selectEventType("draw")}
-        >
+        <EventTypeSelector selected={eventType === "draw"} onClick={selectEventType("draw")}>
           추첨
         </EventTypeSelector>
       </div>
       <div className="flex-grow flex justify-center items-center p-4">
-        {eventType === "fcfs" && (
-          <FcfsInput />
-        )}
-        {eventType === "draw" && (
-          <DrawInput />
-        )}
+        {eventType === "fcfs" && <FcfsInput />}
+        {eventType === "draw" && <DrawInput />}
       </div>
     </div>
   );

@@ -15,9 +15,7 @@ function CommentNoUserModal() {
   return (
     <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[31.25rem] p-10 shadow bg-white relative flex flex-col justify-between items-center">
       <div className="flex flex-col gap-2 items-center">
-        <p className="text-body-l font-bold text-neutral-700">
-          아직 기대평을 작성할 수 없습니다.
-        </p>
+        <p className="text-body-l font-bold text-neutral-700">아직 기대평을 작성할 수 없습니다.</p>
         <p className="w-full max-w-80 text-body-s font-medium text-neutral-400 text-center">
           오늘의 추첨 이벤트에 참여하고 기대평을 작성하세요
         </p>

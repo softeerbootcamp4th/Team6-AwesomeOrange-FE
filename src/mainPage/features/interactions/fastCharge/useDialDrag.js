@@ -9,10 +9,8 @@ function getAngle(pointer, center) {
 }
 
 function getAngleDelta(prev, current) {
-  if (prev > Math.PI * 0.5 && current < -Math.PI * 0.5)
-    return current + Math.PI * 2 - prev;
-  if (prev < -Math.PI * 0.5 && current > Math.PI * 0.5)
-    return current - Math.PI * 2 - prev;
+  if (prev > Math.PI * 0.5 && current < -Math.PI * 0.5) return current + Math.PI * 2 - prev;
+  if (prev < -Math.PI * 0.5 && current > Math.PI * 0.5) return current - Math.PI * 2 - prev;
   return current - prev;
 }
 

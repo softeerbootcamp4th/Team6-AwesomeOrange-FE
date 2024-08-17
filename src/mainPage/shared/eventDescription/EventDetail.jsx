@@ -21,17 +21,13 @@ export default function EventDetail({
         </div>
 
         <div className="bg-neutral-900 p-6 flex flex-col">
-          <span className="text-body-m text-neutral-300 font-bold">
-            당첨자 발표
-          </span>
+          <span className="text-body-m text-neutral-300 font-bold">당첨자 발표</span>
 
           <span className="pt-6 text-body-l text-white font-bold">
             {makeHighlight(announceDate, "font-medium text-neutral-300")}
           </span>
 
-          <span className="pt-2 text-body-s text-neutral-300">
-            {announceDateCaption}
-          </span>
+          <span className="pt-2 text-body-s text-neutral-300">{announceDateCaption}</span>
         </div>
         <div className="md:col-span-2 p-6 bg-neutral-900 flex flex-col font-bold">
           <span className="pb-6 text-body-m text-neutral-300">참여방법</span>

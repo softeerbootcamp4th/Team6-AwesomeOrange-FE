@@ -25,7 +25,7 @@ export default function InteractionModal({ index, answer }) {
 
   if (!InteractionComponent) return;
 
-  function onClickConfirm(){
+  function onClickConfirm() {
     setIsAnswerUp(true);
     joinEvent(index);
   }
@@ -41,10 +41,7 @@ export default function InteractionModal({ index, answer }) {
       </button>
 
       <Suspense fallback={<div>Loading...</div>}>
-        <InteractionComponent
-          interactCallback={() => setIsActive(true)}
-          $ref={interactionRef}
-        />
+        <InteractionComponent interactCallback={() => setIsActive(true)} $ref={interactionRef} />
       </Suspense>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">

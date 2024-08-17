@@ -42,8 +42,7 @@ class CountdownController extends EventTarget {
         details: this.targetTime - this.currentTime,
       }),
     );
-    if (this.currentTime === this.targetTime)
-      this.dispatchEvent(new Event("countover"));
+    if (this.currentTime === this.targetTime) this.dispatchEvent(new Event("countover"));
     if (this.callback) this.callback();
     this.#timeout = setTimeout(
       () => this.#step(this.interval),

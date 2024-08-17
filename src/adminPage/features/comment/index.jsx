@@ -27,9 +27,7 @@ export default function AdminComment() {
     } else if (filteredString.length <= 6) {
       setFormString("HD_" + filteredString);
     } else if (filteredString.length <= 9) {
-      setFormString(
-        "HD_" + filteredString.slice(0, 6) + "_" + filteredString.slice(6),
-      );
+      setFormString("HD_" + filteredString.slice(0, 6) + "_" + filteredString.slice(6));
     } else return;
 
     if (filteredString.length >= 6) {
@@ -73,9 +71,7 @@ export default function AdminComment() {
           </li>
         ))}
 
-        <span
-          className={`${searchList.length && "hidden"} text-neutral-300 text-body-s`}
-        >
+        <span className={`${searchList.length && "hidden"} text-neutral-300 text-body-s`}>
           일치하는 검색 결과가 없습니다.
         </span>
       </div>

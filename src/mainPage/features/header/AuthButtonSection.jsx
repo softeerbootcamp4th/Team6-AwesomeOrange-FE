@@ -9,17 +9,11 @@ function AuthButtonSection() {
 
   const welcomeModal = <WelcomeModal />;
   const authModal = (
-    <AuthModal
-      onComplete={(isFreshMember) => isFreshMember && openModal(welcomeModal)}
-    />
+    <AuthModal onComplete={(isFreshMember) => isFreshMember && openModal(welcomeModal)} />
   );
 
   if (isLogin)
-    return (
-      <div className="text-body-s lg:text-body-m text-black">
-        {userName}님 환영합니다.
-      </div>
-    );
+    return <div className="text-body-s lg:text-body-m text-black">{userName}님 환영합니다.</div>;
 
   return (
     <button

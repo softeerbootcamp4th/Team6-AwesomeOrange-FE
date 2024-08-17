@@ -41,10 +41,7 @@ function useIslandDrag() {
   );
   const islandOnDragging = useCallback(
     function ({ y: mouseY }) {
-      const rawY =
-        mouseY -
-        islandStartMouseYPosition.current +
-        islandStartPosition.current;
+      const rawY = mouseY - islandStartMouseYPosition.current + islandStartPosition.current;
       const y = clamp(rawY, -50, 50);
 
       setIslandY(y);
@@ -56,11 +53,10 @@ function useIslandDrag() {
     },
     [phoneIsSnapping],
   );
-  const { onPointerDown: islandOnPointerDown, dragState: islandIsDrag } =
-    useMountDragEvent({
-      onDragStart: islandOnDragStart,
-      onDrag: islandOnDragging,
-    });
+  const { onPointerDown: islandOnPointerDown, dragState: islandIsDrag } = useMountDragEvent({
+    onDragStart: islandOnDragStart,
+    onDrag: islandOnDragging,
+  });
 
   // mount phone drag event
   const phoneOnDragStart = useCallback(
@@ -72,10 +68,8 @@ function useIslandDrag() {
     [phoneX, phoneY],
   );
   const phoneOnDragging = useCallback(function ({ x: mouseX, y: mouseY }) {
-    const x =
-      mouseX - phoneStartMousePosition.current.x + phoneStartPosition.current.x;
-    const y =
-      mouseY - phoneStartMousePosition.current.y + phoneStartPosition.current.y;
+    const x = mouseX - phoneStartMousePosition.current.x + phoneStartPosition.current.x;
+    const y = mouseY - phoneStartMousePosition.current.y + phoneStartPosition.current.y;
 
     setPhoneX(x);
     setPhoneY(y);
@@ -95,12 +89,11 @@ function useIslandDrag() {
     },
     [islandY],
   );
-  const { onPointerDown: phoneOnPointerDown, dragState: phoneIsDrag } =
-    useMountDragEvent({
-      onDragStart: phoneOnDragStart,
-      onDrag: phoneOnDragging,
-      onDragEnd: phoneOnDragEnd,
-    });
+  const { onPointerDown: phoneOnPointerDown, dragState: phoneIsDrag } = useMountDragEvent({
+    onDragStart: phoneOnDragStart,
+    onDrag: phoneOnDragging,
+    onDragEnd: phoneOnDragEnd,
+  });
 
   // reset function interface
   const reset = useCallback(() => {

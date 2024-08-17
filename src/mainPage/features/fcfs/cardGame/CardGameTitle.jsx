@@ -16,9 +16,7 @@ function CardGameTitle({ status }) {
 
   if (status === Status.PROGRESS)
     return (
-      <h3
-        className={`${commonStyle} graphic-gradient text-transparent bg-clip-text`}
-      >
+      <h3 className={`${commonStyle} graphic-gradient text-transparent bg-clip-text`}>
         카드를 뒤집어 주세요!
       </h3>
     );
@@ -35,14 +33,10 @@ function CardGameTitle({ status }) {
       </h3>
     );
   if (status === Status.ALREADY)
-    return (
-      <h3 className={`${commonStyle} text-neutral-200`}>이미 참여하셨습니다</h3>
-    );
+    return <h3 className={`${commonStyle} text-neutral-200`}>이미 참여하셨습니다</h3>;
   return (
     <div className="relative flex justify-center">
-      <h3
-        className={`${commonStyle} graphic-gradient text-transparent bg-clip-text`}
-      >
+      <h3 className={`${commonStyle} graphic-gradient text-transparent bg-clip-text`}>
         카드를 뒤집어 주세요!
       </h3>
       <p className="text-neutral-300 text-center absolute -bottom-8">

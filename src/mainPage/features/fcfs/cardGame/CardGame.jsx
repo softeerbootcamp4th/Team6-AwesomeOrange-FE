@@ -17,8 +17,7 @@ import ResetButton from "@main/components/ResetButton.jsx";
 function getLocked(eventStatus, isParticipated, offline) {
   if (offline) return false;
   if (isParticipated) return true;
-  if (eventStatus === Status.PROGRESS || eventStatus === Status.OFFLINE)
-    return false;
+  if (eventStatus === Status.PROGRESS || eventStatus === Status.OFFLINE) return false;
   return true;
 }
 
@@ -71,9 +70,7 @@ function CardGame({ offline }) {
           openModal(<FcfsInvalidModal />);
           break;
         case submitCardgameErrorHandle[401]:
-          openModal(
-            <AuthModal onComplete={() => getCardAnswerOnline(index)} />,
-          );
+          openModal(<AuthModal onComplete={() => getCardAnswerOnline(index)} />);
           break;
         case submitCardgameErrorHandle["offline"]:
           setOfflineMode(true);

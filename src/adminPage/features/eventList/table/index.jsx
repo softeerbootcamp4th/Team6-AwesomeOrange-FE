@@ -5,20 +5,10 @@ import Pagination from "@admin/components/Pagination.jsx";
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 
-function SearchResult({
-  query,
-  queryState,
-  queryDispatch,
-  checkState,
-  checkDispatch,
-}) {
-  const dataList = useQuery(
-    `admin-event-list@${query}`,
-    () => fetchServer(query),
-    {
-      deferred: true,
-    },
-  );
+function SearchResult({ query, queryState, queryDispatch, checkState, checkDispatch }) {
+  const dataList = useQuery(`admin-event-list@${query}`, () => fetchServer(query), {
+    deferred: true,
+  });
   const page = 10;
 
   const checkSelect = () => {
@@ -28,11 +18,7 @@ function SearchResult({
 
   return (
     <>
-      <TableHeader
-        state={queryState.sort}
-        dispatch={queryDispatch}
-        checkSelect={checkSelect}
-      />
+      <TableHeader state={queryState.sort} dispatch={queryDispatch} checkSelect={checkSelect} />
       <SearchResultBody
         data={dataList}
         checkState={checkState}

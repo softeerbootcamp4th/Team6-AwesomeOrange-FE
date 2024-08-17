@@ -8,8 +8,7 @@ const errorStyle = `bg-white border-red-500 focus:border-red-500`;
 const errorInputStyle = `invalid:border-red-500
 invalid:focus:border-red-500`;
 
-function getInputClass(text, isError, className)
-{
+function getInputClass(text, isError, className) {
   return `${inputboxStyle} ${isError ? errorStyle : ""} ${/^\s*$/.test(text) ? "" : errorInputStyle} ${className ?? ""}`;
 }
 

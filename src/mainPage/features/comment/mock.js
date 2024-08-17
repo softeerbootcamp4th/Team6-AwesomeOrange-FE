@@ -7,9 +7,7 @@ function getCommentMock() {
       id: i * 100 + Math.floor(Math.random() * 99),
       content: makeLorem(5, 12),
       userName: makeLorem(1, 1),
-      createdAt: new Date(
-        Date.now() - Math.floor(Math.random() * 86400 * 60 * 1000),
-      ),
+      createdAt: new Date(Date.now() - Math.floor(Math.random() * 86400 * 60 * 1000)),
     };
   });
 }
@@ -34,8 +32,7 @@ const handlers = [
     const { content } = await request.json();
 
     if (commentSet.has(token)) return HttpResponse.json(true, { status: 409 });
-    if (content.includes("시발"))
-      return HttpResponse.json(true, { status: 400 });
+    if (content.includes("시발")) return HttpResponse.json(true, { status: 400 });
 
     commentSet.add(token);
     return HttpResponse.json(true, { status: 200 });

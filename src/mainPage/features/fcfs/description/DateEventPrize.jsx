@@ -7,9 +7,7 @@ function DateEventPrize({ date, title, capacity, image }) {
   const eventStatus = useFcfsStore((store) => store.eventStatus);
   const dateObj = new Date(date);
   const dateStatus =
-    eventStatus === OFFLINE
-      ? "default"
-      : getEventDateState(currentServerTime, dateObj);
+    eventStatus === OFFLINE ? "default" : getEventDateState(currentServerTime, dateObj);
 
   const bgColor = dateStatus === "active" ? "bg-blue-100" : "bg-neutral-900";
   const opacity = dateStatus === "ended" ? "opacity-50" : "opacity-100";
@@ -23,9 +21,7 @@ function DateEventPrize({ date, title, capacity, image }) {
         >
           {dateObj.getMonth() + 1}/{dateObj.getDate()}
         </p>
-        <p
-          className={`text-body-l ${dateStatus === "active" ? "text-black" : "text-white"}`}
-        >
+        <p className={`text-body-l ${dateStatus === "active" ? "text-black" : "text-white"}`}>
           {title}
         </p>
         <p className="text-body-l text-neutral-300">{capacity}명</p>

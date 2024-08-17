@@ -1,22 +1,16 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 
-export default function Comments({
-  eventId,
-  checkedComments,
-  setCheckedComments,
-  page,
-  setAllId,
-}) {
+export default function Comments({ eventId, checkedComments, setCheckedComments, page, setAllId }) {
   const data = useQuery(
     eventId,
     () =>
-      fetchServer(
-        `/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15`,
-      ).then(({ comments }) => {
-        setAllId(comments.map((comment) => comment.id));
-        return comments;
-      }),
+      fetchServer(`/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15`).then(
+        ({ comments }) => {
+          setAllId(comments.map((comment) => comment.id));
+          return comments;
+        },
+      ),
     [page],
   );
 
@@ -64,9 +58,7 @@ export default function Comments({
           <div className="place-self-center flex items-center gap-1 text-body-s">
             <span>{getDate(comment.createdAt)}</span>
 
-            <span className="text-neutral-500">
-              {getTime(comment.createdAt)}
-            </span>
+            <span className="text-neutral-500">{getTime(comment.createdAt)}</span>
           </div>
 
           <span className="text-body-s">{comment.content}</span>
