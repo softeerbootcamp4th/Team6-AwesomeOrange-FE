@@ -183,6 +183,10 @@ class FcfsData {
     const mapArr = getDefaultFcfsArray(startTime, endTime, config);
     return new FcfsData(new Map(mapArr));
   }
+  get size()
+  {
+    return this.map.size;
+  }
   add(
     data = {
       date: null,

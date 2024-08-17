@@ -14,6 +14,8 @@ function EventEditor({ initialData = null } = {}) {
     setDefaultState,
   );
 
+  const submitDisabled = (state.eventType === "fcfs" && state.fcfs.size === 0);
+
   function onSubmit(e) {
     e.preventDefault();
     console.log(JSON.stringify(state, null, 4));
@@ -33,7 +35,7 @@ function EventEditor({ initialData = null } = {}) {
         <div className="flex gap-4">
           <Button>임시저장 불러오기</Button>
           <Button>임시저장</Button>
-          <Button type="submit">등록</Button>
+          <Button type="submit" disabled={submitDisabled}>등록</Button>
         </div>
       </div>
       <div className="w-full flex flex-col gap-3">
