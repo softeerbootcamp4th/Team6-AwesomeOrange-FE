@@ -16,7 +16,7 @@ function QnAArticle({ question, answer }) {
       timeoutRef.current = setTimeout(() => setVisible(false), 200);
     }
   }
-  const staticArticleStyle = `text-neutral-400 text-justify relative
+  const staticArticleStyle = `text-neutral-400 text-justify font-regular relative
   text-body-s md:text-body-m lg:text-body-l
 	before:w-full before:h-full before-block before:absolute before:bg-white before:pointer-events-none
 	before:scale-y-0 before:transition-transform before:duration-200 before:ease-linear before:origin-bottom`;

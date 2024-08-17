@@ -61,7 +61,7 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
           ></line>
         </svg>
       </div>
-      <p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s pointer-events-none">
+      <p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s font-bold pointer-events-none">
         <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5">
           <AnswerText distance={Math.hypot(x, y)} />
         </span>
