@@ -8,7 +8,7 @@ export default function DateTextInput({ date, setDate, ...otherProps }) {
   function onChange(e)
   {
     const value = e.target.value;
-    setDate( value === "" ? null : new Date(value) );
+    setDate( value === "" ? null : new Date(value.replace(/-/g, "/")) );
   }
   return <div className="w-full h-full relative z-0 border-y-2 border-neutral-400 border-t-transparent hover:border-2 hover:border-t-neutral-400">
     <div className="absolute w-full h-full pointer-events-none top-0 left-0 flex justify-center items-center">{visibleText}</div>
