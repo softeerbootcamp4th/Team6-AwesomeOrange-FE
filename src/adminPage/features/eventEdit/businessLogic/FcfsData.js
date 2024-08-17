@@ -21,7 +21,7 @@ function verityTime(item, {startTime, endTime, prevSnapshot={}}={})
 {
   const {start, end, date, ...rest} = item;
 
-  let [newStart, newEnd] = [start ?? 0, end ?? DEFAULT_END_TIME];
+  let [newStart, newEnd] = [start ?? 0, end ?? DEFAULT_END_TIME].map( e=>Math.round(e/5)*5 );
 
   // end가 start보다 더 작으면, 반드시 start가 end보다 더 작도록 치환
   if(newStart >= newEnd)
@@ -225,8 +225,8 @@ class FcfsData {
     return newData;
   }
   *[Symbol.iterator]() {
-    for (let [key, item] of this.map) {
-      yield { key, ...item };
+    for (let [uniqueKey, item] of this.map) {
+      yield { uniqueKey, ...item };
     }
   }
   toJSON() {

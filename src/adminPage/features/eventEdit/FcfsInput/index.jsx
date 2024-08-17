@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { EventEditContext } from "../businessLogic/context.js";
 import BatchTimeUpdater from "./BatchTimeUpdater.jsx";
+import FcfsItemInput from "./FcfsItemInput.jsx";
 
 function FcfsInput({state, dispatch}) {
   const {fcfs} = useContext(EventEditContext);
@@ -9,11 +10,7 @@ function FcfsInput({state, dispatch}) {
     <BatchTimeUpdater />
     <div>
       {
-        [...fcfs].map( (value)=><div className="flex gap-4" key={value.key}>
-          <div>{value.key}</div>
-          <div>{value.start}</div>
-          <div>{value.end}</div>
-        </div> )
+        [...fcfs].map( (value)=><FcfsItemInput key={value.uniqueKey} {...value} /> )
       }
     </div>
   </div>;
