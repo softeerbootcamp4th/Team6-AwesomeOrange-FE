@@ -54,6 +54,7 @@ function EventBaseDataInput() {
           setText={(value) => dispatch({ type: "set_event_frame", value })}
           required
           disabled={mode === "edit"}
+          pattern="^[A-Za-z0-9\-_]+$"
         />
       </label>
       <label className={columnsStyle}>
