@@ -36,7 +36,7 @@ function EventEditor({ initialData = null } = {}) {
     initialData,
     setDefaultState,
   );
-  const submitMutate = useMutation( mode === "create" ? "admin-event-created" : `admin-event-detail@${state.eventId}`, 
+  const submitMutate = useMutation( mode === "create" ? "event-detail-created" : `event-detail-${state.eventId}`, 
     ()=>fetchServer(mode === "create" ? "/api/v1/admin/events" : "/api/v1/admin/events/edit", {
       method: "post",
       body: state
@@ -76,14 +76,14 @@ function EventEditor({ initialData = null } = {}) {
   async function applyTempSave() {
     try {
       const data = await fetchServer("/api/v1/admin/events/temp").catch(handleError(tempLoadErrorHandler));
-      if(data.eventId === state.eventId || (state.eventId === "" && !data.eventId.startsWith("HD"))) {
+      if(data.eventId === state.eventId || (state.eventId === undefined && !data.eventId.startsWith("HD"))) {
         dispatch({type: "apply_external_data", value: data});
       }
       else {
-        <AlertModal title="불러오기 실패" description={<>
+        openModal( <AlertModal title="불러오기 실패" description={<>
           임시저장된 데이터가 현재 작성 중인 데이터의 것이 아닙니다!<br/>
-          임시저장 ID : {data.eventId && "새로 생성될 이벤트"}
-        </>} />
+          임시저장 ID : {data.eventId || "새로 생성될 이벤트"}
+        </>} /> );
       }
     }
     catch(e) {

@@ -94,7 +94,7 @@ const handlers = [
   }),
   http.post("/api/v1/admin/events/edit", async ({ request }) => {
     const data = await request.json();
-    data.set(data.eventId, data);
+    dummyData.set(data.eventId, data);
     tempData = null;
     return new HttpResponse(null, {status: 200});
   }),
