@@ -20,7 +20,7 @@ const handlers = [
         { status: 400 },
       );
 
-    return HttpResponse.json({ return: true });
+    return new HttpResponse();
   }),
 
   http.post(

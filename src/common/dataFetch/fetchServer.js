@@ -50,7 +50,9 @@ async function fetchServerBase(url, options = {}) {
     const response = await fetch(url, createFetchOptions(options));
     if (response.status >= 400 && response.status <= 599)
       throw new HTTPError(response);
-    return await response.json();
+    const text = await response.text();
+    if(text === "") return null;
+    return JSON.parse(text);
   } catch (e) {
     if (e instanceof TypeError && e.message === "Failed to fetch") {
       throw new ServerCloseError();
