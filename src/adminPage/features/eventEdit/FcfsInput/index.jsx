@@ -9,9 +9,9 @@ function FcfsInput() {
   const {fcfs, startTime, endTime} = useContext(EventEditContext);
   const dispatch = useContext(EventEditDispatchContext);
 
-  return <div className="w-full flex flex-col gap-8">
+  return <div className="w-full flex flex-col items-center gap-8">
     <BatchTimeUpdater />
-    <div className="flex flex-col gap-2">
+    <div className="w-full max-w-[800px] flex flex-col gap-2">
       <div className={`${fcfsInputGridStyle} h-10 text-body-m font-bold`}>
         <div className="text-center">날짜</div>
         <div className="text-center">오픈시간</div>

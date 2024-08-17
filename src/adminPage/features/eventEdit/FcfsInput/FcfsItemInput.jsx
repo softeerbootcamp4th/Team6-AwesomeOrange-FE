@@ -39,6 +39,15 @@ function FcfsItemInput({uniqueKey, date, start, end, participantCount, prizeInfo
 		<Input type="time" required text={minuteIntToString(end)} setText={value=>modify({end: strToMinutes(value)}) } step="300" size="12"/>
 		<Input type="text" required text={participantCount} setText={value=>modify({participantCount: Number.isNaN(+value) ? 0 : +value}) } inputMode="numeric" pattern="[0-9]+" size="3" placeholder="인원"/>
 		<Input type="text" text={prizeInfo} setText={value=>modify({prizeInfo: value}) } placeholder="경품 이름 입력" />
+		<button
+			className="flex justify-center items-center active:opacity-90 disabled:opacity-50"
+			onClick={()=>dispatch({type: "delete_fcfs_item", key: uniqueKey})}
+			aria-label="삭제"
+			disabled={uniqueKey.startsWith("determined_")}
+			type="button"
+		>
+			<img src="/icons/close.svg" alt="삭제" width="24" height="24" draggable="false" />
+		</button>
 	</div>
 }
 
