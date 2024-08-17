@@ -30,7 +30,7 @@ function WelcomeModal() {
         onClick={close}
         aria-label="닫기"
       >
-        <img src="/icons/close.svg" alt="닫기" width="24" height="24" />
+        <img src="/icons/close.svg" alt="닫기" width="24" height="24" draggable="false" />
       </button>
     </div>
   );

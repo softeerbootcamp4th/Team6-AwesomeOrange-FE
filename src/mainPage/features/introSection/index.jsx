@@ -117,6 +117,7 @@ function IntroSection() {
           src={Pointer}
           alt="다음으로 넘어가기"
           className="pt-32 pb-32 animate-bounce"
+          draggable="false"
         />
       </section>
 

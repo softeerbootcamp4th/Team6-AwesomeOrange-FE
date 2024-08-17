@@ -23,7 +23,7 @@ function SearchBar({ onSearch = () => {} }) {
         type="submit"
         className="absolute size-8 right-4 flex justify-center items-center"
       >
-        <img src={search} alt="검색" className="size-6" />
+        <img src={search} alt="검색" className="size-6" draggable="false" />
       </button>
     </form>
   );

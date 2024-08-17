@@ -46,6 +46,7 @@ function Puzzle({ interactCallback, $ref }) {
           src={car1x}
           srcSet={`${car1x} 1x, ${car2x} 2x`}
           alt="start position"
+          draggable="false"
         />
         <div className="w-8 h-2 bg-blue-300"></div>
         <svg className="block md:hidden stroke-blue-300 w-12 h-28 absolute right-px overflow-visible fill-none">
@@ -98,10 +99,12 @@ function Puzzle({ interactCallback, $ref }) {
             src={panContainer1x}
             srcSet={`${panContainer1x} 1x, ${panContainer2x} 2x`}
             alt="start position"
+            draggable="false"
           />
           <img
             className={`absolute right-2 top-3 ${isCorrect ? style.rotate : ""}`}
             src={pan}
+            draggable="false"
           />
         </div>
       </div>

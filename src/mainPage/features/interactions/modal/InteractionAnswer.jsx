@@ -77,7 +77,7 @@ export default function InteractionAnswer({
         onClick={() => setIsAnswerUp(false)}
         className="absolute top-5 xl:top-10 left-5 xl:left-10 p-1 xl:p-3 bg-neutral-800 rounded-full"
       >
-        <img src="icons/left-arrow.svg" alt="뒤로가기" />
+        <img src="/icons/left-arrow.svg" alt="뒤로가기" draggable="false" />
       </button>
 
       <div className="w-2/3 xl:w-1/2 flex flex-col xl:flex-row gap-2 xl:gap-8">
@@ -114,7 +114,7 @@ export default function InteractionAnswer({
                     당첨확률 UP!
                   </span>
 
-                  <img src="icons/polygon-tri.svg" alt="역삼각형" />
+                  <img src="icons/polygon-tri.svg" alt="역삼각형" draggable="false" />
                 </div>
 
                 <Button

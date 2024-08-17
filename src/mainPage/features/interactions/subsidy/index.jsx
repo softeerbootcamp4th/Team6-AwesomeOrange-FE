@@ -51,6 +51,7 @@ function SubsidyInteraction({ interactCallback, $ref }) {
             alt="$"
             width="22.8"
             height="35.84"
+            draggable="false"
           />
         </div>
         <Lottie

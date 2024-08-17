@@ -51,7 +51,7 @@ export default function InteractionModal({ index, answer }) {
         onClick={close}
         className="z-10 absolute top-5 right-5 xl:top-10 xl:right-10 bg-neutral-800 p-1 xl:p-3 rounded-full"
       >
-        <img src="icons/close-white.svg" alt="닫기" />
+        <img src="/icons/close-white.svg" alt="닫기" draggable="false" />
       </button>
 
       <Suspense fallback={<div>Loading...</div>}>

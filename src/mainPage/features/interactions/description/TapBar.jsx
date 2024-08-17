@@ -15,15 +15,16 @@ export default function TapBar({ currentInteraction, joinedList, slideTo }) {
 
       <div className="py-12 flex gap-5 sm:gap-[60px]">
         {joinedList.map((joined, index) => (
-          <div
+          <button
             key={index}
             onClick={() => slideTo(index)}
             className="flex flex-col items-center select-none cursor-pointer"
           >
             <img
-              src="icons/check-mint.svg"
+              src="/icons/check-mint.svg"
               alt="체크"
               className={`${joined > 0 ? "" : "invisible"}`}
+              draggable="false"
             />
 
             <span
@@ -37,7 +38,7 @@ export default function TapBar({ currentInteraction, joinedList, slideTo }) {
             >
               {joined > 0 ? "참여 완료" : !joined ? "미참여" : ""}
             </span>
-          </div>
+          </button>
         ))}
       </div>
     </>
