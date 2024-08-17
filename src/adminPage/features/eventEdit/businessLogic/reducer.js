@@ -106,7 +106,7 @@ export function eventEditReducer(state, action) {
       return { ...state, fcfs: state.fcfs.delete(action.key) };
     case "modify_fcfs_item":
       if (state.eventType === "draw") return state;
-      return { ...state, fcfs: state.fcfs.modify(action.key, action.value) };
+      return { ...state, fcfs: state.fcfs.modify(action.key, action.value, { startTime, endTime }) };
     case "modify_all_fcfs_item": {
       if (state.eventType === "draw") return state;
       const { startTime, endTime } = state;
