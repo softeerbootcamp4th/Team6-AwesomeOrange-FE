@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { EventEditDispatchContext } from "../businessLogic/context.js";
 import { Input } from "@admin/components/SmallInput.jsx";
-import DateInput from "@admin/components/DateInput.jsx";
+import DateInput from "@admin/components/DateInput";
 import { formatDate, padNumber } from "@common/utils.js";
 import fcfsInputGridStyle from "./tableStyle.js";
 
@@ -9,8 +9,8 @@ const MINUTE = 60;
 
 function minuteIntToString(min)
 {
-	const h = Math.floor(min / 60) % 24;
-	const m = min % 60;
+	const h = Math.floor(min / MINUTE) % 24;
+	const m = min % MINUTE;
 	return `${padNumber(h)}:${padNumber(m)}`;
 }
 

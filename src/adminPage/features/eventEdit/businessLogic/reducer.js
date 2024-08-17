@@ -100,6 +100,7 @@ export function eventEditReducer(state, action) {
       };
     case "add_fcfs_item":
       if (state.eventType === "draw") return state;
+      if (state.startTime === null || state.endTime === null) return state;
       return { ...state, fcfs: state.fcfs.add(action.value) };
     case "delete_fcfs_item":
       if (state.eventType === "draw") return state;
