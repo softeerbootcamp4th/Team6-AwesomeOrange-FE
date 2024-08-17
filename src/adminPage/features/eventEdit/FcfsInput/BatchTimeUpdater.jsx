@@ -12,7 +12,7 @@ function BatchTimeUpdater()
 
 	function autoFill()
 	{
-		eventDispatch({type: "auto_fill_fcfs", config: getBatchTimeConfig(batchTimeState)});
+		eventDispatch({type: "auto_fill_fcfs", config: getBatchTimeConfig(batchTimeState, {})});
 	}
 
 	return <div className="flex justify-center flex-wrap gap-8 gap-y-2">

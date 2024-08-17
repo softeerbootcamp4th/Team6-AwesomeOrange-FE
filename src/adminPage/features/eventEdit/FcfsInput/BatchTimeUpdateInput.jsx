@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { EventEditDispatchContext } from "../businessLogic/context.js";
-import { fcfsBatchControlReducer, getBatchTimeConfig } from "./reducer.js";
+import { fcfsBatchControlReducer, getBatchTimeConfig, getToggleBatchTimeConfig } from "./reducer.js";
 import { Input } from "@admin/components/SmallInput.jsx";
 import Checkbox from "@common/components/Checkbox.jsx";
 
@@ -32,14 +32,16 @@ function BatchTimeUpdateInput({caption, type, state, dispatch})
 		const action = {type: `toggle_${type}_time`, value: newValue};
 		const nextState = fcfsBatchControlReducer(state, action);
 		dispatch({type: "apply", value: nextState});
-		eventEditDispatch({type: "modify_all_fcfs_item", value: getBatchTimeConfig(nextState)});
+
+		const config = getToggleBatchTimeConfig(nextState, type);
+		eventEditDispatch({type: "modify_all_fcfs_item", value: config});
 	}
 	function setTimeValue(newValue)
 	{
 		const action = {type: `set_${type}_time`, value: timeStrToValue(newValue)};
 		const nextState = fcfsBatchControlReducer(state, action);
 		dispatch({type: "apply", value: nextState});
-		eventEditDispatch({type: "modify_all_fcfs_item", value: getBatchTimeConfig(nextState)});
+		eventEditDispatch({type: "modify_all_fcfs_item", value: getBatchTimeConfig(nextState, state)});
 	}
 
 	return <label className="w-48 flex flex-col gap-2">

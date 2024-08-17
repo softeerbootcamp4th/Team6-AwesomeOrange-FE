@@ -40,10 +40,18 @@ export function fcfsBatchControlReducer(state, action)
 	}
 }
 
-export function getBatchTimeConfig(state)
+export function getToggleBatchTimeConfig(state, type)
 {
 	const result = {};
-	if(state.startCheck) result.start = state.start;
-	if(state.endCheck) result.end = state.end;
+	if(type === "start" && state.startCheck) result.start = state.start;
+	if(type === "end" && state.endCheck) result.end = state.end;
+	return result;
+}
+
+export function getBatchTimeConfig(state, prevState)
+{
+	const result = {};
+	if(state.startCheck && state.start !== prevState.start) result.start = state.start;
+	if(state.endCheck && state.end !== prevState.end) result.end = state.end;
 	return result;
 }
