@@ -6,12 +6,12 @@ function dateToSplittedState(date) {
   return formatDate(date, "YYYY-MM-DD hh:mm").split(" ");
 }
 
-function applyDateInputToDateObj(inputValue, timeValue) {
+function applyDateInputToDateObj(inputValue, timeValue, defaultTime="00:00") {
   if (inputValue === "") return null;
   const [y, m, d] = inputValue.split("-").map(Number);
 
   let date =
-    timeValue === null ? new Date("1970.1.1 00:00") : new Date(timeValue);
+    timeValue === null ? new Date(`1970.1.1 ${defaultTime}`) : new Date(timeValue);
 
   date.setFullYear(y);
   date.setMonth(m - 1);
@@ -56,7 +56,7 @@ function DateTimeRangeInput({
 
   function setEndDate(value) {
     if (value === "") return setRange([range[0], null]);
-    let date = applyDateInputToDateObj(value, range[1]);
+    let date = applyDateInputToDateObj(value, range[1], "23:55");
     if (range[0] === null || date >= range[0]) setRange([range[0], date]);
     else setRange([range[0], range[0]]);
   }
