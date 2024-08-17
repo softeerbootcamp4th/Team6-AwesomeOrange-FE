@@ -16,7 +16,7 @@ function TableHeader({ state, dispatch, checkSelect }) {
 
   return (
     <div
-      className={`${tableTemplateCol} w-full h-12 py-2 bg-neutral-50 rounded-lg text-black`}
+      className={`${tableTemplateCol} w-full h-12 py-2 bg-neutral-50 rounded-lg text-black font-bold`}
     >
       <button
         type="button"

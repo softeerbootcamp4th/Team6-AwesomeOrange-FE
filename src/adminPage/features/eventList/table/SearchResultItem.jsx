@@ -22,7 +22,7 @@ function SearchResultItem({
       <div className="flex justify-center items-center">
         <Checkbox checked={checked} onChange={setCheck} />
       </div>
-      <div className="flex justify-center items-center">{eventId}</div>
+      <div className="flex justify-center items-center font-medium">{eventId}</div>
       <div className="flex justify-center items-center overflow-hidden">
         <Link
           className="w-full font-bold truncate hover:underline"

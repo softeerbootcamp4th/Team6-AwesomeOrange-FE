@@ -43,7 +43,7 @@ function EventEditor({ initialData = null } = {}) {
           <EventEditDispatchContext.Provider value={dispatch}>
             <EventBaseDataInput />
             <div className="grid grid-cols-[6rem_1fr] items-start gap-2">
-              <span className="py-2 text-center">
+              <span className="py-2 text-center font-bold">
                 이벤트 종류<sup className="text-red-500">*</sup>
               </span>
               <EventDetailInput />

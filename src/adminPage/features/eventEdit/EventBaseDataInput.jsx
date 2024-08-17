@@ -15,7 +15,7 @@ function EventBaseDataInput() {
   return (
     <>
       <label className={columnsStyle}>
-        <span className="text-center">
+        <span className="text-center font-bold">
           이벤트 명<sup className="text-red-500">*</sup>
         </span>
         <div className="w-[25rem] h-8 relative flex items-center">
@@ -37,7 +37,7 @@ function EventBaseDataInput() {
         </div>
       </label>
       <label className={columnsStyle}>
-        <span className="text-center">이벤트 ID</span>
+        <span className="text-center font-bold">이벤트 ID</span>
         <Input
           className="w-[25rem] h-8"
           defaultValue={eventId}
@@ -45,7 +45,7 @@ function EventBaseDataInput() {
         />
       </label>
       <label className={columnsStyle}>
-        <span className="text-center">
+        <span className="text-center font-bold">
           이벤트 프레임<sup className="text-red-500">*</sup>
         </span>
         <Input
@@ -57,7 +57,7 @@ function EventBaseDataInput() {
         />
       </label>
       <label className={columnsStyle}>
-        <span className="text-center">
+        <span className="text-center font-bold">
           이벤트 기간<sup className="text-red-500">*</sup>
         </span>
         <DateTimeRangeInput
@@ -71,7 +71,7 @@ function EventBaseDataInput() {
         />
       </label>
       <label className="grid grid-cols-[6rem_1fr] items-start gap-2">
-        <span className="text-center">이벤트 요약</span>
+        <span className="text-center font-bold">이벤트 요약</span>
         <div className="relative">
           <TextBox
             className="w-full"
@@ -88,7 +88,7 @@ function EventBaseDataInput() {
         </div>
       </label>
       <label className={columnsStyle}>
-        <span className="text-center">이벤트 URL</span>
+        <span className="text-center font-bold">이벤트 URL</span>
         <Input
           className="w-[25rem] h-8"
           text={url}

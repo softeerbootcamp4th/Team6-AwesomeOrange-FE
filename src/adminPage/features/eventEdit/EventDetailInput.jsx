@@ -34,7 +34,7 @@ function EventDetailInput() {
 
   return (
     <div className="w-full">
-      <div className="flex w-full border-b border-neutral-200">
+      <div className="flex w-full border-b border-neutral-200 font-medium">
         <EventTypeSelector
           selected={eventType === "fcfs"}
           onClick={selectEventType("fcfs")}
