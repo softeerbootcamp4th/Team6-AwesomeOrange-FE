@@ -73,11 +73,11 @@ function getEventsDetailMock() {
 }
 
 const dummyData = getEventsDetailMock();
-let tempData = {};
+let tempData = null;
 
 const handlers = [
   http.post("/api/v1/admin/events", () => {
-    tempData = {};
+    tempData = null;
     return new HttpResponse(null, {status: 201});
   }),
   http.post("/api/v1/admin/events/temp", async ({ request }) => {
@@ -85,6 +85,7 @@ const handlers = [
     return new HttpResponse(null, {status: 201});
   }),
   http.get("/api/v1/admin/events/temp", () => {
+    if( tempData === null ) return HttpResponse.json(null, { status: 404 });
     return HttpResponse.json(tempData);
   }),
   http.get("/api/v1/admin/events/:id", ({ params }) => {
@@ -94,7 +95,7 @@ const handlers = [
   http.post("/api/v1/admin/events/edit", async ({ request }) => {
     const data = await request.json();
     data.set(data.eventId, data);
-    tempData = {};
+    tempData = null;
     return new HttpResponse(null, {status: 200});
   }),
 ];

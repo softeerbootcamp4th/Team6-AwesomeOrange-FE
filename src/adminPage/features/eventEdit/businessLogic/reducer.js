@@ -164,5 +164,7 @@ export function eventEditReducer(state, action) {
           policies: state.draw.policies.modify(action.key, action.value),
         },
       };
+    case "apply_external_data":
+      return setDefaultState(action.value);
   }
 }

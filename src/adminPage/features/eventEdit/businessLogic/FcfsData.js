@@ -144,16 +144,19 @@ function getDefaultFcfsArray(
 
 function convertServerDataToClient({ id, startTime, endTime, ...rest }) {
   const TIME_ZONE_OFFSET = new Date().getTimezoneOffset() * MINUTES;
+  const startTimeDate = new Date(startTime);
+  const endTimeDate = new Date(endTime);
+
   const startDate = Math.floor(
-    (startTime.valueOf() - TIME_ZONE_OFFSET) / ONE_DAY,
+    (startTimeDate.valueOf() - TIME_ZONE_OFFSET) / ONE_DAY,
   );
   const trueStartDate = new Date(startDate * ONE_DAY + TIME_ZONE_OFFSET);
 
   return {
     id,
     date: trueStartDate,
-    start: extractHourMinutes(startTime),
-    end: extractHourMinutes(endTime),
+    start: extractHourMinutes(startTimeDate),
+    end: extractHourMinutes(endTimeDate),
     ...rest,
   };
 }
@@ -171,8 +174,8 @@ function convertClientDataToServer({ id, date, start, end, ...rest }) {
 class FcfsData {
   constructor(rawData) {
     if (Array.isArray(rawData)) {
-      const mapArr = rawData.map((item) => {
-        return [`determined_${item.id}`, convertServerDataToClient(item)];
+      const mapArr = rawData.map((item, i) => {
+        return [item.id === undefined ? `temp_saved_${i}` : `determined_${item.id}`, convertServerDataToClient(item)];
       });
 
       this.map = new Map(mapArr);

@@ -3,9 +3,9 @@ import makeUUID from "./makeUUID.js";
 class DrawPolicyData {
   constructor(rawData) {
     if (Array.isArray(rawData)) {
-      const mapArr = rawData.map(({ id, ...rest }) => {
+      const mapArr = rawData.map(({ id, ...rest }, i) => {
         return [
-          `determined_${id}`,
+          id === undefined ? `temp_saved_${i}` : `determined_${id}`,
           {
             id,
             ...rest,
