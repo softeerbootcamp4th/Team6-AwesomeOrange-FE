@@ -3,6 +3,9 @@ class DrawGradeData {
     if (rawData == null) this.data = [{ grade: 1, count: 0, prizeInfo: "" }];
     else this.data = [...rawData].sort((a, b) => a.grade - b.grade);
   }
+  get size() {
+    return this.data.length;
+  }
   modify(data) {
     const newData = new DrawGradeData(this.data);
     const key = data.grade - 1;
