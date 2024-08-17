@@ -2,31 +2,34 @@ import { useEffect, useRef, useState } from "react";
 import TapBar from "./description/TapBar.jsx";
 import InteractionSlide from "./description/InteractionSlide.jsx";
 import GiftDetail from "./description/GiftDetail.jsx";
+import JSONData from "./content.json";
 
 import EventDescriptionLayout from "@main/eventDescription/EventDescriptionLayout.jsx";
 import useSectionInitialize from "@main/scroll/useSectionInitialize.js";
 import { INTERACTION_SECTION } from "@main/scroll/constants.js";
 import useSwiperState from "@main/hooks/useSwiperState.js";
 
-import JSONData from "./content.json";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
-import { EVENT_DRAW_ID } from "@common/constants.js";
+import { getDayDifference } from "@common/utils.js";
+import { EVENT_DRAW_ID, EVENT_START_DATE } from "@common/constants.js";
 
 export default function InteractionPage() {
   const sectionRef = useRef(null);
   const [currentInteraction, swiperRef] = useSwiperState();
-  const [joinedList, setJoinedList] = useState([-1, -1, -1, -1, -1]);
+  const [isJoinedList, setIsJoinedList] = useState([false, false, false, false, false]);
   const slideTo = (_index) => swiperRef.current.swiper.slideTo(_index);
+
   useSectionInitialize(INTERACTION_SECTION, sectionRef);
 
   useEffect(() => {
-    fetchServer(`/api/v1/draw/${EVENT_DRAW_ID}`)
-      .then((res) => {
-        console.log(res);
-        /*
-         * 사용자가 참여한 이벤트 날짜 문자열이 들어간 가변적 길이의 리스트를 서버로부터 받아올 예정. 그런데 그 문자열의 형식을 아직 모른다..
-         */
-        setJoinedList([0, 1, 1, 0, -1]);
+    fetchServer(`/api/v1/event/draw/${EVENT_DRAW_ID}/participation`)
+      .then(({ dates }) => {
+        let newJoinedList = [false, false, false, false, false];
+        dates.forEach((date) => {
+          const day = getDayDifference(EVENT_START_DATE, new Date(date));
+          newJoinedList[day] = true;
+        });
+        setIsJoinedList(newJoinedList);
       })
       .catch((e) => {
         console.log(e);
@@ -34,13 +37,10 @@ export default function InteractionPage() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="bg-black py-24 lg:py-60 flex flex-col items-center"
-    >
+    <section ref={sectionRef} className="bg-black py-24 lg:py-60 flex flex-col items-center">
       <TapBar
         currentInteraction={currentInteraction}
-        joinedList={joinedList}
+        isJoinedList={isJoinedList}
         slideTo={slideTo}
       />
 
@@ -58,13 +58,13 @@ export default function InteractionPage() {
               interactionDesc={interactionDesc}
               index={index}
               isCurrent={currentInteraction === index}
-              joined={joinedList[index]}
               slideTo={slideTo}
               answer={JSONData.answer[index]}
             />
           </swiper-slide>
         ))}
       </swiper-container>
+
       <div className="w-full pt-[7.5rem] px-6 flex flex-col justify-center items-center">
         <EventDescriptionLayout detail={JSONData.detail}>
           <GiftDetail contentList={JSONData.gift} />

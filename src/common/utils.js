@@ -1,3 +1,5 @@
+import { DAY_MILLISEC } from "./constants";
+
 export function clamp(target, min, max) {
   if (target < min) return min;
   if (target > max) return max;
@@ -90,4 +92,24 @@ export class GroupMap {
   deleteKey(key) {
     this.map.delete(key);
   }
+}
+
+export function getDayDifference(_date1, _date2) {
+  const date1 = new Date(_date1);
+  const date2 = new Date(_date2);
+
+  const date1WithoutTime = Date.UTC(
+    date1.getFullYear(),
+    date1.getMonth(),
+    date1.getDate(),
+  );
+  const date2WithoutTime = Date.UTC(
+    date2.getFullYear(),
+    date2.getMonth(),
+    date2.getDate(),
+  );
+
+  const dayDifference = (date2WithoutTime - date1WithoutTime) / DAY_MILLISEC;
+
+  return dayDifference;
 }

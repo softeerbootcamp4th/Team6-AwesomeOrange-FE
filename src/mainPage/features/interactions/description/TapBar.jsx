@@ -1,4 +1,4 @@
-export default function TapBar({ currentInteraction, joinedList, slideTo }) {
+export default function TapBar({ currentInteraction, isJoinedList, slideTo }) {
   return (
     <>
       <span className="py-5 text-body-l text-neutral-200 font-bold items-center border-b-[3px] border-b-neutral-400">
@@ -14,18 +14,13 @@ export default function TapBar({ currentInteraction, joinedList, slideTo }) {
       </span>
 
       <div className="py-12 flex gap-5 sm:gap-[60px]">
-        {joinedList.map((joined, index) => (
+        {isJoinedList.map((isJoined, index) => (
           <button
             key={index}
             onClick={() => slideTo(index)}
             className="flex flex-col items-center select-none cursor-pointer"
           >
-            <img
-              src="/icons/check-mint.svg"
-              alt="체크"
-              className={`${joined > 0 ? "" : "invisible"}`}
-              draggable="false"
-            />
+            <img src="/icons/check-mint.svg" alt="체크" className={`${!isJoined && "invisible"}`} draggable="false"/>
 
             <span
               className={`text-body-l font-bold transition ease-in-out duration-200 ${currentInteraction === index ? "text-neutral-100" : "text-neutral-500"}`}
@@ -34,9 +29,9 @@ export default function TapBar({ currentInteraction, joinedList, slideTo }) {
             </span>
 
             <span
-              className={`text-body-m font-bold ${joined > 0 ? "text-green-400" : "text-neutral-700"}`}
+              className={`text-body-m font-bold ${isJoined ? "text-green-400" : "text-neutral-700"}`}
             >
-              {joined > 0 ? "참여 완료" : !joined ? "미참여" : ""}
+              {isJoined ? "참여 완료" : "미참여"}
             </span>
           </button>
         ))}

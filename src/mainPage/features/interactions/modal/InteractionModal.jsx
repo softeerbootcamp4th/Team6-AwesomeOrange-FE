@@ -1,14 +1,12 @@
 import { lazy, useContext, useRef, useState } from "react";
 
 import InteractionAnswer from "./InteractionAnswer.jsx";
+import joinEvent from "./joinEvent.js";
 
 import { ModalCloseContext } from "@common/modal/modal.jsx";
-import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import Suspense from "@common/components/Suspense.jsx";
 import Button from "@common/components/Button.jsx";
 import ResetButton from "@main/components/ResetButton.jsx";
-import { EVENT_DRAW_ID } from "@common/constants.js";
-import userStore from "@main/auth/store.js";
 
 const lazyInteractionList = [
   lazy(() => import("../distanceDriven")),
@@ -24,24 +22,12 @@ export default function InteractionModal({ index, answer }) {
   const [isActive, setIsActive] = useState(false);
   const [isAnswerUp, setIsAnswerUp] = useState(false);
   const interactionRef = useRef(null);
-  const isLogin = userStore((state) => state.isLogin);
 
-  if (!InteractionComponent) return <></>;
+  if (!InteractionComponent) return;
 
-  function joinEvent() {
+  function onClickConfirm(){
     setIsAnswerUp(true);
-    if (isLogin) {
-      // 추첨 이벤트 참가 전송. API 주소 추후 바뀔 수 있음
-      fetchServer(`/api/v1/draw/${EVENT_DRAW_ID}`, {
-        method: "POST",
-      })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
+    joinEvent(index);
   }
 
   // backdrop-blur-[100px]을 적용시키면 느린 성능의 컴퓨터에서 인터랙션이 매우 느리게 동작함
@@ -63,7 +49,7 @@ export default function InteractionModal({ index, answer }) {
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
         <Button
-          onClick={joinEvent}
+          onClick={onClickConfirm}
           styleType="filled"
           backdrop="dark"
           disabled={!isActive}
@@ -79,7 +65,6 @@ export default function InteractionModal({ index, answer }) {
         setIsAnswerUp={setIsAnswerUp}
         answer={answer}
         close={close}
-        isLogin={isLogin}
         index={index}
       />
     </div>
