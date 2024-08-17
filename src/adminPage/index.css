@@ -17,8 +17,8 @@
 
 @font-face {
   font-family: "hdsans";
-  src: url("/font/HyundaiSansTextKROTFMedium.otf") format("opentype");
-  font-weight: medium;
+  src: url("/font/HyundaiSansTextKROTFRegular.otf") format("opentype");
+  font-weight: regular;
   font-display: swap;
 }
 
