@@ -20,7 +20,7 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
   const inactiveImgPath = `images/inactive${index + 1}.png`;
   const numberImgPath = `icons/rect${index + 1}.svg`;
   const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
-  const isOpened = currentServerTime >= eventDate;
+  const isOpened = true || currentServerTime >= eventDate;
 
   function onClickExperience() {
     openModal(<InteractionModal index={index} answer={answer} />, "interaction");
