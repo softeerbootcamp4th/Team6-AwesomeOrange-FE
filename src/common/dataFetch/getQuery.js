@@ -19,11 +19,12 @@ function subscribeQuery(key) {
 }
 
 function updateSubscribedQuery(key) {
-  queryGroupMap.get(key).forEach((subKey) => queryMap.delete(subKey));
-  queryGroupMap.deleteKey(key);
+  if(queryGroupMap.has(key)) {
+    queryGroupMap.get(key).forEach((subKey) => queryMap.delete(subKey));
+    queryGroupMap.deleteKey(key);
+  }
 
-  if (!queryObservers.has(key)) return;
-  queryObservers.get(key).forEach((callback) => callback());
+  if (queryObservers.has(key)) queryObservers.get(key).forEach((callback) => callback());
 }
 
 function isSame(arr1, arr2) {

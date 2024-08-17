@@ -1,24 +1,52 @@
 import { useReducer, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { eventEditReducer, setDefaultState } from "./businessLogic/reducer.js";
 import { EventEditContext, EventEditDispatchContext, EventEditModeContext } from "./businessLogic/context.js";
 
 import EventBaseDataInput from "./EventBaseDataInput.jsx";
 import EventDetailInput from "./EventDetailInput.jsx";
 import Button from "@common/components/Button.jsx";
+import openModal from "@common/modal/openModal.js";
+import AlertModal from "@admin/modals/AlertModal.jsx";
+
+import { useMutation } from "@common/dataFetch/getQuery.js";
+import { fetchServer, handleError } from "@common/dataFetch/fetchServer.js";
+
+const submitErrorHandler = {
+  400: "잘못된 입력으로 이벤트 등록에 실패했습니다.",
+  401: "인증되지 않은 사용자입니다."
+}
 
 function EventEditor({ initialData = null } = {}) {
+  const navigate = useNavigate();
   const mode = useContext(EventEditModeContext);
   const [state, dispatch] = useReducer(
     eventEditReducer,
     initialData,
     setDefaultState,
   );
+  const submitMutate = useMutation( mode === "create" ? "admin-event-created" : `admin-event-detail@${state.eventId}`, 
+    ()=>fetchServer(mode === "create" ? "/api/v1/admin/events" : "/api/v1/admin/events/edit", {
+      method: "post",
+      body: state
+    }).catch(handleError(submitErrorHandler)),
+    {
+      onSuccess: ()=>{
+        openModal( <AlertModal title="등록 완료" description={`이벤트가 성공적으로 ${mode === "create" ? "등록" : "수정"}되었습니다!`} /> );
+        navigate("/events");
+      },
+      onError: (e)=>{
+        openModal( <AlertModal title="등록 실패" description={e.message} /> );
+      }
+    }
+  );
 
   const submitDisabled = (state.eventType === "fcfs" && state.fcfs.size === 0) || (state.eventType === "draw" && state.draw.policies.size === 0);
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log(JSON.stringify(state, null, 4));
+    if(submitDisabled) return;
+    submitMutate();
   }
 
   return (
