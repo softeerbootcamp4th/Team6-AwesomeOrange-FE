@@ -58,7 +58,6 @@ export default function InteractionPage() {
               interactionDesc={interactionDesc}
               index={index}
               isCurrent={currentInteraction === index}
-              isJoined={isJoinedList[index]}
               slideTo={slideTo}
               answer={JSONData.answer[index]}
             />

@@ -14,14 +14,7 @@ function getEventDateString(eventDate) {
   return `${padNumber(month)}월 ${padNumber(date)}일(${day[fullDate.getDay()]})`;
 }
 
-export default function InteractionSlide({
-  interactionDesc,
-  index,
-  isCurrent,
-  isJoined,
-  slideTo,
-  answer,
-}) {
+export default function InteractionSlide({ interactionDesc, index, isCurrent, slideTo, answer }) {
   const currentServerTime = useEventStore((state) => state.currentServerTime);
   const activeImgPath = `images/active${index + 1}.png`;
   const inactiveImgPath = `images/inactive${index + 1}.png`;
@@ -30,8 +23,6 @@ export default function InteractionSlide({
   const isOpened = currentServerTime >= eventDate;
 
   function onClickExperience() {
-    if (isJoined < 0) return;
-
     openModal(<InteractionModal index={index} answer={answer} />, "interaction");
   }
 
