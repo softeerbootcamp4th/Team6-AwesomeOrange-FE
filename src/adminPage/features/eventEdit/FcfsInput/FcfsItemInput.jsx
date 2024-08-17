@@ -3,6 +3,7 @@ import { EventEditDispatchContext } from "../businessLogic/context.js";
 import { Input } from "@admin/components/SmallInput.jsx";
 import DateInput from "@admin/components/DateInput.jsx";
 import { formatDate, padNumber } from "@common/utils.js";
+import fcfsInputGridStyle from "./tableStyle.js";
 
 const MINUTE = 60;
 
@@ -29,7 +30,7 @@ function FcfsItemInput({uniqueKey, date, start, end, participantCount, prizeInfo
 		dispatch({type: "modify_fcfs_item", key: uniqueKey, value});
 	}
 
-	return <div className="grid grid-cols-[1fr_2fr_2fr_60px_3fr] h-10 gap-4 justify-center items-center text-body-m">
+	return <div className={`${fcfsInputGridStyle} h-10 text-body-m`}>
 		{
 			enableDateEdit ? <div className="text-center">{formatDate(date, "M/DD")}</div> : 
 			<DateInput date={date} setDate={ (date)=>dispatch({type: "modify_fcfs_item", key: uniqueKey, value: {date}}) } size="4"/>
