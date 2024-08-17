@@ -17,6 +17,9 @@ class DrawPolicyData {
     } else if (rawData instanceof Map) this.map = new Map(rawData);
     else this.map = new Map();
   }
+  get size() {
+    return this.map.size;
+  }
   add(data) {
     const newData = new DrawPolicyData(this.map);
     newData.map.set(`user_created_${makeUUID()}`, data);

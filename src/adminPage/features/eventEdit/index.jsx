@@ -14,7 +14,7 @@ function EventEditor({ initialData = null } = {}) {
     setDefaultState,
   );
 
-  const submitDisabled = (state.eventType === "fcfs" && state.fcfs.size === 0);
+  const submitDisabled = (state.eventType === "fcfs" && state.fcfs.size === 0) || (state.eventType === "draw" && state.draw.policies.size === 0);
 
   function onSubmit(e) {
     e.preventDefault();

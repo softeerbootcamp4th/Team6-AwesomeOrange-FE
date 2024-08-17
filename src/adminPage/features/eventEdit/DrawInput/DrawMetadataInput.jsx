@@ -9,12 +9,12 @@ function DrawMetadataInput()
 
 	return <div className="flex flex-col gap-4">
 		<div className="flex justify-left items-center gap-2 h-10 text-body-l">
-			<span className="font-bold">인원 수 : </span>
+			<span className="font-bold">등수<sup className="text-red-500">*</sup> : </span>
 			<select className="w-24 h-full text-body-l font-medium" 
 				value={metadata.value} 
 				onChange={(e)=>dispatch({type: "modify_draw_total_grade", value: +(e.target.value)})}>
 				{
-					Array.from({length: 10}, (_,i)=><option value={i+1} key={`select-grades-${i}`}>{i+1}명</option>)
+					Array.from({length: 10}, (_,i)=><option value={i+1} key={`select-grades-${i}`}>{i+1}</option>)
 				}
 			</select>
 		</div>

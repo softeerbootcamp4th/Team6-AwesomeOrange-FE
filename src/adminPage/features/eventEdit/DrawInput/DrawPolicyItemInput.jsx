@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import {EventEditDispatchContext} from "../businessLogic/context.js";
 import { Input } from "@admin/components/SmallInput.jsx";
+import DeleteButton from "@admin/components/DeleteButton";
 
 const POLICY_ENUM = [
 	["WriteComment", "기대평 작성"],
@@ -28,7 +29,7 @@ function DrawPolicyItemInput({action, score, uniqueKey})
 			setText={ (value)=>modify({score: (Number.isNaN(+value) ? 0 : +value)}) } 
 			inputMode="numeric" pattern="[0-9]+" size="6" placeholder="점수 배율"
 		/>
-		<div>X</div>
+		<DeleteButton onClick={()=>dispatch({type:"delete_draw_policy", key: uniqueKey})}/>
 	</>
 }
 
