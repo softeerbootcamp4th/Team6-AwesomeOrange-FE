@@ -1,3 +1,5 @@
+import { DAY_MILLISEC } from "./constants";
+
 export function clamp(target, min, max) {
   if (target < min) return min;
   if (target > max) return max;
@@ -107,8 +109,7 @@ export function getDayDifference(_date1, _date2) {
     date2.getDate(),
   );
 
-  const timeDifference = date2WithoutTime - date1WithoutTime;
-  const dayDifference = timeDifference / (1000 * HOURS * MINUTES * SECONDS);
+  const dayDifference = (date2WithoutTime - date1WithoutTime) / DAY_MILLISEC;
 
   return dayDifference;
 }

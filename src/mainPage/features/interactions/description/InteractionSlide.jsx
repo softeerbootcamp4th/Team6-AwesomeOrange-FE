@@ -1,13 +1,12 @@
 import InteractionModal from "../modal/InteractionModal";
 import openModal from "@common/modal/openModal.js";
 import { padNumber } from "@common/utils.js";
-import { EVENT_START_DATE } from "@common/constants";
+import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants";
+import useEventStore from "@main/realtimeEvent/store.js";
 
-function getEventDate(index) {
+function getEventDateString(eventDate) {
   const day = ["일", "월", "화", "수", "목", "금", "토"];
-  const fullDate = new Date(
-    EVENT_START_DATE.getTime() + index * 24 * 60 * 60 * 1000,
-  );
+  const fullDate = new Date(eventDate);
 
   const month = fullDate.getMonth() + 1;
   const date = fullDate.getDate();
@@ -15,25 +14,16 @@ function getEventDate(index) {
   return `${padNumber(month)}월 ${padNumber(date)}일(${day[fullDate.getDay()]})`;
 }
 
-export default function InteractionSlide({
-  interactionDesc,
-  index,
-  isCurrent,
-  joined,
-  slideTo,
-  answer,
-}) {
+export default function InteractionSlide({ interactionDesc, index, isCurrent, slideTo, answer }) {
+  const currentServerTime = useEventStore((state) => state.currentServerTime);
   const activeImgPath = `images/active${index + 1}.png`;
   const inactiveImgPath = `images/inactive${index + 1}.png`;
   const numberImgPath = `icons/rect${index + 1}.svg`;
+  const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
+  const isOpened = currentServerTime >= eventDate;
 
   function onClickExperience() {
-    if (joined < 0) return;
-
-    openModal(
-      <InteractionModal index={index} answer={answer} />,
-      "interaction",
-    );
+    openModal(<InteractionModal index={index} answer={answer} />, "interaction");
   }
 
   return (
@@ -42,7 +32,7 @@ export default function InteractionSlide({
       className="w-full h-full flex flex-col justify-center items-center select-none"
     >
       <span className="sm:pt-10 text-body-m sm:text-body-l text-white font-bold">
-        {getEventDate(index)}
+        {getEventDateString(eventDate)}
       </span>
 
       <div className="pt-5 flex items-center">
@@ -57,17 +47,13 @@ export default function InteractionSlide({
 
       <button
         onClick={onClickExperience}
-        disabled={!isCurrent || joined < 0}
-        className={`mt-8 py-1 sm:py-4 px-5 sm:px-10 bg-white ${joined < 0 ? "hidden" : isCurrent ? "opacity-100" : "opacity-50"}`}
+        disabled={!isCurrent}
+        className={`mt-8 py-1 sm:py-4 px-5 sm:px-10 bg-white ${!isOpened ? "hidden" : isCurrent ? "opacity-100" : "opacity-50"}`}
       >
-        <span className="text-detail-l sm:text-body-s text-black font-bold">
-          인터랙션 체험하기
-        </span>
+        <span className="text-detail-l sm:text-body-s text-black font-bold">인터랙션 체험하기</span>
       </button>
 
-      <span
-        className={`pt-5 text-title-m text-neutral-200 ${joined < 0 ? "" : "hidden"}`}
-      >
+      <span className={`pt-5 text-title-m text-neutral-200 ${isOpened && "hidden"}`}>
         오픈 예정
       </span>
 
