@@ -7,26 +7,19 @@ import openModal from "@common/modal/openModal.js";
 import Button from "@common/components/Button.jsx";
 import { fetchServer } from "@common/dataFetch/fetchServer";
 import userStore from "@main/auth/store.js";
-import { EVENT_START_DATE } from "@common/constants.js";
+import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants.js";
 import useEventStore from "@main/realtimeEvent/store.js";
 import getEventDateState from "@main/realtimeEvent/getEventDateState";
 
 import style from "./InteractionAnswer.module.css";
 import joinEvent from "./joinEvent";
 
-export default function InteractionAnswer({
-  isAnswerUp,
-  setIsAnswerUp,
-  answer,
-  close,
-  index,
-}) {
+export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, close, index }) {
   const isLogin = userStore((state) => state.isLogin);
   const currentServerTime = useEventStore((state) => state.currentServerTime);
-  const eventDate = EVENT_START_DATE.getTime() + index * 24 * 60 * 60 * 1000;
+  const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
   const [isAniPlaying, setIsAniPlaying] = useState(false);
-  const isEventToday =
-    getEventDateState(currentServerTime, eventDate) === "active";
+  const isEventToday = getEventDateState(currentServerTime, eventDate) === "active";
   const authModal = <AuthModal onComplete={() => joinEvent(index)} />;
 
   async function onClickWrite() {
@@ -77,13 +70,9 @@ export default function InteractionAnswer({
         </span>
 
         <div className="flex flex-col gap-4">
-          <span className="text-body-l xl:text-title-s text-neutral-50">
-            {answer.desc}
-          </span>
+          <span className="text-body-l xl:text-title-s text-neutral-50">{answer.desc}</span>
 
-          <span className="text-detail-l xl:text-body-s text-neutral-300">
-            {answer.subdesc}
-          </span>
+          <span className="text-detail-l xl:text-body-s text-neutral-300">{answer.subdesc}</span>
         </div>
       </div>
 
@@ -91,15 +80,11 @@ export default function InteractionAnswer({
         {isLogin || !isEventToday ? (
           <>
             <span className="text-body-m text-green-400 font-bold">
-              {isEventToday
-                ? "오늘 응모가 완료되었습니다!"
-                : "응모 기간이 지났습니다!"}
+              {isEventToday ? "오늘 응모가 완료되었습니다!" : "응모 기간이 지났습니다!"}
             </span>
 
             <div className="flex gap-4 items-end">
-              <div
-                className={`${isEventToday ? "flex" : "hidden"} flex-col gap-2}`}
-              >
+              <div className={`${isEventToday ? "flex" : "hidden"} flex-col gap-2}`}>
                 <div className="flex relative flex-col items-center animate-bounce">
                   <span className=" bg-green-400 text-nowrap text-body-s xl:text-body-m text-neutral-800 rounded-full px-4 xl:px-8 py-1 xl:py-2 font-bold">
                     당첨확률 UP!
