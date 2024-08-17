@@ -2,7 +2,7 @@ import { Input } from "../SmallInput.jsx";
 import { formatDate } from "@common/utils.js";
 import style from "./style.module.css"
 
-export default function DateTextInput({ date, setDate, isError, className, ...otherProps }) {
+export default function DateTextInput({ date, setDate, ...otherProps }) {
   const text = date === null ? "" : formatDate(date, "YYYY-MM-DD");
   const visibleText = date === null ? "-/--" : formatDate(date, "M/DD");
   function onChange(e)

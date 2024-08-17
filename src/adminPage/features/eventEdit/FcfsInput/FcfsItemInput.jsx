@@ -33,7 +33,7 @@ function FcfsItemInput({uniqueKey, date, start, end, participantCount, prizeInfo
 	return <div className={`${fcfsInputGridStyle} h-10 text-body-m`}>
 		{
 			enableDateEdit ? <div className="text-center">{formatDate(date, "M/DD")}</div> : 
-			<DateInput date={date} setDate={ (date)=>dispatch({type: "modify_fcfs_item", key: uniqueKey, value: {date}}) } size="4"/>
+			<DateInput date={date} setDate={ (date)=>dispatch({type: "modify_fcfs_item", key: uniqueKey, value: {date}}) } required size="4"/>
 		}
 		<Input type="time" required text={minuteIntToString(start)} setText={value=>modify({start: strToMinutes(value)}) } step="300" size="12"/>
 		<Input type="time" required text={minuteIntToString(end)} setText={value=>modify({end: strToMinutes(value)}) } step="300" size="12"/>
