@@ -96,6 +96,44 @@ export class GroupMap {
   }
 }
 
+export class KVMap {
+  constructor() {
+    this.keyToValue = new Map();
+    this.valueToKey = new Map();
+  }
+  set(key, value) {
+    this.deleteWithKey(key);
+    this.deleteWithValue(value);
+    this.keyToValue.set(key, value);
+    this.valueToKey.set(value, key);
+  }
+  getWithKey(key) {
+    return this.keyToValue.get(key);
+  }
+  getWithValue(value) {
+    return this.valueToKey.get(value);
+  }
+  hasKey(key) {
+    return this.keyToValue.has(key);
+  }
+  hasValue(value) {
+    return this.valueToKey.has(value);
+  }
+  deleteWithKey(key) {
+    const value = this.keyToValue.get(key);
+    this.keyToValue.delete(key);
+    this.valueToKey.delete(value);
+  }
+  deleteWithValue(value) {
+    const key = this.valueToKey.get(value);
+    this.keyToValue.delete(key);
+    this.valueToKey.delete(value);
+  }
+  *[Symbol.iterator] () {
+    yield* this.keyToValue;
+  }
+}
+
 export function getDayDifference(_date1, _date2) {
   const date1 = new Date(_date1);
   const date2 = new Date(_date2);
