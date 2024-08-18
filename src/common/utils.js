@@ -89,6 +89,11 @@ export class GroupMap {
   deleteKey(key) {
     this.map.delete(key);
   }
+  *[Symbol.iterator] () {
+    for(let [key, subset] of this.map) {
+      yield [key, [...subset]];
+    }
+  }
 }
 
 export function getDayDifference(_date1, _date2) {
