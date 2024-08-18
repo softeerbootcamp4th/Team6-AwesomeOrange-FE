@@ -1,10 +1,12 @@
+import tableStyle from "./tableStyle.js";
+import DrawButton from "./draw/DrawButton.jsx";
+import Suspense from "@common/components/Suspense.jsx";
+import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
 import { formatDate } from "@common/utils.js";
 
 function EventBaseDataRenderer( { name, eventId, eventFrameId, startTime, endTime, description, url, eventType } ) {
-  const columnsStyle = "grid grid-cols-[6rem_1fr] items-center gap-2";
-
   return (
-    <div className="grid grid-cols-[6rem_1fr] auto-rows-[minmax(2rem,auto)] items-center gap-2">
+    <div className={tableStyle}>
       <p className="text-center font-bold">
         이벤트 명
       </p>
@@ -26,9 +28,14 @@ function EventBaseDataRenderer( { name, eventId, eventFrameId, startTime, endTim
       <p className="text-center font-bold">이벤트 URL</p>
       <p><a href={url} className="text-blue-800 hover:underline active:underline">{url}</a></p>
       <p className="text-center font-bold">이벤트 종류</p>
-      <p className="font-medium">
-        {eventType === "fcfs" ? "선착순" : "추첨"}
-      </p>
+      <div className="flex flex-wrap justify-between items-center">
+        <p className="font-medium">{eventType === "fcfs" ? "선착순" : "추첨"}</p>
+        {eventType === "draw" && <ErrorBoundary fallback={null}>
+          <Suspense fallback={null}>
+            <DrawButton />
+          </Suspense>
+        </ErrorBoundary>}
+      </div>
     </div>
   );
 }
