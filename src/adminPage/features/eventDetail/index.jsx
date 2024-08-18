@@ -1,6 +1,8 @@
+import EventBaseDataRenderer from "./EventBaseDataRenderer.jsx";
+
 function EventDetail({ data }) {
   return <article>
-    이벤트 디테일 페이지임.
+    <EventBaseDataRenderer {...data}/>
   </article>
 }
 
