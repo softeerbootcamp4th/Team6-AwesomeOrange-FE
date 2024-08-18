@@ -57,7 +57,7 @@ function getEventsDetailMock() {
               prizeInfo: "자동차 세트",
             },
             {
-              id: 0,
+              id: 1,
               grade: 2,
               count: 100,
               prizeInfo: "미니 선풍기",
