@@ -9,6 +9,7 @@ import {
 
 import EventBaseDataInput from "./EventBaseDataInput.jsx";
 import EventDetailInput from "./EventDetailInput.jsx";
+import TitleContainer from "@admin/components/TitleContainer.jsx";
 import Button from "@common/components/Button.jsx";
 import openModal from "@common/modal/openModal.js";
 import AlertModal from "@admin/modals/AlertModal.jsx";
@@ -133,7 +134,7 @@ function EventEditor({ initialData = null } = {}) {
 
   return (
     <form className="flex flex-col gap-8 group relative" onSubmit={onSubmit}>
-      <div className="flex w-full justify-between sticky top-4 bg-white z-20 after:w-full after:h-5 after:-top-4 after:-z-10 after:absolute after:bg-white">
+      <TitleContainer>
         <div>
           <h2 className="text-title-m font-bold">
             {mode === "edit" ? "이벤트 수정" : "이벤트 등록"}
@@ -149,7 +150,7 @@ function EventEditor({ initialData = null } = {}) {
             등록
           </Button>
         </div>
-      </div>
+      </TitleContainer>
       <div className="w-full flex flex-col gap-3">
         <EventEditContext.Provider value={state}>
           <EventEditDispatchContext.Provider value={dispatch}>
