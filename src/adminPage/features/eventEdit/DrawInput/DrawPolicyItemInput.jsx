@@ -2,11 +2,9 @@ import { useContext } from "react";
 import { EventEditDispatchContext } from "../businessLogic/context.js";
 import { Input } from "@admin/components/SmallInput.jsx";
 import DeleteButton from "@admin/components/DeleteButton";
+import { POLICY_ENUM } from "@admin/constants.js";
 
-const POLICY_ENUM = [
-  ["WriteComment", "기대평 작성"],
-  ["ParticipateEvent", "이벤트 참여"],
-];
+const POLICY_ENTRIES = Object.entries(POLICY_ENUM);
 
 function DrawPolicyItemInput({ action, score, uniqueKey }) {
   const dispatch = useContext(EventEditDispatchContext);
@@ -21,7 +19,7 @@ function DrawPolicyItemInput({ action, score, uniqueKey }) {
         onChange={(e) => modify({ action: e.target.value })}
       >
         <option value="">-정책을 설정하세요-</option>
-        {POLICY_ENUM.map(([key, text]) => (
+        {POLICY_ENTRIES.map(([key, text]) => (
           <option value={key} key={key}>
             {text}
           </option>
