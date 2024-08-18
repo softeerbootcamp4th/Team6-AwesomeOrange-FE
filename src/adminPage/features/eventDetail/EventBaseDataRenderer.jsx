@@ -1,4 +1,5 @@
 import tableStyle from "./tableStyle.js";
+import EventStatus from "@admin/serverTime/EventStatus.js";
 import DrawButtonHolder from "./drawButton/DrawButtonHolder.jsx";
 import Suspense from "@common/components/Suspense.jsx";
 import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
@@ -24,7 +25,10 @@ function EventBaseDataRenderer({
       <p>{eventFrameId}</p>
       <p className="text-center font-bold">이벤트 기간</p>
       <div>
-        {formatDate(startTime, "YYYY-MM-DD hh:mm")} ~ {formatDate(endTime, "YYYY-MM-DD hh:mm")}
+        {formatDate(startTime, "YYYY-MM-DD hh:mm")} ~ {formatDate(endTime, "YYYY-MM-DD hh:mm")}{" "}
+        (<span className="font-medium">
+          <EventStatus startTime={startTime} endTime={endTime} />
+        </span>)
       </div>
       <p className="text-center font-bold self-start h-8 flex justify-center items-center">
         이벤트 요약
@@ -42,7 +46,7 @@ function EventBaseDataRenderer({
         {eventType === "draw" && (
           <ErrorBoundary fallback={"error"}>
             <Suspense fallback={"suspense"}>
-              <DrawButtonHolder endTime={new Date(endTime)} />
+              <DrawButtonHolder endTime={endTime} />
             </Suspense>
           </ErrorBoundary>
         )}

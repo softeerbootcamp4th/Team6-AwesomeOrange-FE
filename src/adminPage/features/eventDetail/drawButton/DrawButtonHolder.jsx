@@ -5,7 +5,7 @@ function DrawButtonHolder({ endTime }) {
   const getServerTime = useServerTimeStore((store) => store.getData);
   const serverTime = getServerTime();
 
-  if (endTime < serverTime) return <DrawButton />;
+  if (new Date(endTime) < serverTime) return <DrawButton />;
   return null;
 }
 
