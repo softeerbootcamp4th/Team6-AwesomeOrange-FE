@@ -77,13 +77,18 @@ const handlers = [
     const page = +url.searchParams.get("page") ?? 1;
     const size = +url.searchParams.get("size") ?? 5;
 
-    const result = dummyData
+    const contents = dummyData
       .filter(({ name }) => (search === null ? true : name.includes(search)))
       .filter(filterData(filter))
       .sort(sortData(sort))
       .slice((page - 1) * size, page * size);
 
-    return HttpResponse.json(result);
+    return HttpResponse.json({
+      contents,
+      totalPages: Math.ceil(dummyData.length / size),
+      number: page,
+      size
+    });
   }),
   http.delete("/api/v1/admin/events", async ({ request }) => {
     const { eventIds } = await request.json();
