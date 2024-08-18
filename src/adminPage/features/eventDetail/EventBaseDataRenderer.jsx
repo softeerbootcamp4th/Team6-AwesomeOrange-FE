@@ -1,5 +1,5 @@
 import tableStyle from "./tableStyle.js";
-import DrawButton from "./draw/DrawButton.jsx";
+import DrawButtonHolder from "./drawButton/DrawButtonHolder.jsx";
 import Suspense from "@common/components/Suspense.jsx";
 import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
 import { formatDate } from "@common/utils.js";
@@ -30,9 +30,9 @@ function EventBaseDataRenderer( { name, eventId, eventFrameId, startTime, endTim
       <p className="text-center font-bold">이벤트 종류</p>
       <div className="flex flex-wrap justify-between items-center">
         <p className="font-medium">{eventType === "fcfs" ? "선착순" : "추첨"}</p>
-        {eventType === "draw" && <ErrorBoundary fallback={null}>
-          <Suspense fallback={null}>
-            <DrawButton />
+        {eventType === "draw" && <ErrorBoundary fallback={"error"}>
+          <Suspense fallback={"suspense"}>
+            <DrawButtonHolder endTime={new Date(endTime)}/>
           </Suspense>
         </ErrorBoundary>}
       </div>

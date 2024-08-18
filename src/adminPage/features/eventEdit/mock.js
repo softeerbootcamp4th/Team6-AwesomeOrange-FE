@@ -5,10 +5,10 @@ function getEventsDetailMock() {
   return new Map(
     Array.from({ length: 100 }, (_, i) => {
       const startTime = new Date(
-        Date.now() - 86400 * 30 * 1000 + Math.floor(Math.random() * 86400 * 60 * 1000),
+        Date.now() - 86400 * 120 * 1000 + Math.floor(Math.random() * 86400 * 60 * 1000),
       );
       const endTime = new Date(
-        startTime.getTime() + Math.floor(Math.random() * 86400 * 120) * 1000,
+        startTime.getTime() + Math.floor(Math.random() * 86400 * 10) * 1000,
       );
       const eventType = Math.random() > 0.5 ? "fcfs" : "draw";
       const eventId = `HD_240808_${i.toString().padStart(3, "0")}`;
