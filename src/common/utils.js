@@ -89,8 +89,8 @@ export class GroupMap {
   deleteKey(key) {
     this.map.delete(key);
   }
-  *[Symbol.iterator] () {
-    for(let [key, subset] of this.map) {
+  *[Symbol.iterator]() {
+    for (let [key, subset] of this.map) {
       yield [key, [...subset]];
     }
   }
@@ -129,7 +129,7 @@ export class KVMap {
     this.keyToValue.delete(key);
     this.valueToKey.delete(value);
   }
-  *[Symbol.iterator] () {
+  *[Symbol.iterator]() {
     yield* this.keyToValue;
   }
 }

@@ -3,17 +3,18 @@ import getRandomString from "@common/mock/getRandomString.js";
 
 let result = [];
 
-function makeDrawComplete()
-{
+function makeDrawComplete() {
   const newResult = [];
-  for(let i=0; i<10; i++)
-  {
-    for(let j=0; j<5*(1+i);j++)
-    {
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 5 * (1 + i); j++) {
       newResult.push({
-        ranking: i+1,
+        ranking: i + 1,
         name: getRandomString(4),
-        phoneNumber: "010"+Math.floor(Math.random()*99999999).toString().padStart(8,"0")
+        phoneNumber:
+          "010" +
+          Math.floor(Math.random() * 99999999)
+            .toString()
+            .padStart(8, "0"),
       });
     }
   }
