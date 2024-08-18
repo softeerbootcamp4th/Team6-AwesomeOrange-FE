@@ -25,10 +25,11 @@ function EventBaseDataRenderer({
       <p>{eventFrameId}</p>
       <p className="text-center font-bold">이벤트 기간</p>
       <div>
-        {formatDate(startTime, "YYYY-MM-DD hh:mm")} ~ {formatDate(endTime, "YYYY-MM-DD hh:mm")}{" "}
-        (<span className="font-medium">
+        {formatDate(startTime, "YYYY-MM-DD hh:mm")} ~ {formatDate(endTime, "YYYY-MM-DD hh:mm")} (
+        <span className="font-medium">
           <EventStatus startTime={startTime} endTime={endTime} />
-        </span>)
+        </span>
+        )
       </div>
       <p className="text-center font-bold self-start h-8 flex justify-center items-center">
         이벤트 요약

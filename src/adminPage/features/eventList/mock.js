@@ -88,7 +88,7 @@ const handlers = [
       contents,
       totalPages: Math.ceil(filteredData.length / size),
       number: page,
-      size
+      size,
     });
   }),
   http.delete("/api/v1/admin/events", async ({ request }) => {

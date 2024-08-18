@@ -6,7 +6,7 @@ import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 
 function SearchResult({ query, queryState, queryDispatch, checkState, checkDispatch }) {
-  const {contents, totalPages} = useQuery(`admin-event-list@${query}`, () => fetchServer(query), {
+  const { contents, totalPages } = useQuery(`admin-event-list@${query}`, () => fetchServer(query), {
     deferred: true,
   });
 
