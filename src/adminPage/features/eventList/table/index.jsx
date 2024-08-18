@@ -6,13 +6,12 @@ import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 
 function SearchResult({ query, queryState, queryDispatch, checkState, checkDispatch }) {
-  const dataList = useQuery(`admin-event-list@${query}`, () => fetchServer(query), {
+  const {contents, totalPages} = useQuery(`admin-event-list@${query}`, () => fetchServer(query), {
     deferred: true,
   });
-  const page = 10;
 
   const checkSelect = () => {
-    const keys = dataList.map(({ eventId }) => eventId);
+    const keys = contents.map(({ eventId }) => eventId);
     checkDispatch({ type: "toggle_keys", keys });
   };
 
@@ -20,7 +19,7 @@ function SearchResult({ query, queryState, queryDispatch, checkState, checkDispa
     <>
       <TableHeader state={queryState.sort} dispatch={queryDispatch} checkSelect={checkSelect} />
       <SearchResultBody
-        data={dataList}
+        data={contents}
         checkState={checkState}
         setCheck={(key) => {
           return (value) => checkDispatch({ type: "check_key", key, value });
@@ -30,7 +29,7 @@ function SearchResult({ query, queryState, queryDispatch, checkState, checkDispa
         <Pagination
           currentPage={queryState.page}
           setPage={(value) => queryDispatch({ type: "set_page", value })}
-          maxPage={page}
+          maxPage={totalPages}
         />
       </div>
     </>

@@ -77,15 +77,16 @@ const handlers = [
     const page = +url.searchParams.get("page") ?? 1;
     const size = +url.searchParams.get("size") ?? 5;
 
-    const contents = dummyData
+    const filteredData = dummyData
       .filter(({ name }) => (search === null ? true : name.includes(search)))
       .filter(filterData(filter))
-      .sort(sortData(sort))
-      .slice((page - 1) * size, page * size);
+      .sort(sortData(sort));
+
+    const contents = filteredData.slice((page - 1) * size, page * size);
 
     return HttpResponse.json({
       contents,
-      totalPages: Math.ceil(dummyData.length / size),
+      totalPages: Math.ceil(filteredData.length / size),
       number: page,
       size
     });
