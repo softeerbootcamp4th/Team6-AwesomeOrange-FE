@@ -27,10 +27,10 @@ function DrawMetadataInput() {
         </select>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-[3rem_6rem_1fr] gap-4 font-bold items-center">
-          <div className="text-center">등수</div>
-          <div className="text-center">인원 수</div>
-          <div className="text-center">경품</div>
+        <div className="grid grid-cols-[3rem_6rem_1fr] gap-4 font-bold items-center justify-items-center">
+          <div>등수</div>
+          <div>인원 수</div>
+          <div>경품</div>
         </div>
         <div className="grid grid-cols-[3rem_6rem_1fr] gap-4 gap-y-2 font-regular items-center">
           {[...metadata].map((data) => (

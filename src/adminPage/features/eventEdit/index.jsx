@@ -144,8 +144,8 @@ function EventEditor({ initialData = null } = {}) {
           </p>
         </div>
         <div className="flex gap-4">
-          <Button onClick={() => openModal(tempLoadConfirmModal)}>임시저장 불러오기</Button>
-          <Button onClick={() => openModal(tempSaveConfirmModal)}>임시저장</Button>
+          <Button styleType="ghost" onClick={() => openModal(tempLoadConfirmModal)}>임시저장 불러오기</Button>
+          <Button styleType="ghost" onClick={() => openModal(tempSaveConfirmModal)}>임시저장</Button>
           <Button type="submit" disabled={submitDisabled}>
             등록
           </Button>

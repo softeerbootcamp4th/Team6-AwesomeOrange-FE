@@ -11,7 +11,7 @@ function DrawPolicyInput() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-[3fr_1fr_3rem] gap-4 items-center font-bold">
+      <div className="grid grid-cols-[3fr_1fr_3rem] gap-4 items-center justify-items-center font-bold">
         <div className="text-center">액션</div>
         <div className="text-center">배율</div>
         <div className="text-center">삭제</div>
