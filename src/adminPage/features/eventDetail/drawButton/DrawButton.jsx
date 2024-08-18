@@ -37,8 +37,8 @@ function DrawButton()
 		}
 	);
 
-	if(drawResultData.length === 0) return <Button onClick={mutate}>추첨하기</Button>
-	return <Button onClick={()=>openModal(resultModal)}>결과 보기</Button>
+	if(drawResultData.length === 0) return <Button className="w-32 h-8 px-4 py-1" onClick={mutate}>추첨하기</Button>
+	return <Button className="w-32 h-8 px-4 py-1" onClick={()=>openModal(resultModal)}>결과 보기</Button>
 }
 
 export default DrawButton;
