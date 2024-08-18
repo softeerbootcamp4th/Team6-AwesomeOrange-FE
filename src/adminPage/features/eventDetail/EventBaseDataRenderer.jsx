@@ -1,6 +1,6 @@
 import { formatDate } from "@common/utils.js";
 
-function EventBaseDataRenderer( { name, eventId, eventFrameId, startTime, endTime, description, url } ) {
+function EventBaseDataRenderer( { name, eventId, eventFrameId, startTime, endTime, description, url, eventType } ) {
   const columnsStyle = "grid grid-cols-[6rem_1fr] items-center gap-2";
 
   return (
@@ -24,7 +24,11 @@ function EventBaseDataRenderer( { name, eventId, eventFrameId, startTime, endTim
         {description}
       </div>
       <p className="text-center font-bold">이벤트 URL</p>
-      <a href={url} className="text-blue-800 hover:underline active:underline">{url}</a>
+      <p><a href={url} className="text-blue-800 hover:underline active:underline">{url}</a></p>
+      <p className="text-center font-bold">이벤트 종류</p>
+      <p className="font-medium">
+        {eventType === "fcfs" ? "선착순" : "추첨"}
+      </p>
     </div>
   );
 }

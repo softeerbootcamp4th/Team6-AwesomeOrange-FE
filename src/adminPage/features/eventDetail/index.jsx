@@ -1,5 +1,7 @@
 import {Link} from "react-router-dom";
 import EventBaseDataRenderer from "./EventBaseDataRenderer.jsx";
+import EventFcfsDataRenderer from "./fcfs";
+import EventDrawDataRenderer from "./draw";
 import TitleContainer from "@admin/components/TitleContainer.jsx";
 import Button from "@common/components/Button.jsx";
 
@@ -10,6 +12,8 @@ function EventDetail({ data }) {
       <Link to="./edit"><Button>편집</Button></Link>
     </TitleContainer>
     <EventBaseDataRenderer {...data}/>
+    { data.eventType === "fcfs" && <EventFcfsDataRenderer data={data.fcfs} /> }
+    { data.eventType === "draw" && <EventDrawDataRenderer data={data.draw} /> }
   </article>
 }
 
