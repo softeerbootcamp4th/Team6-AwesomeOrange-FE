@@ -1,8 +1,9 @@
-import useDrawEventStore from "@main/drawEvent/store.js";
+import useDrawEvent from "@main/drawEvent/store.js";
 
 export default function TapBar({ currentInteraction, slideTo }) {
-  const isJoinedList = useDrawEventStore( store=>store.joinStatus );
-  const getOpenStatus = useDrawEventStore( store=>store.getOpenStatus );
+  const isJoinedList = useDrawEvent( store=>store.joinStatus );
+  const getOpenStatus = useDrawEvent( store=>store.getOpenStatus );
+  const fallbackMode = useDrawEvent( store=>store.fallbackMode );
 
   return (
     <>
@@ -28,7 +29,7 @@ export default function TapBar({ currentInteraction, slideTo }) {
             <img
               src="/icons/check-mint.svg"
               alt="체크"
-              className={`${(!isJoined || !getOpenStatus(index)) && "invisible"}`}
+              className={`${(!isJoined && (!getOpenStatus(index) || fallbackMode) ) && "invisible"}`}
               draggable="false"
             />
 
@@ -41,7 +42,7 @@ export default function TapBar({ currentInteraction, slideTo }) {
             <span
               className={`text-body-m font-bold ${isJoined ? "text-green-400" : "text-neutral-700"}`}
             >
-              {getOpenStatus(index) ? (isJoined ? "참여 완료" : "미참여") : ""}
+              {getOpenStatus(index) && !fallbackMode ? (isJoined ? "참여 완료" : "미참여") : ""}
             </span>
           </button>
         ))}

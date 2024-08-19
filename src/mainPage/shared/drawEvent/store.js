@@ -20,7 +20,7 @@ const drawEventStore = create((set, get) => ({
   joinStatus: [false, false, false, false, false],
   openBaseDate: new Date("9999-12-31"),
   currentJoined: false,
-  errorFallback: false,
+  fallbackMode: false,
   getJoinData: (logined) => {
     async function promiseFn() {
       try {
@@ -33,15 +33,14 @@ const drawEventStore = create((set, get) => ({
         if (currentDay >= 0 && currentDay < joinStatus.length) {
           currentJoined = joinStatus[currentDay];
         }
-        set({ joinStatus, openBaseDate: serverTime, currentJoined, errorFallback: false });
+        set({ joinStatus, openBaseDate: serverTime, currentJoined, fallbackMode: false });
         return joinStatus;
-      } catch(e) {
-      	console.log(e);
+      } catch {
         set({
           joinStatus: [false, false, false, false, false],
           openBaseDate: new Date("9999-12-31"),
           currentJoined: false,
-          errorFallback: true
+          fallbackMode: true
         });
         return [false, false, false, false, false];
       }
