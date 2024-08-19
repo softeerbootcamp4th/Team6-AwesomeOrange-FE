@@ -30,6 +30,7 @@ class UserStore
     const oldState = this.state;
     const newState = typeof mutateFunc === "function" ? mutateFunc(oldState) : mutateFunc;
     if(oldState === newState) return;
+    this.state = newState;
     this.observers.forEach( callback=>callback() );
   }
 }
