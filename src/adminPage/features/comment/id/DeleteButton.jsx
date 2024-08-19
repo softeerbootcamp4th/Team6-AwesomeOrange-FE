@@ -45,7 +45,7 @@ export default function DeleteButton({ eventId, checkedComments, setCheckedComme
   return (
     <button
       onClick={deleteComments}
-      className="self-end px-5 py-1 bg-red-300 text-white hover:bg-red-500 rounded-lg"
+      className="px-5 py-1 bg-red-300 text-white hover:bg-red-500 rounded-lg"
     >
       삭제
     </button>
