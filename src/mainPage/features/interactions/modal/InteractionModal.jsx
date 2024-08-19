@@ -1,12 +1,13 @@
 import { lazy, useContext, useRef, useState } from "react";
 
+import IntearctionContext from "./context.js";
 import InteractionAnswer from "./InteractionAnswer.jsx";
-import joinEvent from "./joinEvent.js";
+import ShowAnswerButton from "./buttons/ShowAnswerButton.jsx";
+import ResetButton from "@main/components/ResetButton.jsx";
 
 import { ModalCloseContext } from "@common/modal/modal.jsx";
+import Spinner from "@common/components/Spinner.jsx";
 import Suspense from "@common/components/Suspense.jsx";
-import Button from "@common/components/Button.jsx";
-import ResetButton from "@main/components/ResetButton.jsx";
 
 const lazyInteractionList = [
   lazy(() => import("../distanceDriven")),
@@ -16,19 +17,15 @@ const lazyInteractionList = [
   lazy(() => import("../subsidy")),
 ];
 
-export default function InteractionModal({ index, answer }) {
+export default function InteractionModal() {
   const close = useContext(ModalCloseContext);
+  const index = useContext(IntearctionContext);
   const InteractionComponent = lazyInteractionList[index];
   const [isActive, setIsActive] = useState(false);
   const [isAnswerUp, setIsAnswerUp] = useState(false);
   const interactionRef = useRef(null);
 
   if (!InteractionComponent) return;
-
-  function onClickConfirm() {
-    setIsAnswerUp(true);
-    joinEvent(index);
-  }
 
   // backdrop-blur-[100px]을 적용시키면 느린 성능의 컴퓨터에서 인터랙션이 매우 느리게 동작함
   return (
@@ -40,29 +37,18 @@ export default function InteractionModal({ index, answer }) {
         <img src="/icons/close-white.svg" alt="닫기" draggable="false" />
       </button>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Spinner />}>
         <InteractionComponent interactCallback={() => setIsActive(true)} $ref={interactionRef} />
       </Suspense>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-        <Button
-          onClick={onClickConfirm}
-          styleType="filled"
-          backdrop="dark"
-          disabled={!isActive}
-          className="px-4 py-2 xl:px-10 xl:py-4 text-black text-body-s"
-        >
-          확인하기
-        </Button>
+        <ShowAnswerButton disabled={!isActive} onClick={()=>setIsAnswerUp(true)}/>
         <ResetButton onClick={() => interactionRef.current.reset()} />
       </div>
 
       <InteractionAnswer
         isAnswerUp={isAnswerUp}
         setIsAnswerUp={setIsAnswerUp}
-        answer={answer}
-        close={close}
-        index={index}
       />
     </div>
   );

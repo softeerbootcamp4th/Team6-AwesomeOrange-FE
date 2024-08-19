@@ -1,21 +1,36 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import InteractionContext from "./context.js";
 import MoveCommentButton from "./buttons/MoveCommentButton.jsx";
 import ShareButton from "./buttons/ShareButton.jsx";
 import ParticipateButton from "./buttons/ParticipateButton.jsx";
+import AnswerDescription from "./AnswerDescription.jsx";
 
-import userStore from "@main/auth/store.js";
-import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants.js";
-import useEventStore from "@main/realtimeEvent/store.js";
-import getEventDateState from "@main/realtimeEvent/getEventDateState";
+import useUserStore from "@main/auth/store.js";
+import useDrawEventStore from "@main/drawEvent/store.js";
 
 import style from "./InteractionAnswer.module.css";
+import content from "../content.json";
 
-export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, index }) {
-  const isLogin = userStore((state) => state.isLogin);
-  const currentServerTime = useEventStore((state) => state.currentServerTime);
-  const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
+function getParticipantState(index)
+{
+  return (state) => {
+    if(!state.getOpenStatus(index) || state.fallbackMode) return "";
+    if(state.isTodayEvent(index)) {
+      if(state.currentJoined) return "오늘 응모가 완료되었습니다!";
+      else return "";
+    }
+    if(state.joinStatus[index]) return "이미 응모하셨습니다!";
+    else return "응모 기간이 지났습니다!";
+  }
+}
+
+export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp }) {
+  const index = useContext(InteractionContext);
+
+  const isLogin = useUserStore((state) => state.isLogin);
+  const isTodayEvent = useDrawEventStore( (state)=>state.isTodayEvent(index) );
+  const participantState = useDrawEventStore( getParticipantState(index) );
   const [isAniPlaying, setIsAniPlaying] = useState(false);
-  const isEventToday = getEventDateState(currentServerTime, eventDate) === "active";
 
   return (
     <div
@@ -36,31 +51,15 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, i
       >
         <img src="/icons/left-arrow.svg" alt="뒤로가기" draggable="false" />
       </button>
-
-      <div className="w-2/3 xl:w-1/2 flex flex-col xl:flex-row gap-2 xl:gap-8">
-        <span className="text-head-s xl:text-head-l text-blue-400 font-bold whitespace-pre">
-          {answer.head}
-        </span>
-
-        <div className="flex flex-col gap-4">
-          <span className="text-body-l xl:text-title-s text-neutral-50 font-bold">
-            {answer.desc}
-          </span>
-
-          <span className="text-detail-l xl:text-body-s text-neutral-300 font-medium">
-            {answer.subdesc}
-          </span>
-        </div>
-      </div>
-
+      <AnswerDescription {...content.answer[index]} />
       <div className="absolute bottom-10 flex flex-col items-center gap-10">
-        {(isLogin || !isEventToday) ? (
+        {(isLogin || !isTodayEvent) ? (
           <>
             <span className="text-body-m text-green-400 font-bold">
-              {isEventToday ? "오늘 응모가 완료되었습니다!" : "응모 기간이 지났습니다!"}
+              {participantState}
             </span>
             <div className="flex gap-4 items-end">
-              <MoveCommentButton disabled={!isAnswerUp} hidden={!isEventToday}/>
+              <MoveCommentButton disabled={!isAnswerUp} hidden={!isTodayEvent}/>
               <ShareButton 
                 openToast={ ()=>setIsAniPlaying(true) }
                 disabled={!isAnswerUp} 
@@ -69,7 +68,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, i
             </div>
           </>
         ) : (
-          <ParticipateButton disabled={!isAnswerUp} index={index} />
+          <ParticipateButton disabled={!isAnswerUp} />
         )}
       </div>
     </div>

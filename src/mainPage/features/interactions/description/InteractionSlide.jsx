@@ -1,7 +1,8 @@
-import InteractionModal from "../modal/InteractionModal";
+import InteractionModal from "../modal/InteractionModal.jsx";
+import InteractionContext from "../modal/context.js";
 import openModal from "@common/modal/openModal.js";
 import { padNumber } from "@common/utils.js";
-import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants";
+import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants.js";
 import useDrawEventStore from "@main/drawEvent/store.js";
 
 function getEventDateString(eventDate) {
@@ -23,7 +24,9 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
   const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
 
   function onClickExperience() {
-    openModal(<InteractionModal index={index} answer={answer} />, "interaction");
+    openModal(<InteractionContext.Provider value={index}>
+      <InteractionModal />
+    </InteractionContext.Provider>, "interaction");
   }
 
   return (

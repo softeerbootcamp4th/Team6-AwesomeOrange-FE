@@ -1,10 +1,14 @@
+import { useContext } from "react";
+import InteractionContext from "../context.js";
+
 import AuthModal from "@main/auth/AuthModal.jsx";
 import openModal from "@common/modal/openModal.js";
 import joinEvent from "../joinEvent.js";
 import Button from "@common/components/Button.jsx";
 
-function ParticipateButton({disabled, index})
+function ParticipateButton({disabled})
 {
+	const index = useContext(InteractionContext);
 	const authModal = <AuthModal onComplete={() => joinEvent(index)} />;
 
 	return <Button
