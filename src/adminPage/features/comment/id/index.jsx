@@ -9,6 +9,7 @@ export default function AdminCommentID({ eventId }) {
   const [checkedComments, setCheckedComments] = useState(new Set());
   const [page, setPage] = useState(1);
   const [formString, setFormString] = useState("");
+  const [searchString, setSearchString] = useState("");
   const [allId, setAllId] = useState([]);
 
   function selectAll() {
@@ -27,19 +28,25 @@ export default function AdminCommentID({ eventId }) {
 
   function searchComment(e) {
     e.preventDefault();
-
-    if (formString) {
-      console.log(formString + "검색");
-    }
+    setSearchString(formString);
   }
 
   return (
     <div className="flex flex-col w-full items-center">
-      <DeleteButton
-        eventId={eventId}
-        checkedComments={checkedComments}
-        setCheckedComments={setCheckedComments}
-      />
+      <div className="w-full flex justify-between items-end">
+        <div className="flex gap-1 text-body-s">
+          <span>검색 이벤트:</span>
+          <span className="italic">{eventId}</span>
+          <span className={`pl-1 text-red-500 ${!searchString && "hidden"}`}>검색 문자열:</span>
+          <span className={`text-red-500 italic ${!searchString && "hidden"}`}>{searchString}</span>
+        </div>
+
+        <DeleteButton
+          eventId={eventId}
+          checkedComments={checkedComments}
+          setCheckedComments={setCheckedComments}
+        />
+      </div>
 
       <form onSubmit={searchComment} className="mt-3 w-full relative">
         <input
@@ -73,6 +80,7 @@ export default function AdminCommentID({ eventId }) {
           setCheckedComments={setCheckedComments}
           page={page - 1}
           setAllId={setAllId}
+          searchString={searchString}
         />
       </Suspense>
 

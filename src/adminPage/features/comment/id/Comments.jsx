@@ -1,17 +1,28 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 
-export default function Comments({ eventId, checkedComments, setCheckedComments, page, setAllId }) {
+export default function Comments({
+  eventId,
+  checkedComments,
+  setCheckedComments,
+  page,
+  setAllId,
+  searchString,
+}) {
   const data = useQuery(
     eventId,
     () =>
-      fetchServer(`/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15`).then(
-        ({ comments }) => {
+      fetchServer(
+        `/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15${searchString && "&search=" + searchString}`,
+      )
+        .then(({ comments }) => {
           setAllId(comments.map((comment) => comment.id));
           return comments;
-        },
-      ),
-    [page],
+        })
+        .catch((e) => {
+          console.log(e);
+        }),
+    [page, searchString],
   );
 
   function getDate(createdAt) {
@@ -40,6 +51,14 @@ export default function Comments({ eventId, checkedComments, setCheckedComments,
     }
   }
 
+  function truncateString(str) {
+    if (str.length > 50) {
+      return str.substring(0, 50) + "...";
+    } else {
+      return str;
+    }
+  }
+
   return (
     <div className="mt-1 mb-5 flex flex-col gap-1 w-full">
       {data.map((comment) => (
@@ -61,7 +80,7 @@ export default function Comments({ eventId, checkedComments, setCheckedComments,
             <span className="text-neutral-500">{getTime(comment.createdAt)}</span>
           </div>
 
-          <span className="text-body-s">{comment.content}</span>
+          <span className="text-body-s">{truncateString(comment.content)}</span>
         </div>
       ))}
     </div>
