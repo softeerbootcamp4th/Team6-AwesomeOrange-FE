@@ -58,6 +58,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
       </span>
 
       <button
+        tabIndex={!isAnswerUp && -1}
         onClick={() => setIsAnswerUp(false)}
         className="absolute top-5 xl:top-10 left-5 xl:left-10 p-1 xl:p-3 bg-neutral-800 rounded-full"
       >
@@ -98,6 +99,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
                 </div>
 
                 <Button
+                  tabIndex={!isAnswerUp && -1}
                   onClick={onClickWrite}
                   styleType="filled"
                   backdrop="dark"
@@ -108,6 +110,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
               </div>
 
               <Button
+                tabIndex={!isAnswerUp && -1}
                 onClick={onClickShare}
                 styleType="ghost"
                 backdrop="dark"
@@ -119,6 +122,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
           </>
         ) : (
           <Button
+            tabIndex={!isAnswerUp && -1}
             onClick={() => openModal(authModal)}
             styleType="filled"
             backdrop="dark"
