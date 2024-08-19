@@ -36,7 +36,7 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
       </span>
 
       <div className="pt-5 flex items-center">
-        <img src={numberImgPath} alt="" />
+        <img src={numberImgPath} alt="" role="presentation" />
 
         <span
           className={`${isCurrent ? "opacity-100" : "opacity-50"} pl-3 text-title-m sm:text-head-s text-white font-bold`}
@@ -59,13 +59,15 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
 
       <img
         src={inactiveImgPath}
-        alt="inactiveImage"
+        alt=""
+        role="presentation"
         loading="lazy"
         className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-0" : "opacity-100"}`}
       />
       <img
         src={activeImgPath}
-        alt="activeImage"
+        alt=""
+        role="presentation"
         loading="lazy"
         className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-100" : "opacity-30 sm:opacity-0"}`}
       />

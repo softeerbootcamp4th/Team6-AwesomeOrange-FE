@@ -21,7 +21,8 @@ function CommentSection() {
           </h2>
           <img
             src={decoration}
-            alt="heart"
+            alt=""
+            role="presentation"
             className="size-20 lg:size-28 absolute -top-2 sm:top-4 lg:top-10 -left-2 sm:left-12"
           />
         </div>

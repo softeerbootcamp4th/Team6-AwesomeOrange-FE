@@ -22,7 +22,8 @@ function DetailInformation() {
         </h2>
         <img
           src={decoration}
-          alt="glitter"
+          alt=""
+          role="presentation"
           className="size-10 lg:size-14 absolute top-8 lg:top-16 right-0 min-[360px]:-right-3 lg:-right-4"
         />
       </div>

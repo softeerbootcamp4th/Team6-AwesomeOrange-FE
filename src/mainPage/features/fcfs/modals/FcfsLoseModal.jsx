@@ -25,7 +25,7 @@ function FcfsLoseModal() {
         <img
           src="/icons/lose@1x.png"
           srcSet="/icons/lose@1x.png 1x, /icons/lose@2x.png 2x"
-          alt="선착순 이벤트 당첨"
+          alt="선착순 이벤트 당첨 실패"
           width="144"
           height="146"
         />
