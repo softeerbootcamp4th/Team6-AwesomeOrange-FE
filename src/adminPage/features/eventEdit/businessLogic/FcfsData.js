@@ -94,6 +94,16 @@ function verifyItems(map, { startTime, endTime, prevSnapshot = new Map() }) {
   return result;
 }
 
+function hasDuplicatedDate(newDate, map)
+{
+  if(newDate === undefined) return true;
+  if(newDate === null) return false;
+  const dateSet = new Set([...map.values()].map( ({date})=>date?.valueOf() ?? null ));
+
+  if(dateSet.has(newDate.valueOf())) return true;
+  return false;
+}
+
 function getDefaultFcfsArray(
   startTime,
   endTime,
@@ -194,12 +204,17 @@ class FcfsData {
   modify(key, data, { startTime, endTime }) {
     const newData = new FcfsData(this.map);
     const oldItem = newData.map.get(key);
+
     const verified = verifyItem(
-      { ...oldItem, ...data },
+      {...oldItem, ...data},
       { startTime, endTime, prevSnapshot: oldItem },
     );
     if (verified === null) newData.map.delete(key);
-    else newData.map.set(key, verified);
+    else {
+      if(hasDuplicatedDate(verified.date, this.map)) verified.date = oldItem.date;
+
+      newData.map.set(key, verified);
+    }
     return newData;
   }
   modifyAll(data, { startTime, endTime }) {
