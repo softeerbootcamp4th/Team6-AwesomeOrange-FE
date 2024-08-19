@@ -46,6 +46,7 @@ function Card({ index, locked, isFlipped, setFlipped, setGlobalLock, getCardAnsw
           srcSet={`${hidden1x} 1x, ${hidden2x} 2x`}
           alt="hidden"
           draggable="false"
+          loading="lazy"
         />
         <img
           className={`${cardFaceBaseStyle} ${style.back}`}
@@ -53,6 +54,7 @@ function Card({ index, locked, isFlipped, setFlipped, setGlobalLock, getCardAnsw
           srcSet={`${answer1x} 1x, ${answer2x} 2x`}
           alt={isCorrect ? "축하합니다, 당첨입니다!" : "아쉽게도 정답이 아니네요!"}
           draggable="false"
+          loading="lazy"
         />
       </div>
     </button>

@@ -14,7 +14,7 @@ function DateEventPrize({ date, title, capacity, image }) {
 
   return (
     <div className={`flex gap-6 p-6 ${bgColor} ${opacity}`}>
-      <img src={image} alt={title} width="130" height="88" />
+      <img src={image} alt={title} width="130" height="88" loading="lazy" />
       <div className="font-bold">
         <p
           className={`text-body-m ${dateStatus === "ended" ? "text-neutral-500" : "text-blue-400"}`}

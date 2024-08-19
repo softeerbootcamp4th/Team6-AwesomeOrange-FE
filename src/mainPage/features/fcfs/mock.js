@@ -16,11 +16,11 @@ const handlers = [
   }),
   http.get("/api/v1/event/fcfs/:eventFrameId/participated", async ({ request }) => {
     const token = request.headers.get("authorization");
-    if (token === null) return HttpResponse.json({ answerResult: false, winner: false });
+    if (token === null) return HttpResponse.json(false);
 
     //await delay(10000);
 
-    return HttpResponse.json({ answerResult: false, winner: false });
+    return HttpResponse.json(false);
   }),
   http.post("/api/v1/event/fcfs/:eventFrameId", async ({ request }) => {
     const { eventAnswer } = await request.json();

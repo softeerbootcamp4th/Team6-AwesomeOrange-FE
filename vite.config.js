@@ -26,4 +26,12 @@ export default defineConfig({
       { find: "@admin", replacement: resolve(__dirname, "src/adminPage/shared") },
     ],
   },
+  preview: {
+    proxy: {
+      "/api": {
+        target: 'http://softeerorange.store',
+        changeOrigin: true,
+      }
+    }
+  }
 });

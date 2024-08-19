@@ -86,8 +86,9 @@ async function injectSSGToHtml(mode) {
 			await mkdir(dir, { recursive: true });
 			await writeFile(absolutePath, html);
 			console.log(`pre-rendered : ${path}`);
-		} catch {
+		} catch(e) {
 			console.log(`pre-rendered failed : ${path}`);
+			console.error(e);
 		}
 	} );
 	await Promise.allSettled(promises);

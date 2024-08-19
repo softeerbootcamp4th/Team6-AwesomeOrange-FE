@@ -1,6 +1,7 @@
 import scrollTo from "@main/scroll/scrollTo";
 import { useSectionStore } from "@main/scroll/store";
 import AuthButtonSection from "./AuthButtonSection.jsx";
+import HamburgerButton from "./Hamburger/Button.jsx";
 
 import style from "./index.module.css";
 
@@ -52,6 +53,22 @@ export default function Header() {
       <div className="hidden md:flex">
         <AuthButtonSection />
       </div>
+      <HamburgerButton>
+        <div className="w-full px-6 py-2 flex flex-col sm:flex-row gap-4 justify-between items-center">
+          <ul className="flex flex-col sm:flex-row gap-4 lg:gap-8 text-body-s lg:text-body-m relative">
+            {scrollSectionList.map((scrollSection, index) => (
+              <li
+                key={index}
+                onClick={() => onClickScrollSection(index + 1)}
+                className={`flex justify-center items-center w-20 lg:w-24 cursor-pointer ${currentSection - 1 === index ? "text-black" : "text-neutral-300"}`}
+              >
+                {scrollSection}
+              </li>
+            ))}
+          </ul>
+          <AuthButtonSection />
+        </div>
+      </HamburgerButton>
     </nav>
   );
 }

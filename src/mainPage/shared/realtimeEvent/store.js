@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import * as Status from "./constants.js";
 import { fetchServer, HTTPError, ServerCloseError } from "@common/dataFetch/fetchServer.js";
-import { getQuerySuspense } from "@common/dataFetch/getQuery.js";
+import { getQuery, getQuerySuspense } from "@common/dataFetch/getQuery.js";
 import { getServerPresiseTime } from "@common/utils.js";
 import { EVENT_FCFS_ID } from "@common/constants.js";
 
@@ -55,7 +55,7 @@ const fcfsStore = create((set) => ({
     const promiseFn = async function () {
       // get server time and event info
       const [serverTime, eventInfo] = await Promise.all([
-        getServerPresiseTime(),
+        getQuery("server-time", getServerPresiseTime),
         getFcfsEventInfo(),
       ]);
       const currentServerTime = serverTime;
@@ -75,9 +75,9 @@ const fcfsStore = create((set) => ({
   getPariticipatedData: (isLogin) => {
     const promiseFn = async function () {
       const participated = await getFcfsParticipated();
-      set({ isParticipated: participated.answerResult });
+      set({ isParticipated: participated });
     };
-    return getQuerySuspense(`fcfs-participated-data-${isLogin}`, promiseFn, [set]);
+    return getQuerySuspense(`fcfs-participated-data@${isLogin}`, promiseFn, [set]);
   },
   setEventStatus: (eventStatus) => set({ eventStatus }),
   handleCountdown: () =>

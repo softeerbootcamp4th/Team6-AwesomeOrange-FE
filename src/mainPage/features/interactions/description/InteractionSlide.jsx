@@ -60,11 +60,13 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
       <img
         src={inactiveImgPath}
         alt="inactiveImage"
+        loading="lazy"
         className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-0" : "opacity-100"}`}
       />
       <img
         src={activeImgPath}
         alt="activeImage"
+        loading="lazy"
         className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-100" : "opacity-30 sm:opacity-0"}`}
       />
     </div>

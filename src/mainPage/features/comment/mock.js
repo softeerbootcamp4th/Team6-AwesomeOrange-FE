@@ -18,7 +18,7 @@ const handlers = [
   http.get("/api/v1/comment/info", ({ request }) => {
     const token = request.headers.get("authorization");
 
-    if (token === null) return HttpResponse.json({ submitted: false });
+    if (token === null) return HttpResponse.json({ submitted: false }, { status: 401 });
     return HttpResponse.json({ submitted: false });
   }),
   http.get("/api/v1/comment/:eventFrameId", () => {
