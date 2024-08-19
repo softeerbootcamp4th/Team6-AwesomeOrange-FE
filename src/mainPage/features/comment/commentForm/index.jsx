@@ -32,6 +32,10 @@ function CommentForm() {
         setButtonFetchState(submitted ? "disabled" : "enabled");
       })
       .catch((e) => {
+        if(e.status === 401) {
+          setButtonFetchState("enabled");
+          return;
+        }
         console.error(e);
         setButtonFetchState("error");
       })
