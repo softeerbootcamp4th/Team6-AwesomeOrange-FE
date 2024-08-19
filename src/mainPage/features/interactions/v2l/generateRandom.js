@@ -12,9 +12,7 @@ function randInt(min, max) {
 }
 
 function generateRandomPath(width, height) {
-  let traced = Array.from({ length: width }, () =>
-    new Array(height).fill(false),
-  );
+  let traced = Array.from({ length: width }, () => new Array(height).fill(false));
   const stack = [];
   let cursor = [0, 0];
 
@@ -92,12 +90,7 @@ function generateRandomPuzzle() {
     const after = getDirection(path[i], path[i + 1]);
     shapes.push(getShapeChar(before, after));
   }
-  shapes.push(
-    getShapeChar(
-      getDirection(path[path.length - 1], path[path.length - 2]),
-      0b0010,
-    ),
-  );
+  shapes.push(getShapeChar(getDirection(path[path.length - 1], path[path.length - 2]), 0b0010));
 
   // shape 리스트를 3x3 그리드에 맞도록 재배열
 

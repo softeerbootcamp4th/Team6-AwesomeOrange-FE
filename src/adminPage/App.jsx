@@ -26,11 +26,7 @@ function App() {
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route exact path="/events/create" element={<EventsCreatePage />} />
-          <Route
-            exact
-            path="/events/:eventId/edit"
-            element={<EventsEditPage />}
-          />
+          <Route exact path="/events/:eventId/edit" element={<EventsEditPage />} />
           <Route path="/events/:eventId" element={<EventsDetailPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/comments/:eventId" element={<CommentsIDPage />} />

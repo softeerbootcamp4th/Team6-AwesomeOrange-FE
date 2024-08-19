@@ -10,15 +10,10 @@ function CommentSection() {
   useSectionInitialize(SECTION_IDX, sectionRef);
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full flex flex-col items-center py-24 lg:py-60 gap-40"
-    >
+    <section ref={sectionRef} className="w-full flex flex-col items-center py-24 lg:py-60 gap-40">
       <div className="w-full flex flex-col items-center">
         <div className="relative flex flex-col gap-3 lg:gap-9 text-center font-bold items-center">
-          <p className="text-body-m text-neutral-600 w-fit py-3 lg:py-5">
-            기대평 작성하기
-          </p>
+          <p className="text-body-m text-neutral-600 w-fit py-3 lg:py-5">기대평 작성하기</p>
           <h2 className="text-head-s lg:text-head-m text-black">
             UNIQUE한 <br className="hidden sm:inline" />
             IONIQ 5의 <br className="inline sm:hidden" />

@@ -1,5 +1,6 @@
 import { useImperativeHandle } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
+import AnswerText from "./AnswerText.jsx";
 import usePointDrag from "./usePointDrag.js";
 
 function DistanceDrivenInteraction({ interactCallback, $ref }) {
@@ -50,19 +51,12 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <line
-            x1="0"
-            y1="0"
-            x2={x}
-            y2={y}
-            strokeWidth="5"
-            strokeLinecap="round"
-          ></line>
+          <line x1="0" y1="0" x2={x} y2={y} strokeWidth="5" strokeLinecap="round"></line>
         </svg>
       </div>
-      <p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s pointer-events-none">
+      <p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s font-bold pointer-events-none">
         <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5">
-          {Math.round(Math.hypot(x, y) / 3)}
+          <AnswerText distance={Math.hypot(x, y)} />
         </span>
         km
       </p>

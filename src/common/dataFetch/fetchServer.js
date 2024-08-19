@@ -48,9 +48,10 @@ function createFetchOptions(options = {}) {
 async function fetchServerBase(url, options = {}) {
   try {
     const response = await fetch(url, createFetchOptions(options));
-    if (response.status >= 400 && response.status <= 599)
-      throw new HTTPError(response);
-    return await response.json();
+    if (response.status >= 400 && response.status <= 599) throw new HTTPError(response);
+    const text = await response.text();
+    if (text === "") return null;
+    return JSON.parse(text);
   } catch (e) {
     if (e instanceof TypeError && e.message === "Failed to fetch") {
       throw new ServerCloseError();
@@ -109,8 +110,7 @@ function handleError(errorDescriptor) {
       );
     }
     if (error instanceof ServerCloseError) {
-      if (errorDescriptor.offlineFallback !== undefined)
-        return errorDescriptor.offlineFallback;
+      if (errorDescriptor.offlineFallback !== undefined) return errorDescriptor.offlineFallback;
       throw new Error(errorDescriptor.offline ?? "서버가 닫혔습니다.");
     }
     console.error(error);

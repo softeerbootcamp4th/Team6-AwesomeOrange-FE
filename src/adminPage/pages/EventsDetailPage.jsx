@@ -1,9 +1,19 @@
+import { useParams } from "react-router-dom";
 import Container from "@admin/components/Container.jsx";
+import Suspense from "@common/components/Suspense.jsx";
+import ErrorBoundary from "@common/components/ErrorBoundary.jsx";
+import EventDetailFetcher from "../features/eventDetail/EventDetailFetcher.jsx";
 
 function EventsDetailPage() {
+  const { eventId } = useParams();
+
   return (
     <Container>
-      <div>이벤트 디테일 들어갈 예정</div>
+      <ErrorBoundary fallback={<div>error</div>}>
+        <Suspense fallback={<div>loading</div>}>
+          <EventDetailFetcher eventId={eventId} />
+        </Suspense>
+      </ErrorBoundary>
     </Container>
   );
 }

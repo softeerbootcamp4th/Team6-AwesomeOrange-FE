@@ -1,11 +1,7 @@
 import { useReducer, useDeferredValue } from "react";
 import { Link } from "react-router-dom";
 
-import {
-  searchReducer,
-  setDefaultState,
-  searchStateToQuery,
-} from "./queryReducer.js";
+import { searchReducer, setDefaultState, searchStateToQuery } from "./queryReducer.js";
 import checkReducer from "./checkReducer.js";
 
 import SearchBar from "./SearchBar.jsx";

@@ -27,10 +27,7 @@ function PuzzlePiece({ shape, onClick, fixRotate }) {
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          d={shape.type === LINEAR ? "M 0 54 H 108" : "M108 54 H 54 V 108"}
-          strokeWidth="8"
-        />
+        <path d={shape.type === LINEAR ? "M 0 54 H 108" : "M108 54 H 54 V 108"} strokeWidth="8" />
       </svg>
     </div>
   );

@@ -17,9 +17,7 @@ function DeleteButton({ selected, reset }) {
       }),
     {
       onSuccess: () => {
-        openModal(
-          <AlertModal title="삭제" description="기대평이 삭제되었습니다." />,
-        );
+        openModal(<AlertModal title="삭제" description="기대평이 삭제되었습니다." />);
         reset();
       },
     },
@@ -33,8 +31,7 @@ function DeleteButton({ selected, reset }) {
           <br />
           <span>
             {selected.keys().next().value}
-            {selected.size > 1 && ` 외 ${selected.size - 1} 개의`} 이벤트를
-            삭제하시겠습니까?
+            {selected.size > 1 && ` 외 ${selected.size - 1} 개의`} 이벤트를 삭제하시겠습니까?
           </span>
         </>
       }

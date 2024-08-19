@@ -12,7 +12,7 @@ function DetailItem({ img, title, description }) {
         <h3 className="whitespace-pre-wrap text-title-s font-bold md:text-title-m lg:text-title-l">
           {title}
         </h3>
-        <p className="whitespace-pre-wrap text-body-s font-medium md:text-body-m lg:text-body-l">
+        <p className="whitespace-pre-wrap text-body-s font-regular md:text-body-m lg:text-body-l">
           {description}
         </p>
       </div>

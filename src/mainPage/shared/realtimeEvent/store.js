@@ -1,10 +1,6 @@
 import { create } from "zustand";
 import * as Status from "./constants.js";
-import {
-  fetchServer,
-  HTTPError,
-  ServerCloseError,
-} from "@common/dataFetch/fetchServer.js";
+import { fetchServer, HTTPError, ServerCloseError } from "@common/dataFetch/fetchServer.js";
 import { getQuerySuspense } from "@common/dataFetch/getQuery.js";
 import { getServerPresiseTime } from "@common/utils.js";
 import { EVENT_FCFS_ID } from "@common/constants.js";
@@ -13,9 +9,7 @@ const HOURS = 60 * 60;
 
 async function getFcfsEventInfo() {
   try {
-    const eventData = await fetchServer(
-      `/api/v1/event/fcfs/${EVENT_FCFS_ID}/info`,
-    );
+    const eventData = await fetchServer(`/api/v1/event/fcfs/${EVENT_FCFS_ID}/info`);
     return eventData;
   } catch (e) {
     if (e instanceof HTTPError && e.status === 404)
@@ -34,15 +28,12 @@ async function getFcfsEventInfo() {
 
 async function getFcfsParticipated() {
   try {
-    const eventData = await fetchServer(
-      `/api/v1/event/fcfs/${EVENT_FCFS_ID}/participated`,
-    ); // ???
+    const eventData = await fetchServer(`/api/v1/event/fcfs/${EVENT_FCFS_ID}/participated`); // ???
     return eventData;
   } catch (e) {
     if (e instanceof HTTPError && (e.status === 401 || e.status == 404))
       return { answerResult: false, winner: false };
-    if (e instanceof ServerCloseError)
-      return { answerResult: false, winner: false };
+    if (e instanceof ServerCloseError) return { answerResult: false, winner: false };
     throw e;
   }
 }
@@ -71,9 +62,7 @@ const fcfsStore = create((set) => ({
       const currentEventTime = new Date(eventInfo.nowDateTime).getTime();
 
       // get countdown and syncronize state
-      const countdown = Math.ceil(
-        (currentEventTime - currentServerTime) / 1000,
-      );
+      const countdown = Math.ceil((currentEventTime - currentServerTime) / 1000);
       set({
         currentServerTime,
         currentEventTime,
@@ -88,9 +77,7 @@ const fcfsStore = create((set) => ({
       const participated = await getFcfsParticipated();
       set({ isParticipated: participated.answerResult });
     };
-    return getQuerySuspense(`fcfs-participated-data-${isLogin}`, promiseFn, [
-      set,
-    ]);
+    return getQuerySuspense(`fcfs-participated-data-${isLogin}`, promiseFn, [set]);
   },
   setEventStatus: (eventStatus) => set({ eventStatus }),
   handleCountdown: () =>

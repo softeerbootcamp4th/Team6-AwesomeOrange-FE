@@ -6,7 +6,7 @@ function EventEditFetcher({ eventId }) {
   const data = useQuery(`event-detail-${eventId}`, () =>
     fetchServer(`/api/v1/admin/events/${eventId}`),
   );
-  return <EventEditor mode="edit" initialData={data} />;
+  return <EventEditor initialData={data} />;
 }
 
 export default EventEditFetcher;

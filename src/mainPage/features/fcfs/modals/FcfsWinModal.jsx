@@ -8,9 +8,7 @@ function FcfsWinModal() {
   return (
     <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[31.25rem] p-10 shadow bg-white relative flex flex-col justify-between items-center">
       <div className="flex flex-col gap-2 items-center">
-        <p className="text-body-l font-bold text-neutral-700">
-          선착순 이벤트에 당첨되었어요!
-        </p>
+        <p className="text-body-l font-bold text-neutral-700">선착순 이벤트에 당첨되었어요!</p>
         <p className="w-full max-w-80 text-body-s font-medium text-neutral-400 text-center">
           경품 수령은 입력하신 연락처로 개별 안내됩니다
         </p>

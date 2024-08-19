@@ -51,11 +51,7 @@ class ModalStore {
 const store = new ModalStore();
 
 function useModalStore(layer) {
-  return useSyncExternalStore(
-    store.subscribe.bind(store),
-    store.getSnapshot(layer),
-    () => null,
-  );
+  return useSyncExternalStore(store.subscribe.bind(store), store.getSnapshot(layer), () => null);
 }
 function closeModal(layer) {
   store.removeModal(layer);

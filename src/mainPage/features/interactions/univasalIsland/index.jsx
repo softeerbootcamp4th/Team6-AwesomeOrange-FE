@@ -37,12 +37,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
         shouldNotSelect={isDragging}
       />
       <div className={seatHullStyle}>
-        <img
-          className={style.seat}
-          src={seat}
-          alt="left seat"
-          draggable="false"
-        />
+        <img className={style.seat} src={seat} alt="left seat" draggable="false" />
         <div
           className={univasalIslandStaticStyle}
           style={islandStyle}
@@ -57,19 +52,10 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
             alt="univasal island"
             draggable="false"
           />
-          <img
-            src={univasalIslandLeg}
-            alt="univasal island"
-            draggable="false"
-          />
+          <img src={univasalIslandLeg} alt="univasal island" draggable="false" />
           <div className={snapAreaStyle} ref={phoneSnapArea}></div>
         </div>
-        <img
-          className={style.seat}
-          src={seat}
-          alt="right seat"
-          draggable="false"
-        />
+        <img className={style.seat} src={seat} alt="right seat" draggable="false" />
         <Phone
           isSnapped={phoneIsSnapping}
           dynamicStyle={phoneStyle}

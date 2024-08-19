@@ -25,12 +25,8 @@ function WelcomeModal() {
           확인
         </Button>
       </div>
-      <button
-        className="absolute top-10 right-8"
-        onClick={close}
-        aria-label="닫기"
-      >
-        <img src="/icons/close.svg" alt="닫기" width="24" height="24" />
+      <button className="absolute top-10 right-8" onClick={close} aria-label="닫기">
+        <img src="/icons/close.svg" alt="닫기" width="24" height="24" draggable="false" />
       </button>
     </div>
   );

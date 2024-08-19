@@ -18,10 +18,7 @@ function CountStarterDummy() {
   useEffect(() => {
     if (eventStatus === OFFLINE) return;
 
-    controller.current = new CountdownController(
-      currentServerTime,
-      currentEventTime,
-    );
+    controller.current = new CountdownController(currentServerTime, currentEventTime);
     const counter = controller.current;
     counter.addEventListener("interval", handleCountdown);
     counter.start();

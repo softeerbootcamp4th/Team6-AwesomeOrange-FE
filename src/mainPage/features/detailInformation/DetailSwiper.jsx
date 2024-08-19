@@ -7,10 +7,9 @@ function DetailSwiper({ content }) {
   const [page, swiperElRef] = useSwiperState();
   const isLastPage = page === content.length - 1;
 
-  const slideClass =
-    "w-[calc(100%-96px)] min-[1024px]:w-full max-w-[1200px] bg-yellow-400";
+  const slideClass = "w-[calc(100%-96px)] min-[1024px]:w-full max-w-[1200px] bg-yellow-400";
   const navigationClass = `invisible absolute [--size:3rem] md:[--size:4.5rem] top-[calc(50%-var(--size)*0.5)] size-[var(--size)] p-2 md:p-4 
-	flex justify-center items-center rounded-full bg-neutral-100 z-10 cursor-pointer`;
+	flex justify-center items-center rounded-full bg-neutral-100 active:bg-neutral-200 z-10 cursor-pointer select-none`;
 
   return (
     <div className="w-full flex flex-col items-center gap-10">
@@ -35,7 +34,7 @@ function DetailSwiper({ content }) {
             swiperElRef.current.swiper.slidePrev();
           }}
         >
-          <img src={left} alt="left" width="40" height="40" />
+          <img src={left} alt="left" width="40" height="40" draggable="false" />
         </div>
         <div
           className={`${navigationClass} right-6 ${isLastPage ? "" : "lg:visible"}`}
@@ -43,7 +42,7 @@ function DetailSwiper({ content }) {
             swiperElRef.current.swiper.slideNext();
           }}
         >
-          <img src={right} alt="right" width="40" height="40" />
+          <img src={right} alt="right" width="40" height="40" draggable="false" />
         </div>
       </div>
       <div className="w-full max-w-[1248px] px-12 lg:px-6 flex justify-end lg:justify-between align-center font-bold">

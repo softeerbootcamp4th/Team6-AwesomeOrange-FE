@@ -95,9 +95,7 @@ function CommentForm() {
         placeholder="최소 10, 최대 50자까지 입력해주세요."
       />
       <SubmitButton state={buttonFetchState} />
-      <p className="absolute -bottom-6 text-detail-l font-bold text-red-400">
-        {errorMessage}
-      </p>
+      <p className="absolute -bottom-6 text-detail-l font-bold text-red-400">{errorMessage}</p>
     </form>
   );
 }

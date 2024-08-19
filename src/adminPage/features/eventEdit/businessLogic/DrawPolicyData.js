@@ -3,9 +3,9 @@ import makeUUID from "./makeUUID.js";
 class DrawPolicyData {
   constructor(rawData) {
     if (Array.isArray(rawData)) {
-      const mapArr = rawData.map(({ id, ...rest }) => {
+      const mapArr = rawData.map(({ id, ...rest }, i) => {
         return [
-          `determined_${id}`,
+          id === undefined ? `temp_saved_${i}` : `determined_${id}`,
           {
             id,
             ...rest,
@@ -16,6 +16,9 @@ class DrawPolicyData {
       this.map = new Map(mapArr);
     } else if (rawData instanceof Map) this.map = new Map(rawData);
     else this.map = new Map();
+  }
+  get size() {
+    return this.map.size;
   }
   add(data) {
     const newData = new DrawPolicyData(this.map);

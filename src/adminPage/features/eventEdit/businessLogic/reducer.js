@@ -1,6 +1,7 @@
 import FcfsData from "./FcfsData.js";
 import DrawGradeData from "./DrawGradeData.js";
 import DrawPolicyData from "./DrawPolicyData.js";
+import { MAX_GRADE } from "./constants.js";
 
 function makeVoidDrawData() {
   return {
@@ -34,10 +35,8 @@ export function setDefaultState(defaultState) {
 
   const tempState = { ...defaultState };
 
-  if (tempState.startTime !== null)
-    tempState.startTime = new Date(tempState.startTime);
-  if (tempState.endTime !== null)
-    tempState.endTime = new Date(tempState.endTime);
+  if (tempState.startTime !== null) tempState.startTime = new Date(tempState.startTime);
+  if (tempState.endTime !== null) tempState.endTime = new Date(tempState.endTime);
   if (tempState.eventType === "fcfs") {
     tempState.fcfs = new FcfsData(defaultState.fcfs);
     tempState.draw = makeVoidDrawData();
@@ -74,8 +73,7 @@ export function eventEditReducer(state, action) {
         startTime: action.value[0],
         endTime: action.value[1],
       };
-      if (state.eventType === "fcfs")
-        newState.fcfs = state.fcfs.verifyDate(...action.value);
+      if (state.eventType === "fcfs") newState.fcfs = state.fcfs.verifyDate(...action.value);
       return newState;
     }
     case "set_url":
@@ -91,21 +89,23 @@ export function eventEditReducer(state, action) {
       if (state.eventType === "draw") return state;
       return {
         ...state,
-        fcfs: FcfsData.fillDefault(
-          state.startTime,
-          state.endTime,
-          action.config,
-        ),
+        fcfs: FcfsData.fillDefault(state.startTime, state.endTime, action.config),
       };
     case "add_fcfs_item":
       if (state.eventType === "draw") return state;
+      if (state.startTime === null || state.endTime === null) return state;
       return { ...state, fcfs: state.fcfs.add(action.value) };
     case "delete_fcfs_item":
       if (state.eventType === "draw") return state;
       return { ...state, fcfs: state.fcfs.delete(action.key) };
-    case "modify_fcfs_item":
+    case "modify_fcfs_item": {
       if (state.eventType === "draw") return state;
-      return { ...state, fcfs: state.fcfs.modify(action.key, action.value) };
+      const { startTime, endTime } = state;
+      return {
+        ...state,
+        fcfs: state.fcfs.modify(action.key, action.value, { startTime, endTime }),
+      };
+    }
     case "modify_all_fcfs_item": {
       if (state.eventType === "draw") return state;
       const { startTime, endTime } = state;
@@ -116,7 +116,7 @@ export function eventEditReducer(state, action) {
     }
     case "modify_draw_total_grade":
       if (state.eventType === "fcfs") return state;
-      if (action.value > 10 || action.value < 0) return state;
+      if (action.value > MAX_GRADE || action.value < 0) return state;
       return {
         ...state,
         draw: {
@@ -160,5 +160,7 @@ export function eventEditReducer(state, action) {
           policies: state.draw.policies.modify(action.key, action.value),
         },
       };
+    case "apply_external_data":
+      return setDefaultState(action.value);
   }
 }

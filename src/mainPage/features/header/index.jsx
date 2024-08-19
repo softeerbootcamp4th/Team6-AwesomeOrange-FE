@@ -8,12 +8,7 @@ export default function Header() {
   const currentSection = useSectionStore((state) => {
     return state.isVisibleList.findIndex((value) => value === true);
   });
-  const scrollSectionList = [
-    "추첨 이벤트",
-    "차량 상세정보",
-    "기대평",
-    "선착순 이벤트",
-  ];
+  const scrollSectionList = ["추첨 이벤트", "차량 상세정보", "기대평", "선착순 이벤트"];
 
   function gotoTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });

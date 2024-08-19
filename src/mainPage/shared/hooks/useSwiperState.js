@@ -12,8 +12,7 @@ function useSwiperState() {
     }
     swiperEl.addEventListener("swiperslidechange", onSlideChange);
 
-    return () =>
-      swiperEl.removeEventListener("swiperslidechange", onSlideChange);
+    return () => swiperEl.removeEventListener("swiperslidechange", onSlideChange);
   }, []);
 
   return [swiperState, swiperElRef];

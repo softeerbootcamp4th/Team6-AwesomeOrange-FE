@@ -25,7 +25,7 @@ export default function InteractionModal({ index, answer }) {
 
   if (!InteractionComponent) return;
 
-  function onClickConfirm(){
+  function onClickConfirm() {
     setIsAnswerUp(true);
     joinEvent(index);
   }
@@ -35,16 +35,13 @@ export default function InteractionModal({ index, answer }) {
     <div className="w-[calc(100%-2rem)] h-[calc(100%-2rem)] md:size-5/6 relative bg-[url('/images/interactionBackdrop.webp')] bg-cover bg-center bg-black/80 border border-neutral-600 rounded overflow-hidden">
       <button
         onClick={close}
-        className="z-10 absolute top-5 right-5 xl:top-10 xl:right-10 bg-neutral-800 p-1 xl:p-3 rounded-full"
+        className="z-10 absolute top-5 right-5 xl:top-10 xl:right-10 bg-neutral-800 p-1 xl:p-3 rounded-full select-none"
       >
-        <img src="icons/close-white.svg" alt="닫기" />
+        <img src="/icons/close-white.svg" alt="닫기" draggable="false" />
       </button>
 
       <Suspense fallback={<div>Loading...</div>}>
-        <InteractionComponent
-          interactCallback={() => setIsActive(true)}
-          $ref={interactionRef}
-        />
+        <InteractionComponent interactCallback={() => setIsActive(true)} $ref={interactionRef} />
       </Suspense>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">

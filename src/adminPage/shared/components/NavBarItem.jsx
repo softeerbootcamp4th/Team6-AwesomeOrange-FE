@@ -19,20 +19,12 @@ function NavBarItem({ to, onClick, disabled, children }) {
   );
 
   const button = (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={`${commonStyle} ${commonTextStyle}`}
-    >
+    <button onClick={onClick} disabled={disabled} className={`${commonStyle} ${commonTextStyle}`}>
       {children}
     </button>
   );
 
-  return (
-    <li className="w-full h-12 flex justify-center items-center">
-      {to ? navLink : button}
-    </li>
-  );
+  return <li className="w-full h-12 flex justify-center items-center">{to ? navLink : button}</li>;
 }
 
 export default NavBarItem;

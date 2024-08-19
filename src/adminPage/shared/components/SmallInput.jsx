@@ -8,10 +8,14 @@ const errorStyle = `bg-white border-red-500 focus:border-red-500`;
 const errorInputStyle = `invalid:border-red-500
 invalid:focus:border-red-500`;
 
+function getInputClass(text, isError, className) {
+  return `${inputboxStyle} ${isError ? errorStyle : ""} ${/^\s*$/.test(text) ? "" : errorInputStyle} ${className ?? ""}`;
+}
+
 export function Input({ text, setText, isError, className, ...otherProps }) {
   return (
     <input
-      className={`${inputboxStyle} ${isError ? errorStyle : ""} ${/^\s*$/.test(text) ? "" : errorInputStyle} ${className ?? ""}`}
+      className={getInputClass(text, isError, className)}
       type="text"
       value={text}
       onChange={(e) => setText?.(e.target.value)}
@@ -23,7 +27,7 @@ export function Input({ text, setText, isError, className, ...otherProps }) {
 export function TextBox({ text, setText, isError, className, ...otherProps }) {
   return (
     <textarea
-      className={`${inputboxStyle} ${isError ? errorStyle : ""} ${/^\s*$/.test(text) ? "" : errorInputStyle} ${className ?? ""}`}
+      className={getInputClass(text, isError, className)}
       value={text}
       onChange={(e) => setText?.(e.target.value)}
       {...otherProps}

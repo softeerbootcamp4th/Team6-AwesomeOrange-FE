@@ -3,12 +3,7 @@ import RefreshIcon from "./refresh.svg?react";
 
 export default function ResetButton({ onClick }) {
   return (
-    <Button
-      onClick={onClick}
-      styleType="ghost"
-      backdrop="dark"
-      className="p-1 xl:p-2"
-    >
+    <Button onClick={onClick} styleType="ghost" backdrop="dark" className="p-1 xl:p-2">
       <RefreshIcon />
     </Button>
   );

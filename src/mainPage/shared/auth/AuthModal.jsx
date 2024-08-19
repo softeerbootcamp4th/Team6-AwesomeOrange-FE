@@ -43,9 +43,10 @@ function AuthModal({ onComplete: onCompleteCallback }) {
       {page === AUTH_CODE_PAGE && <AuthCodeStage {...secondSectionProps} />}
       {page === AUTH_FIND_PAGE && <UserFindStage {...findSectionProps} />}
       <button
-        className="absolute top-10 right-8"
+        className="absolute top-10 right-8 select-none"
         onClick={close}
         aria-label="닫기"
+        draggable="false"
       >
         <img src="/icons/close.svg" alt="닫기" width="24" height="24" />
       </button>

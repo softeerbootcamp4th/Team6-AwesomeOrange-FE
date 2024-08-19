@@ -1,5 +1,12 @@
-import FcfsInput from "./FcfsInput.jsx";
-import DrawInput from "./DrawInput.jsx";
+import { useContext } from "react";
+import {
+  EventEditContext,
+  EventEditDispatchContext,
+  EventEditModeContext,
+} from "./businessLogic/context.js";
+
+import FcfsInput from "./FcfsInput";
+import DrawInput from "./DrawInput";
 
 function EventTypeSelector({ selected, onClick, children }) {
   const selectorBaseStyle = `flex justify-center items-center px-8 py-2 rounded-t-lg text-body-m relative hover:bg-blue-50`;
@@ -17,7 +24,11 @@ function EventTypeSelector({ selected, onClick, children }) {
   );
 }
 
-function EventDetailInput({ state, dispatch, mode }) {
+function EventDetailInput() {
+  const { eventType } = useContext(EventEditContext);
+  const dispatch = useContext(EventEditDispatchContext);
+  const mode = useContext(EventEditModeContext);
+
   function selectEventType(type) {
     return () => {
       if (mode === "edit") return;
@@ -27,27 +38,17 @@ function EventDetailInput({ state, dispatch, mode }) {
 
   return (
     <div className="w-full">
-      <div className="flex w-full border-b border-neutral-200">
-        <EventTypeSelector
-          selected={state.eventType === "fcfs"}
-          onClick={selectEventType("fcfs")}
-        >
+      <div className="flex w-full border-b border-neutral-200 font-medium">
+        <EventTypeSelector selected={eventType === "fcfs"} onClick={selectEventType("fcfs")}>
           선착순
         </EventTypeSelector>
-        <EventTypeSelector
-          selected={state.eventType === "draw"}
-          onClick={selectEventType("draw")}
-        >
+        <EventTypeSelector selected={eventType === "draw"} onClick={selectEventType("draw")}>
           추첨
         </EventTypeSelector>
       </div>
       <div className="flex-grow flex justify-center items-center p-4">
-        {state.eventType === "fcfs" && (
-          <FcfsInput state={state} dispatch={dispatch} />
-        )}
-        {state.eventType === "draw" && (
-          <DrawInput state={state} dispatch={dispatch} />
-        )}
+        {eventType === "fcfs" && <FcfsInput />}
+        {eventType === "draw" && <DrawInput />}
       </div>
     </div>
   );

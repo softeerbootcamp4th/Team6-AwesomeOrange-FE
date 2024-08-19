@@ -52,7 +52,7 @@ function FastChargeInteraction({ interactCallback, $ref }) {
           }}
           draggable="false"
         />
-        <p className="text-white absolute bottom-[calc(50%+48px)] md:bottom-[calc(50%+94px)] lg:bottom-[calc(50%+140px)] text-title-s pointer-events-none">
+        <p className="text-white font-bold absolute bottom-[calc(50%+48px)] md:bottom-[calc(50%+94px)] lg:bottom-[calc(50%+140px)] text-title-s pointer-events-none">
           <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5">
             {Math.round(progress * MAX_MINUTE)}
           </span>

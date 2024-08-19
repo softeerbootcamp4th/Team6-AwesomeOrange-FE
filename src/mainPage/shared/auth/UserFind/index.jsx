@@ -33,27 +33,14 @@ function AuthFindSection({ goPrev, onComplete }) {
         <div className="flex flex-col flex-grow gap-6 px-0.5 relative h-0 overflow-y-auto">
           <label className="flex flex-col gap-3">
             <span className="text-body-m font-bold">이름</span>
-            <Input
-              text={name}
-              setText={setName}
-              placeholder="ex) 홍길동"
-              required
-              minLength="2"
-            />
+            <Input text={name} setText={setName} placeholder="ex) 홍길동" required minLength="2" />
           </label>
           <label className="flex flex-col gap-3">
             <span className="text-body-m font-bold">전화번호</span>
-            <PhoneInput
-              text={phone}
-              setText={setPhone}
-              required
-              isError={errorMessage !== ""}
-            />
+            <PhoneInput text={phone} setText={setPhone} required isError={errorMessage !== ""} />
           </label>
         </div>
-        <p className="w-full h-4 mt-1 text-center text-detail-l text-red-500">
-          {errorMessage}
-        </p>
+        <p className="w-full h-4 mt-1 text-center text-detail-l text-red-500">{errorMessage}</p>
         <div className="w-full flex flex-col items-center gap-5">
           <Button styleType="filled" type="submit" className="w-36 min-h-14">
             정보 확인하기

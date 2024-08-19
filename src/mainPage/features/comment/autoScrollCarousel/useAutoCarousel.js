@@ -25,8 +25,7 @@ function useAutoCarousel(speed = 1) {
       const baseSpeed = isHovered ? 0 : speed;
       momentum.current -= (momentum.current - baseSpeed) * FRICTION_RATE;
 
-      if (Math.abs(momentum.current, baseSpeed) < MOMENTUM_THRESHOLD)
-        momentum.current = baseSpeed;
+      if (Math.abs(momentum.current, baseSpeed) < MOMENTUM_THRESHOLD) momentum.current = baseSpeed;
       const finalSpeed = momentum.current;
 
       // 인터벌과 실제 x 포지션 계산
@@ -69,15 +68,13 @@ function useAutoCarousel(speed = 1) {
   // 드래그 도중 함수
   const onDrag = useCallback(({ x: mouseX }) => {
     // 새로운 포지션 계산
-    let newPos =
-      prevDragState.current.x - mouseX + prevDragState.current.mouseX;
+    let newPos = prevDragState.current.x - mouseX + prevDragState.current.mouseX;
     newPos %= childRef.current.clientWidth;
     setPosition(newPos);
 
     // 관성 계산
     if (Math.abs(mouseX - prevDragState.current.mouseX) > 10) {
-      momentum.current =
-        (prevDragState.current.prevMouseX - mouseX) * MOMENTUM_RATE;
+      momentum.current = (prevDragState.current.prevMouseX - mouseX) * MOMENTUM_RATE;
     } else momentum.current = 0;
     prevDragState.current.prevMouseX = mouseX;
   }, []);

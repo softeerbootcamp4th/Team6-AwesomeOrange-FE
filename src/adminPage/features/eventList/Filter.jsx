@@ -11,7 +11,7 @@ function Filter({ state, dispatch }) {
   return (
     <div className="grid grid-cols-2 gap-4">
       <fieldset className={fieldsetStyle}>
-        <legend className="px-2 text-body-l">상태</legend>
+        <legend className="px-2 text-body-l font-medium">상태</legend>
         <div className="flex flex-wrap gap-2 px-2">
           <label className={labelStyle}>
             <Checkbox name="event-state-scheduled" defaultChecked />
@@ -36,22 +36,14 @@ function Filter({ state, dispatch }) {
         </div>
       </fieldset>
       <fieldset className={fieldsetStyle}>
-        <legend className="px-2 text-body-l">종류</legend>
+        <legend className="px-2 text-body-l font-medium">종류</legend>
         <div className="flex flex-wrap gap-2 px-2">
           <label className={labelStyle}>
-            <Checkbox
-              name="event-type-fcfs"
-              checked={state.fcfs}
-              onChange={changeFilter("fcfs")}
-            />
+            <Checkbox name="event-type-fcfs" checked={state.fcfs} onChange={changeFilter("fcfs")} />
             선착순
           </label>
           <label className={labelStyle}>
-            <Checkbox
-              name="event-type-draw"
-              checked={state.draw}
-              onChange={changeFilter("draw")}
-            />
+            <Checkbox name="event-type-draw" checked={state.draw} onChange={changeFilter("draw")} />
             추첨
           </label>
         </div>

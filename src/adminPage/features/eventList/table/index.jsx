@@ -5,36 +5,21 @@ import Pagination from "@admin/components/Pagination.jsx";
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 
-function SearchResult({
-  query,
-  queryState,
-  queryDispatch,
-  checkState,
-  checkDispatch,
-}) {
-  const dataList = useQuery(
-    `admin-event-list@${query}`,
-    () => fetchServer(query),
-    {
-      deferred: true,
-    },
-  );
-  const page = 10;
+function SearchResult({ query, queryState, queryDispatch, checkState, checkDispatch }) {
+  const { contents, totalPages } = useQuery(`admin-event-list@${query}`, () => fetchServer(query), {
+    deferred: true,
+  });
 
   const checkSelect = () => {
-    const keys = dataList.map(({ eventId }) => eventId);
+    const keys = contents.map(({ eventId }) => eventId);
     checkDispatch({ type: "toggle_keys", keys });
   };
 
   return (
     <>
-      <TableHeader
-        state={queryState.sort}
-        dispatch={queryDispatch}
-        checkSelect={checkSelect}
-      />
+      <TableHeader state={queryState.sort} dispatch={queryDispatch} checkSelect={checkSelect} />
       <SearchResultBody
-        data={dataList}
+        data={contents}
         checkState={checkState}
         setCheck={(key) => {
           return (value) => checkDispatch({ type: "check_key", key, value });
@@ -44,7 +29,7 @@ function SearchResult({
         <Pagination
           currentPage={queryState.page}
           setPage={(value) => queryDispatch({ type: "set_page", value })}
-          maxPage={page}
+          maxPage={totalPages}
         />
       </div>
     </>

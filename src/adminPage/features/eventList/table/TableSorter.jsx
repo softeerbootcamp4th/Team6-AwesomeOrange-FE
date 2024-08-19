@@ -18,6 +18,7 @@ function TableSorter({ className, children, state, setState }) {
           src={state === "desc" ? descArrow : ascArrow}
           className="size-4"
           alt={state === "desc" ? "내림차순정렬" : "오름차순정렬"}
+          draggable="false"
         />
       )}
     </button>

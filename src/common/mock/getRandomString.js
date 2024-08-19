@@ -8,8 +8,7 @@ export default function getRandomString(len) {
 
   let str = "";
   for (let i = 0; i < len; i++) {
-    const randomCode =
-      Math.floor(Math.random() * (endCode - startCode + 1)) + startCode;
+    const randomCode = Math.floor(Math.random() * (endCode - startCode + 1)) + startCode;
     str += String.fromCharCode(randomCode);
   }
 

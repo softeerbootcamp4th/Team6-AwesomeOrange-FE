@@ -20,8 +20,7 @@ export function logout() {
 export function initLoginState() {
   tokenSaver.init(ADMIN_TOKEN_ID);
   const token = tokenSaver.get(ADMIN_TOKEN_ID);
-  if (token === null)
-    userStore.setState(() => ({ isLogin: false, initialized: true }));
+  if (token === null) userStore.setState(() => ({ isLogin: false, initialized: true }));
   else userStore.setState(() => ({ isLogin: true, initialized: true }));
 }
 

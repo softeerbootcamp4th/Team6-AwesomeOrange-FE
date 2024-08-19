@@ -65,20 +65,10 @@ function AuthSecondSection({ name, phone, onComplete }) {
           </span>
         </div>
         <div className="w-full flex flex-wrap justify-center gap-5">
-          <Button
-            styleType="filled"
-            type="submit"
-            className="w-36 min-h-14"
-            disabled={timer === 0}
-          >
+          <Button styleType="filled" type="submit" className="w-36 min-h-14" disabled={timer === 0}>
             인증 완료하기
           </Button>
-          <Button
-            styleType="ghost"
-            type="button"
-            className="min-h-14"
-            onClick={retryAuthCode}
-          >
+          <Button styleType="ghost" type="button" className="min-h-14" onClick={retryAuthCode}>
             재전송
           </Button>
         </div>

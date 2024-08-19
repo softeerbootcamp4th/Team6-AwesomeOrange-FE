@@ -4,13 +4,9 @@ import { makeLorem } from "@common/mock/utils.js";
 function getEventsMock() {
   return Array.from({ length: 100 }, (_, i) => {
     const startTime = new Date(
-      Date.now() -
-        86400 * 30 * 1000 +
-        Math.floor(Math.random() * 86400 * 60 * 1000),
+      Date.now() - 86400 * 30 * 1000 + Math.floor(Math.random() * 86400 * 60 * 1000),
     );
-    const endTime = new Date(
-      startTime.getTime() + Math.floor(Math.random() * 86400 * 120) * 1000,
-    );
+    const endTime = new Date(startTime.getTime() + Math.floor(Math.random() * 86400 * 120) * 1000);
 
     return {
       name: makeLorem(3, 7),
@@ -81,13 +77,19 @@ const handlers = [
     const page = +url.searchParams.get("page") ?? 1;
     const size = +url.searchParams.get("size") ?? 5;
 
-    const result = dummyData
+    const filteredData = dummyData
       .filter(({ name }) => (search === null ? true : name.includes(search)))
       .filter(filterData(filter))
-      .sort(sortData(sort))
-      .slice((page - 1) * size, page * size);
+      .sort(sortData(sort));
 
-    return HttpResponse.json(result);
+    const contents = filteredData.slice((page - 1) * size, page * size);
+
+    return HttpResponse.json({
+      contents,
+      totalPages: Math.ceil(filteredData.length / size),
+      number: page,
+      size,
+    });
   }),
   http.delete("/api/v1/admin/events", async ({ request }) => {
     const { eventIds } = await request.json();
