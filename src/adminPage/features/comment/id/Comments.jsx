@@ -1,17 +1,24 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 
-export default function Comments({ eventId, checkedComments, setCheckedComments, page, setAllId }) {
+export default function Comments({
+  eventId,
+  checkedComments,
+  setCheckedComments,
+  page,
+  setAllId,
+  searchString,
+}) {
   const data = useQuery(
     eventId,
     () =>
-      fetchServer(`/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15`).then(
-        ({ comments }) => {
-          setAllId(comments.map((comment) => comment.id));
-          return comments;
-        },
-      ),
-    [page],
+      fetchServer(
+        `/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15${searchString && "&search=" + searchString}`,
+      ).then(({ comments }) => {
+        setAllId(comments.map((comment) => comment.id));
+        return comments;
+      }),
+    [page, searchString],
   );
 
   function getDate(createdAt) {

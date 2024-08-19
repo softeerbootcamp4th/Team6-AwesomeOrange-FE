@@ -18,8 +18,8 @@ export default function DeleteButton({ eventId, checkedComments, setCheckedComme
         setCheckedComments(new Set());
       })
       .catch((e) => {
-        alert("삭제 실패");
         console.log(e);
+        openModal(<AlertModal title="오류" description={`상태 코드 ${e.status} : 삭제 실패`} />);
       }),
   );
 
