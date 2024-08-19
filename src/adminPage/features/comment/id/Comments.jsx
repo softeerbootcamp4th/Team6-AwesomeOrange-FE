@@ -14,10 +14,14 @@ export default function Comments({
     () =>
       fetchServer(
         `/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15${searchString && "&search=" + searchString}`,
-      ).then(({ comments }) => {
-        setAllId(comments.map((comment) => comment.id));
-        return comments;
-      }),
+      )
+        .then(({ comments }) => {
+          setAllId(comments.map((comment) => comment.id));
+          return comments;
+        })
+        .catch((e) => {
+          console.log(e);
+        }),
     [page, searchString],
   );
 
