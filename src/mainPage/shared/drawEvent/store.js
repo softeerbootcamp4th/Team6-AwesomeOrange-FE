@@ -13,14 +13,14 @@ function getJoinDataEvent() {
         newJoinedList[day] = true;
       });
       return newJoinedList;
-    })
-    .catch(() => [false, false, false, false, false]);
+    });
 }
 
 const drawEventStore = create((set, get) => ({
   joinStatus: [false, false, false, false, false],
   openBaseDate: new Date("9999-12-31"),
   currentJoined: false,
+  errorFallback: false,
   getJoinData: (logined) => {
     async function promiseFn() {
       try {
@@ -33,7 +33,7 @@ const drawEventStore = create((set, get) => ({
         if (currentDay >= 0 && currentDay < joinStatus.length) {
           currentJoined = joinStatus[currentDay];
         }
-        set({ joinStatus, openBaseDate: serverTime, currentJoined });
+        set({ joinStatus, openBaseDate: serverTime, currentJoined, errorFallback: false });
         return joinStatus;
       } catch(e) {
       	console.log(e);
@@ -41,6 +41,7 @@ const drawEventStore = create((set, get) => ({
           joinStatus: [false, false, false, false, false],
           openBaseDate: new Date("9999-12-31"),
           currentJoined: false,
+          errorFallback: true
         });
         return [false, false, false, false, false];
       }
@@ -56,6 +57,9 @@ const drawEventStore = create((set, get) => ({
   getOpenStatus: (index) => {
     return get().openBaseDate >= EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
   },
+  isTodayEvent: (index) => {
+    return getDayDifference(get().openBaseDate, EVENT_START_DATE.getTime() + index * DAY_MILLISEC) === 0;
+  }
 }));
 
 export default drawEventStore;

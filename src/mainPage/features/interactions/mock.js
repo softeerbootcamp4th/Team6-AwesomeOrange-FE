@@ -6,7 +6,7 @@ const eventParticipationDate = {
 
 const handlers = [
   http.get("/api/v1/event/draw/:eventId/participation", () =>
-    HttpResponse.json(eventParticipationDate),
+    HttpResponse.json(eventParticipationDate, {status: 404}),
   ),
   http.post("/api/v1/event/draw/:eventId/participation", () => HttpResponse.json(true)),
 ];
