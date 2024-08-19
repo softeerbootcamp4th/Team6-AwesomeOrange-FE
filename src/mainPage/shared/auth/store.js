@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { jwtDecode } from "jwt-decode";
 import tokenSaver from "@common/dataFetch/tokenSaver.js";
 import { SERVICE_TOKEN_ID } from "@common/constants.js";
 
@@ -9,7 +10,13 @@ const userStore = create(() => ({
 
 function parseTokenToUserName(token) {
   if (token === null) return "";
-  return "사용자";
+  try {
+    const { userName } = jwtDecode(token);
+    return userName;
+  }
+  catch {
+    return "사용자";
+  }
 }
 
 export function login(token) {
