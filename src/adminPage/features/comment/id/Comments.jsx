@@ -51,6 +51,14 @@ export default function Comments({
     }
   }
 
+  function truncateString(str) {
+    if (str.length > 50) {
+      return str.substring(0, 50) + "...";
+    } else {
+      return str;
+    }
+  }
+
   return (
     <div className="mt-1 mb-5 flex flex-col gap-1 w-full">
       {data.map((comment) => (
@@ -72,7 +80,7 @@ export default function Comments({
             <span className="text-neutral-500">{getTime(comment.createdAt)}</span>
           </div>
 
-          <span className="text-body-s">{comment.content}</span>
+          <span className="text-body-s">{truncateString(comment.content)}</span>
         </div>
       ))}
     </div>
