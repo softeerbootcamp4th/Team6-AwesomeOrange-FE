@@ -18,8 +18,8 @@ export default function DeleteButton({ eventId, checkedComments, setCheckedComme
         setCheckedComments(new Set());
       })
       .catch((e) => {
-        alert("삭제 실패");
         console.log(e);
+        openModal(<AlertModal title="오류" description={`상태 코드 ${e.status} : 삭제 실패`} />);
       }),
   );
 
@@ -45,7 +45,7 @@ export default function DeleteButton({ eventId, checkedComments, setCheckedComme
   return (
     <button
       onClick={deleteComments}
-      className="self-end px-5 py-1 bg-red-300 text-white hover:bg-red-500 rounded-lg"
+      className="px-5 py-1 bg-red-300 text-white hover:bg-red-500 rounded-lg"
     >
       삭제
     </button>
