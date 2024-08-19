@@ -29,10 +29,12 @@ const drawEventStore = create((set, get) => ({
           getJoinDataEvent(),
         ]);
         const currentDay = getDayDifference(EVENT_START_DATE, serverTime);
-        let currentJoined = false;
-        if (currentDay >= 0 && currentDay < joinStatus.length) {
+
+        let currentJoined = get().currentJoined;
+        if (!currentJoined && currentDay >= 0 && currentDay < joinStatus.length) {
           currentJoined = joinStatus[currentDay];
         }
+        
         set({ joinStatus, openBaseDate: serverTime, currentJoined, fallbackMode: false });
         return joinStatus;
       } catch {
@@ -48,6 +50,7 @@ const drawEventStore = create((set, get) => ({
     return getQuerySuspense(`draw-info-data@${logined}`, promiseFn, [set]);
   },
   setCurrentJoin: (value) => {
+    console.log("current joined hochul!", value);
     set({ currentJoined: value });
   },
   getJoinStatus: (index) => {

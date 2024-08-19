@@ -72,7 +72,7 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
         alt=""
         role="presentation"
         loading="lazy"
-        className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-100" : "opacity-30 sm:opacity-0"}`}
+        className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-100" : "opacity-30 md:opacity-0"}`}
       />
     </div>
   );
