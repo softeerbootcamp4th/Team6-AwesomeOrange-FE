@@ -11,14 +11,14 @@ import QnA from "./features/qna";
 import Footer from "./features/footer";
 
 import Modal from "@common/modal/modal.jsx";
-import { initLoginState, logout } from "@main/auth/store.js";
+import { logout } from "@main/auth/store.js";
 import useLogoutMiddleware from "@common/dataFetch/initLogoutMiddleware";
 
 function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
     history.scrollRestoration = "manual";
-    initLoginState();
+    //initLoginState();
   }, []);
   useLogoutMiddleware(logout);
 
