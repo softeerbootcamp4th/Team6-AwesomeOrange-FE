@@ -15,8 +15,8 @@ function getEventDateString(eventDate) {
   return `${padNumber(month)}월 ${padNumber(date)}일(${day[fullDate.getDay()]})`;
 }
 
-export default function InteractionSlide({ interactionDesc, index, isCurrent, slideTo, answer }) {
-  const isOpened = useDrawEventStore( store=>store.getOpenStatus(index) );
+export default function InteractionSlide({ interactionDesc, index, isCurrent, slideTo }) {
+  const isOpened = useDrawEventStore((store) => store.getOpenStatus(index));
 
   const activeImgPath = `images/active${index + 1}.png`;
   const inactiveImgPath = `images/inactive${index + 1}.png`;
@@ -24,9 +24,12 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
   const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
 
   function onClickExperience() {
-    openModal(<InteractionContext.Provider value={index}>
-      <InteractionModal />
-    </InteractionContext.Provider>, "interaction");
+    openModal(
+      <InteractionContext.Provider value={index}>
+        <InteractionModal />
+      </InteractionContext.Provider>,
+      "interaction",
+    );
   }
 
   return (

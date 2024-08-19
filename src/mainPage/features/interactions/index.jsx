@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import TapBar from "./description/TapBar.jsx";
 import InteractionSlide from "./description/InteractionSlide.jsx";
 import GiftDetail from "./description/GiftDetail.jsx";
@@ -23,10 +23,7 @@ export default function InteractionPage() {
   return (
     <>
       <section ref={sectionRef} className="bg-black py-24 lg:py-60 flex flex-col items-center">
-        <TapBar
-          currentInteraction={currentInteraction}
-          slideTo={slideTo}
-        />
+        <TapBar currentInteraction={currentInteraction} slideTo={slideTo} />
 
         <swiper-container
           slides-per-view="auto"
@@ -43,7 +40,6 @@ export default function InteractionPage() {
                 index={index}
                 isCurrent={currentInteraction === index}
                 slideTo={slideTo}
-                answer={JSONData.answer[index]}
               />
             </swiper-slide>
           ))}

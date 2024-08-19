@@ -7,7 +7,7 @@ import useDrawEventStore from "@main/drawEvent/store.js";
 
 function FcfsLoseModal() {
   const close = useContext(ModalCloseContext);
-  const shouldInteraction = useDrawEventStore(store=>!store.currentJoined);
+  const shouldInteraction = useDrawEventStore((store) => !store.currentJoined);
 
   async function toMoveInteraction() {
     await close();

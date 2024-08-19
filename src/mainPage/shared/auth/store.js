@@ -70,8 +70,7 @@ function useUserStore(func, defaultValue = defaultUserState) {
   );
 }
 
-export function isLogined()
-{
+export function isLogined() {
   return userStore.state.isLogin;
 }
 

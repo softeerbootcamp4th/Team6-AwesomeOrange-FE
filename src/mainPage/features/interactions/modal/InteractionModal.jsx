@@ -42,14 +42,11 @@ export default function InteractionModal() {
       </Suspense>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-        <ShowAnswerButton disabled={!isActive} onClick={()=>setIsAnswerUp(true)}/>
+        <ShowAnswerButton disabled={!isActive} onClick={() => setIsAnswerUp(true)} />
         <ResetButton onClick={() => interactionRef.current.reset()} />
       </div>
 
-      <InteractionAnswer
-        isAnswerUp={isAnswerUp}
-        setIsAnswerUp={setIsAnswerUp}
-      />
+      <InteractionAnswer isAnswerUp={isAnswerUp} setIsAnswerUp={setIsAnswerUp} />
     </div>
   );
 }
