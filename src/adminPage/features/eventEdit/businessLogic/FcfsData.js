@@ -94,13 +94,12 @@ function verifyItems(map, { startTime, endTime, prevSnapshot = new Map() }) {
   return result;
 }
 
-function hasDuplicatedDate(newDate, map)
-{
-  if(newDate === undefined) return true;
-  if(newDate === null) return false;
-  const dateSet = new Set([...map.values()].map( ({date})=>date?.valueOf() ?? null ));
+function hasDuplicatedDate(newDate, map) {
+  if (newDate === undefined) return true;
+  if (newDate === null) return false;
+  const dateSet = new Set([...map.values()].map(({ date }) => date?.valueOf() ?? null));
 
-  if(dateSet.has(newDate.valueOf())) return true;
+  if (dateSet.has(newDate.valueOf())) return true;
   return false;
 }
 
@@ -206,12 +205,12 @@ class FcfsData {
     const oldItem = newData.map.get(key);
 
     const verified = verifyItem(
-      {...oldItem, ...data},
+      { ...oldItem, ...data },
       { startTime, endTime, prevSnapshot: oldItem },
     );
     if (verified === null) newData.map.delete(key);
     else {
-      if(hasDuplicatedDate(verified.date, this.map)) verified.date = oldItem.date;
+      if (hasDuplicatedDate(verified.date, this.map)) verified.date = oldItem.date;
 
       newData.map.set(key, verified);
     }

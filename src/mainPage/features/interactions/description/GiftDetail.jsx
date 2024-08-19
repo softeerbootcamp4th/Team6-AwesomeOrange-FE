@@ -5,7 +5,7 @@ export default function GiftDetail({ contentList }) {
     <div className="flex flex-col font-bold">
       {contentList.map((content, index) => (
         <div key={index} className="bg-neutral-900 p-6 mb-5 flex z-0 relative">
-          <img src={content.src} alt="경품" width="130" height="89" loading="lazy"  />
+          <img src={content.src} alt="경품" width="130" height="89" loading="lazy" />
 
           <div className="pl-8 flex flex-col">
             <span className="text-body-m sm:text-body-l text-white">

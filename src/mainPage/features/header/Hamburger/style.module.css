@@ -1,52 +1,53 @@
 .hamburger {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	width: 24px;
-	height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 24px;
+  height: 20px;
 }
 
-.hamburger > div, .hamburger > div::before, .hamburger > div::after{
-	width: 100%;
-	height: 2px;
-	box-sizing: border-box;
-	background-color: currentColor;
-	transition: all 0.3s;
+.hamburger > div,
+.hamburger > div::before,
+.hamburger > div::after {
+  width: 100%;
+  height: 2px;
+  box-sizing: border-box;
+  background-color: currentColor;
+  transition: all 0.3s;
 }
 
-.hamburger > div{
-	position: absolute;
-	border-color: #24adaf;
+.hamburger > div {
+  position: absolute;
+  border-color: #24adaf;
 }
 
-.hamburger > div::before
-{
-	content: "";
-	display: block;
-	position: absolute;
-	top:0;
-	left:0;
-	transform: translateY(-10px);
+.hamburger > div::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-10px);
 }
 
-.hamburger > div::after{
-	content: "";
-	display: block;
-	position: absolute;
-	top:0;
-	left:0;
-	transform: translateY(10px);
+.hamburger > div::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(10px);
 }
 
 .hamburger[data-opened="true"] > div {
-	transform: rotate(135deg);
+  transform: rotate(135deg);
 }
 
 .hamburger[data-opened="true"] > div::before {
-	transform: translateY(0px) rotate(180deg);
+  transform: translateY(0px) rotate(180deg);
 }
 
 .hamburger[data-opened="true"] > div::after {
-	transform: translateY(-0px) rotate(-270deg);
+  transform: translateY(-0px) rotate(-270deg);
 }

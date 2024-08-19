@@ -6,38 +6,32 @@ import { SERVICE_TOKEN_ID } from "@common/constants.js";
 const defaultUserState = {
   isLogin: false,
   userName: "",
-}
+};
 
-class UserStore
-{
+class UserStore {
   state;
   observers = new Set();
-  constructor()
-  {
+  constructor() {
     this.state = createUserStore();
   }
-  getState(getter)
-  {
+  getState(getter) {
     return getter(this.state);
   }
-  subscribe(callback)
-  {
+  subscribe(callback) {
     this.observers.add(callback);
-    return ()=>this.observers.delete(callback);
+    return () => this.observers.delete(callback);
   }
-  setState(mutateFunc)
-  {
+  setState(mutateFunc) {
     const oldState = this.state;
     const newState = typeof mutateFunc === "function" ? mutateFunc(oldState) : mutateFunc;
-    if(oldState === newState) return;
+    if (oldState === newState) return;
     this.state = newState;
-    this.observers.forEach( callback=>callback() );
+    this.observers.forEach((callback) => callback());
   }
 }
 
-function createUserStore()
-{
-  if(typeof window === "undefined") return defaultUserState;
+function createUserStore() {
+  if (typeof window === "undefined") return defaultUserState;
   tokenSaver.init(SERVICE_TOKEN_ID);
   const token = tokenSaver.get(SERVICE_TOKEN_ID);
   const userName = parseTokenToUserName(token);
@@ -50,8 +44,7 @@ function parseTokenToUserName(token) {
   try {
     const { userName } = jwtDecode(token);
     return userName;
-  }
-  catch {
+  } catch {
     return "사용자";
   }
 }
@@ -69,9 +62,12 @@ export function logout() {
   userStore.setState(() => ({ isLogin: false, userName: "" }));
 }
 
-function useUserStore(func, defaultValue=defaultUserState)
-{
-  return useSyncExternalStore(userStore.subscribe.bind(userStore), ()=>userStore.getState(func), ()=>func(defaultValue));
+function useUserStore(func, defaultValue = defaultUserState) {
+  return useSyncExternalStore(
+    userStore.subscribe.bind(userStore),
+    () => userStore.getState(func),
+    () => func(defaultValue),
+  );
 }
 
 export default useUserStore;

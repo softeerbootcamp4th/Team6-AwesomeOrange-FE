@@ -4,7 +4,8 @@ function isValidInput(name, phoneNumber) {
   return name.length >= 2 && phoneNumber.length < 12 && phoneNumber.startsWith("01");
 }
 
-const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLW9yYW5nZSIsImlhdCI6MTcyNDA0NDc5MCwiZXhwIjoxNzI0MDQ4MzkwLCJzdWIiOiJldmVudFVzZXIiLCJ1c2VyTmFtZSI6Iuq5gOyCoeu6qSIsInVzZXJJZCI6ImtpbXBpcHB5YXAiLCJyb2xlIjoiZXZlbnRfdXNlciJ9.m5m_PkwmYz5Mt-kjn28435bQtwgph3WO-2J42X82lCg";
+const token =
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZWFtLW9yYW5nZSIsImlhdCI6MTcyNDA0NDc5MCwiZXhwIjoxNzI0MDQ4MzkwLCJzdWIiOiJldmVudFVzZXIiLCJ1c2VyTmFtZSI6Iuq5gOyCoeu6qSIsInVzZXJJZCI6ImtpbXBpcHB5YXAiLCJyb2xlIjoiZXZlbnRfdXNlciJ9.m5m_PkwmYz5Mt-kjn28435bQtwgph3WO-2J42X82lCg";
 
 const handlers = [
   http.post("/api/v1/event-user/send-auth", async ({ request }) => {
