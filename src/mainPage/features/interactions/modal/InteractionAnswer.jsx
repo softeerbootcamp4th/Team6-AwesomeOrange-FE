@@ -62,7 +62,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, i
             <div className="flex gap-4 items-end">
               <MoveCommentButton disabled={!isAnswerUp} hidden={!isEventToday}/>
               <ShareButton 
-                openToast={ ()=>setIsAnswerUp(true) }
+                openToast={ ()=>setIsAniPlaying(true) }
                 disabled={!isAnswerUp} 
                 url="https://softeer-awesome-orange.vercel.app/" 
               />
