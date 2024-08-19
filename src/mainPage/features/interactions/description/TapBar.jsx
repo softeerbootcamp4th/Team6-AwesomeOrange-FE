@@ -1,4 +1,9 @@
-export default function TapBar({ currentInteraction, isJoinedList, slideTo }) {
+import useDrawEvent from "@main/drawEvent/store.js";
+
+export default function TapBar({ currentInteraction, slideTo }) {
+  const isJoinedList = useDrawEvent( store=>store.joinStatus );
+  const getOpenStatus = useDrawEvent( store=>store.getOpenStatus );
+
   return (
     <>
       <span className="py-5 text-body-l text-neutral-200 font-bold items-center border-b-[3px] border-b-neutral-400">
@@ -23,7 +28,7 @@ export default function TapBar({ currentInteraction, isJoinedList, slideTo }) {
             <img
               src="/icons/check-mint.svg"
               alt="체크"
-              className={`${!isJoined && "invisible"}`}
+              className={`${(!isJoined || !getOpenStatus(index)) && "invisible"}`}
               draggable="false"
             />
 
@@ -36,7 +41,7 @@ export default function TapBar({ currentInteraction, isJoinedList, slideTo }) {
             <span
               className={`text-body-m font-bold ${isJoined ? "text-green-400" : "text-neutral-700"}`}
             >
-              {isJoined ? "참여 완료" : "미참여"}
+              {getOpenStatus(index) ? (isJoined ? "참여 완료" : "미참여") : ""}
             </span>
           </button>
         ))}

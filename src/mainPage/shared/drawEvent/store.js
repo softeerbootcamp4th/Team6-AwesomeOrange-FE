@@ -24,7 +24,7 @@ const drawEventStore = create((set, get) => ({
   getJoinData: (logined) => {
     async function promiseFn() {
       try {
-        const [serverTime, joinStatus] = Promise.all([
+        const [serverTime, joinStatus] = await Promise.all([
           getQuery("server-time", getServerPresiseTime),
           getJoinDataEvent(),
         ]);
@@ -35,7 +35,8 @@ const drawEventStore = create((set, get) => ({
         }
         set({ joinStatus, openBaseDate: serverTime, currentJoined });
         return joinStatus;
-      } catch {
+      } catch(e) {
+      	console.log(e);
         set({
           joinStatus: [false, false, false, false, false],
           openBaseDate: new Date("9999-12-31"),
