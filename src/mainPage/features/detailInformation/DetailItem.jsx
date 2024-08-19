@@ -7,6 +7,7 @@ function DetailItem({ img, title, description }) {
         className="absolute w-full h-full -z-10 top-0 left-0 object-cover"
         width="1920"
         height="1080"
+        loading="lazy"
       />
       <div className="text-white w-full flex flex-col gap-4">
         <h3 className="whitespace-pre-wrap text-title-s font-bold md:text-title-m lg:text-title-l">
