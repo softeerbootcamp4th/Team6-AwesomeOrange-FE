@@ -9,6 +9,11 @@ const handlers = [
     HttpResponse.json(eventParticipationDate),
   ),
   http.post("/api/v1/event/draw/:eventId/participation", () => HttpResponse.json(true)),
+  http.post("/api/v1/url/shorten", () =>
+    HttpResponse.json({
+      shortUrl: "o1PiWwlZZU",
+    }),
+  ),
 ];
 
 export default handlers;

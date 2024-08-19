@@ -29,20 +29,17 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
 
   function onClickShare() {
     setIsAniPlaying(true);
-
-    // 단축 URL 받아오는 요청. 추후 수정 필요
     fetchServer(
-      `/api/v1/url/shorten?originalUrl=https%3A%2F%2Fsofteer-awesome-orange.vercel.app%2F&userId=1`,
+      `/api/v1/url/shorten?originalUrl=https%3A%2F%2Fsofteer-awesome-orange.vercel.app%2F`,
       {
         method: "POST",
       },
     )
-      .then((res) => {
-        console.log(res);
-        navigator.clipboard.writeText("https://youtu.be/KMU0tzLwhbE");
+      .then(({ shortUrl }) => {
+        navigator.clipboard.writeText(`http://softeerorange.store/api/v1/url/${shortUrl}`);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(() => {
+        navigator.clipboard.writeText("https://softeer-awesome-orange.vercel.app/");
       });
   }
 
@@ -58,7 +55,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
       </span>
 
       <button
-        tabIndex={!isAnswerUp && -1}
+        tabIndex={isAnswerUp ? undefined : -1}
         onClick={() => setIsAnswerUp(false)}
         className="absolute top-5 xl:top-10 left-5 xl:left-10 p-1 xl:p-3 bg-neutral-800 rounded-full"
       >
@@ -99,7 +96,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
                 </div>
 
                 <Button
-                  tabIndex={!isAnswerUp && -1}
+                  tabIndex={isAnswerUp ? undefined : -1}
                   onClick={onClickWrite}
                   styleType="filled"
                   backdrop="dark"
@@ -110,7 +107,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
               </div>
 
               <Button
-                tabIndex={!isAnswerUp && -1}
+                tabIndex={isAnswerUp ? undefined : -1}
                 onClick={onClickShare}
                 styleType="ghost"
                 backdrop="dark"
@@ -122,7 +119,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
           </>
         ) : (
           <Button
-            tabIndex={!isAnswerUp && -1}
+            tabIndex={isAnswerUp ? undefined : -1}
             onClick={() => openModal(authModal)}
             styleType="filled"
             backdrop="dark"
