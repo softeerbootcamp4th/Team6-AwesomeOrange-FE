@@ -2,7 +2,7 @@ import InteractionModal from "../modal/InteractionModal";
 import openModal from "@common/modal/openModal.js";
 import { padNumber } from "@common/utils.js";
 import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants";
-import useEventStore from "@main/realtimeEvent/store.js";
+import useDrawEventStore from "@main/drawEvent/store.js";
 
 function getEventDateString(eventDate) {
   const day = ["일", "월", "화", "수", "목", "금", "토"];
@@ -15,12 +15,12 @@ function getEventDateString(eventDate) {
 }
 
 export default function InteractionSlide({ interactionDesc, index, isCurrent, slideTo, answer }) {
-  const currentServerTime = useEventStore((state) => state.currentServerTime);
+  const isOpened = useDrawEventStore( store=>store.getOpenStatus(index) );
+
   const activeImgPath = `images/active${index + 1}.png`;
   const inactiveImgPath = `images/inactive${index + 1}.png`;
   const numberImgPath = `icons/rect${index + 1}.svg`;
   const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
-  const isOpened = currentServerTime >= eventDate;
 
   function onClickExperience() {
     openModal(<InteractionModal index={index} answer={answer} />, "interaction");

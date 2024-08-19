@@ -1,8 +1,8 @@
-import useDrawEvent from "@main/drawEvent/store.js";
+import useDrawEventStore from "@main/drawEvent/store.js";
 
 export default function TapBar({ currentInteraction, slideTo }) {
-  const isJoinedList = useDrawEvent( store=>store.joinStatus );
-  const getOpenStatus = useDrawEvent( store=>store.getOpenStatus );
+  const isJoinedList = useDrawEventStore( store=>store.joinStatus );
+  const getOpenStatus = useDrawEventStore( store=>store.getOpenStatus );
 
   return (
     <>
