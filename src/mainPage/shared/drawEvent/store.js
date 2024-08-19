@@ -51,6 +51,7 @@ const drawEventStore = create((set, get) => ({
     set({ currentJoined: value });
   },
   getJoinStatus: (index) => {
+    if(get().isTodayEvent(index)) return get().currentJoined || get().joinStatus[index];
     return get().joinStatus[index];
   },
   getOpenStatus: (index) => {

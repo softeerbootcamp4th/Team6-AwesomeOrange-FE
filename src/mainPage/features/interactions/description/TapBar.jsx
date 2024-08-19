@@ -1,9 +1,38 @@
 import useDrawEvent from "@main/drawEvent/store.js";
 
+function TabBarItem({currentInteraction, slideTo, index})
+{
+  const isJoined = useDrawEvent( store=>store.getJoinStatus(index) );
+  const isInvisible = useDrawEvent( store=>store.fallbackMode || !store.getOpenStatus(index) );
+
+  return <button
+    onClick={() => slideTo(index)}
+    className="flex flex-col items-center select-none cursor-pointer"
+  >
+    <img
+      src="/icons/check-mint.svg"
+      alt="체크"
+      className={`${(!isJoined || isInvisible) && "invisible"}`}
+      draggable="false"
+    />
+
+    <span
+      className={`text-body-l font-bold transition ease-in-out duration-200 ${currentInteraction === index ? "text-neutral-100" : "text-neutral-500"}`}
+    >
+      Day{index + 1}
+    </span>
+
+    <span
+      className={`text-body-m font-bold ${isJoined ? "text-green-400" : "text-neutral-700"}`}
+    >
+      {isInvisible ? "" : (isJoined ? "참여 완료" : "미참여")}
+    </span>
+  </button>
+}
+
+
 export default function TapBar({ currentInteraction, slideTo }) {
   const isJoinedList = useDrawEvent( store=>store.joinStatus );
-  const getOpenStatus = useDrawEvent( store=>store.getOpenStatus );
-  const fallbackMode = useDrawEvent( store=>store.fallbackMode );
 
   return (
     <>
@@ -20,32 +49,7 @@ export default function TapBar({ currentInteraction, slideTo }) {
       </span>
 
       <div className="py-12 flex gap-5 sm:gap-15">
-        {isJoinedList.map((isJoined, index) => (
-          <button
-            key={index}
-            onClick={() => slideTo(index)}
-            className="flex flex-col items-center select-none cursor-pointer"
-          >
-            <img
-              src="/icons/check-mint.svg"
-              alt="체크"
-              className={`${(!isJoined && (!getOpenStatus(index) || fallbackMode) ) && "invisible"}`}
-              draggable="false"
-            />
-
-            <span
-              className={`text-body-l font-bold transition ease-in-out duration-200 ${currentInteraction === index ? "text-neutral-100" : "text-neutral-500"}`}
-            >
-              Day{index + 1}
-            </span>
-
-            <span
-              className={`text-body-m font-bold ${isJoined ? "text-green-400" : "text-neutral-700"}`}
-            >
-              {getOpenStatus(index) && !fallbackMode ? (isJoined ? "참여 완료" : "미참여") : ""}
-            </span>
-          </button>
-        ))}
+        {isJoinedList.map((_, index) => <TabBarItem currentInteraction={currentInteraction} slideTo={slideTo} index={index} key={index} />)}
       </div>
     </>
   );
