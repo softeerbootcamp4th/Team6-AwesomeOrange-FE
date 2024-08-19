@@ -13,6 +13,7 @@ import openModal from "@common/modal/openModal.js";
 const submitCommentErrorHandle = {
   400: "negative",
   401: "unauthorized",
+  404: "no_participated",
   409: "하루에 1번만 기대평을 등록할 수 있습니다.",
   offline: "offline",
 };
@@ -74,6 +75,7 @@ function CommentForm() {
         case submitCommentErrorHandle[400]:
           return openModal(negativeModal);
         case submitCommentErrorHandle[401]:
+        case submitCommentErrorHandle[404]:
           return openModal(noUserModal);
         case submitCommentErrorHandle["offline"]:
           return openModal(noServerModal);
