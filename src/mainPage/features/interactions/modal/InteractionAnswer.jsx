@@ -1,47 +1,21 @@
 import { useState } from "react";
+import MoveCommentButton from "./buttons/MoveCommentButton.jsx";
+import ShareButton from "./buttons/ShareButton.jsx";
+import ParticipateButton from "./buttons/ParticipateButton.jsx";
 
-import scrollTo from "@main/scroll/scrollTo.js";
-import { COMMENT_SECTION } from "@main/scroll/constants.js";
-import AuthModal from "@main/auth/AuthModal.jsx";
-import openModal from "@common/modal/openModal.js";
-import Button from "@common/components/Button.jsx";
-import { fetchServer } from "@common/dataFetch/fetchServer";
 import userStore from "@main/auth/store.js";
 import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants.js";
 import useEventStore from "@main/realtimeEvent/store.js";
 import getEventDateState from "@main/realtimeEvent/getEventDateState";
 
 import style from "./InteractionAnswer.module.css";
-import joinEvent from "./joinEvent";
 
-export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, close, index }) {
+export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, index }) {
   const isLogin = userStore((state) => state.isLogin);
   const currentServerTime = useEventStore((state) => state.currentServerTime);
   const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
   const [isAniPlaying, setIsAniPlaying] = useState(false);
   const isEventToday = getEventDateState(currentServerTime, eventDate) === "active";
-  const authModal = <AuthModal onComplete={() => joinEvent(index)} />;
-
-  async function onClickWrite() {
-    await close();
-    scrollTo(COMMENT_SECTION);
-  }
-
-  function onClickShare() {
-    setIsAniPlaying(true);
-    fetchServer(
-      `/api/v1/url/shorten?originalUrl=https%3A%2F%2Fsofteer-awesome-orange.vercel.app%2F`,
-      {
-        method: "POST",
-      },
-    )
-      .then(({ shortUrl }) => {
-        navigator.clipboard.writeText(`http://softeerorange.store/api/v1/url/${shortUrl}`);
-      })
-      .catch(() => {
-        navigator.clipboard.writeText("https://softeer-awesome-orange.vercel.app/");
-      });
-  }
 
   return (
     <div
@@ -57,6 +31,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
       <button
         tabIndex={isAnswerUp ? undefined : -1}
         onClick={() => setIsAnswerUp(false)}
+        aria-label="뒤로가기"
         className="absolute top-5 xl:top-10 left-5 xl:left-10 p-1 xl:p-3 bg-neutral-800 rounded-full"
       >
         <img src="/icons/left-arrow.svg" alt="뒤로가기" draggable="false" />
@@ -79,54 +54,22 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp, answer, c
       </div>
 
       <div className="absolute bottom-10 flex flex-col items-center gap-10">
-        {isLogin || !isEventToday ? (
+        {(isLogin || !isEventToday) ? (
           <>
             <span className="text-body-m text-green-400 font-bold">
               {isEventToday ? "오늘 응모가 완료되었습니다!" : "응모 기간이 지났습니다!"}
             </span>
-
             <div className="flex gap-4 items-end">
-              <div className={`${isEventToday ? "flex" : "hidden"} flex-col gap-2}`}>
-                <div className="flex relative flex-col items-center animate-bounce">
-                  <span className=" bg-green-400 text-nowrap text-body-s xl:text-body-m text-neutral-800 rounded-full px-4 xl:px-8 py-1 xl:py-2 font-bold">
-                    당첨확률 UP!
-                  </span>
-
-                  <img src="icons/polygon-tri.svg" alt="역삼각형" draggable="false" />
-                </div>
-
-                <Button
-                  tabIndex={isAnswerUp ? undefined : -1}
-                  onClick={onClickWrite}
-                  styleType="filled"
-                  backdrop="dark"
-                  className="text-body-m px-4 sm:px-10 py-4"
-                >
-                  기대평 작성하기
-                </Button>
-              </div>
-
-              <Button
-                tabIndex={isAnswerUp ? undefined : -1}
-                onClick={onClickShare}
-                styleType="ghost"
-                backdrop="dark"
-                className="text-body-m px-4 sm:px-10 py-4"
-              >
-                공유하기
-              </Button>
+              <MoveCommentButton disabled={!isAnswerUp} hidden={!isEventToday}/>
+              <ShareButton 
+                openToast={ ()=>setIsAnswerUp(true) }
+                disabled={!isAnswerUp} 
+                url="https://softeer-awesome-orange.vercel.app/" 
+              />
             </div>
           </>
         ) : (
-          <Button
-            tabIndex={isAnswerUp ? undefined : -1}
-            onClick={() => openModal(authModal)}
-            styleType="filled"
-            backdrop="dark"
-            className="text-body-m px-10 py-4"
-          >
-            응모하기
-          </Button>
+          <ParticipateButton disabled={!isAnswerUp} index={index} />
         )}
       </div>
     </div>

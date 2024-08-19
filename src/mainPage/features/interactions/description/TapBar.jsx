@@ -19,7 +19,7 @@ export default function TapBar({ currentInteraction, slideTo }) {
         {`The new IONIQ 5의 새로운 기능을 날마다 체험하고 이벤트에 응모하세요!\n추첨을 통해 IONIQ과 함께하는 제주 여행 패키지를 드립니다`}
       </span>
 
-      <div className="py-12 flex gap-5 sm:gap-[60px]">
+      <div className="py-12 flex gap-5 sm:gap-15">
         {isJoinedList.map((isJoined, index) => (
           <button
             key={index}
