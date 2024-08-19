@@ -50,7 +50,6 @@ const drawEventStore = create((set, get) => ({
     return getQuerySuspense(`draw-info-data@${logined}`, promiseFn, [set]);
   },
   setCurrentJoin: (value) => {
-    console.log("current joined hochul!", value);
     set({ currentJoined: value });
   },
   getJoinStatus: (index) => {
