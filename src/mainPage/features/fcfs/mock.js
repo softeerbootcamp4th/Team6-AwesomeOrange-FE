@@ -30,7 +30,6 @@ const handlers = [
 
     const token = request.headers.get("authorization");
     if (token === null) return HttpResponse.json(false, { status: 401 });
-    if (token !== "Bearer test_token") return HttpResponse.json(false, { status: 401 });
 
     if (typeof eventAnswer !== "number") return HttpResponse.json(false, { status: 400 });
 

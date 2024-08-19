@@ -70,7 +70,9 @@ function CardGame({ offline }) {
           openModal(<FcfsInvalidModal />);
           break;
         case submitCardgameErrorHandle[401]:
-          openModal(<AuthModal onComplete={() => getCardAnswerOnline(index)} />);
+          return new Promise( (resolve)=>{
+            openModal(<AuthModal onComplete={() => resolve(getCardAnswerOnline(index))} />);
+          } );
           break;
         case submitCardgameErrorHandle["offline"]:
           setOfflineMode(true);
