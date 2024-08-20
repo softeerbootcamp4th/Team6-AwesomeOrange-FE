@@ -1,6 +1,7 @@
 import openModal from "@common/modal/openModal.js";
 import AuthModal from "@main/auth/AuthModal.jsx";
 import WelcomeModal from "@main/auth/Welcome";
+import LogoutModal from "@main/auth/Logout/LogoutConfirmModal.jsx";
 import useAuthStore from "@main/auth/store.js";
 
 function AuthButtonSection() {
@@ -11,9 +12,15 @@ function AuthButtonSection() {
   const authModal = (
     <AuthModal onComplete={(isFreshMember) => isFreshMember && openModal(welcomeModal)} />
   );
+  const logoutModal = <LogoutModal />;
 
   if (isLogin)
-    return <div className="text-body-s lg:text-body-m text-black">{userName}님 환영합니다.</div>;
+    return <button 
+      onClick={()=>openModal(logoutModal)} 
+      className="text-body-s lg:text-body-m text-black"
+    >
+      {userName}님 환영합니다.
+    </button>;
 
   return (
     <button
