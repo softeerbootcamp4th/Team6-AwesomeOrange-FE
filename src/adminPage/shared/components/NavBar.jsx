@@ -18,9 +18,15 @@ function NavBar() {
         <NavBarItem disabled={!isLogin} to="/events">
           events
         </NavBarItem>
+
         <NavBarItem disabled={!isLogin} to="/comments">
           기대평
         </NavBarItem>
+
+        <NavBarItem disabled={!isLogin} to="/users">
+          유저
+        </NavBarItem>
+
         {isLogin && <NavBarItem onClick={onLogoutClick}>LOGOUT</NavBarItem>}
       </ul>
     </nav>
