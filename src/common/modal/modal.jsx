@@ -30,6 +30,19 @@ function Modal({ layer }) {
     }
   }, [child]);
 
+  useEffect(() => {
+    if(child === null) return;
+
+    function escHatch(e)
+    {
+      if(e.key !== "Escape") return;
+      close();
+      e.preventDefault();
+    }
+    document.addEventListener( "keydown", escHatch );
+    return ()=>document.removeEventListener( "keydown", escHatch );
+  }, [child]);
+
   const focusTrapRef = useFocusTrap(child !== null);
 
   return (
