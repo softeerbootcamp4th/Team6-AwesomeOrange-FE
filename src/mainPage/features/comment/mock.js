@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw";
 import { makeLorem } from "@common/mock/utils.js";
 
 function getCommentMock() {
-  return Array.from({ length: 2 }, (_, i) => {
+  return Array.from({ length: 20 }, (_, i) => {
     return {
       id: i * 100 + Math.floor(Math.random() * 99),
       content: makeLorem(5, 12),

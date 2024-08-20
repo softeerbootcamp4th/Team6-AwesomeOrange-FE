@@ -1,5 +1,6 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
+import CommentCarouselNoData from "./CommentCarouselNoData.jsx";
 import AutoScrollCarousel from "../autoScrollCarousel";
 import { formatDate } from "@common/utils.js";
 import { EVENT_ID } from "@common/constants.js";
@@ -13,6 +14,8 @@ function mask(string) {
 
 function CommentCarousel() {
   const { comments } = useQuery("comment-data", () => fetchServer(`/api/v1/comment/${EVENT_ID}`));
+
+  if(comments.length === 0) return <CommentCarouselNoData />;
 
   return (
     <div className="w-full h-[29rem]">
