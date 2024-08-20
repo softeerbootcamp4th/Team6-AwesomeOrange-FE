@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { LINEAR } from "./constants.js";
 
-function PuzzlePiece({ shape, onClick, fixRotate }) {
+function PuzzlePiece({ shape, onClick, fixRotate, ariaLabel }) {
   const [fixing, setFixing] = useState(false);
   const style = {
     transform: `rotate( ${shape.rotate * 90}deg)`,
   };
 
   return (
-    <div
+    <button
       style={style}
       className={`size-28 bg-black rounded-xl border-2 border-white transition-transform ease-out ${fixing ? "duration-0" : "duration-500"}`}
       onClick={() => {
@@ -21,6 +21,7 @@ function PuzzlePiece({ shape, onClick, fixRotate }) {
         fixRotate();
         setTimeout(() => setFixing(false), 60);
       }}
+      aria-label={ariaLabel}
     >
       <svg
         className="size-full stroke-blue-300 fill-transparent"
@@ -29,7 +30,7 @@ function PuzzlePiece({ shape, onClick, fixRotate }) {
       >
         <path d={shape.type === LINEAR ? "M 0 54 H 108" : "M108 54 H 54 V 108"} strokeWidth="8" />
       </svg>
-    </div>
+    </button>
   );
 }
 

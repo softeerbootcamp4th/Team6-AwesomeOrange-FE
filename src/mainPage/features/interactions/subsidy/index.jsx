@@ -52,7 +52,7 @@ function SubsidyInteraction({ interactCallback, $ref }) {
       />
       <div className="absolute z-0 w-96 h-96 top-[calc(50%-12rem)] flex justify-center items-center">
         <button
-          className="absolute size-[120px] active:scale-90 transition-transform"
+          className="absolute size-[120px] active:scale-90 rounded-full outline-yellow-400 transition-transform"
           aria-label="Space바를 눌러서 동전을 클릭하고, 예상 금액을 올려보세요!"
           onClick={onClick}
         >
