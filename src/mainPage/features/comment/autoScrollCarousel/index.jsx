@@ -13,11 +13,11 @@ function AutoScrollCarousel({ speed = 1, gap = 0, children }) {
         }}
         className="relative h-max touch-pan-y"
       >
-        <div className={`${flexStyle} -translate-x-[calc(100%+var(--gap,0px))]`}>{children}</div>
+        <div className={`${flexStyle} -translate-x-[calc(100%+var(--gap,0px))]`} aria-hidden="true">{children}</div>
         <div className={flexStyle} ref={ref}>
           {children}
         </div>
-        <div className={`${flexStyle} translate-x-[calc(100%+var(--gap,0px))]`}>{children}</div>
+        <div className={`${flexStyle} translate-x-[calc(100%+var(--gap,0px))]`} aria-hidden="true">{children}</div>
       </div>
     </div>
   );
