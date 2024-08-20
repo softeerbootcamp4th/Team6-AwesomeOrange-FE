@@ -19,7 +19,7 @@ export default function AdminCommentID() {
           type="text"
           value={formString}
           onChange={(e) => setFormString(e.target.value)}
-          placeholder="검색 단어 입력"
+          placeholder="유저 이름 검색"
           className="bg-neutral-50 focus:bg-white w-full px-4 py-2 rounded-lg text-body-s"
         />
 

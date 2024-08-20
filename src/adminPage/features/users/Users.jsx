@@ -1,28 +1,24 @@
-// import { useQuery } from "@common/dataFetch/getQuery.js";
-// import { fetchServer } from "@common/dataFetch/fetchServer.js";
-// import Pagination from "@admin/components/Pagination";
-// import { useState } from "react";
+import { useQuery } from "@common/dataFetch/getQuery.js";
+import { fetchServer } from "@common/dataFetch/fetchServer.js";
+import Pagination from "@admin/components/Pagination";
+import { useState } from "react";
 
-export default function Comments({
-  searchString,
-}) {
+export default function Comments({ searchString }) {
   searchString;
-  // const [page, setPage] = useState(1);
-  // const data = useQuery(
-  //   "admin-users",
-  //   () =>
-  //     fetchServer(
-  //       `/api/v1/admin/호출!!!!!!`,
-  //     )
-  //       .then((res) => {
-  //         console.log(res);
-  //         return res;
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //       }),
-  //   [page, searchString],
-  // );
+  const [page, setPage] = useState(1);
+  const data = useQuery(
+    "admin-users",
+    () =>
+      fetchServer(`/api/v1/admin/users?page=${page - 1}&search=${searchString}`)
+        .then((res) => {
+          console.log(res);
+          return res;
+        })
+        .catch((e) => {
+          console.log(e);
+        }),
+    [page, searchString],
+  );
 
   return (
     <div className="mt-1 mb-5 flex flex-col items-center gap-1 w-full">
@@ -41,9 +37,9 @@ export default function Comments({
 
           <span className="pr-4 overflow-hidden text-body-s text-ellipsis">{comment.content}</span>
         </div>
-      ))}
+      ))} */}
 
-      <Pagination currentPage={page} setPage={setPage} maxPage={data.totalPages} /> */}
+      <Pagination currentPage={page} setPage={setPage} maxPage={data.totalPages} />
     </div>
   );
 }
