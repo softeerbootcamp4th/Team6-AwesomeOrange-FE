@@ -10,6 +10,7 @@ import Pointer from "./pointer.svg";
 function IntroSection() {
   const videoRef = useRef(null);
   const introRef = useRef(null);
+  const carYPosition = useRef({ top: 0, bottom: 10 });
   const [isTimerVisible, setIsTimerVisible] = useState(false);
 
   const titleOpacity = useScrollTransition({
@@ -20,30 +21,11 @@ function IntroSection() {
   });
 
   const videoTimeline = useScrollTransition({
-    scrollStart: 400,
-    scrollEnd: 1000,
+    scrollStart: carYPosition.current.top,
+    scrollEnd: carYPosition.current.bottom,
     valueStart: 0,
     valueEnd: 2,
   });
-
-  const videoScroll = useScrollTransition({
-    scrollStart: 0,
-    scrollEnd: 2160,
-    valueStart: 0, // 명세서의 Y값은 절대값이지만 넘겨줘야 하는 값은 상대값
-    valueEnd: -400,
-  });
-
-  const titleStyle = {
-    opacity: titleOpacity,
-  };
-
-  const videoStyle = {
-    transform: `translateY(${videoScroll}px)`,
-  };
-
-  useEffect(() => {
-    videoRef.current.currentTime = videoTimeline;
-  }, [videoTimeline]);
 
   useEffect(() => {
     const introDOM = introRef.current;
@@ -68,27 +50,41 @@ function IntroSection() {
     };
   }, []);
 
+  useEffect(() => {
+    const videoDOM = videoRef.current;
+    if (videoDOM) {
+      const rect = videoDOM.getBoundingClientRect();
+      carYPosition.current = {
+        top: rect.top + rect.height * 0.5 - window.innerHeight,
+        bottom: rect.top + rect.height * 0.5,
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    videoRef.current.currentTime = videoTimeline;
+  }, [videoTimeline]);
+
   return (
     <>
       <section ref={introRef} className="flex flex-col items-center">
-        <div className="z-50 sticky w-full flex justify-center top-[50vh] -translate-y-1/2 pointer-events-none">
+        <div
+          style={{ opacity: titleOpacity }}
+          className="z-50 sticky w-full flex justify-center top-[50vh] -translate-y-1/2 pointer-events-none"
+        >
           <h1
             className={`${style.openTitle} ease-in text-head-l md:text-7xl lg:text-8xl font-bold text-black z-50 text-center`}
-            style={titleStyle}
           >
             The new <br className="inline min-[500px]:hidden" />
             <span className="max-[500px]:sketch-line">IONIQ 5</span>
           </h1>
 
-          <div
-            className="absolute hidden min-[500px]:block top-10 md:top-11 lg:top-[66px] z-0 overflow-hidden scale-[60%] md:scale-75 lg:scale-100"
-            style={titleStyle}
-          >
+          <div className="absolute hidden min-[500px]:block top-10 md:top-11 lg:top-[66px] z-0 overflow-hidden scale-[60%] md:scale-75 lg:scale-100">
             <LineHighlight />
           </div>
         </div>
 
-        <div className="relative mt-[800px] flex flex-col items-center" style={videoStyle}>
+        <div className="relative mt-[800px] flex flex-col items-center">
           <div className="overflow-hidden">
             <video
               src={SpinningCarVideo}
@@ -111,7 +107,7 @@ function IntroSection() {
         <img
           src={Pointer}
           alt="다음으로 넘어가기"
-          className="pt-32 pb-32 animate-bounce"
+          className="pt-60 pb-40 animate-bounce"
           draggable="false"
         />
       </section>
