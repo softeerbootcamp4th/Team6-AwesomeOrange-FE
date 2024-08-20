@@ -24,6 +24,7 @@ export default function InteractionModal() {
   const [isActive, setIsActive] = useState(false);
   const [isAnswerUp, setIsAnswerUp] = useState(false);
   const interactionRef = useRef(null);
+  const closeButtonRef = useRef(null);
 
   if (!InteractionComponent) return;
 
@@ -32,6 +33,7 @@ export default function InteractionModal() {
     <div className="w-[calc(100%-2rem)] h-[calc(100%-2rem)] md:size-5/6 relative bg-[url('/images/interactionBackdrop.webp')] bg-cover bg-center bg-black/80 border border-neutral-600 rounded overflow-hidden">
       <button
         onClick={close}
+        ref={closeButtonRef}
         className="z-10 absolute top-5 right-5 xl:top-10 xl:right-10 bg-neutral-800 p-1 xl:p-3 rounded-full select-none"
       >
         <img src="/icons/close-white.svg" alt="닫기" draggable="false" />
@@ -42,11 +44,14 @@ export default function InteractionModal() {
       </Suspense>
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-        <ShowAnswerButton disabled={!isActive} onClick={() => setIsAnswerUp(true)} />
-        <ResetButton onClick={() => interactionRef.current.reset()} />
+        <ShowAnswerButton disabled={!isActive || isAnswerUp} onClick={() => setIsAnswerUp(true)} />
+        <ResetButton onClick={() => interactionRef.current.reset()} disabled={isAnswerUp} />
       </div>
 
-      <InteractionAnswer isAnswerUp={isAnswerUp} setIsAnswerUp={setIsAnswerUp} />
+      <InteractionAnswer isAnswerUp={isAnswerUp} goBack={()=>{
+        setIsAnswerUp(false);
+        closeButtonRef.current.focus();
+      }} />
     </div>
   );
 }

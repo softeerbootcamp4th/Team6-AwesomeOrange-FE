@@ -20,7 +20,7 @@ function getParticipantState(index) {
   };
 }
 
-export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp }) {
+export default function InteractionAnswer({ isAnswerUp, goBack }) {
   const index = useContext(InteractionContext);
 
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -41,7 +41,7 @@ export default function InteractionAnswer({ isAnswerUp, setIsAnswerUp }) {
 
       <button
         tabIndex={isAnswerUp ? undefined : -1}
-        onClick={() => setIsAnswerUp(false)}
+        onClick={goBack}
         aria-label="뒤로가기"
         className="absolute top-5 xl:top-10 left-5 xl:left-10 p-1 xl:p-3 bg-neutral-800 rounded-full"
       >
