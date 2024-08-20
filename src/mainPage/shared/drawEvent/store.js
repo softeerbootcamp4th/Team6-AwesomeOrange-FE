@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
-import { getQuery } from "@common/dataFetch/getQuery.js";
-import use from "@common/dataFetch/use.js";
+import { getQuery, getQuerySuspense } from "@common/dataFetch/getQuery.js";
 import { getServerPresiseTime, getDayDifference } from "@common/utils.js";
 import { EVENT_DRAW_ID, EVENT_START_DATE, DAY_MILLISEC } from "@common/constants.js";
 
@@ -39,11 +38,12 @@ const drawEventStore = create((set, get) => ({
         }
       }
     }
-    const fetcher = getQuery(`draw-info-data@${userId}`, promiseFn).then( newValue=>{
-      set(newValue);
-      return newValue;
-    } );
-    return use( fetcher );
+    async function setter() {
+      const newState = await getQuery(`draw-info-data@${userId}`, promiseFn);
+      set(newState);
+      return newState;
+    }
+    return getQuerySuspense( "__zustand__draw-event-store-getData", setter, [userId, set] );
   },
   setCurrentJoin: (value) => {
     set({ currentJoined: value });
