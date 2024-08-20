@@ -8,8 +8,9 @@ function DetailSwiper({ content }) {
   const isLastPage = page === content.length - 1;
 
   const slideClass = "w-[calc(100%-96px)] min-[1024px]:w-full max-w-[1200px] bg-yellow-400";
-  const navigationClass = `invisible absolute [--size:3rem] md:[--size:4.5rem] top-[calc(50%-var(--size)*0.5)] size-[var(--size)] p-2 md:p-4 
-	flex justify-center items-center rounded-full bg-neutral-100 active:bg-neutral-200 z-10 cursor-pointer select-none`;
+  const navigationClass = `absolute [--size:0px] lg:[--size:4.5rem] top-[calc(50%-var(--size)*0.5)] size-[var(--size)] p-0 lg:p-4 
+	flex justify-center items-center rounded-full disabled:hidden
+  bg-neutral-100 active:bg-neutral-200 z-10 cursor-pointer select-none`;
 
   return (
     <div className="w-full flex flex-col items-center gap-10">
@@ -19,6 +20,7 @@ function DetailSwiper({ content }) {
           slides-per-view="auto"
           centered-slides="true"
           space-between="12"
+          a11y="true"
           breakpoints='{"1024":{"spaceBetween":400}}'
           ref={swiperElRef}
         >
@@ -29,7 +31,8 @@ function DetailSwiper({ content }) {
           ))}
         </swiper-container>
         <button
-          className={`${navigationClass} left-6 ${page === 0 ? "" : "lg:visible"}`}
+          className={`${navigationClass} left-6`}
+          disabled={page === 0}
           onClick={() => {
             swiperElRef.current.swiper.slidePrev();
           }}
@@ -38,7 +41,8 @@ function DetailSwiper({ content }) {
           <img src={left} alt="" width="40" height="40" draggable="false" />
         </button>
         <button
-          className={`${navigationClass} right-6 ${isLastPage ? "" : "lg:visible"}`}
+          className={`${navigationClass} right-6`}
+          disabled={isLastPage}
           onClick={() => {
             swiperElRef.current.swiper.slideNext();
           }}
@@ -53,11 +57,8 @@ function DetailSwiper({ content }) {
             <li
               className={i === page ? "text-black" : "text-neutral-300"}
               key={tabName}
-              onClick={() => {
-                swiperElRef.current.swiper.slideTo(i);
-              }}
             >
-              {tabName}
+              <button onClick={()=>swiperElRef.current.swiper.slideTo(i)}>{tabName}</button>
             </li>
           ))}
         </ul>
