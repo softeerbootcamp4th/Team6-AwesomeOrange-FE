@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { ModalCloseContext } from "@common/modal/modal.jsx";
+import openModal from "@common/modal/openModal.js";
 import AlertModalContainer from "@main/components/AlertModalContainer.jsx";
 import Button from "@common/components/Button.jsx";
 
 import { logout } from "@main/auth/store.js";
+import LogoutAlertModal from "./LogoutAlertModal.jsx";
 
 function LogoutConfirmModal({onLogout})
 {
@@ -11,6 +13,7 @@ function LogoutConfirmModal({onLogout})
 	function clickLogout()
 	{
 		logout();
+		openModal(<LogoutAlertModal />).then( ()=>onLogout?.() );
 	}
 
 	return <AlertModalContainer title="정말로 로그아웃하시겠습니까?">
