@@ -51,8 +51,9 @@ function SubsidyInteraction({ interactCallback, $ref }) {
         directive="동전을 클릭하여 예상 금액을 입력해보세요!"
       />
       <div className="absolute z-0 w-96 h-96 top-[calc(50%-12rem)] flex justify-center items-center">
-        <div
-          className="absolute size-[120px] active:scale-90 transition-transform"
+        <button
+          className="absolute size-[120px] active:scale-90 rounded-full outline-yellow-400 transition-transform"
+          aria-label="Space바를 눌러서 동전을 클릭하고, 예상 금액을 올려보세요!"
           onClick={onClick}
         >
           <div
@@ -68,7 +69,7 @@ function SubsidyInteraction({ interactCallback, $ref }) {
               draggable="false"
             />
           </div>
-        </div>
+        </button>
         <div className="absolute -z-10 w-full h-full">
           {[...lotties].map((id) => (
             <Lottie

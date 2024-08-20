@@ -20,36 +20,47 @@ const drawEventStore = create((set, get) => ({
   openBaseDate: new Date("9999-12-31"),
   currentJoined: false,
   fallbackMode: false,
-  getJoinData: (logined) => {
+  getJoinData: (userId) => {
     async function promiseFn() {
       try {
         const [serverTime, joinStatus] = await Promise.all([
           getQuery("server-time", getServerPresiseTime),
           getJoinDataEvent(),
         ]);
-        const currentDay = getDayDifference(EVENT_START_DATE, serverTime);
-
-        let currentJoined = get().currentJoined;
-        if (!currentJoined && currentDay >= 0 && currentDay < joinStatus.length) {
-          currentJoined = joinStatus[currentDay];
-        }
-
-        set({ joinStatus, openBaseDate: serverTime, currentJoined, fallbackMode: false });
-        return joinStatus;
-      } catch {
-        set({
+        return { joinStatus, openBaseDate: serverTime, fallbackMode: false };
+      } catch (e) {
+        return {
           joinStatus: [false, false, false, false, false],
           openBaseDate: new Date("9999-12-31"),
           currentJoined: false,
           fallbackMode: true,
-        });
-        return [false, false, false, false, false];
+        };
       }
     }
-    return getQuerySuspense(`draw-info-data@${logined}`, promiseFn, [set]);
+    async function setter() {
+      const newState = await getQuery(`draw-info-data@${userId}`, promiseFn);
+      set(newState);
+      return newState;
+    }
+    return getQuerySuspense("__zustand__draw-event-store-getData", setter, [userId, set]);
   },
   setCurrentJoin: (value) => {
     set({ currentJoined: value });
+  },
+  readjustJoinStatus: (index) => {
+    set(({ joinStatus }) => {
+      const newJoinStatus = [...joinStatus];
+      newJoinStatus[index] = true;
+      return { joinStatus: newJoinStatus };
+    });
+  },
+  setFallbackMode: () => {
+    set({
+      joinStatus: [false, false, false, false, false],
+      openBaseDate: new Date("9999-12-31"),
+      currentJoined: false,
+      fallbackMode: true,
+    });
   },
   getJoinStatus: (index) => {
     if (get().isTodayEvent(index)) return get().currentJoined || get().joinStatus[index];

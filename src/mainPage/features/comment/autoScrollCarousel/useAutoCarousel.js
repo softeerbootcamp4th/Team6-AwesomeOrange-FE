@@ -5,7 +5,7 @@ const FRICTION_RATE = 0.1;
 const MOMENTUM_THRESHOLD = 0.6;
 const MOMENTUM_RATE = 0.3;
 
-function useAutoCarousel(speed = 1) {
+function useAutoCarousel(speed = 1, gap = 0) {
   const childRef = useRef(null);
   const [position, setPosition] = useState(0);
   const [isControlled, setIsControlled] = useState(false);
@@ -19,7 +19,7 @@ function useAutoCarousel(speed = 1) {
     (time) => {
       if (childRef.current === null) return;
 
-      const width = childRef.current.clientWidth;
+      const width = childRef.current.clientWidth + gap;
 
       // 마우스 뗐을 때 관성 재계산
       const baseSpeed = isHovered ? 0 : speed;
@@ -38,7 +38,7 @@ function useAutoCarousel(speed = 1) {
       // 타임스탬프 저장
       timestamp.current = time;
     },
-    [isHovered, speed],
+    [isHovered, speed, gap],
   );
 
   useEffect(() => {

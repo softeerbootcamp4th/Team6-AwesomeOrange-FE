@@ -1,10 +1,11 @@
-import useUserStore from "@main/auth/store.js";
+import useAuthStore from "@main/auth/store.js";
 import useDrawStore from "./store.js";
 
 function InteractionEventJoinDataFetcher() {
-  const isLogin = useUserStore((store) => store.isLogin);
+  const userId = useAuthStore((store) => store.userId);
   const getData = useDrawStore((store) => store.getJoinData);
-  getData(isLogin);
+
+  getData(userId);
   return null;
 }
 
