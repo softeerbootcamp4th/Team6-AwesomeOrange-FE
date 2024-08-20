@@ -30,7 +30,7 @@ function getSampleCommentList() {
       },
     ];
   }
-  return { comments: commentList };
+  return { comments: commentList, totalPages: 15 };
 }
 
 const handlers = [

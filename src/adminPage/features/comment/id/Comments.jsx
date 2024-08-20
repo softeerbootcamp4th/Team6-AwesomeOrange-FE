@@ -1,23 +1,25 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
+import Pagination from "@admin/components/Pagination";
+import { useState } from "react";
 
 export default function Comments({
   eventId,
   checkedComments,
   setCheckedComments,
-  page,
   setAllId,
   searchString,
 }) {
+  const [page, setPage] = useState(1);
   const data = useQuery(
     eventId,
     () =>
       fetchServer(
-        `/api/v1/admin/comments?eventId=${eventId}&page=${page}&size=15${searchString && "&search=" + searchString}`,
+        `/api/v1/admin/comments?eventId=${eventId}&page=${page - 1}&size=15${searchString && "&search=" + searchString}`,
       )
-        .then(({ comments }) => {
-          setAllId(comments.map((comment) => comment.id));
-          return comments;
+        .then((res) => {
+          setAllId(res.comments.map((comment) => comment.id));
+          return res;
         })
         .catch((e) => {
           console.log(e);
@@ -60,8 +62,8 @@ export default function Comments({
   }
 
   return (
-    <div className="mt-1 mb-5 flex flex-col gap-1 w-full">
-      {data.map((comment) => (
+    <div className="mt-1 mb-5 flex flex-col items-center gap-1 w-full">
+      {data.comments.map((comment) => (
         <div
           key={comment.id}
           onClick={() => checkComment(comment.id)}
@@ -83,6 +85,8 @@ export default function Comments({
           <span className="text-body-s">{truncateString(comment.content)}</span>
         </div>
       ))}
+
+      <Pagination currentPage={page} setPage={setPage} maxPage={data.totalPages} />
     </div>
   );
 }
