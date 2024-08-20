@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
-import { getQuery, getQuerySuspense } from "@common/dataFetch/getQuery.js";
+import { getQuery } from "@common/dataFetch/getQuery.js";
+import use from "@common/dataFetch/use.js";
 import { getServerPresiseTime, getDayDifference } from "@common/utils.js";
 import { EVENT_DRAW_ID, EVENT_START_DATE, DAY_MILLISEC } from "@common/constants.js";
 
@@ -28,23 +29,39 @@ const drawEventStore = create((set, get) => ({
           getJoinDataEvent(),
         ]);
         const currentDay = getDayDifference(EVENT_START_DATE, serverTime);
-        
-        set({ joinStatus, openBaseDate: serverTime, fallbackMode: false });
-        return joinStatus;
+        return { joinStatus, openBaseDate: serverTime, fallbackMode: false };
       } catch(e) {
-        set({
+        return {
           joinStatus: [false, false, false, false, false],
           openBaseDate: new Date("9999-12-31"),
           currentJoined: false,
           fallbackMode: true,
-        });
-        return [false, false, false, false, false];
+        }
       }
     }
-    return getQuerySuspense(`draw-info-data@${userId}`, promiseFn, [get, set]);
+    const fetcher = getQuery(`draw-info-data@${userId}`, promiseFn).then( newValue=>{
+      set(newValue);
+      return newValue;
+    } );
+    return use( fetcher );
   },
   setCurrentJoin: (value) => {
     set({ currentJoined: value });
+  },
+  readjustJoinStatus: (index) => {
+    set(({joinStatus})=>{ 
+      const newJoinStatus = [...joinStatus];
+      newJoinStatus[index] = true
+      return {joinStatus: newJoinStatus};
+    });
+  },
+  setFallbackMode: () =>{
+    set({
+      joinStatus: [false, false, false, false, false],
+      openBaseDate: new Date("9999-12-31"),
+      currentJoined: false,
+      fallbackMode: true,
+    });
   },
   getJoinStatus: (index) => {
     if (get().isTodayEvent(index)) return get().currentJoined || get().joinStatus[index];
