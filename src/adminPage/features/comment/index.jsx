@@ -54,7 +54,7 @@ export default function AdminComment() {
   }
 
   function onKeyDown(e) {
-    if (!isSpread || (e.key !== "ArrowUp" && e.key !== "ArrowDown")) return;
+    if (!isSpread || !searchList.length || (e.key !== "ArrowUp" && e.key !== "ArrowDown")) return;
     e.preventDefault();
     let nextIndex = selectedEvent;
 
