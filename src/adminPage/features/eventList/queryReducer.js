@@ -55,7 +55,7 @@ export function searchStateToQuery(state) {
       .filter(([, value]) => value !== "none")
       .map(([key, value]) => `${key}:${value}`)
       .join(","),
-    page: state.page,
+    page: state.page - 1,
     size: 10,
   };
   if (state.query === "") delete paramObj.search;
