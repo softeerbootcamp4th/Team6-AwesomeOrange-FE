@@ -1,5 +1,6 @@
 import { createContext, useCallback, useEffect, useState, useRef } from "react";
 import useModalStore, { closeModal } from "./store.js";
+import useFocusTrap from "./useFocusTrap.js";
 
 export const ModalCloseContext = createContext(() => {
   console.log("모달이 닫힙니다.");
@@ -29,11 +30,14 @@ function Modal({ layer }) {
     }
   }, [child]);
 
+  const focusTrapRef = useFocusTrap(child !== null);
+
   return (
     <ModalCloseContext.Provider value={close}>
       {child !== null ? (
         <div
           className={`fixed z-[100] top-0 left-0 w-full h-dvh flex justify-center items-center transition-opacity ${opacity === 0 ? "opacity-0" : "opacity-100"}`}
+          ref={focusTrapRef}
         >
           {child}
           <div
