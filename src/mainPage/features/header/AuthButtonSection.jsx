@@ -17,9 +17,13 @@ function AuthButtonSection() {
   if (isLogin)
     return <button 
       onClick={()=>openModal(logoutModal)} 
-      className="text-body-s lg:text-body-m text-black"
+      aria-label="로그아웃하기"
+      className="text-body-s lg:text-body-m text-black overflow-hidden py-3 px-2 relative group/button"
     >
       {userName}님 환영합니다.
+      <div className="absolute top-0 left-0 w-full h-full bg-blue-400 text-white flex justify-center items-center translate-x-full transition-transform group-hover/button:translate-x-0 group-focus/button:translate-x-0">
+        로그아웃
+      </div>
     </button>;
 
   return (
