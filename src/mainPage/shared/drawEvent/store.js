@@ -27,15 +27,14 @@ const drawEventStore = create((set, get) => ({
           getQuery("server-time", getServerPresiseTime),
           getJoinDataEvent(),
         ]);
-        const currentDay = getDayDifference(EVENT_START_DATE, serverTime);
         return { joinStatus, openBaseDate: serverTime, fallbackMode: false };
-      } catch(e) {
+      } catch (e) {
         return {
           joinStatus: [false, false, false, false, false],
           openBaseDate: new Date("9999-12-31"),
           currentJoined: false,
           fallbackMode: true,
-        }
+        };
       }
     }
     async function setter() {
@@ -43,19 +42,19 @@ const drawEventStore = create((set, get) => ({
       set(newState);
       return newState;
     }
-    return getQuerySuspense( "__zustand__draw-event-store-getData", setter, [userId, set] );
+    return getQuerySuspense("__zustand__draw-event-store-getData", setter, [userId, set]);
   },
   setCurrentJoin: (value) => {
     set({ currentJoined: value });
   },
   readjustJoinStatus: (index) => {
-    set(({joinStatus})=>{ 
+    set(({ joinStatus }) => {
       const newJoinStatus = [...joinStatus];
-      newJoinStatus[index] = true
-      return {joinStatus: newJoinStatus};
+      newJoinStatus[index] = true;
+      return { joinStatus: newJoinStatus };
     });
   },
-  setFallbackMode: () =>{
+  setFallbackMode: () => {
     set({
       joinStatus: [false, false, false, false, false],
       openBaseDate: new Date("9999-12-31"),

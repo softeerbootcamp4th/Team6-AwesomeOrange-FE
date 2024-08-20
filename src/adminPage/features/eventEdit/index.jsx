@@ -51,7 +51,7 @@ function EventEditor({ initialData = null } = {}) {
             title={`${mode === "create" ? "등록" : "수정"} 완료`}
             description={`이벤트가 성공적으로 ${mode === "create" ? "등록" : "수정"}되었습니다!`}
           />,
-        ).then( ()=>navigate(mode === "create" ? "/events" : `/events/${state.eventId}`) );
+        ).then(() => navigate(mode === "create" ? "/events" : `/events/${state.eventId}`));
       },
       onError: (e) => {
         openModal(<AlertModal title="등록 실패" description={e.message} />);

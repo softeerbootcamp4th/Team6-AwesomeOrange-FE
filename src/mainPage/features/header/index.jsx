@@ -33,9 +33,14 @@ export default function Header() {
       key={index}
       className={`w-20 lg:w-24 h-ful cursor-pointer ${currentSection - 1 === index ? "text-black" : "text-neutral-300"}`}
     >
-      <button onClick={() => onClickScrollSection(index + 1)} className="flex justify-center items-center w-full h-full">{scrollSection}</button>
+      <button
+        onClick={() => onClickScrollSection(index + 1)}
+        className="flex justify-center items-center w-full h-full"
+      >
+        {scrollSection}
+      </button>
     </li>
-  ))
+  ));
 
   return (
     <nav className="sticky top-0 h-[60px] z-40 bg-white/[.36] backdrop-blur-xl flex justify-between px-6 lg:px-9 items-center font-bold select-none">

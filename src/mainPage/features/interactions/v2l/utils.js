@@ -48,19 +48,21 @@ class PieceData {
     return newPiece;
   }
   getLabel() {
-    if(this.type === LINEAR) {
-      if(this.rotate % 2) return "위에서 아래로 이어짐.";
+    if (this.type === LINEAR) {
+      if (this.rotate % 2) return "위에서 아래로 이어짐.";
       else return "왼쪽에서 오른쪽으로 이어짐.";
-    }
-    else if(this.type === CURVED) {
-      switch(this.rotate % 4) {
-        case 0: return "오른쪽에서 아래로 이어짐.";
-        case 1: return "왼쪽에서 아래로 이어짐.";
-        case 2: return "왼쪽에서 위로 이어짐.";
-        case 3: return "오른쪽에서 위로 이어짐.";
+    } else if (this.type === CURVED) {
+      switch (this.rotate % 4) {
+        case 0:
+          return "오른쪽에서 아래로 이어짐.";
+        case 1:
+          return "왼쪽에서 아래로 이어짐.";
+        case 2:
+          return "왼쪽에서 위로 이어짐.";
+        case 3:
+          return "오른쪽에서 위로 이어짐.";
       }
-    }
-    else return "알 수 없는 모양."
+    } else return "알 수 없는 모양.";
   }
 }
 

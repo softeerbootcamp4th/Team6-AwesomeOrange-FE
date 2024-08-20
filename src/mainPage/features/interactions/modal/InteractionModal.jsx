@@ -48,10 +48,13 @@ export default function InteractionModal() {
         <ResetButton onClick={() => interactionRef.current.reset()} disabled={isAnswerUp} />
       </div>
 
-      <InteractionAnswer isAnswerUp={isAnswerUp} goBack={()=>{
-        setIsAnswerUp(false);
-        closeButtonRef.current.focus();
-      }} />
+      <InteractionAnswer
+        isAnswerUp={isAnswerUp}
+        goBack={() => {
+          setIsAnswerUp(false);
+          closeButtonRef.current.focus();
+        }}
+      />
     </div>
   );
 }

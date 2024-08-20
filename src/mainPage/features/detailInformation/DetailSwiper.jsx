@@ -54,11 +54,8 @@ function DetailSwiper({ content }) {
       <div className="w-full max-w-[1248px] px-12 lg:px-6 flex justify-end lg:justify-between align-center font-bold">
         <ul className="hidden lg:flex text-body-l gap-15 h-14 items-center">
           {content.map(({ tabName }, i) => (
-            <li
-              className={i === page ? "text-black" : "text-neutral-300"}
-              key={tabName}
-            >
-              <button onClick={()=>swiperElRef.current.swiper.slideTo(i)}>{tabName}</button>
+            <li className={i === page ? "text-black" : "text-neutral-300"} key={tabName}>
+              <button onClick={() => swiperElRef.current.swiper.slideTo(i)}>{tabName}</button>
             </li>
           ))}
         </ul>

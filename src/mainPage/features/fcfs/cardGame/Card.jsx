@@ -52,7 +52,13 @@ function Card({ index, locked, isFlipped, setFlipped, setGlobalLock, getCardAnsw
           className={`${cardFaceBaseStyle} ${style.back}`}
           src={answer1x}
           srcSet={`${answer1x} 1x, ${answer2x} 2x`}
-          alt={isFlipped ? (isCorrect ? "축하합니다, 당첨입니다!" : `${index}번 카드는 정답이 아니네요! 다른 카드를 뒤집으세요.`) : ""}
+          alt={
+            isFlipped
+              ? isCorrect
+                ? "축하합니다, 당첨입니다!"
+                : `${index}번 카드는 정답이 아니네요! 다른 카드를 뒤집으세요.`
+              : ""
+          }
           draggable="false"
           loading="lazy"
         />

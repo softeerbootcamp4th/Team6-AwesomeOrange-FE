@@ -74,7 +74,7 @@ const fcfsStore = create((set) => ({
       const newState = await getQuery("fcfs-info-data", promiseFn);
       set(newState);
       return newState;
-    }
+    };
     return getQuerySuspense("fcfs-info-data", setter, [set]);
   },
   getPariticipatedData: (userId) => {

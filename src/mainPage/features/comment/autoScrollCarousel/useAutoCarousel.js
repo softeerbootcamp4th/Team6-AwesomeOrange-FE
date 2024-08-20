@@ -38,7 +38,7 @@ function useAutoCarousel(speed = 1, gap = 0) {
       // 타임스탬프 저장
       timestamp.current = time;
     },
-    [isHovered, speed],
+    [isHovered, speed, gap],
   );
 
   useEffect(() => {

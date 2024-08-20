@@ -7,7 +7,7 @@ function FcfsInvalidModal() {
   const close = useContext(ModalCloseContext);
 
   return (
-    <AlertModalContainer 
+    <AlertModalContainer
       title="선착순 이벤트에 참여할 수 없습니다"
       description="아직 선착순 이벤트 진행 중이 아닙니다. 부적절한 방법으로 이벤트를 참여할 경우 향후 불이익이 가해질 수 있습니다."
     >

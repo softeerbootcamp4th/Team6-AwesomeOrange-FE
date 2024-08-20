@@ -71,7 +71,9 @@ function CardGame({ offline }) {
           break;
         case submitCardgameErrorHandle[401]:
           return new Promise((resolve, reject) => {
-            openModal(<AuthModal onComplete={() => resolve(getCardAnswerOnline(index))} />).then( reject );
+            openModal(<AuthModal onComplete={() => resolve(getCardAnswerOnline(index))} />).then(
+              reject,
+            );
           });
         case submitCardgameErrorHandle["offline"]:
           setOfflineMode(true);

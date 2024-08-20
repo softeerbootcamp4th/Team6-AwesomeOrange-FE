@@ -34,7 +34,7 @@ function createUserStore() {
   if (typeof window === "undefined") return defaultUserState;
   tokenSaver.init(SERVICE_TOKEN_ID);
   const token = tokenSaver.get(SERVICE_TOKEN_ID);
-  const {userName, userId} = parseTokenAndGetData(token);
+  const { userName, userId } = parseTokenAndGetData(token);
   if (token === null) return { isLogin: false, userName: "", userId: "" };
   else return { isLogin: true, userName, userId };
 }
@@ -43,9 +43,9 @@ function parseTokenAndGetData(token) {
   if (token === null) return "";
   try {
     const { userName, userId } = jwtDecode(token);
-    return {userName, userId};
+    return { userName, userId };
   } catch {
-    return {userName: "사용자", userId: "1nvalidU5er"};
+    return { userName: "사용자", userId: "1nvalidU5er" };
   }
 }
 
@@ -53,7 +53,7 @@ const userStore = new UserStore();
 
 export function login(token) {
   tokenSaver.set(token);
-  const {userName, userId} = parseTokenAndGetData(token);
+  const { userName, userId } = parseTokenAndGetData(token);
   userStore.setState(() => ({ isLogin: true, userName, userId }));
 }
 

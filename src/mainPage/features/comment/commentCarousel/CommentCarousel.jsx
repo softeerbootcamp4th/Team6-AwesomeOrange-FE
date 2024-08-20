@@ -15,7 +15,7 @@ function mask(string) {
 function CommentCarousel() {
   const { comments } = useQuery("comment-data", () => fetchServer(`/api/v1/comment/${EVENT_ID}`));
 
-  if(comments.length === 0) return <CommentCarouselNoData />;
+  if (comments.length === 0) return <CommentCarouselNoData />;
 
   return (
     <div className="w-full h-[29rem]">

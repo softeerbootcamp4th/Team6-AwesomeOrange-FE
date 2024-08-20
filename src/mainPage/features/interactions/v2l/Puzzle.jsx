@@ -73,7 +73,7 @@ function Puzzle({ interactCallback, $ref }) {
               return newBoard;
             });
           };
-          const label = `퍼즐 조각 (${i%3}, ${Math.floor(i/3)}). ${shape.getLabel()}`;
+          const label = `퍼즐 조각 (${i % 3}, ${Math.floor(i / 3)}). ${shape.getLabel()}`;
 
           return (
             <PuzzlePiece
