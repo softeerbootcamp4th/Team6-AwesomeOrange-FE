@@ -5,6 +5,9 @@ function HamburgerButton({ children }) {
   const [opened, setOpened] = useState(false);
   return (
     <>
+      <div className="fixed -z-10 w-full top-0 left-0 bg-white flex md:hidden flex-col justify-center items-center gap-2">
+        <div className="w-full mt-16 shadow-xl">{opened && children}</div>
+      </div>
       <button
         className="flex md:hidden justify-center items-center size-6 z-10"
         aria-label="open-menu"
@@ -14,9 +17,6 @@ function HamburgerButton({ children }) {
           <div></div>
         </div>
       </button>
-      <div className="fixed -z-10 w-full top-0 left-0 bg-white flex md:hidden flex-col justify-center items-center gap-2">
-        <div className="w-full mt-16 shadow-xl">{opened && children}</div>
-      </div>
     </>
   );
 }
