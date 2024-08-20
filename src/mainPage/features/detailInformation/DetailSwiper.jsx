@@ -28,22 +28,24 @@ function DetailSwiper({ content }) {
             </swiper-slide>
           ))}
         </swiper-container>
-        <div
+        <button
           className={`${navigationClass} left-6 ${page === 0 ? "" : "lg:visible"}`}
           onClick={() => {
             swiperElRef.current.swiper.slidePrev();
           }}
+          aria-label="left"
         >
-          <img src={left} alt="left" width="40" height="40" draggable="false" />
-        </div>
-        <div
+          <img src={left} alt="" width="40" height="40" draggable="false" />
+        </button>
+        <button
           className={`${navigationClass} right-6 ${isLastPage ? "" : "lg:visible"}`}
           onClick={() => {
             swiperElRef.current.swiper.slideNext();
           }}
+          aria-label="right"
         >
-          <img src={right} alt="right" width="40" height="40" draggable="false" />
-        </div>
+          <img src={right} alt="" width="40" height="40" draggable="false" />
+        </button>
       </div>
       <div className="w-full max-w-[1248px] px-12 lg:px-6 flex justify-end lg:justify-between align-center font-bold">
         <ul className="hidden lg:flex text-body-l gap-15 h-14 items-center">

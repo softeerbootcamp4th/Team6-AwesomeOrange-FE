@@ -3,10 +3,11 @@ import { ModalCloseContext } from "@common/modal/modal.jsx";
 import Button from "@common/components/Button.jsx";
 import scrollTo from "@main/scroll/scrollTo.js";
 import { INTERACTION_SECTION } from "@main/scroll/constants.js";
+import useDrawEventStore from "@main/drawEvent/store.js";
 
 function FcfsLoseModal() {
   const close = useContext(ModalCloseContext);
-  const shouldInteraction = false; // 향후 통합 예정
+  const shouldInteraction = useDrawEventStore((store) => !store.currentJoined);
 
   async function toMoveInteraction() {
     await close();
@@ -25,7 +26,7 @@ function FcfsLoseModal() {
         <img
           src="/icons/lose@1x.png"
           srcSet="/icons/lose@1x.png 1x, /icons/lose@2x.png 2x"
-          alt="선착순 이벤트 당첨"
+          alt="선착순 이벤트 당첨 실패"
           width="144"
           height="146"
         />

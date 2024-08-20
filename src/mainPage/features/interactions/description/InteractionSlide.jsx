@@ -1,8 +1,9 @@
-import InteractionModal from "../modal/InteractionModal";
+import InteractionModal from "../modal/InteractionModal.jsx";
+import InteractionContext from "../modal/context.js";
 import openModal from "@common/modal/openModal.js";
 import { padNumber } from "@common/utils.js";
-import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants";
-import useEventStore from "@main/realtimeEvent/store.js";
+import { EVENT_START_DATE, DAY_MILLISEC } from "@common/constants.js";
+import useDrawEventStore from "@main/drawEvent/store.js";
 
 function getEventDateString(eventDate) {
   const day = ["일", "월", "화", "수", "목", "금", "토"];
@@ -14,16 +15,21 @@ function getEventDateString(eventDate) {
   return `${padNumber(month)}월 ${padNumber(date)}일(${day[fullDate.getDay()]})`;
 }
 
-export default function InteractionSlide({ interactionDesc, index, isCurrent, slideTo, answer }) {
-  const currentServerTime = useEventStore((state) => state.currentServerTime);
+export default function InteractionSlide({ interactionDesc, index, isCurrent, slideTo }) {
+  const isOpened = useDrawEventStore((store) => store.getOpenStatus(index));
+
   const activeImgPath = `images/active${index + 1}.png`;
   const inactiveImgPath = `images/inactive${index + 1}.png`;
   const numberImgPath = `icons/rect${index + 1}.svg`;
   const eventDate = EVENT_START_DATE.getTime() + index * DAY_MILLISEC;
-  const isOpened = currentServerTime >= eventDate;
 
   function onClickExperience() {
-    openModal(<InteractionModal index={index} answer={answer} />, "interaction");
+    openModal(
+      <InteractionContext.Provider value={index}>
+        <InteractionModal />
+      </InteractionContext.Provider>,
+      "interaction",
+    );
   }
 
   return (
@@ -36,7 +42,7 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
       </span>
 
       <div className="pt-5 flex items-center">
-        <img src={numberImgPath} alt="" />
+        <img src={numberImgPath} alt="" role="presentation" />
 
         <span
           className={`${isCurrent ? "opacity-100" : "opacity-50"} pl-3 text-title-m sm:text-head-s text-white font-bold`}
@@ -59,15 +65,17 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
 
       <img
         src={inactiveImgPath}
-        alt="inactiveImage"
+        alt=""
+        role="presentation"
         loading="lazy"
         className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-0" : "opacity-100"}`}
       />
       <img
         src={activeImgPath}
-        alt="activeImage"
+        alt=""
+        role="presentation"
         loading="lazy"
-        className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-100" : "opacity-30 sm:opacity-0"}`}
+        className={`-z-10 absolute transition ease-in-out duration-200 ${isCurrent ? "opacity-100" : "opacity-30 md:opacity-0"}`}
       />
     </div>
   );
