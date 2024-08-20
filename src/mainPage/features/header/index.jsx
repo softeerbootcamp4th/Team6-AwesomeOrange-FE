@@ -1,6 +1,6 @@
 import scrollTo from "@main/scroll/scrollTo";
 import { useSectionStore } from "@main/scroll/store";
-import AuthButtonSection from "./AuthButtonSection.jsx";
+import AuthButton from "@main/auth/AuthButton.jsx";
 import HamburgerButton from "./Hamburger/Button.jsx";
 
 import style from "./index.module.css";
@@ -51,7 +51,7 @@ export default function Header() {
         />
       </ul>
       <div className="hidden md:flex">
-        <AuthButtonSection />
+        <AuthButton />
       </div>
       <HamburgerButton>
         <div className="w-full px-6 py-2 flex flex-col sm:flex-row gap-4 justify-between items-center">
@@ -66,7 +66,7 @@ export default function Header() {
               </li>
             ))}
           </ul>
-          <AuthButtonSection />
+          <AuthButton />
         </div>
       </HamburgerButton>
     </nav>

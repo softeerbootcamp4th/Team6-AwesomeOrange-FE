@@ -1,18 +1,20 @@
 import openModal from "@common/modal/openModal.js";
-import AuthModal from "@main/auth/AuthModal.jsx";
-import WelcomeModal from "@main/auth/Welcome";
-import LogoutModal from "@main/auth/Logout/LogoutConfirmModal.jsx";
-import useAuthStore from "@main/auth/store.js";
+import AuthModal from "./AuthModal.jsx";
+import WelcomeModal from "./Welcome";
+import LogoutModal from "./Logout/LogoutConfirmModal.jsx";
+import useAuthStore from "./store.js";
+import useDrawEventStore from "@main/drawEvent/store.js";
 
-function AuthButtonSection() {
+function AuthButton() {
   const isLogin = useAuthStore((store) => store.isLogin);
   const userName = useAuthStore((store) => store.userName);
+  const setCurrentJoin = useDrawEventStore((store)=>store.setCurrentJoin);
 
   const welcomeModal = <WelcomeModal />;
   const authModal = (
     <AuthModal onComplete={(isFreshMember) => isFreshMember && openModal(welcomeModal)} />
   );
-  const logoutModal = <LogoutModal />;
+  const logoutModal = <LogoutModal onLogout={()=>setCurrentJoin(false)} />;
 
   if (isLogin)
     return <button 
@@ -36,4 +38,4 @@ function AuthButtonSection() {
   );
 }
 
-export default AuthButtonSection;
+export default AuthButton;

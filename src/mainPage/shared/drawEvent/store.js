@@ -20,7 +20,7 @@ const drawEventStore = create((set, get) => ({
   openBaseDate: new Date("9999-12-31"),
   currentJoined: false,
   fallbackMode: false,
-  getJoinData: (logined) => {
+  getJoinData: (userId) => {
     async function promiseFn() {
       try {
         const [serverTime, joinStatus] = await Promise.all([
@@ -28,15 +28,10 @@ const drawEventStore = create((set, get) => ({
           getJoinDataEvent(),
         ]);
         const currentDay = getDayDifference(EVENT_START_DATE, serverTime);
-
-        let currentJoined = get().currentJoined;
-        if (!currentJoined && currentDay >= 0 && currentDay < joinStatus.length) {
-          currentJoined = joinStatus[currentDay];
-        }
-
-        set({ joinStatus, openBaseDate: serverTime, currentJoined, fallbackMode: false });
+        
+        set({ joinStatus, openBaseDate: serverTime, fallbackMode: false });
         return joinStatus;
-      } catch {
+      } catch(e) {
         set({
           joinStatus: [false, false, false, false, false],
           openBaseDate: new Date("9999-12-31"),
@@ -46,7 +41,7 @@ const drawEventStore = create((set, get) => ({
         return [false, false, false, false, false];
       }
     }
-    return getQuerySuspense(`draw-info-data@${logined}`, promiseFn, [set]);
+    return getQuerySuspense(`draw-info-data@${userId}`, promiseFn, [get, set]);
   },
   setCurrentJoin: (value) => {
     set({ currentJoined: value });

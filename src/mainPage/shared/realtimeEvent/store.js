@@ -72,12 +72,12 @@ const fcfsStore = create((set) => ({
     };
     return getQuerySuspense("fcfs-info-data", promiseFn, [set]);
   },
-  getPariticipatedData: (isLogin) => {
+  getPariticipatedData: (userId) => {
     const promiseFn = async function () {
       const participated = await getFcfsParticipated();
       set({ isParticipated: participated });
     };
-    return getQuerySuspense(`fcfs-participated-data@${isLogin}`, promiseFn, [set]);
+    return getQuerySuspense(`fcfs-participated-data@${userId}`, promiseFn, [set]);
   },
   setEventStatus: (eventStatus) => set({ eventStatus }),
   handleCountdown: () =>

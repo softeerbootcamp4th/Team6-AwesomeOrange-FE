@@ -13,7 +13,8 @@ function LogoutConfirmModal({onLogout})
 	function clickLogout()
 	{
 		logout();
-		openModal(<LogoutAlertModal />).then( ()=>onLogout?.() );
+		onLogout?.();
+		openModal(<LogoutAlertModal />);
 	}
 
 	return <AlertModalContainer title="정말로 로그아웃하시겠습니까?">
