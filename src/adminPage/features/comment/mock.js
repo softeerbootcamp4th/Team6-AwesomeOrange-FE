@@ -24,7 +24,7 @@ function getSampleCommentList() {
       ...commentList,
       {
         id: i,
-        content: getRandomString(100),
+        content: getRandomString(150),
         userName: getRandomString(5),
         createdAt: "2024-08-14T07:11:27.244Z",
       },
