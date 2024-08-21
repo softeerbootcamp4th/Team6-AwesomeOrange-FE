@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
 import throttleRaf from "@common/throttleRaf.js";
 
-const MAX_ANSWER = 800;
-
-function AnswerText({ distance }) {
+function useDeviceRatio() {
   const [ratio, setRatio] = useState(1);
   useEffect(() => {
     const onResize = throttleRaf(() => {
-      setRatio(Math.hypot(window.innerWidth, window.innerHeight) / (2 * MAX_ANSWER));
+      setRatio(Math.hypot(window.innerWidth, window.innerHeight) / 2);
     });
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  return <>{Math.round(distance / ratio)}</>;
+  return ratio;
 }
 
-export default AnswerText;
+export default useDeviceRatio;
