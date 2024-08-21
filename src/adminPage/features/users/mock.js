@@ -8,6 +8,7 @@ function getRandomUsers() {
     users = [
       ...users,
       {
+        id: i,
         userName: getRandomString(3),
         phoneNumber: "010-0000-0000",
         frameId: "event-test",

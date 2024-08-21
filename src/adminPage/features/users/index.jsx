@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function AdminCommentID() {
   const [formString, setFormString] = useState("");
   const [searchString, setSearchString] = useState("");
+  const [category, setCategory] = useState("name");
 
   function searchComment(e) {
     e.preventDefault();
@@ -14,9 +15,11 @@ export default function AdminCommentID() {
 
   return (
     <div className="relative flex flex-col w-full items-center">
-      <div className="absolute -top-6 flex gap-1 text-body-s self-start">
-        <span className={`pl-1 text-red-500 ${!searchString && "hidden"}`}>성명 검색 문자열:</span>
-        <span className={`text-red-500 italic ${!searchString && "hidden"}`}>{searchString}</span>
+      <div
+        className={`absolute -top-6 flex gap-1 text-body-s self-start ${!searchString && "hidden"}`}
+      >
+        <span className={`pl-1 text-red-500`}>검색 문자열:</span>
+        <span className={`text-red-500 italic`}>{searchString}</span>
       </div>
 
       <form onSubmit={searchComment} className="w-full relative">
@@ -28,12 +31,24 @@ export default function AdminCommentID() {
           className="bg-neutral-50 focus:bg-white w-full px-4 py-2 rounded-lg text-body-s"
         />
 
-        <img
-          onClick={searchComment}
-          src="/icons/search.png"
-          alt="검색"
-          className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-4"
-        />
+        <div className="absolute top-1/2 -translate-y-1/2 right-4 flex gap-3">
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="bg-transparent text-neutral-600"
+          >
+            <option value="name">성명</option>
+            <option value="phoneNumber">전화번호</option>
+            <option value="frameId">FrameId</option>
+          </select>
+
+          <img
+            onClick={searchComment}
+            src="/icons/search.png"
+            alt="검색"
+            className="cursor-pointer "
+          />
+        </div>
       </form>
 
       <div className="mt-3 py-1 w-full grid grid-cols-[1fr_1fr_2fr] bg-blue-50 place-items-center text-body-s select-none">
@@ -43,7 +58,7 @@ export default function AdminCommentID() {
       </div>
 
       <Suspense fallback={<Loading />}>
-        <Users searchString={searchString} />
+        <Users searchString={searchString} category={category} />
       </Suspense>
     </div>
   );
