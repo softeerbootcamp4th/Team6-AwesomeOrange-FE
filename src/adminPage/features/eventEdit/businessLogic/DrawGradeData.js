@@ -1,6 +1,6 @@
 class DrawGradeData {
   constructor(rawData) {
-    if (rawData == null) this.data = [{ grade: 1, count: 0, prizeInfo: "" }];
+    if (rawData == null) this.data = [];
     else this.data = [...rawData].sort((a, b) => a.grade - b.grade);
   }
   get size() {

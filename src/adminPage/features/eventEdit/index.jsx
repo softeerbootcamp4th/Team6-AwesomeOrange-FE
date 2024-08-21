@@ -16,34 +16,76 @@ import AlertModal from "@admin/modals/AlertModal.jsx";
 import ConfirmModal from "@admin/modals/ConfirmModal.jsx";
 
 import { useMutation } from "@common/dataFetch/getQuery.js";
-import { fetchServer, handleError } from "@common/dataFetch/fetchServer.js";
-
-const submitErrorHandler = {
-  400: "잘못된 입력으로 이벤트 등록에 실패했습니다.",
-  401: "인증되지 않은 사용자입니다.",
-};
-
-const tempSubmitErrorHandler = {
-  400: "잘못된 입력으로 임시저장에 실패했습니다.",
-  401: "인증되지 않은 사용자입니다.",
-};
+import { fetchServer, handleError, HTTPError } from "@common/dataFetch/fetchServer.js";
 
 const tempLoadErrorHandler = {
   401: "인증되지 않은 사용자입니다.",
   404: "임시저장된 데이터가 없습니다.",
 };
 
+function handleEventSubmitError(e) {
+  if (e instanceof HTTPError) {
+    if (e.status === 400) {
+      e.response.json().then((value) => {
+        console.log(value);
+        openModal(
+          <AlertModal
+            title="등록 실패"
+            description={
+              <>
+                사용자 입력이 잘못되었습니다.
+                <br />
+                <span className="whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</span>
+              </>
+            }
+          />,
+        );
+      });
+    } else if (e.status === 401) {
+      openModal(<AlertModal title="등록 실패" description="인증되지 않은 사용자입니다." />);
+    } else if (e.status < 500) {
+      openModal(
+        <AlertModal
+          title="등록 실패"
+          description={
+            <>
+              클라이언트의 오류가 발생했습니다.
+              <br />
+              에러 코드 : {e.status}
+            </>
+          }
+        />,
+      );
+    } else {
+      openModal(
+        <AlertModal
+          title="등록 실패"
+          description={
+            <>
+              서버의 오류가 발생했습니다.
+              <br />
+              에러 코드 : {e.status}
+            </>
+          }
+        />,
+      );
+    }
+  } else {
+    openModal(<AlertModal title="오류라니!" description="알 수 없는 오류가 발생했습니다." />);
+  }
+}
+
 function EventEditor({ initialData = null } = {}) {
   const navigate = useNavigate();
   const mode = useContext(EventEditModeContext);
   const [state, dispatch] = useReducer(eventEditReducer, initialData, setDefaultState);
   const submitMutate = useMutation(
-    mode === "create" ? "event-detail-created" : `event-detail-${state.eventId}`,
+    mode === "create" ? "admin-event-list" : `admin-event-list/${state.eventId}`,
     () =>
       fetchServer(mode === "create" ? "/api/v1/admin/events" : "/api/v1/admin/events/edit", {
         method: "post",
         body: state,
-      }).catch(handleError(submitErrorHandler)),
+      }),
     {
       onSuccess: () => {
         openModal(
@@ -53,9 +95,7 @@ function EventEditor({ initialData = null } = {}) {
           />,
         ).then(() => navigate(mode === "create" ? "/events" : `/events/${state.eventId}`));
       },
-      onError: (e) => {
-        openModal(<AlertModal title="등록 실패" description={e.message} />);
-      },
+      onError: handleEventSubmitError,
     },
   );
 
@@ -74,10 +114,10 @@ function EventEditor({ initialData = null } = {}) {
       await fetchServer("/api/v1/admin/events/temp", {
         method: "post",
         body: state,
-      }).catch(handleError(tempSubmitErrorHandler));
+      });
       openModal(<AlertModal title="완료" description="작성 중인 내용이 임시저장되었습니다." />);
     } catch (e) {
-      openModal(<AlertModal title="저장 실패" description={e.message} />);
+      handleEventSubmitError(e);
     }
   }
 

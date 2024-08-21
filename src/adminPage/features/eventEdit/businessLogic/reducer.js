@@ -10,6 +10,13 @@ function makeVoidDrawData() {
   };
 }
 
+function makeDefaultDrawData() {
+  return {
+    metadata: new DrawGradeData([{ grade: 1, count: 0, prizeInfo: "" }]),
+    policies: new DrawPolicyData(),
+  };
+}
+
 function makeDrawData(rawData) {
   return {
     id: rawData.id,
@@ -80,7 +87,7 @@ export function eventEditReducer(state, action) {
       return { ...state, url: action.value };
     case "set_event_type":
       if (action.value === "draw") {
-        return { ...state, eventType: "draw", fcfs: new FcfsData() };
+        return { ...state, eventType: "draw", draw: makeDefaultDrawData(), fcfs: new FcfsData() };
       }
       return { ...state, eventType: "fcfs", draw: makeVoidDrawData() };
     case "set_event_frame":
