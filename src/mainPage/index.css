@@ -8,27 +8,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "hdsans";
-  src: url("/font/HyundaiSansTextKROTFBold.otf") format("opentype");
-  font-weight: bold;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "hdsans";
-  src: url("/font/HyundaiSansTextKROTFMedium.otf") format("opentype");
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "hdsans";
-  src: url("/font/HyundaiSansTextKROTFRegular.otf") format("opentype");
-  font-weight: 400;
-  font-display: swap;
-}
-
 @layer base {
   body {
     font-family: "hdsans", sans-serif;
