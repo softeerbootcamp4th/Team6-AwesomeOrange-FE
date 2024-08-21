@@ -47,7 +47,7 @@ export function searchStateToQuery(state) {
   const path = "/api/v1/admin/events";
   const paramObj = {
     search: state.query,
-    filter: Object.entries(state.filter)
+    type: Object.entries(state.filter)
       .filter(([, value]) => value)
       .map(([key]) => key)
       .join(","),

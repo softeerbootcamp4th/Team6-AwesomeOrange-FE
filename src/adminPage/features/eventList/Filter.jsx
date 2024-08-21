@@ -9,8 +9,8 @@ function Filter({ state, dispatch }) {
   const labelStyle = "inline-flex items-center gap-1 text-body-s";
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <fieldset className={fieldsetStyle}>
+    <div className="grid grid-cols-1 gap-4">
+{/*      <fieldset className={fieldsetStyle}>
         <legend className="px-2 text-body-l font-medium">상태</legend>
         <div className="flex flex-wrap gap-2 px-2">
           <label className={labelStyle}>
@@ -34,7 +34,7 @@ function Filter({ state, dispatch }) {
             임시저장
           </label>
         </div>
-      </fieldset>
+      </fieldset>*/}
       <fieldset className={fieldsetStyle}>
         <legend className="px-2 text-body-l font-medium">종류</legend>
         <div className="flex flex-wrap gap-2 px-2">
