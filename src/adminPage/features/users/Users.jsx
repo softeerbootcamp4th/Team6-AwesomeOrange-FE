@@ -9,9 +9,8 @@ export default function Comments({ searchString }) {
   const data = useQuery(
     "admin-users",
     () =>
-      fetchServer(`/api/v1/admin/users?page=${page - 1}&search=${searchString}`)
+      fetchServer(`/api/v1/admin/event-users?page=${page - 1}&search=${searchString}&size=15`)
         .then((res) => {
-          console.log(res);
           return res;
         })
         .catch((e) => {
@@ -22,24 +21,18 @@ export default function Comments({ searchString }) {
 
   return (
     <div className="mt-1 mb-5 flex flex-col items-center gap-1 w-full">
-      {/* {data.comments.map((comment) => (
+      {data.users.map((user) => (
         <div
-          key={comment.id}
-          className="w-full py-1 grid grid-cols-[1fr_5fr_15fr] bg-neutral-50 items-center hover:bg-blue-100"
+          key={user.id}
+          className="w-full py-1 grid grid-cols-[1fr_1fr_2fr] bg-neutral-50 items-center hover:bg-blue-100 text-body-s place-items-center"
         >
-          <input
-            type="checkbox"
-            className="w-4 h-4 place-self-center"
-          />
-
-          <div className="place-self-center flex items-center gap-1 text-body-s">
-          </div>
-
-          <span className="pr-4 overflow-hidden text-body-s text-ellipsis">{comment.content}</span>
+          <span>{user.userName}</span>
+          <span>{user.phoneNumber}</span>
+          <span>{user.frameId}</span>
         </div>
-      ))} */}
+      ))}
 
-      <Pagination currentPage={page} setPage={setPage} maxPage={data.totalPages} />
+      <Pagination currentPage={page} setPage={setPage} maxPage={data.totalPage} />
     </div>
   );
 }
