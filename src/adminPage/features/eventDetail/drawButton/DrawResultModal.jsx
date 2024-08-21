@@ -2,14 +2,14 @@ import { Fragment, useMemo } from "react";
 import useScrollControl from "./useScrollControl.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import { useQuery } from "@common/dataFetch/getQuery.js";
-import { GroupMap } from "@common/utils.js";
+import { GroupMap, addHyphen } from "@common/utils.js";
 
 function mapResultSubsetGroup({ ranking, name, phoneNumber }) {
   return (
     <Fragment key={`${ranking}-${name}-${phoneNumber}`}>
       <p className="font-medium">{ranking}등</p>
       <p>{name}</p>
-      <p>{phoneNumber}</p>
+      <p>{addHyphen(phoneNumber)}</p>
     </Fragment>
   );
 }
