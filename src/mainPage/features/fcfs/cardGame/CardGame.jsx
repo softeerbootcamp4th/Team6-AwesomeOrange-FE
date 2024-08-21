@@ -107,7 +107,7 @@ function CardGame({ offline }) {
         {[1, 2, 3, 4].map((index, i) => (
           <Card
             index={index}
-            isFlipped={flipState[i]}
+            isFlipped={isParticipated || flipState[i]}
             setFlipped={(flipState) =>
               setFlipState((state) => {
                 const newState = [...state];

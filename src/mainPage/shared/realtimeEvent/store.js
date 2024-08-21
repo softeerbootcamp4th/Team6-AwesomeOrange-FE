@@ -32,8 +32,8 @@ async function getFcfsParticipated() {
     return eventData;
   } catch (e) {
     if (e instanceof HTTPError && (e.status === 401 || e.status == 404))
-      return { answerResult: false, winner: false };
-    if (e instanceof ServerCloseError) return { answerResult: false, winner: false };
+      return false;
+    if (e instanceof ServerCloseError) return false;
     throw e;
   }
 }
