@@ -8,10 +8,12 @@ import SpinningCarVideo from "./car-spin.webm";
 import Pointer from "./pointer.svg";
 
 function IntroSection() {
+  const VIDEO_LENGTH = 2;
   const videoRef = useRef(null);
   const introRef = useRef(null);
-  const carYPosition = useRef({ top: 0, bottom: 10 });
+  const frameRef = useRef(null);
   const [isTimerVisible, setIsTimerVisible] = useState(false);
+  const [videoTimeline, setVideoTimeline] = useState(0);
 
   const titleOpacity = useScrollTransition({
     scrollStart: 0,
@@ -20,12 +22,18 @@ function IntroSection() {
     valueEnd: 0,
   });
 
-  const videoTimeline = useScrollTransition({
-    scrollStart: carYPosition.current.top,
-    scrollEnd: carYPosition.current.bottom,
-    valueStart: 0,
-    valueEnd: 2,
-  });
+  function calculateTimeline() {
+    const frameDOM = frameRef.current;
+    if (frameDOM) {
+      const videoHeight = frameDOM.offsetHeight;
+      const videoTop = frameDOM.getBoundingClientRect().top + window.scrollY;
+      const startScroll = videoTop + videoHeight / 2 - window.innerHeight;
+      const endScroll = startScroll + window.innerHeight;
+      const timeline = ((window.scrollY - startScroll) / (endScroll - startScroll)) * VIDEO_LENGTH;
+
+      setVideoTimeline(timeline);
+    }
+  }
 
   useEffect(() => {
     const introDOM = introRef.current;
@@ -51,14 +59,12 @@ function IntroSection() {
   }, []);
 
   useEffect(() => {
-    const videoDOM = videoRef.current;
-    if (videoDOM) {
-      const rect = videoDOM.getBoundingClientRect();
-      carYPosition.current = {
-        top: rect.top + rect.height * 0.5 - window.innerHeight,
-        bottom: rect.top + rect.height * 0.5,
-      };
-    }
+    window.addEventListener("scroll", calculateTimeline);
+    window.addEventListener("resize", calculateTimeline);
+    return () => {
+      window.removeEventListener("scroll", calculateTimeline);
+      window.removeEventListener("resize", calculateTimeline);
+    };
   }, []);
 
   useEffect(() => {
@@ -85,7 +91,7 @@ function IntroSection() {
         </div>
 
         <div className="relative mt-[800px] flex flex-col items-center">
-          <div className="overflow-hidden">
+          <div ref={frameRef} className="overflow-hidden">
             <video
               src={SpinningCarVideo}
               ref={videoRef}
