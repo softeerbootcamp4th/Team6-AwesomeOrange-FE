@@ -31,7 +31,7 @@
 
 @layer base {
   body {
-    font-family: "hdsans", sans-serif;;
+    font-family: "hdsans", sans-serif;
   }
   body.scrollLocked {
     position: fixed;

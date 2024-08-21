@@ -4,19 +4,19 @@ import { getQuery, getQuerySuspense } from "@common/dataFetch/getQuery.js";
 import { getServerPresiseTime, getDayDifference } from "@common/utils.js";
 import { EVENT_DRAW_ID, EVENT_START_DATE, DAY_MILLISEC } from "@common/constants.js";
 
-
-
 function getJoinDataEvent() {
-  return fetchServer(`/api/v1/event/draw/${EVENT_DRAW_ID}/participation`).then(({ dates }) => {
-    let newJoinedList = [false, false, false, false, false];
-    dates.forEach((date) => {
-      const day = getDayDifference(EVENT_START_DATE, new Date(date));
-      newJoinedList[day] = true;
-    });
-    return newJoinedList;
-  }).catch( handleError( {401: "unauthorized"} ) )
-    .catch( (e)=>{
-      if(e.message === "unauthorized") return [false, false, false, false, false];
+  return fetchServer(`/api/v1/event/draw/${EVENT_DRAW_ID}/participation`)
+    .then(({ dates }) => {
+      let newJoinedList = [false, false, false, false, false];
+      dates.forEach((date) => {
+        const day = getDayDifference(EVENT_START_DATE, new Date(date));
+        newJoinedList[day] = true;
+      });
+      return newJoinedList;
+    })
+    .catch(handleError({ 401: "unauthorized" }))
+    .catch((e) => {
+      if (e.message === "unauthorized") return [false, false, false, false, false];
       throw e;
     });
 }
@@ -34,7 +34,7 @@ const drawEventStore = create((set, get) => ({
           getJoinDataEvent(),
         ]);
         return { joinStatus, openBaseDate: serverTime, fallbackMode: false };
-      } catch(e) {
+      } catch (e) {
         return {
           joinStatus: [false, false, false, false, false],
           openBaseDate: new Date("9999-12-31"),

@@ -71,7 +71,9 @@ function EventBaseDataInput() {
         />
       </label>
       <label className="grid grid-cols-[6rem_1fr] items-start gap-2">
-        <span className="text-center font-bold">이벤트 요약<sup className="text-red-500">*</sup></span>
+        <span className="text-center font-bold">
+          이벤트 요약<sup className="text-red-500">*</sup>
+        </span>
         <div className="relative">
           <TextBox
             className="w-full"
@@ -89,7 +91,9 @@ function EventBaseDataInput() {
         </div>
       </label>
       <label className={columnsStyle}>
-        <span className="text-center font-bold">이벤트 URL<sup className="text-red-500">*</sup></span>
+        <span className="text-center font-bold">
+          이벤트 URL<sup className="text-red-500">*</sup>
+        </span>
         <Input
           className="w-[25rem] h-8"
           text={url}

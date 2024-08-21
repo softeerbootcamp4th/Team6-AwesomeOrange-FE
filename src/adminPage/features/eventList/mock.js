@@ -82,7 +82,7 @@ const handlers = [
       .filter(filterData(filter))
       .sort(sortData(sort));
 
-    const contents = filteredData.slice(page * size, (page+1) * size);
+    const contents = filteredData.slice(page * size, (page + 1) * size);
 
     return HttpResponse.json({
       contents,

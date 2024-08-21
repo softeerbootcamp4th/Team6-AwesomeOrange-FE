@@ -10,7 +10,7 @@ function Filter({ state, dispatch }) {
 
   return (
     <div className="grid grid-cols-1 gap-4">
-{/*      <fieldset className={fieldsetStyle}>
+      {/*      <fieldset className={fieldsetStyle}>
         <legend className="px-2 text-body-l font-medium">상태</legend>
         <div className="flex flex-wrap gap-2 px-2">
           <label className={labelStyle}>

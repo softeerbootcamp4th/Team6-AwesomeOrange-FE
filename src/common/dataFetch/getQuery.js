@@ -25,8 +25,8 @@ function updateSubscribedQuery(key) {
   }
   if (queryObservers.has(key)) queryObservers.get(key).forEach((callback) => callback());
 
-  if(key.includes("/")) {
-    const parent = /^(.*?)(?=\/[^\/]+$)/.exec(key)[1];
+  if (key.includes("/")) {
+    const parent = /^(.*?)(?=\/[^/]+$)/.exec(key)[1];
     updateSubscribedQuery(parent);
   }
 }

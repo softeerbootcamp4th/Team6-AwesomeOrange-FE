@@ -23,30 +23,54 @@ const tempLoadErrorHandler = {
   404: "임시저장된 데이터가 없습니다.",
 };
 
-function handleEventSubmitError(e)
-{
-  if(e instanceof HTTPError)
-  {
-    if(e.status === 400) {
-      e.response.json().then( value=>{
+function handleEventSubmitError(e) {
+  if (e instanceof HTTPError) {
+    if (e.status === 400) {
+      e.response.json().then((value) => {
         console.log(value);
-        openModal(<AlertModal title="등록 실패" description={<>
-          사용자 입력이 잘못되었습니다.<br />
-          <span className="whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</span>
-        </>} />);
-      } )
-    }
-    else if(e.status === 401) {
+        openModal(
+          <AlertModal
+            title="등록 실패"
+            description={
+              <>
+                사용자 입력이 잘못되었습니다.
+                <br />
+                <span className="whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</span>
+              </>
+            }
+          />,
+        );
+      });
+    } else if (e.status === 401) {
       openModal(<AlertModal title="등록 실패" description="인증되지 않은 사용자입니다." />);
+    } else if (e.status < 500) {
+      openModal(
+        <AlertModal
+          title="등록 실패"
+          description={
+            <>
+              클라이언트의 오류가 발생했습니다.
+              <br />
+              에러 코드 : {e.status}
+            </>
+          }
+        />,
+      );
+    } else {
+      openModal(
+        <AlertModal
+          title="등록 실패"
+          description={
+            <>
+              서버의 오류가 발생했습니다.
+              <br />
+              에러 코드 : {e.status}
+            </>
+          }
+        />,
+      );
     }
-    else if(e.status < 500) {
-      openModal(<AlertModal title="등록 실패" description={<>클라이언트의 오류가 발생했습니다.<br />에러 코드 : {e.status}</>} />);
-    }
-    else {
-      openModal(<AlertModal title="등록 실패" description={<>서버의 오류가 발생했습니다.<br />에러 코드 : {e.status}</>} />);
-    }
-  }
-  else {
+  } else {
     openModal(<AlertModal title="오류라니!" description="알 수 없는 오류가 발생했습니다." />);
   }
 }
