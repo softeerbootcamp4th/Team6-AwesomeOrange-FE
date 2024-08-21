@@ -55,11 +55,9 @@ function LoginSection() {
             text={password}
             setText={setPassword}
             type="password"
-            placeholder="비밀번호 입력하세요."
+            placeholder="비밀번호를 입력하세요."
             required
-            minLength="8"
             maxLength="16"
-            pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
           />
         </label>
       </div>
