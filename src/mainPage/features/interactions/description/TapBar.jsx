@@ -14,6 +14,8 @@ function TabBarItem({ currentInteraction, slideTo, index }) {
         alt="체크"
         className={`${(!isJoined || isInvisible) && "invisible"}`}
         draggable="false"
+        width="40"
+        height="40"
       />
 
       <span
