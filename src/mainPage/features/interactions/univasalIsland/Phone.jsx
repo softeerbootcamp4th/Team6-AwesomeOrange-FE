@@ -1,12 +1,18 @@
 import style from "./style.module.css";
 
-function Phone({ dynamicStyle, onPointerDown, isSnapped }) {
+function Phone({ dynamicStyle, onPointerDown, isSnapped, disabled, $ref }) {
   const staticStyle = `absolute flex justify-center items-center ${style.phone} cursor-pointer touch-none`;
   const phoneScreenFill = isSnapped ? "fill-green-700" : "fill-neutral-900";
   const lightningOpacity = isSnapped ? "opacity-100" : "opacity-0";
 
   return (
-    <div className={staticStyle} style={dynamicStyle} onPointerDown={onPointerDown}>
+    <div
+      className={staticStyle}
+      style={dynamicStyle}
+      onPointerDown={onPointerDown}
+      ref={$ref}
+      tabIndex={disabled ? undefined : 0}
+    >
       <svg
         className="w-full h-full absolute top-0 left-0"
         width="66"

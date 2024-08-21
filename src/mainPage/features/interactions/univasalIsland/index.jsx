@@ -9,7 +9,7 @@ import univasalIsland1x from "./assets/univasalIsland@1x.png";
 import univasalIsland2x from "./assets/univasalIsland@2x.png";
 import univasalIslandLeg from "./assets/univasalIsland2.png";
 
-function UnivasalIslandInteraction({ interactCallback, $ref }) {
+function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
   const {
     islandEventListener,
     phoneEventListener,
@@ -19,7 +19,10 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
     phoneSnapArea,
     phoneIsSnapping,
     isDragging,
-  } = useIslandDrag();
+    islandRef,
+    phoneRef,
+    subtitle,
+  } = useIslandDrag(disabled, interactCallback);
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);
 
@@ -36,6 +39,12 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
         directive="유니버설 아일랜드를 드래그하여 이동시키고 스마트폰을 충전해보세요!"
         shouldNotSelect={isDragging}
       />
+      <span aria-live="assertive" className="assistive-text">
+        {subtitle}
+      </span>
+      <span aria-live="assertive" className="assistive-text">
+        스페이스바를 눌러서 유니버설 아일랜드와 스마트폰을 잡으세요.
+      </span>
       <div className={seatHullStyle}>
         <img className={style.seat} src={seat} alt="left seat" draggable="false" />
         <div
@@ -43,7 +52,6 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
           style={islandStyle}
           onPointerDown={(e) => {
             islandEventListener.onPointerDown(e);
-            interactCallback?.();
           }}
         >
           <img
@@ -51,17 +59,20 @@ function UnivasalIslandInteraction({ interactCallback, $ref }) {
             srcSet={`${univasalIsland1x} 1x, ${univasalIsland2x} 2x`}
             alt="univasal island"
             draggable="false"
+            tabIndex={disabled ? undefined : 0}
+            ref={islandRef}
           />
           <img src={univasalIslandLeg} alt="univasal island" draggable="false" />
           <div className={snapAreaStyle} ref={phoneSnapArea}></div>
         </div>
         <img className={style.seat} src={seat} alt="right seat" draggable="false" />
         <Phone
+          disabled={disabled}
+          $ref={phoneRef}
           isSnapped={phoneIsSnapping}
           dynamicStyle={phoneStyle}
           onPointerDown={(e) => {
             phoneEventListener.onPointerDown(e);
-            interactCallback?.();
           }}
         />
       </div>

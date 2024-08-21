@@ -59,4 +59,17 @@
     bottom: -0.75em;
     left: calc(50% - 1.8em);
   }
+  .assistive-text {
+    background-color: #24adaf;
+    color: white;
+    padding: 4px;
+    /*    position: absolute;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);*/
+  }
 }
