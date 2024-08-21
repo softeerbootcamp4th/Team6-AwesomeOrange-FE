@@ -73,7 +73,9 @@ const dummyData = getEventsDetailMock();
 let tempData = null;
 
 const handlers = [
-  http.post("/api/v1/admin/events", () => {
+  http.post("/api/v1/admin/events", async ({ request }) => {
+    const data = await request.json();
+    if( data.description === "" ) return HttpResponse.json({description : "디스크립션이 없습니다."}, { status: 400 });
     tempData = null;
     return new HttpResponse(null, { status: 201 });
   }),

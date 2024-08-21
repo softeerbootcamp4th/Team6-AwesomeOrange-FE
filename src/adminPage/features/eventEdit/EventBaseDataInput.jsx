@@ -71,7 +71,7 @@ function EventBaseDataInput() {
         />
       </label>
       <label className="grid grid-cols-[6rem_1fr] items-start gap-2">
-        <span className="text-center font-bold">이벤트 요약</span>
+        <span className="text-center font-bold">이벤트 요약<sup className="text-red-500">*</sup></span>
         <div className="relative">
           <TextBox
             className="w-full"
@@ -79,6 +79,7 @@ function EventBaseDataInput() {
             setText={(value) => dispatch({ type: "set_description", value })}
             rows="4"
             maxLength="100"
+            required
           />
           <span
             className={`absolute right-3 bottom-3 text-detail-l ${description.length >= DESCRIPTION_MAX_LENGTH ? "text-red-500" : "text-neutral-600"}`}
@@ -88,13 +89,14 @@ function EventBaseDataInput() {
         </div>
       </label>
       <label className={columnsStyle}>
-        <span className="text-center font-bold">이벤트 URL</span>
+        <span className="text-center font-bold">이벤트 URL<sup className="text-red-500">*</sup></span>
         <Input
           className="w-[25rem] h-8"
           text={url}
           setText={(value) => dispatch({ type: "set_url", value })}
           type="url"
           pattern="https?://.*"
+          required
         />
       </label>
     </>
