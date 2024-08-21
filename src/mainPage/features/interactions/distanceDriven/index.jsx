@@ -1,4 +1,4 @@
-import { useImperativeHandle } from "react";
+import { useEffect, useImperativeHandle } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
 import usePointDrag from "./usePointDrag.js";
 import useDeviceRatio from "./useDeviceRatio.js";
@@ -29,6 +29,10 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
     );
   }
 
+  useEffect( ()=>{
+    if(km !== 0) interactCallback?.();
+  }, [km] );
+
   useImperativeHandle($ref, () => ({ reset }), [reset]);
 
   return (
@@ -49,7 +53,6 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
           onPointerDown={(e) => {
             onPointerDown(e);
             pulseAnimation(e);
-            interactCallback?.();
           }}
           style={circleStyle}
           ref={handleRef}

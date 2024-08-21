@@ -66,10 +66,17 @@ function useA11yDrag({
 				e.preventDefault();
 			}
 		}
+		function onFocusOut()
+		{
+			grabbed.current = false;
+			setSubtitle(()=>voidAssistive);
+		}
 
 		document.addEventListener("keydown", onKeyDown);
+		target.current.addEventListener("blur", onFocusOut);
 		return ()=>{
 			document.removeEventListener("keydown", onKeyDown);
+			target.current?.removeEventListener("blur", onFocusOut);
 		}
 	}, []);
 
