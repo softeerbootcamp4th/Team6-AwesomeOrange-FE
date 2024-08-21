@@ -20,18 +20,13 @@ export default function AdminComment() {
   }
 
   function onChangeForm(e) {
-    let newString = e.target.value.replace(/[^0-9]/g, "");
+    const newString = e.target.value.replace(/[^0-9]/g, "");
+    const filteredFormString = formString.replace(/[^0-9]/g, "");
 
-    if (!newString) {
-      newString = "";
-    } else if (newString.length <= 6) {
-      newString = "HD_" + newString;
-    } else if (newString.length <= 9) {
-      newString = "HD_" + newString.slice(0, 6) + "_" + newString.slice(6);
-    } else return;
+    if (newString.length > 9) return;
 
-    if (newString !== formString) {
-      if (newString.length >= 9) {
+    if (newString !== filteredFormString) {
+      if (newString.length >= 6) {
         setSelectedEvent(-1);
         setIsSpread(true);
         autoCorrect(newString);
@@ -39,18 +34,20 @@ export default function AdminComment() {
         setIsSpread(false);
       }
     }
-    setFormString(newString);
+    if (!newString) {
+      setFormString("");
+    } else if (newString.length <= 6) {
+      setFormString("HD_" + newString);
+    } else {
+      setFormString("HD_" + newString.slice(0, 6) + "_" + newString.slice(6));
+    }
   }
 
   function searchEvent(e, eventId) {
     e.preventDefault();
 
-    const eventIDRegex = /^HD_\d{6}_\d{3}$/;
     const searchID = eventId ?? formString;
-
-    if (eventIDRegex.test(searchID)) {
-      navigate(`/comments/${searchID}`);
-    }
+    navigate(`/comments/${searchID}`);
   }
 
   function onKeyDown(e) {
