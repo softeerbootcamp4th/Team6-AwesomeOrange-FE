@@ -72,7 +72,7 @@ const handlers = [
   http.get("/api/v1/admin/events", async ({ request }) => {
     const url = new URL(request.url);
     const search = url.searchParams.get("search");
-    const filter = url.searchParams.get("filter");
+    const filter = url.searchParams.get("type");
     const sort = url.searchParams.get("sort");
     const page = +url.searchParams.get("page") ?? 1;
     const size = +url.searchParams.get("size") ?? 5;
@@ -82,7 +82,7 @@ const handlers = [
       .filter(filterData(filter))
       .sort(sortData(sort));
 
-    const contents = filteredData.slice((page - 1) * size, page * size);
+    const contents = filteredData.slice(page * size, (page + 1) * size);
 
     return HttpResponse.json({
       contents,

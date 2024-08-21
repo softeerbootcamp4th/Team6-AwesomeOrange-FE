@@ -70,8 +70,10 @@ function CardGame({ offline }) {
           openModal(<FcfsInvalidModal />);
           break;
         case submitCardgameErrorHandle[401]:
-          return new Promise((resolve) => {
-            openModal(<AuthModal onComplete={() => resolve(getCardAnswerOnline(index))} />);
+          return new Promise((resolve, reject) => {
+            openModal(<AuthModal onComplete={() => resolve(getCardAnswerOnline(index))} />).then(
+              reject,
+            );
           });
         case submitCardgameErrorHandle["offline"]:
           setOfflineMode(true);
@@ -105,7 +107,7 @@ function CardGame({ offline }) {
         {[1, 2, 3, 4].map((index, i) => (
           <Card
             index={index}
-            isFlipped={flipState[i]}
+            isFlipped={isParticipated || flipState[i]}
             setFlipped={(flipState) =>
               setFlipState((state) => {
                 const newState = [...state];

@@ -13,16 +13,16 @@ function CardGameInitializer() {
 }
 
 function CardGamePariticipatedInitializer() {
-  const isLogin = useAuthStore((state) => state.isLogin);
-  const defferedLogin = useDeferredValue(isLogin);
+  const userId = useAuthStore((state) => state.userId);
+  const deferredUserId = useDeferredValue(userId);
   const getPariticipatedData = useFcfsStore((store) => store.getPariticipatedData);
-  getPariticipatedData(defferedLogin);
+  getPariticipatedData(deferredUserId);
   return null;
 }
 
 function CardGameSection() {
   return (
-    <ErrorBoundary fallback={<CardGame offline />}>
+    <ErrorBoundary fallback={<div>에러남</div>}>
       <Suspense fallback={<CardGameSkeleton />}>
         <CardGameInitializer />
         <CardGamePariticipatedInitializer />

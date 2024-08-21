@@ -23,8 +23,12 @@ function updateSubscribedQuery(key) {
     queryGroupMap.get(key).forEach((subKey) => queryMap.delete(subKey));
     queryGroupMap.deleteKey(key);
   }
-
   if (queryObservers.has(key)) queryObservers.get(key).forEach((callback) => callback());
+
+  if (key.includes("/")) {
+    const parent = /^(.*?)(?=\/[^/]+$)/.exec(key)[1];
+    updateSubscribedQuery(parent);
+  }
 }
 
 function isSame(arr1, arr2) {
@@ -103,18 +107,20 @@ export function useQuery(key, promiseFn, config = {}) {
  *
  * @return Function : 호출 시, 실제로 post 요청을 발송하는 함수를 반환합니다.
  */
+export async function mutate(key, promiseFn, { onSuccess, onError } = {}) {
+  try {
+    const value = await promiseFn();
+    updateSubscribedQuery(key);
+    onSuccess?.(value);
+    return value;
+  } catch (e) {
+    onError?.(e);
+    if (onError === undefined) throw e;
+  }
+}
+
 export function useMutation(key, promiseFn, { onSuccess, onError } = {}) {
-  return async () => {
-    try {
-      const value = await promiseFn();
-      updateSubscribedQuery(key);
-      onSuccess?.(value);
-      return value;
-    } catch (e) {
-      onError?.(e);
-      if (onError === undefined) throw e;
-    }
-  };
+  return () => mutate(key, promiseFn, { onSuccess, onError });
 }
 
 export function getQuerySuspense(key, promiseFn, dependencyArray = []) {

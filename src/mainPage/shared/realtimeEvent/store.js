@@ -31,9 +31,8 @@ async function getFcfsParticipated() {
     const eventData = await fetchServer(`/api/v1/event/fcfs/${EVENT_FCFS_ID}/participated`); // ???
     return eventData;
   } catch (e) {
-    if (e instanceof HTTPError && (e.status === 401 || e.status == 404))
-      return { answerResult: false, winner: false };
-    if (e instanceof ServerCloseError) return { answerResult: false, winner: false };
+    if (e instanceof HTTPError && (e.status === 401 || e.status == 404)) return false;
+    if (e instanceof ServerCloseError) return false;
     throw e;
   }
 }
@@ -63,21 +62,27 @@ const fcfsStore = create((set) => ({
 
       // get countdown and syncronize state
       const countdown = Math.ceil((currentEventTime - currentServerTime) / 1000);
-      set({
+      return {
         currentServerTime,
         currentEventTime,
         countdown,
         eventStatus: eventInfo.eventStatus,
-      });
+      };
     };
-    return getQuerySuspense("fcfs-info-data", promiseFn, [set]);
+    const setter = async function () {
+      const newState = await getQuery("fcfs-info-data", promiseFn);
+      set(newState);
+      return newState;
+    };
+    return getQuerySuspense("fcfs-info-data", setter, [set]);
   },
-  getPariticipatedData: (isLogin) => {
-    const promiseFn = async function () {
-      const participated = await getFcfsParticipated();
+  getPariticipatedData: (userId) => {
+    const setter = async function () {
+      const participated = await getQuery(`fcfs-participated-data@${userId}`, getFcfsParticipated);
       set({ isParticipated: participated });
+      return participated;
     };
-    return getQuerySuspense(`fcfs-participated-data@${isLogin}`, promiseFn, [set]);
+    return getQuerySuspense(`__zustand__fcfs-participated-getData`, setter, [set, userId]);
   },
   setEventStatus: (eventStatus) => set({ eventStatus }),
   handleCountdown: () =>
