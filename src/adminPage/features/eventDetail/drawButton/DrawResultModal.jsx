@@ -21,7 +21,7 @@ function DrawResultModal({ eventId }) {
   const { hullRef, mountMap, scrollTo, intersectState } = useScrollControl();
 
   // render logic
-  const maxGrade = drawResultData.at(-1).ranking;
+  const maxGrade = drawResultData.length === 0 ? 0 : drawResultData.at(-1).ranking;
   const tableStyle =
     "w-full grid grid-cols-[4rem_1fr_2fr] auto-rows-[minmax(2rem,auto)] gap-4 items-center justify-items-center";
 
@@ -63,7 +63,10 @@ function DrawResultModal({ eventId }) {
         <p>전화번호</p>
       </div>
       <div className="w-full flex-grow overflow-y-scroll" ref={hullRef}>
-        <div className="flex flex-col gap-2">{[...drawResultGroup].map(mapResultGroup)}</div>
+        {drawResultData.length === 0 ? 
+          <div className="w-full h-full flex justify-center items-center text-body-l font-bold text-neutral-600">저런! 참가자가 없군요!</div> : 
+          <div className="flex flex-col gap-2">{[...drawResultGroup].map(mapResultGroup)}</div>
+        }
       </div>
     </div>
   );
