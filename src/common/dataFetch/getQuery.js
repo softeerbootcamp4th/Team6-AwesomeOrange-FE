@@ -23,8 +23,12 @@ function updateSubscribedQuery(key) {
     queryGroupMap.get(key).forEach((subKey) => queryMap.delete(subKey));
     queryGroupMap.deleteKey(key);
   }
-
   if (queryObservers.has(key)) queryObservers.get(key).forEach((callback) => callback());
+
+  if(key.includes("/")) {
+    const parent = /^(.*?)(?=\/[^\/]+$)/.exec(key)[1];
+    updateSubscribedQuery(parent);
+  }
 }
 
 function isSame(arr1, arr2) {

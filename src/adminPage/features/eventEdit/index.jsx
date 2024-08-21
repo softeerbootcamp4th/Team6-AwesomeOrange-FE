@@ -38,7 +38,7 @@ function EventEditor({ initialData = null } = {}) {
   const mode = useContext(EventEditModeContext);
   const [state, dispatch] = useReducer(eventEditReducer, initialData, setDefaultState);
   const submitMutate = useMutation(
-    mode === "create" ? "event-detail-created" : `event-detail-${state.eventId}`,
+    mode === "create" ? "admin-event-list" : `admin-event-list/${state.eventId}`,
     () =>
       fetchServer(mode === "create" ? "/api/v1/admin/events" : "/api/v1/admin/events/edit", {
         method: "post",
