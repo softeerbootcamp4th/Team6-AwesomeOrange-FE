@@ -1,12 +1,17 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import throttleRaf from "@common/throttleRaf.js";
 
-function useMountDragEvent({ onDragStart: userDragStart, onDrag, onDragEnd: userDragEnd, enabled = true } = {}) {
+function useMountDragEvent({
+  onDragStart: userDragStart,
+  onDrag,
+  onDragEnd: userDragEnd,
+  enabled = true,
+} = {}) {
   const [dragState, setDragState] = useState(false);
   const isDragging = useRef(false);
 
   useEffect(() => {
-    if(!enabled) return;
+    if (!enabled) return;
 
     const onPointerMove = throttleRaf((e) => {
       if (e.pointerType === "touch") return;
@@ -29,7 +34,7 @@ function useMountDragEvent({ onDragStart: userDragStart, onDrag, onDragEnd: user
   }, [onDrag, enabled]);
 
   useEffect(() => {
-    if(!enabled) return;
+    if (!enabled) return;
 
     const onDragEnd = (e) => {
       if (!isDragging.current) return;
@@ -52,7 +57,7 @@ function useMountDragEvent({ onDragStart: userDragStart, onDrag, onDragEnd: user
 
   const onPointerDown = useCallback(
     (e) => {
-      if(!enabled) return;
+      if (!enabled) return;
       isDragging.current = true;
       setDragState(true);
       userDragStart?.({ x: e.clientX, y: e.clientY });

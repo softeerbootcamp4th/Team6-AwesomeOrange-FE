@@ -17,21 +17,23 @@ function getAngleDelta(prev, current) {
   return current - prev;
 }
 
-const grabText = (value)=>`다이얼 조작을 시작합니다. 현재 당신이 선택한 충전 시간은 ${value}분입니다. 왼쪽 방향키를 눌러서 충전 시간을 줄이고, 오른쪽 방향키를 눌러서 충전 시간을 늘려보세요. 최대 30분까지만 늘릴 수 있습니다.`;
-const moveText = (value, angle)=>{
-  if(angle > 0) return `다이얼을 0도 이하로 조작할 수 없습니다.`;
-  if(angle < -Math.PI * 2) return `다이얼을 360도 이상으로 조작할 수 없습니다.`;
-  return `다이얼을 돌렸습니다. 현재 각도는 ${Math.floor(-angle * 180 / Math.PI)}도이며, 당신이 선택한 충전 시간은 ${value}분입니다.`;
-}
-const dropText = (value)=>`다이얼 조작을 해제했습니다. 당신이 선택한 충전 시간은 ${value}분입니다.`;
+const grabText = (value) =>
+  `다이얼 조작을 시작합니다. 현재 당신이 선택한 충전 시간은 ${value}분입니다. 왼쪽 방향키를 눌러서 충전 시간을 줄이고, 오른쪽 방향키를 눌러서 충전 시간을 늘려보세요. 최대 30분까지만 늘릴 수 있습니다.`;
+const moveText = (value, angle) => {
+  if (angle > 0) return `다이얼을 0도 이하로 조작할 수 없습니다.`;
+  if (angle < -Math.PI * 2) return `다이얼을 360도 이상으로 조작할 수 없습니다.`;
+  return `다이얼을 돌렸습니다. 현재 각도는 ${Math.floor((-angle * 180) / Math.PI)}도이며, 당신이 선택한 충전 시간은 ${value}분입니다.`;
+};
+const dropText = (value) =>
+  `다이얼 조작을 해제했습니다. 당신이 선택한 충전 시간은 ${value}분입니다.`;
 
-function useDialDrag(enabled=true) {
+function useDialDrag(enabled = true) {
   const [angle, setAngle] = useState(0);
   const dialRef = useRef(null);
   const dialCenter = useRef({ x: 0, y: 0 });
   const prevAngle = useRef(0);
   const angleCache = useRef(0);
-  const [subtitle, setSubtitle] = useState(()=>()=>"");
+  const [subtitle, setSubtitle] = useState(() => () => "");
 
   const onDragStart = useCallback((cursor) => {
     if (dialRef.current === null) return;
@@ -65,28 +67,28 @@ function useDialDrag(enabled=true) {
     prevAngle.current = 0;
   }, []);
 
-  const onKeyMove = useCallback((x,y)=>{
-    const UNIT = Math.PI * 2 / MAX_MINUTE;
+  const onKeyMove = useCallback((x, y) => {
+    const UNIT = (Math.PI * 2) / MAX_MINUTE;
 
     const delta = x !== 0 ? x : -y;
     function getNewAngle(angle) {
       const rounded = Math.round(angle / UNIT);
-      if(rounded - delta > 0) return UNIT;
-      else if(rounded - delta < -MAX_MINUTE) return -Math.PI * 2 - UNIT;
+      if (rounded - delta > 0) return UNIT;
+      else if (rounded - delta < -MAX_MINUTE) return -Math.PI * 2 - UNIT;
       return (rounded - delta) * UNIT;
     }
 
     angleCache.current = getNewAngle(angleCache.current);
-    setAngle( angleCache.current );
+    setAngle(angleCache.current);
   }, []);
 
   const keyRef = useA11yDrag({
-    grabText, 
+    grabText,
     moveText,
     dropText,
     onKeyMove,
     enabled,
-    setSubtitle
+    setSubtitle,
   });
 
   const style = {
@@ -102,7 +104,7 @@ function useDialDrag(enabled=true) {
     onPointerDown,
     resetAngle,
     isDragging: dragState,
-    subtitle
+    subtitle,
   };
 }
 

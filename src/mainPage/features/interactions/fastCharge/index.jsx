@@ -18,16 +18,16 @@ function FastChargeInteraction({ interactCallback, $ref, disabled }) {
     angle,
     style: dialStyle,
     ref: dialRef,
-    keyRef, 
+    keyRef,
     onPointerDown,
     resetAngle: reset,
     isDragging,
-    subtitle
+    subtitle,
   } = useDialDrag(!disabled);
 
-  useEffect( ()=>{
-    if(angle !== 0) interactCallback?.();
-  }, [angle] );
+  useEffect(() => {
+    if (angle !== 0) interactCallback?.();
+  }, [angle, interactCallback]);
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);
   const progress = getProgress(angle);
@@ -42,8 +42,12 @@ function FastChargeInteraction({ interactCallback, $ref, disabled }) {
         directive="다이얼을 돌려 충전에 필요한 시간을 확인해보세요!"
         shouldNotSelect={isDragging}
       />
-      <span aria-live="assertive" className="assistive-text">{subtitle(answer, angle)}</span>
-      <span aria-live="assertive" className="assistive-text">스페이스바를 눌러서 다이얼 조작 여부를 전환하세요.</span>
+      <span aria-live="assertive" className="assistive-text">
+        {subtitle(answer, angle)}
+      </span>
+      <span aria-live="assertive" className="assistive-text">
+        스페이스바를 눌러서 다이얼 조작 여부를 전환하세요.
+      </span>
       <div className="absolute top-[clamp(240px,40%,384px)] w-72 md:w-96 h-32 border-solid border-2 border-neutral-600 rounded-[30px] p-3.5">
         <div className="absolute w-5 h-9 bg-neutral-600 right-[-1.25rem] top-[2.875rem] rounded-r-md"></div>
         <BatteryProgressBar progress={progress} />
@@ -59,7 +63,11 @@ function FastChargeInteraction({ interactCallback, $ref, disabled }) {
           draggable="false"
         />
         <p className="text-white font-bold absolute bottom-[calc(50%+48px)] md:bottom-[calc(50%+94px)] lg:bottom-[calc(50%+140px)] text-title-s pointer-events-none">
-          <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5" tabIndex={disabled ? undefined : 0} ref={keyRef}>
+          <span
+            className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5"
+            tabIndex={disabled ? undefined : 0}
+            ref={keyRef}
+          >
             {answer}
           </span>
           분

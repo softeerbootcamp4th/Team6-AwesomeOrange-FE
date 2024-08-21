@@ -21,7 +21,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
     isDragging,
     islandRef,
     phoneRef,
-    subtitle
+    subtitle,
   } = useIslandDrag(disabled, interactCallback);
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);
@@ -39,8 +39,12 @@ function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
         directive="유니버설 아일랜드를 드래그하여 이동시키고 스마트폰을 충전해보세요!"
         shouldNotSelect={isDragging}
       />
-      <span aria-live="assertive" className="assistive-text">{subtitle}</span>
-      <span aria-live="assertive" className="assistive-text">스페이스바를 눌러서 유니버설 아일랜드와 스마트폰을 잡으세요.</span>
+      <span aria-live="assertive" className="assistive-text">
+        {subtitle}
+      </span>
+      <span aria-live="assertive" className="assistive-text">
+        스페이스바를 눌러서 유니버설 아일랜드와 스마트폰을 잡으세요.
+      </span>
       <div className={seatHullStyle}>
         <img className={style.seat} src={seat} alt="left seat" draggable="false" />
         <div

@@ -8,7 +8,7 @@ const MAX_DISTANCE = 800;
 function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
   const { x, y, reset, isDragging, onPointerDown, handleRef, subtitle } = usePointDrag(!disabled);
   const ratio = useDeviceRatio();
-  const km = Math.floor( Math.hypot(x, y) * 800 / (ratio) );
+  const km = Math.floor((Math.hypot(x, y) * MAX_DISTANCE) / ratio);
 
   const circleStyle = {
     transform: `translate(${x}px, ${y}px)`,
@@ -29,9 +29,9 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
     );
   }
 
-  useEffect( ()=>{
-    if(km !== 0) interactCallback?.();
-  }, [km] );
+  useEffect(() => {
+    if (km !== 0) interactCallback?.();
+  }, [km, interactCallback]);
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);
 
@@ -44,8 +44,12 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
         directive="가운데 점을 드래그하여 최대 주행거리를 예측해보세요!"
         shouldNotSelect={isDragging}
       />
-      <span aria-live="assertive" className="assistive-text">{subtitle(x, y, km)}</span>
-      <span aria-live="assertive" className="assistive-text">스페이스바를 눌러서 드래그 상태를 전환하세요.</span>
+      <span aria-live="assertive" className="assistive-text">
+        {subtitle(x, y, km)}
+      </span>
+      <span aria-live="assertive" className="assistive-text">
+        스페이스바를 눌러서 드래그 상태를 전환하세요.
+      </span>
       <div className="absolute top-1/2">
         <div
           tabIndex={disabled ? undefined : 0}
@@ -66,9 +70,7 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
         </svg>
       </div>
       <p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s font-bold pointer-events-none">
-        <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5">
-          {km}
-        </span>
+        <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5">{km}</span>
         km
       </p>
     </article>

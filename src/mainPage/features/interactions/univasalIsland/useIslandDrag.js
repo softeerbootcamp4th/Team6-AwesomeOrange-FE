@@ -1,5 +1,5 @@
 import { useState, useReducer, useRef, useMemo, useCallback } from "react";
-import islandReducer, {getDefaultState} from "./reducer.js";
+import islandReducer, { getDefaultState } from "./reducer.js";
 import useMountDragEvent from "@main/hooks/useMountDragEvent.js";
 import useA11yDrag from "@main/hooks/useA11yDrag.js";
 
@@ -8,17 +8,20 @@ const PHONE_INITIAL_Y = 100;
 const STEP = 25;
 
 const assistive = {
-  univasal : {
-    grabText: ()=>"유니버설 아일랜드를 잡았습니다. 위,아래 방향키로 유니버설 아일랜드의 위치를 이동하세요. 스페이스바로 유니버설 아일랜드를 놓으세요.", 
-    moveText: ({islandY})=>`유니버설 아일랜드를 이동했습니다. (y: ${islandY})`,
-    dropText: ()=>"유니버설 아일랜드를 놓았습니다.",
+  univasal: {
+    grabText: () =>
+      "유니버설 아일랜드를 잡았습니다. 위,아래 방향키로 유니버설 아일랜드의 위치를 이동하세요. 스페이스바로 유니버설 아일랜드를 놓으세요.",
+    moveText: ({ islandY }) => `유니버설 아일랜드를 이동했습니다. (y: ${islandY})`,
+    dropText: () => "유니버설 아일랜드를 놓았습니다.",
   },
-  phone : {
-    grabText: ()=>"스마트폰을 잡았습니다. 방향키로 스마트폰의 위치를 이동하세요. 스페이스바로 스마트폰을 놓으세요", 
-    moveText: ({phoneX, phoneY})=>`스마트폰을 이동했습니다. (x: ${phoneX}, y: ${phoneY})`,
-    dropText: ({phoneIsSnapping})=>`스마트폰을 놓았습니다. ${phoneIsSnapping ? "스마트폰이 아일랜드에 스냅되었습니다." : "스마트폰이 아일랜드에서 벗어났습니다."}`,
-  }
-}
+  phone: {
+    grabText: () =>
+      "스마트폰을 잡았습니다. 방향키로 스마트폰의 위치를 이동하세요. 스페이스바로 스마트폰을 놓으세요",
+    moveText: ({ phoneX, phoneY }) => `스마트폰을 이동했습니다. (x: ${phoneX}, y: ${phoneY})`,
+    dropText: ({ phoneIsSnapping }) =>
+      `스마트폰을 놓았습니다. ${phoneIsSnapping ? "스마트폰이 아일랜드에 스냅되었습니다." : "스마트폰이 아일랜드에서 벗어났습니다."}`,
+  },
+};
 
 function aabbCheck(bound1, bound2) {
   if (bound1.right < bound2.left) return false;
@@ -28,11 +31,11 @@ function aabbCheck(bound1, bound2) {
   return true;
 }
 
-function useIslandDrag(enabled=true, interactCallback=null) {
+function useIslandDrag(enabled = true, interactCallback = null) {
   /**-------------------------------------------------------------------*
    *                                                                    *
    * State - ref : 아일랜드 드래그의 상태입니다.                              *
-   *                                                                    * 
+   *                                                                    *
    *--------------------------------------------------------------------*/
 
   // island state
@@ -45,13 +48,14 @@ function useIslandDrag(enabled=true, interactCallback=null) {
 
   // reducer
   const [state, dispatch] = useReducer(islandReducer, null, getDefaultState);
-  const {islandY, phoneX, phoneY, phoneIsSnapping, phoneShouldSnapped, islandKeyControlled} = state;
+  const { islandY, phoneX, phoneY, phoneIsSnapping, phoneShouldSnapped, islandKeyControlled } =
+    state;
 
   // phone snap area
   const phoneSnapArea = useRef(null);
 
   // A11y subtitle
-  const [subtitle, setSubtitle] = useState(()=>()=>"");
+  const [subtitle, setSubtitle] = useState(() => () => "");
 
   /**-------------------------------------------------------------------*
    *                                                                    *
@@ -62,36 +66,36 @@ function useIslandDrag(enabled=true, interactCallback=null) {
   // mount island drag event
   const islandOnDragStart = useCallback(
     ({ y }) => {
-      dispatch({type: "reset-snap"});
+      dispatch({ type: "reset-snap" });
       islandStartMouseYPosition.current = y;
       islandStartPosition.current = islandY;
       interactCallback?.();
     },
-    [islandY],
+    [islandY, interactCallback],
   );
-  const islandOnDragging = useCallback(
-    function ({ y: mouseY }) {
-      const rawY = mouseY - islandStartMouseYPosition.current + islandStartPosition.current;
-      dispatch({type: "move-island", y:rawY});
-    },
-    [],
-  );
+  const islandOnDragging = useCallback(function ({ y: mouseY }) {
+    const rawY = mouseY - islandStartMouseYPosition.current + islandStartPosition.current;
+    dispatch({ type: "move-island", y: rawY });
+  }, []);
   const { onPointerDown: islandOnPointerDown, dragState: islandIsDrag } = useMountDragEvent({
     onDragStart: islandOnDragStart,
     onDrag: islandOnDragging,
-    enabled
+    enabled,
   });
 
   // a11y island keyboard event
-  const onKeyGrab = useCallback( ()=>{
-    dispatch({type: "grab-key-island", value: true});
+  const onKeyGrab = useCallback(() => {
+    dispatch({ type: "grab-key-island", value: true });
   }, []);
-  const onIslandKeyMove = useCallback( (_, y)=>{
-    dispatch({type: "move-island", mutate: (state)=>state + y * STEP});
-    interactCallback?.();
-  }, []);
-  const onKeyRelease = useCallback( ()=>{
-    dispatch({type: "grab-key-island", value: false});
+  const onIslandKeyMove = useCallback(
+    (_, y) => {
+      dispatch({ type: "move-island", mutate: (state) => state + y * STEP });
+      interactCallback?.();
+    },
+    [interactCallback],
+  );
+  const onKeyRelease = useCallback(() => {
+    dispatch({ type: "grab-key-island", value: false });
   }, []);
   const islandRef = useA11yDrag({
     ...assistive.univasal,
@@ -99,7 +103,7 @@ function useIslandDrag(enabled=true, interactCallback=null) {
     onKeyMove: onIslandKeyMove,
     onKeyRelease,
     enabled,
-    setSubtitle
+    setSubtitle,
   });
 
   /**-------------------------------------------------------------------*
@@ -111,50 +115,53 @@ function useIslandDrag(enabled=true, interactCallback=null) {
   // mount phone drag event
   const phoneOnDragStart = useCallback(
     (position) => {
-      dispatch({type: "reset-snap"});
+      dispatch({ type: "reset-snap" });
       phoneStartMousePosition.current = position;
       phoneStartPosition.current = { x: phoneX, y: phoneY };
       interactCallback?.();
     },
-    [phoneX, phoneY],
+    [phoneX, phoneY, interactCallback],
   );
   const phoneOnDragging = useCallback(function ({ x: mouseX, y: mouseY }) {
     const x = mouseX - phoneStartMousePosition.current.x + phoneStartPosition.current.x;
     const y = mouseY - phoneStartMousePosition.current.y + phoneStartPosition.current.y;
-    dispatch({type: "move-phone", x, y});
+    dispatch({ type: "move-phone", x, y });
   }, []);
-  const phoneOnDragEnd = useCallback(
-    (e) => {
-      const isSnapped = aabbCheck(
-        e.target.getBoundingClientRect(),
-        phoneSnapArea.current.getBoundingClientRect(),
-      );
-      dispatch({type: "drop-phone", isSnapped});
-    },
-    [islandY],
-  );
+  const phoneOnDragEnd = useCallback((e) => {
+    const isSnapped = aabbCheck(
+      e.target.getBoundingClientRect(),
+      phoneSnapArea.current.getBoundingClientRect(),
+    );
+    dispatch({ type: "drop-phone", isSnapped });
+  }, []);
   const { onPointerDown: phoneOnPointerDown, dragState: phoneIsDrag } = useMountDragEvent({
     onDragStart: phoneOnDragStart,
     onDrag: phoneOnDragging,
     onDragEnd: phoneOnDragEnd,
-    enabled
+    enabled,
   });
 
   // a11y phone keyboard event
-  const onPhoneKeyMove = useCallback( (x, y)=>{
-    dispatch({type: "move-phone", mutate: (state)=>({x: state.x + x * STEP, y: state.y + y * STEP})});
-    interactCallback?.();
-  }, []);
-  const onPhoneKeyUp = useCallback( (x, y)=>{
-    dispatch({type: "drop-phone", valueSnap: true});
+  const onPhoneKeyMove = useCallback(
+    (x, y) => {
+      dispatch({
+        type: "move-phone",
+        mutate: (state) => ({ x: state.x + x * STEP, y: state.y + y * STEP }),
+      });
+      interactCallback?.();
+    },
+    [interactCallback],
+  );
+  const onPhoneKeyUp = useCallback(() => {
+    dispatch({ type: "drop-phone", valueSnap: true });
   }, []);
   const phoneRef = useA11yDrag({
     ...assistive.phone,
-    onKeyGrab, 
+    onKeyGrab,
     onKeyMove: onPhoneKeyMove,
     onKeyRelease: onPhoneKeyUp,
     enabled,
-    setSubtitle
+    setSubtitle,
   });
 
   /**-------------------------------------------------------------------*
@@ -169,7 +176,7 @@ function useIslandDrag(enabled=true, interactCallback=null) {
     phoneStartMousePosition.current = { x: 0, y: 0 };
     islandStartPosition.current = 0;
     phoneStartPosition.current = { x: PHONE_INITIAL_X, y: PHONE_INITIAL_Y };
-    dispatch({type: "reset"});
+    dispatch({ type: "reset" });
   }, []);
 
   /**-------------------------------------------------------------------*
@@ -190,11 +197,12 @@ function useIslandDrag(enabled=true, interactCallback=null) {
   // phone style은 상당히 많은 state 종속성을 가지고 있으므로 useMemo가 의미가 없음
   const phoneStyle = {
     transform: `translate(${phoneX}px, ${phoneY}px)`,
-    transition: !islandKeyControlled && phoneShouldSnapped
-      ? "transform 0.5s"
-      : islandKeyControlled || (!phoneIsSnapping && !phoneIsDrag)
-        ? "transform 0.2s"
-        : "none",
+    transition:
+      !islandKeyControlled && phoneShouldSnapped
+        ? "transform 0.5s"
+        : islandKeyControlled || (!phoneIsSnapping && !phoneIsDrag)
+          ? "transform 0.2s"
+          : "none",
   };
 
   return {
@@ -210,7 +218,7 @@ function useIslandDrag(enabled=true, interactCallback=null) {
 
     islandRef,
     phoneRef,
-    subtitle: subtitle({islandY, phoneX, phoneY, phoneIsSnapping}),
+    subtitle: subtitle({ islandY, phoneX, phoneY, phoneIsSnapping }),
   };
 }
 

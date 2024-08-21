@@ -6,7 +6,13 @@ function Phone({ dynamicStyle, onPointerDown, isSnapped, disabled, $ref }) {
   const lightningOpacity = isSnapped ? "opacity-100" : "opacity-0";
 
   return (
-    <div className={staticStyle} style={dynamicStyle} onPointerDown={onPointerDown} ref={$ref} tabIndex={disabled ? undefined : 0}>
+    <div
+      className={staticStyle}
+      style={dynamicStyle}
+      onPointerDown={onPointerDown}
+      ref={$ref}
+      tabIndex={disabled ? undefined : 0}
+    >
       <svg
         className="w-full h-full absolute top-0 left-0"
         width="66"

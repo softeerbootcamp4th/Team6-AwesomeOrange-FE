@@ -63,10 +63,13 @@ function DrawResultModal({ eventId }) {
         <p>전화번호</p>
       </div>
       <div className="w-full flex-grow overflow-y-scroll" ref={hullRef}>
-        {drawResultData.length === 0 ? 
-          <div className="w-full h-full flex justify-center items-center text-body-l font-bold text-neutral-600">저런! 참가자가 없군요!</div> : 
+        {drawResultData.length === 0 ? (
+          <div className="w-full h-full flex justify-center items-center text-body-l font-bold text-neutral-600">
+            저런! 참가자가 없군요!
+          </div>
+        ) : (
           <div className="flex flex-col gap-2">{[...drawResultGroup].map(mapResultGroup)}</div>
-        }
+        )}
       </div>
     </div>
   );
