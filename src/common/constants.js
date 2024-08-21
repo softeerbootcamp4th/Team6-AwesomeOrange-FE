@@ -1,4 +1,4 @@
-export const EVENT_FCFS_ID = "HD_240808_002";
+export const EVENT_FCFS_ID = "HD240821_001";
 export const EVENT_DRAW_ID = "HD_240808_001";
 export const EVENT_ID = "the-new-ioniq5";
 export const EVENT_START_DATE = new Date(2024, 8, 9);
