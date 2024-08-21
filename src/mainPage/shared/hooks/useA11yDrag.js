@@ -18,7 +18,9 @@ function useA11yDrag({
 	grabText = voidAssistive, 
 	moveText = voidAssistive, 
 	dropText = voidAssistive,
+	onKeyGrab,
 	onKeyMove, 
+	onKeyRelease, 
 	setSubtitle,
 	enabled = true
 })
@@ -45,6 +47,7 @@ function useA11yDrag({
 						grabbed.current = false;
 						setSubtitle(()=>dropText);
 						e.preventDefault();
+						onKeyRelease?.();
 						break;
 					}
 					case "ArrowUp": 
@@ -63,12 +66,14 @@ function useA11yDrag({
 			{
 				grabbed.current = true;
 				setSubtitle(()=>grabText);
+				onKeyGrab?.();
 				e.preventDefault();
 			}
 		}
 		function onFocusOut()
 		{
 			grabbed.current = false;
+			onKeyRelease?.();
 			setSubtitle(()=>voidAssistive);
 		}
 
@@ -78,7 +83,7 @@ function useA11yDrag({
 			document.removeEventListener("keydown", onKeyDown);
 			target.current?.removeEventListener("blur", onFocusOut);
 		}
-	}, []);
+	}, [grabText, moveText, dropText, onKeyGrab, onKeyMove, onKeyRelease, setSubtitle, enabled]);
 
 	return target;
 };

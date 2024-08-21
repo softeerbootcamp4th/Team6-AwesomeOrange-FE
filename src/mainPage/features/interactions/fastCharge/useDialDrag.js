@@ -25,7 +25,7 @@ const moveText = (value, angle)=>{
 }
 const dropText = (value)=>`다이얼 조작을 해제했습니다. 당신이 선택한 충전 시간은 ${value}분입니다.`;
 
-function useDialDrag(enabled) {
+function useDialDrag(enabled=true) {
   const [angle, setAngle] = useState(0);
   const dialRef = useRef(null);
   const dialCenter = useRef({ x: 0, y: 0 });
