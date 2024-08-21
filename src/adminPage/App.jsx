@@ -9,6 +9,7 @@ import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import RootRoute from "./pages/RootRoute.jsx";
 import CommentsPage from "./pages/CommentsPage.jsx";
 import CommentsIDPage from "./pages/CommentsIDPage.jsx";
+import UsersPage from "./pages/UsersPage.jsx";
 import ServerTimeInitializer from "./shared/serverTime/ServerTimeInitializer.jsx";
 
 import Modal from "@common/modal/modal.jsx";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/events" element={<EventsPage />} />
           <Route path="/comments/:eventId" element={<CommentsIDPage />} />
           <Route path="/comments" element={<CommentsPage />} />
+          <Route path="/users" element={<UsersPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<RootRoute />} />
