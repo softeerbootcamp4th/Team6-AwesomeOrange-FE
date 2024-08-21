@@ -2,12 +2,10 @@ import Suspense from "@common/components/Suspense";
 import Loading from "./Loading.jsx";
 import Comments from "./Comments.jsx";
 import { useState } from "react";
-import Pagination from "@admin/components/Pagination";
 import DeleteButton from "./DeleteButton.jsx";
 
 export default function AdminCommentID({ eventId }) {
   const [checkedComments, setCheckedComments] = useState(new Set());
-  const [page, setPage] = useState(1);
   const [formString, setFormString] = useState("");
   const [searchString, setSearchString] = useState("");
   const [allId, setAllId] = useState([]);
@@ -78,13 +76,10 @@ export default function AdminCommentID({ eventId }) {
           eventId={eventId}
           checkedComments={checkedComments}
           setCheckedComments={setCheckedComments}
-          page={page - 1}
           setAllId={setAllId}
           searchString={searchString}
         />
       </Suspense>
-
-      <Pagination currentPage={page} setPage={setPage} maxPage={10} />
     </div>
   );
 }
