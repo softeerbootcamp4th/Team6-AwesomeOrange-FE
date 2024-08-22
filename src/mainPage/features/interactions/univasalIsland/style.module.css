@@ -24,7 +24,7 @@
 
 @media (min-width: 1024px) {
   .hull {
-    bottom: min(calc(100% - 900px), -170px);
+    bottom: min(calc(100% - 950px), -240px);
   }
   .seat {
     width: 385.46px;
@@ -50,7 +50,7 @@
 
 @media (min-width: 1280px) {
   .hull {
-    bottom: min(calc(100% - 1000px), -200px);
+    bottom: min(calc(100% - 1100px), -300px);
   }
   .seat {
     width: 453.48px;

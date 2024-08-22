@@ -1,7 +1,5 @@
 import { clamp } from "@common/utils.js";
-
-const PHONE_INITIAL_X = 150;
-const PHONE_INITIAL_Y = 100;
+import { PHONE_INITIAL_X, PHONE_INITIAL_Y, canSnapPhoneInKeyboardMode } from "./utils.js";
 
 export function getDefaultState() {
   return {
@@ -39,7 +37,7 @@ function islandReducer(state, action) {
     case "drop-phone": {
       let snap = action.isSnapped;
       if (action.valueSnap) {
-        snap = Math.hypot(state.islandY - state.phoneY, state.phoneX) < 75;
+        snap = canSnapPhoneInKeyboardMode(state);
       }
       if (snap)
         return {

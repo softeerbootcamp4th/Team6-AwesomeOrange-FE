@@ -45,7 +45,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
         {subtitle}
       </span>
       <span id={desc} aria-live="assertive" className="assistive-text">
-        스페이스바를 눌러서 유니버설 아일랜드와 스마트폰을 잡으세요.
+        스페이스바를 눌러서 유니버설 아일랜드를 잡으세요.
       </span>
       <span id={desc2} aria-live="assertive" className="assistive-text">
         스페이스바를 눌러서 스마트폰을 잡으세요.
