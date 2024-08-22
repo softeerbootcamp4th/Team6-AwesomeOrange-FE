@@ -1,17 +1,17 @@
 import { useReducer, useEffect, useImperativeHandle } from "react";
-import reducer from "./reducer.js";
-import { generatePiece, generateAnswer, checkPuzzle } from "./utils.js";
+import reducer from "./businessLogic/reducer.js";
+import { generatePiece, generateAnswer, checkPuzzle } from "./businessLogic/utils.js";
 import PuzzlePiece from "./PuzzlePiece.jsx";
 import style from "./style.module.css";
 import car1x from "./assets/car@1x.png";
 import car2x from "./assets/car@2x.png";
 import panContainer1x from "./assets/panContainer@1x.png";
-import panContainer2x from "./assets/panContainer@1x.png";
+import panContainer2x from "./assets/panContainer@2x.png";
 import pan from "./assets/pan.svg";
 
 // ─│┌┐┘└
 
-function Puzzle({ interactCallback, $ref }) {
+function Puzzle({ interactCallback, $ref, disabled }) {
   const [state, dispatch] = useReducer(reducer, {
     answer: generateAnswer(`
       ─┐.
@@ -46,6 +46,7 @@ function Puzzle({ interactCallback, $ref }) {
           alt=""
           role="presentation"
           draggable="false"
+          disabled={disabled}
         />
         <div className="w-8 h-2 bg-blue-300"></div>
         <svg className="block md:hidden stroke-blue-300 w-12 h-28 absolute right-px overflow-visible fill-none">

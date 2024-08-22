@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LINEAR } from "./constants.js";
+import { LINEAR } from "./businessLogic/constants.js";
 
 function PuzzlePiece({ shape, onClick, fixRotate, ariaLabel }) {
   const [fixing, setFixing] = useState(false);
