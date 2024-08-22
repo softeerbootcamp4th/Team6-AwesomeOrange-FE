@@ -46,7 +46,6 @@ function Puzzle({ interactCallback, $ref, disabled }) {
           alt=""
           role="presentation"
           draggable="false"
-          disabled={disabled}
         />
         <div className="w-8 h-2 bg-blue-300"></div>
         <svg className="block md:hidden stroke-blue-300 w-12 h-28 absolute right-px overflow-visible fill-none">
@@ -59,6 +58,7 @@ function Puzzle({ interactCallback, $ref, disabled }) {
       <div className="grid grid-rows-3 grid-cols-3 gap-4 z-10 w-[23rem] flex-shrink-0">
         {piece.map((shape, i) => {
           const onClick = () => {
+            if(disabled) return;
             dispatch({type: "rotate", index: i});
             interactCallback?.();
           };
@@ -74,6 +74,7 @@ function Puzzle({ interactCallback, $ref, disabled }) {
               onClick={onClick}
               fixRotate={fixRotate}
               ariaLabel={label}
+              disabled={disabled}
             />
           );
         })}

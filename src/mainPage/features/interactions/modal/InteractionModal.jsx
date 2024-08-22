@@ -34,6 +34,15 @@ export default function InteractionModal() {
       className="w-[calc(100%-2rem)] h-[calc(100%-2rem)] md:size-5/6 relative bg-[url('/images/interactionBackdrop.webp')] bg-cover bg-center bg-black/80 border border-neutral-600 rounded overflow-hidden"
       aria-modal="true"
     >
+      <Suspense fallback={<Spinner />}>
+        <InteractionComponent interactCallback={() => setIsActive(true)} $ref={interactionRef} disabled={isAnswerUp} />
+      </Suspense>
+
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
+        <ShowAnswerButton disabled={!isActive || isAnswerUp} onClick={() => setIsAnswerUp(true)} />
+        <ResetButton onClick={() => interactionRef.current.reset()} disabled={isAnswerUp} />
+      </div>
+
       <button
         onClick={close}
         ref={closeButtonRef}
@@ -41,15 +50,6 @@ export default function InteractionModal() {
       >
         <img src="/icons/close-white.svg" alt="닫기" draggable="false" />
       </button>
-
-      <Suspense fallback={<Spinner />}>
-        <InteractionComponent interactCallback={() => setIsActive(true)} $ref={interactionRef} />
-      </Suspense>
-
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-        <ShowAnswerButton disabled={!isActive || isAnswerUp} onClick={() => setIsAnswerUp(true)} />
-        <ResetButton onClick={() => interactionRef.current.reset()} disabled={isAnswerUp} />
-      </div>
 
       <InteractionAnswer
         isAnswerUp={isAnswerUp}

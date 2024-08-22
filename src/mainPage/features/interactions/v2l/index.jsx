@@ -4,7 +4,8 @@ import Puzzle from "./Puzzle.jsx";
 import style from "./style.module.css";
 //import PuzzleSkeleton from "./PuzzleSkeleton.jsx";
 
-function V2LInteraction({ interactCallback, $ref }) {
+function V2LInteraction({ interactCallback, $ref, disabled }) {
+  console.log(disabled);
   return (
     <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
       <InteractionDescription
@@ -15,7 +16,7 @@ function V2LInteraction({ interactCallback, $ref }) {
       />
       <div className={`absolute ${style.container} origin-top`}>
         <ClientOnly fallback={<div>스켈레톤 그릴 예정</div>}>
-          <Puzzle $ref={$ref} interactCallback={interactCallback} />
+          <Puzzle $ref={$ref} interactCallback={interactCallback} disabled={disabled} />
         </ClientOnly>
       </div>
     </article>

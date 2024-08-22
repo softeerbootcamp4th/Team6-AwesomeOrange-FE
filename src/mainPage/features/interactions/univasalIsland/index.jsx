@@ -22,7 +22,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
     islandRef,
     phoneRef,
     subtitle,
-  } = useIslandDrag(disabled, interactCallback);
+  } = useIslandDrag(!disabled, interactCallback);
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);
   const desc = useId();
