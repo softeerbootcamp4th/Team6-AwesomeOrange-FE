@@ -13,7 +13,7 @@ function WelcomeModal() {
       role="dialog"
       aria-labelledby={id}
     >
-      <p className="text-body-l font-bold text-neutral-700" id={id}>
+      <p className="text-body-l font-bold text-neutral-700" id={id} aria-live="polite">
         정보가
         <br />
         등록되었습니다!
