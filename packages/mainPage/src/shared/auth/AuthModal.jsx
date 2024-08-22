@@ -48,7 +48,7 @@ function AuthModal({ onComplete: onCompleteCallback }) {
         aria-label="닫기"
         draggable="false"
       >
-        <img src="/icons/close.svg" alt="닫기" width="24" height="24" />
+        <img src="/shared/icons/close.svg" alt="닫기" width="24" height="24" />
       </button>
     </div>
   );

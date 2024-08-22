@@ -4,6 +4,7 @@ import devRouter from "./vite-devRouter.js";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import svgr from "vite-plugin-svgr";
+import sharedAssetRouter from "@awesome-orange/common/sharedAssetRouter.js";
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -15,14 +16,18 @@ export default defineConfig({
       ["/admin/*", "/admin.html"],
     ]),
     react(), 
-    svgr()
+    svgr(),
+    sharedAssetRouter([
+      ["/font", "/public/font"],
+      ["/shared", "/public"],
+      ["/mockServiceWorker.js", "/public/mockServiceWorker.js"]
+    ])
   ],
   resolve: {
     alias: [
       { find: "@", replacement: resolve(__dirname, "src") },
-      { find: "@common", replacement: resolve(__dirname, "src/common") },
-      { find: "@main", replacement: resolve(__dirname, "src/mainPage/shared") },
-      { find: "@admin", replacement: resolve(__dirname, "src/adminPage/shared") },
+      { find: "@common", replacement: "@awesome-orange/common/src" },
+      { find: "@admin", replacement: resolve(__dirname, "src/shared") },
     ],
   },
   preview: {

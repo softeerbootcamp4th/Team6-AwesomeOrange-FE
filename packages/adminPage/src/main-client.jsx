@@ -18,7 +18,7 @@ if (import.meta.env.DEV) {
     const root = createRoot($root);
     root.render(
       <StrictMode>
-        <BrowserRouter basename="/admin">
+        <BrowserRouter>
           <App />
         </BrowserRouter>
       </StrictMode>,

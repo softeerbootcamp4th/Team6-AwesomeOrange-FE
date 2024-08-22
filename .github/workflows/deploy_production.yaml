@@ -7,8 +7,8 @@ on:
     branches:
       - "main"
     paths:
-      - "src/common/**"
-      - "src/mainPage/**"
+      - "packages/common/**"
+      - "packages/mainPage/**"
       - "public/**"
 jobs:
   deploy-production:
@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+      - run: cd ./packages/mainPage
       - name: install vercel cli
         run: npm install -g vercel
       - name: deploy to vercel as production

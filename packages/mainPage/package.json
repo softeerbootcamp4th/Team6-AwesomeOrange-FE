@@ -1,0 +1,17 @@
+{
+  "name": "@awesome-orange/main",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/main-client.jsx",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "node ../../build.js main",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "jwt-decode": "^4.0.0",
+    "react-lottie-player": "^2.1.0",
+    "swiper": "^11.1.9",
+    "@awesome-orange/common": "*"
+  }
+}

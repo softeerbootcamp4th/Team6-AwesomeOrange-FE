@@ -2,7 +2,7 @@ import { build } from "vite";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import process from "node:process";
-import { readFile, writeFile, rm, mkdir } from "node:fs/promises";
+import { readFile, writeFile, rm, mkdir, readdir, copyFile } from "node:fs/promises";
 import config from "./vite.config.js";
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -11,14 +11,10 @@ const toAbsolute = (p) => resolve(__dirname, p);
 
 const buildConfig = {
 	main: {
-		clientEntry: "index.html",
-		sourceDir: "mainPage",
-		ssgEntry: "main-server.jsx"
+		sourceDir: "packages/mainPage"
 	},
 	admin: {
-		clientEntry: "admin.html",
-		sourceDir: "adminPage",
-		ssgEntry: "main-server.jsx",
+		sourceDir: "packages/adminPage"
 		url: [
 			"index",
 			"events",
@@ -31,8 +27,34 @@ const buildConfig = {
 	},
 }
 
+async function copyFolder(src, dest) {
+  // 대상 폴더가 존재하지 않으면 생성
+  await mkdir(dest, { recursive: true });
+
+  // src 폴더 안의 모든 항목 가져오기
+  const entries = await readdir(src, { withFileTypes: true });
+
+  // 모든 항목을 순회하며 복사
+  for (let entry of entries) {
+    const srcPath = resolve(src, entry.name);
+    const destPath = resolve(dest, entry.name);
+
+    if (entry.isDirectory()) {
+      // 디렉토리인 경우 재귀적으로 복사
+      await copyFolder(srcPath, destPath);
+    } else {
+      // 파일인 경우 복사
+      await copyFile(srcPath, destPath);
+    }
+  }
+}
+
 async function processBuild(mode) {
-	await Promise.all([buildClient(mode), buildSSG(mode)]);
+	await Promise.all([
+		buildClient(mode), 
+		buildSSG(mode), 
+		copyFolder("./public/font", `${buildConfig[mode].sourceDir}/dist/font`),
+		copyFolder("./public/icons", `${buildConfig[mode].sourceDir}/dist/shared/icons`),]);
 	await injectSSGToHtml(mode);
 }
 
@@ -42,15 +64,15 @@ async function buildClient(mode) {
 		build: {
 			rollupOptions: {
 				input: {
-					entry: buildConfig[mode].clientEntry
+					entry: `${buildConfig[mode].sourceDir}/src/index.html`
 				},
 				output: {
-					dir: `dist/${mode}`
+					dir: `${buildConfig[mode].sourceDir}/dist/`
 				}
 			}
 		}
 	});
-	await rm(toAbsolute(`dist/${mode}/mockServiceWorker.js`));
+	await rm(toAbsolute(`${buildConfig[mode].sourceDir}/dist/mockServiceWorker.js`));
 }
 
 function buildSSG(mode) {
@@ -60,10 +82,10 @@ function buildSSG(mode) {
 			ssr: true,
 			rollupOptions: {
 				input: {
-					entry: `src/${buildConfig[mode].sourceDir}/${buildConfig[mode].ssgEntry}`
+					entry: `${buildConfig[mode].sourceDir}/src/main-server.jsx`
 				},
 				output: {
-					dir: `dist-ssg/${mode}`
+					dir: `${buildConfig[mode].sourceDir}/dist-ssg`
 				}
 			}
 		}
@@ -72,13 +94,14 @@ function buildSSG(mode) {
 
 async function injectSSGToHtml(mode) {
 	console.log("--ssg result--");
-	const {default: render} = await import(`./dist-ssg/${mode}/entry.js`);
-	const template = await readFile(`dist/${mode}/${buildConfig[mode].clientEntry}`, "utf-8");
+	const sourceDir = buildConfig[mode].sourceDir;
+	const {default: render} = await import(`./${sourceDir}/dist-ssg/entry.js`);
+	const template = await readFile(`${sourceDir}/dist/index.html`, "utf-8");
 
 	const urlEntryPoint = buildConfig[mode].url ?? ["index"];
 
 	const promises = urlEntryPoint.map( async (path)=>{
-		const absolutePath = toAbsolute(`dist/${mode}/${path}.html`);
+		const absolutePath = toAbsolute(`${sourceDir}/dist/${path}.html`);
 		try {
 			const html = template.replace("<!--hydrate_root-->", render(path));
 

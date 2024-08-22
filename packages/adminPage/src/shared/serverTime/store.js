@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getQuerySuspense } from "@/common/dataFetch/getQuery.js";
+import { getQuerySuspense } from "@common/dataFetch/getQuery.js";
 import { getServerPresiseTime } from "@common/utils.js";
 
 const serverTimeStore = create((set) => ({

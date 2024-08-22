@@ -1,0 +1,15 @@
+{
+  "name": "@awesome-orange/admin",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/main-client.js",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "node ../../build.js admin",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react-router-dom": "^6.26.0",
+    "@awesome-orange/common": "*"
+  }
+}

@@ -1,4 +1,4 @@
-import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
+import { fetchServer, handleError } from "@common/dataFetch/fetchServer.js";
 import { EVENT_ID } from "@common/constants";
 
 async function requestAuthCode(name, phoneNumber) {
