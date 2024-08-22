@@ -10,7 +10,7 @@ const handlers = [
   }),
   http.get("/api/v1/event/fcfs/:eventFrameId/info", () => {
     return HttpResponse.json({
-      nowDateTime: "2024-09-10T06:00:10.000Z",
+      eventStartTime: "2024-09-10T06:00:10.000Z",
       eventStatus: "countdown",
     });
   }),

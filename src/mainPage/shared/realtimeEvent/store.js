@@ -14,12 +14,12 @@ async function getFcfsEventInfo() {
   } catch (e) {
     if (e instanceof HTTPError && e.status === 404)
       return {
-        nowDateTime: "9999-12-31T11:59:59.000Z",
+        eventStartTime: "9999-12-31T11:59:59.000Z",
         eventStatus: Status.OFFLINE,
       };
     if (e instanceof ServerCloseError)
       return {
-        currentEventTime: "9999-12-31T11:59:59.000Z",
+        eventStartTime: "9999-12-31T11:59:59.000Z",
         eventStatus: Status.OFFLINE,
       };
     throw e;
@@ -58,7 +58,7 @@ const fcfsStore = create((set) => ({
         getFcfsEventInfo(),
       ]);
       const currentServerTime = serverTime;
-      const currentEventTime = new Date(eventInfo.nowDateTime).getTime();
+      const currentEventTime = new Date(eventInfo.eventStartTime).getTime();
 
       // get countdown and syncronize state
       const countdown = Math.ceil((currentEventTime - currentServerTime) / 1000);
