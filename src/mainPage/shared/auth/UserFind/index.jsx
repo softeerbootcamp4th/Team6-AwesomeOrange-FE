@@ -21,7 +21,7 @@ function AuthFindSection({ goPrev, onComplete }) {
 
   return (
     <div className="w-full h-[calc(100svh-2rem)] max-h-[34.375rem] px-6 min-[520px]:px-20 py-10 relative flex flex-col gap-10">
-      <p className="text-body-l font-bold text-neutral-700">
+      <p className="text-body-l font-bold text-neutral-700" aria-live="polite">
         등록했던 정보를
         <br />
         다시 한 번 입력해주세요!

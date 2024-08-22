@@ -81,15 +81,14 @@ function IntroSection() {
           <div
             className={`${style.openTitle} ease-in relative text-head-l md:text-7xl lg:text-8xl font-bold text-black z-50 text-center flex justify-center items-center`}
           >
-            <h1 className="z-10">The new <br className="inline min-[500px]:hidden" />
-            <span className="max-[500px]:sketch-line">IONIQ 5</span>
+            <h1 className="z-10">
+              The new <br className="inline min-[500px]:hidden" />
+              <span className="max-[500px]:sketch-line">IONIQ 5</span>
             </h1>
             <div className="absolute hidden min-[500px]:block top-10 md:top-11 lg:top-[66px] z-0 overflow-hidden scale-[60%] md:scale-75 lg:scale-100">
               <LineHighlight />
             </div>
           </div>
-
-          
         </div>
 
         <div className="relative flex flex-col items-center">

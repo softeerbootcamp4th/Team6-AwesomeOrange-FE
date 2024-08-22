@@ -1,4 +1,4 @@
-import { LINEAR, CURVED, ANY } from "./constants.js";
+import { LINEAR, CURVED, ANY, DOWN, RIGHT, LEFT, UP } from "./constants.js";
 
 // ─│┌┐┘└
 
@@ -47,52 +47,42 @@ class PieceData {
     newPiece.rotate = this.rotate % 4;
     return newPiece;
   }
-  getLabel() {
+  getConnectData() {
     if (this.type === LINEAR) {
-      if (this.rotate % 2) return "위에서 아래로 이어짐.";
-      else return "왼쪽에서 오른쪽으로 이어짐.";
+      if (this.rotate % 2)
+        return UP | DOWN; // │
+      else return LEFT | RIGHT; // ─
     } else if (this.type === CURVED) {
       switch (this.rotate % 4) {
         case 0:
-          return "오른쪽에서 아래로 이어짐.";
+          return RIGHT | DOWN; //┌
         case 1:
-          return "왼쪽에서 아래로 이어짐.";
+          return DOWN | LEFT; //┐
         case 2:
-          return "왼쪽에서 위로 이어짐.";
+          return LEFT | UP; //┘
         case 3:
-          return "오른쪽에서 위로 이어짐.";
+          return UP | RIGHT; //└
       }
-    } else return "알 수 없는 모양.";
+    } else return 0b0000;
+  }
+  getLabel() {
+    switch (this.getConnectData()) {
+      case UP | DOWN:
+        return "위에서 아래로 이어짐."; // linear, rotate % 2 === 1
+      case LEFT | RIGHT:
+        return "왼쪽에서 오른쪽으로 이어짐."; // linear, rotate % 2 === 0
+      case RIGHT | DOWN:
+        return "오른쪽에서 아래로 이어짐."; // curved, rotate % 4 === 0
+      case DOWN | LEFT:
+        return "왼쪽에서 아래로 이어짐."; // curved, rotate % 4 === 1
+      case LEFT | UP:
+        return "왼쪽에서 위로 이어짐."; // curved, rotate % 4 === 2
+      case UP | RIGHT:
+        return "오른쪽에서 위로 이어짐."; // curved, rotate % 4 === 3
+      default:
+        return "알 수 없는 모양.";
+    }
   }
 }
 
-export function generatePiece(shapeString) {
-  const rawString = [...shapeString.replace(/\s+/gm, "")];
-  return rawString.map((c) => new PieceData(c));
-}
-
-export function generateAnswer(shapeString) {
-  const rawString = [...shapeString.replace(/\s+/gm, "")];
-  return rawString.map((c) => {
-    switch (c) {
-      case "─":
-        return 0;
-      case "│":
-        return 1;
-      case "┌":
-        return 0;
-      case "┐":
-        return 1;
-      case "┘":
-        return 2;
-      case "└":
-        return 3;
-      default:
-        return ANY;
-    }
-  });
-}
-
-export function checkPuzzle(pieces, answer) {
-  return pieces.every((piece, i) => piece.isCorrect(answer[i]));
-}
+export default PieceData;

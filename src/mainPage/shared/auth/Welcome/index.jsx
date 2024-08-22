@@ -1,13 +1,19 @@
-import { useContext } from "react";
+import { useContext, useId } from "react";
 import { ModalCloseContext } from "@common/modal/modal.jsx";
 import Button from "@common/components/Button.jsx";
 
 function WelcomeModal() {
   const close = useContext(ModalCloseContext);
+  const id = useId();
 
   return (
-    <div className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 min-[520px]:px-20 pt-10 pb-[4.75rem] shadow bg-white relative flex flex-col justify-between">
-      <p className="text-body-l font-bold text-neutral-700">
+    <div
+      className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 min-[520px]:px-20 pt-10 pb-[4.75rem] shadow bg-white relative flex flex-col justify-between"
+      aria-modal="true"
+      role="dialog"
+      aria-labelledby={id}
+    >
+      <p className="text-body-l font-bold text-neutral-700" id={id} aria-live="polite">
         정보가
         <br />
         등록되었습니다!
