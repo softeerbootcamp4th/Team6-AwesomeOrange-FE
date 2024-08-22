@@ -47,7 +47,7 @@ export default function ContentSection({ content }) {
     >
       <img
         src={content.src}
-        alt={content.title}
+        alt=""
         width="1200"
         height="456"
         className="w-full"
@@ -60,6 +60,7 @@ export default function ContentSection({ content }) {
         <p
           style={highlightDynamicStyle}
           className="flex-shrink-0 text-title-s min-[440px]:text-title-m text-neutral-800 whitespace-pre-wrap"
+          aria-description={content.desc}
         >
           {makeHighlight(content.desc, style.highlightAnim)}
         </p>

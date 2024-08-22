@@ -54,6 +54,7 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
       <button
         onClick={onClickExperience}
         disabled={!isCurrent}
+        aria-label={isOpened && isCurrent ? "클릭해서 인터랙션을 체험하세요." : ""}
         className={`mt-8 py-1 sm:py-4 px-5 sm:px-10 bg-white ${!isOpened ? "hidden" : isCurrent ? "opacity-100" : "opacity-50"}`}
       >
         <span className="text-detail-l sm:text-body-s text-black font-bold">인터랙션 체험하기</span>
