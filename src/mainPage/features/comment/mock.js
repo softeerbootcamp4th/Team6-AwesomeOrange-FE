@@ -18,8 +18,8 @@ const handlers = [
   http.get("/api/v1/comment/info", ({ request }) => {
     const token = request.headers.get("authorization");
 
-    if (token === null) return HttpResponse.json(false, { status: 401 });
-    return HttpResponse.json(false);
+    if (token === null) return HttpResponse.json(true, { status: 401 });
+    return HttpResponse.json(true);
   }),
   http.get("/api/v1/comment/:eventFrameId", () => {
     return HttpResponse.json({ comments: getCommentMock() });

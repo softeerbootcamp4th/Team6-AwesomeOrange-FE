@@ -28,9 +28,9 @@ function CommentForm() {
     fetchServer("/api/v1/comment/info", {
       credentials: isLogin ? "include" : "same-origin",
     })
-      .then((submitted) => {
+      .then((submitAble) => {
         clearTimeout();
-        setButtonFetchState(submitted ? "disabled" : "enabled");
+        setButtonFetchState(submitAble ? "enabled": "disabled");
       })
       .catch((e) => {
         if (e.status === 401) {
