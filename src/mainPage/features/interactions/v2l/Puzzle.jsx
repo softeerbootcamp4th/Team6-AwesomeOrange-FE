@@ -1,6 +1,12 @@
 import { useReducer, useEffect, useImperativeHandle } from "react";
 import reducer from "./businessLogic/reducer.js";
-import { generatePiece, generateAnswer, checkPuzzle } from "./businessLogic/utils.js";
+import {
+  generatePiece,
+  generateAnswer,
+  checkPuzzle,
+  getLinkedPuzzleState,
+} from "./businessLogic/utils.js";
+import { WIDTH, HEIGHT } from "./businessLogic/constants.js";
 import usePuzzleKeyMount from "./businessLogic/usePuzzleKeyMount.js";
 import PuzzlePiece from "./PuzzlePiece.jsx";
 import style from "./style.module.css";
@@ -36,6 +42,7 @@ function Puzzle({ interactCallback, $ref, disabled }) {
   );
 
   const isCorrect = checkPuzzle(piece, answer);
+  const [glown] = getLinkedPuzzleState(piece, WIDTH, HEIGHT);
   const puzzleRef = usePuzzleKeyMount();
 
   return (
@@ -83,13 +90,16 @@ function Puzzle({ interactCallback, $ref, disabled }) {
               ariaLabel={label}
               disabled={disabled}
               $ref={puzzleRef(i)}
+              glow={glown.includes(i)}
             />
           );
         })}
       </div>
       <div className="flex items-end absolute bottom-0 -right-28 md:relative md:bottom-auto md:right-auto select-none">
         <div className="w-28 h-28 flex items-center relative">
-          <svg className="stroke-blue-300 w-12 h-28 overflow-visible fill-none">
+          <svg
+            className={`w-12 h-28 overflow-visible fill-none ${isCorrect ? "stroke-blue-300" : "stroke-neutral-500"}`}
+          >
             <path
               d="M 0 56 H 32 C 44 56 44 76 32 76 H 24 C 12 76 12 96 24 96 H 56"
               strokeWidth="8"
