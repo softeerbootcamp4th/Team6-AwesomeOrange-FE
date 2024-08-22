@@ -1,4 +1,4 @@
-import { useImperativeHandle } from "react";
+import { useImperativeHandle, useId } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
 import Phone from "./Phone.jsx";
 import useIslandDrag from "./useIslandDrag.js";
@@ -22,9 +22,11 @@ function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
     islandRef,
     phoneRef,
     subtitle,
-  } = useIslandDrag(disabled, interactCallback);
+  } = useIslandDrag(!disabled, interactCallback);
 
   useImperativeHandle($ref, () => ({ reset }), [reset]);
+  const desc = useId();
+  const desc2 = useId();
 
   const seatHullStyle = `absolute w-[1200px] h-[800px] ${style.hull} flex justify-center items-end select-none`;
   const univasalIslandStaticStyle = `${style.island} flex flex-col gap-2 cursor-pointer touch-none`;
@@ -42,8 +44,11 @@ function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
       <span aria-live="assertive" className="assistive-text">
         {subtitle}
       </span>
-      <span aria-live="assertive" className="assistive-text">
-        스페이스바를 눌러서 유니버설 아일랜드와 스마트폰을 잡으세요.
+      <span id={desc} aria-live="assertive" className="assistive-text">
+        스페이스바를 눌러서 유니버설 아일랜드를 잡으세요.
+      </span>
+      <span id={desc2} aria-live="assertive" className="assistive-text">
+        스페이스바를 눌러서 스마트폰을 잡으세요.
       </span>
       <div className={seatHullStyle}>
         <img className={style.seat} src={seat} alt="left seat" draggable="false" />
@@ -61,6 +66,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
             draggable="false"
             tabIndex={disabled ? undefined : 0}
             ref={islandRef}
+            aria-describedby={desc}
           />
           <img src={univasalIslandLeg} alt="univasal island" draggable="false" />
           <div className={snapAreaStyle} ref={phoneSnapArea}></div>
@@ -74,6 +80,7 @@ function UnivasalIslandInteraction({ interactCallback, $ref, disabled }) {
           onPointerDown={(e) => {
             phoneEventListener.onPointerDown(e);
           }}
+          describedBy={desc2}
         />
       </div>
     </article>

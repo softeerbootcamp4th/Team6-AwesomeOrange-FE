@@ -22,7 +22,7 @@ const grabText = (value) =>
 const moveText = (value, angle) => {
   if (angle > 0) return `다이얼을 0도 이하로 조작할 수 없습니다.`;
   if (angle < -Math.PI * 2) return `다이얼을 360도 이상으로 조작할 수 없습니다.`;
-  return `다이얼을 돌렸습니다. 현재 각도는 ${Math.floor((-angle * 180) / Math.PI)}도이며, 당신이 선택한 충전 시간은 ${value}분입니다.`;
+  return `다이얼을 돌렸습니다. 당신이 선택한 충전 시간은 ${value}분입니다.`;
 };
 const dropText = (value) =>
   `다이얼 조작을 해제했습니다. 당신이 선택한 충전 시간은 ${value}분입니다.`;

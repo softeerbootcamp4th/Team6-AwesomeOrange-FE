@@ -44,7 +44,7 @@ function Card({ index, locked, isFlipped, setFlipped, setGlobalLock, getCardAnsw
           className={`${cardFaceBaseStyle} ${style.front}`}
           src={hidden1x}
           srcSet={`${hidden1x} 1x, ${hidden2x} 2x`}
-          alt={isFlipped ? "" : `${index}번 카드를 뒤집으세요!`}
+          alt={isFlipped || isPending ? "" : `${index}번 카드를 뒤집으세요!`}
           draggable="false"
           loading="lazy"
         />

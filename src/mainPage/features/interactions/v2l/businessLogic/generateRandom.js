@@ -1,4 +1,5 @@
 import { generatePiece, generateAnswer } from "./utils.js";
+import { DOWN, RIGHT, LEFT, UP, WIDTH, HEIGHT } from "./constants.js";
 
 const dir = [
   [1, 0],
@@ -50,10 +51,10 @@ function getDirection(base, target) {
   let dx = target[0] - base[0];
   let dy = target[1] - base[1];
 
-  if (dx === 0 && dy === 1) return 0b0001; // down
-  if (dx === 1 && dy === 0) return 0b0010; // right
-  if (dx === -1 && dy === 0) return 0b0100; // left
-  if (dx === 0 && dy === -1) return 0b1000; // up
+  if (dx === 0 && dy === 1) return DOWN; // down
+  if (dx === 1 && dy === 0) return RIGHT; // right
+  if (dx === -1 && dy === 0) return LEFT; // left
+  if (dx === 0 && dy === -1) return UP; // up
   return 0b0000;
 }
 
@@ -61,17 +62,17 @@ function getDirection(base, target) {
 function getShapeChar(before, after) {
   const code = before | after;
   switch (code) {
-    case 0b1100:
+    case UP | LEFT:
       return "┘";
-    case 0b1010:
+    case UP | RIGHT:
       return "└";
-    case 0b1001:
+    case UP | DOWN:
       return "│";
-    case 0b0110:
+    case LEFT | RIGHT:
       return "─";
-    case 0b0101:
+    case LEFT | DOWN:
       return "┐";
-    case 0b0011:
+    case RIGHT | DOWN:
       return "┌";
     default:
       return ".";
@@ -79,18 +80,16 @@ function getShapeChar(before, after) {
 }
 
 function generateRandomPuzzle() {
-  const WIDTH = 3;
-  const HEIGHT = 3;
   const path = generateRandomPath(WIDTH, HEIGHT);
 
   // path에 대한 길 shape를 생성
-  const shapes = [getShapeChar(0b0100, getDirection(path[0], path[1]))];
+  const shapes = [getShapeChar(LEFT, getDirection(path[0], path[1]))];
   for (let i = 1; i < path.length - 1; i++) {
     const before = getDirection(path[i], path[i - 1]);
     const after = getDirection(path[i], path[i + 1]);
     shapes.push(getShapeChar(before, after));
   }
-  shapes.push(getShapeChar(getDirection(path[path.length - 1], path[path.length - 2]), 0b0010));
+  shapes.push(getShapeChar(getDirection(path[path.length - 1], path[path.length - 2]), RIGHT));
 
   // shape 리스트를 3x3 그리드에 맞도록 재배열
 

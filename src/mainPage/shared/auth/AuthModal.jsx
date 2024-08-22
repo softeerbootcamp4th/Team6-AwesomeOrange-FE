@@ -38,7 +38,7 @@ function AuthModal({ onComplete: onCompleteCallback }) {
   const containerClass = `w-[calc(100%-1rem)] max-w-[31.25rem] shadow bg-white relative flex flex-col gap-14`;
 
   return (
-    <div className={containerClass}>
+    <div className={containerClass} aria-modal="true">
       {page === AUTH_INPUT_PAGE && <InfoInputStage {...firstSectionProps} />}
       {page === AUTH_CODE_PAGE && <AuthCodeStage {...secondSectionProps} />}
       {page === AUTH_FIND_PAGE && <UserFindStage {...findSectionProps} />}

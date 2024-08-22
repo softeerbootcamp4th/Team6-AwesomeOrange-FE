@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle } from "react";
+import { useEffect, useImperativeHandle, useId } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
 import usePointDrag from "./usePointDrag.js";
 import useDeviceRatio from "./useDeviceRatio.js";
@@ -32,8 +32,8 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
   useEffect(() => {
     if (km !== 0) interactCallback?.();
   }, [km, interactCallback]);
-
   useImperativeHandle($ref, () => ({ reset }), [reset]);
+  const descriptionId = useId();
 
   return (
     <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
@@ -47,7 +47,7 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
       <span aria-live="assertive" className="assistive-text">
         {subtitle(x, y, km)}
       </span>
-      <span aria-live="assertive" className="assistive-text">
+      <span id={descriptionId} aria-live="assertive" className="assistive-text">
         스페이스바를 눌러서 드래그 상태를 전환하세요.
       </span>
       <div className="absolute top-1/2">
@@ -60,6 +60,8 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
           }}
           style={circleStyle}
           ref={handleRef}
+          role="button"
+          aria-describedby={descriptionId}
         />
         <svg
           className="overflow-visible stroke-blue-500 absolute top-4 left-4 pointer-events-none"

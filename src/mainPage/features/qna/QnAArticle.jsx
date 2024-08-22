@@ -26,7 +26,9 @@ function QnAArticle({ question, answer }) {
     <article className="w-full max-w-[1200px] flex flex-col gap-4 md:gap-6 lg:gap-8 py-2 md:py-4 lg:py-6 border-b border-neutral-200">
       <button className="flex justify-between items-center cursor-pointer" onClick={onClick}>
         <h3 className="flex gap-2 lg:gap-3 font-bold text-black text-body-m lg:text-body-l">
-          <span className="text-blue-400">Q.</span>
+          <span className="text-blue-400" aria-hidden="true">
+            Q.
+          </span>
           {question}
         </h3>
         <img

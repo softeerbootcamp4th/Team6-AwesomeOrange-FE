@@ -4,13 +4,15 @@ import coinLottie from "./assets/coin.json";
 import dollor from "./assets/dollor.svg";
 import InteractionDescription from "../InteractionDescription.jsx";
 
-function SubsidyInteraction({ interactCallback, $ref }) {
+function SubsidyInteraction({ interactCallback, $ref, disabled }) {
   const [count, setCount] = useState(0);
   const [lotties, setLotties] = useState(new Set());
   const coinRef = useRef(null);
+  const [subtitle, setSubtitle] = useState("");
 
   function onClick() {
     setCount((count) => count + 1);
+    setSubtitle(`${(count + 1) * 10}만원을 입력하셨습니다.`);
     coinRef.current?.animate([{ transform: "rotateY(0)" }, { transform: "rotateY(360deg)" }], {
       duration: 500,
       iteractions: 1,
@@ -37,6 +39,7 @@ function SubsidyInteraction({ interactCallback, $ref }) {
     () => ({
       reset() {
         setCount(0);
+        setSubtitle("선택한 금액이 초기화되었습니다.");
       },
     }),
     [],
@@ -50,11 +53,15 @@ function SubsidyInteraction({ interactCallback, $ref }) {
         description="The new IONIQ 5 구매 시, 최대 얼마의 보조금 혜택을 받을 수 있을까요?"
         directive="동전을 클릭하여 예상 금액을 입력해보세요!"
       />
+      <span aria-live="assertive" className="assistive-text">
+        {subtitle}
+      </span>
       <div className="absolute z-0 w-96 h-96 top-[calc(50%-12rem)] flex justify-center items-center">
         <button
           className="absolute size-[120px] active:scale-90 rounded-full outline-yellow-400 transition-transform"
           aria-label="Space바를 눌러서 동전을 클릭하고, 예상 금액을 올려보세요!"
           onClick={onClick}
+          disabled={disabled}
         >
           <div
             className="w-full h-full flex justify-center items-center rounded-full bg-blue-400 "

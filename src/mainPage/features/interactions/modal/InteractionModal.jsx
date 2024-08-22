@@ -30,7 +30,23 @@ export default function InteractionModal() {
 
   // backdrop-blur-[100px]을 적용시키면 느린 성능의 컴퓨터에서 인터랙션이 매우 느리게 동작함
   return (
-    <div className="w-[calc(100%-2rem)] h-[calc(100%-2rem)] md:size-5/6 relative bg-[url('/images/interactionBackdrop.webp')] bg-cover bg-center bg-black/80 border border-neutral-600 rounded overflow-hidden">
+    <div
+      className="w-[calc(100%-2rem)] h-[calc(100%-2rem)] md:size-5/6 relative bg-[url('/images/interactionBackdrop.webp')] bg-cover bg-center bg-black/80 border border-neutral-600 rounded overflow-hidden"
+      aria-modal="true"
+    >
+      <Suspense fallback={<Spinner />}>
+        <InteractionComponent
+          interactCallback={() => setIsActive(true)}
+          $ref={interactionRef}
+          disabled={isAnswerUp}
+        />
+      </Suspense>
+
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
+        <ShowAnswerButton disabled={!isActive || isAnswerUp} onClick={() => setIsAnswerUp(true)} />
+        <ResetButton onClick={() => interactionRef.current.reset()} disabled={isAnswerUp} />
+      </div>
+
       <button
         onClick={close}
         ref={closeButtonRef}
@@ -38,15 +54,6 @@ export default function InteractionModal() {
       >
         <img src="/icons/close-white.svg" alt="닫기" draggable="false" />
       </button>
-
-      <Suspense fallback={<Spinner />}>
-        <InteractionComponent interactCallback={() => setIsActive(true)} $ref={interactionRef} />
-      </Suspense>
-
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-        <ShowAnswerButton disabled={!isActive || isAnswerUp} onClick={() => setIsAnswerUp(true)} />
-        <ResetButton onClick={() => interactionRef.current.reset()} disabled={isAnswerUp} />
-      </div>
 
       <InteractionAnswer
         isAnswerUp={isAnswerUp}
