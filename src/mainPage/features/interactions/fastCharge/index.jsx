@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle } from "react";
+import { useEffect, useImperativeHandle, useId } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
 import BatteryProgressBar from "./BatteryProgressBar.jsx";
 import dialSvg from "./assets/timer.svg";
@@ -28,8 +28,9 @@ function FastChargeInteraction({ interactCallback, $ref, disabled }) {
   useEffect(() => {
     if (angle !== 0) interactCallback?.();
   }, [angle, interactCallback]);
-
   useImperativeHandle($ref, () => ({ reset }), [reset]);
+  const descriptionId = useId();
+
   const progress = getProgress(angle);
   const answer = Math.round(progress * MAX_MINUTE);
 
@@ -45,7 +46,7 @@ function FastChargeInteraction({ interactCallback, $ref, disabled }) {
       <span aria-live="assertive" className="assistive-text">
         {subtitle(answer, angle)}
       </span>
-      <span aria-live="assertive" className="assistive-text">
+      <span id={descriptionId} aria-live="assertive" className="assistive-text">
         스페이스바를 눌러서 다이얼 조작 여부를 전환하세요.
       </span>
       <div className="absolute top-[clamp(240px,40%,384px)] w-72 md:w-96 h-32 border-solid border-2 border-neutral-600 rounded-[30px] p-3.5">
@@ -67,6 +68,7 @@ function FastChargeInteraction({ interactCallback, $ref, disabled }) {
             className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5"
             tabIndex={disabled ? undefined : 0}
             ref={keyRef}
+            aria-describedby={descriptionId}
           >
             {answer}
           </span>

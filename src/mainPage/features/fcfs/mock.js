@@ -6,7 +6,7 @@ import { http, HttpResponse } from "msw";
 
 const handlers = [
   http.get("/api/serverTime", () => {
-    return HttpResponse.json({ timestamp: "2024-09-10T06:00:00.500+00:00" });
+    return HttpResponse.json({ timestamp: "2024-09-16T06:00:00.500+00:00" });
   }),
   http.get("/api/v1/event/fcfs/:eventFrameId/info", () => {
     return HttpResponse.json({
