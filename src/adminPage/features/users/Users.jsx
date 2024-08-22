@@ -15,7 +15,9 @@ export default function Comments({ searchString, category }) {
           return res;
         })
         .catch((e) => {
+          alert("통신 오류로 유저 목록 로드 실패.")
           console.log(e);
+          return { users: [] };
         }),
     [page, searchString],
   );

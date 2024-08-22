@@ -23,7 +23,9 @@ export default function Comments({
           return res;
         })
         .catch((e) => {
+          alert("통신 오류로 기대평 로드 실패.");
           console.log(e);
+          return { comments: [] };
         }),
     [page, searchString],
   );
