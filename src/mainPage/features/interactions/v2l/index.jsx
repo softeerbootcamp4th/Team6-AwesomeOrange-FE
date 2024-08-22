@@ -5,7 +5,6 @@ import style from "./style.module.css";
 //import PuzzleSkeleton from "./PuzzleSkeleton.jsx";
 
 function V2LInteraction({ interactCallback, $ref, disabled }) {
-  console.log(disabled);
   return (
     <article className="relative w-full h-full overflow-hidden flex items-center flex-col">
       <InteractionDescription

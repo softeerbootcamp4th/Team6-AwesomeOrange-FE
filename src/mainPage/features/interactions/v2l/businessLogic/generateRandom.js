@@ -1,5 +1,5 @@
 import { generatePiece, generateAnswer } from "./utils.js";
-import { DOWN, RIGHT, LEFT, UP } from "./constants.js";
+import { DOWN, RIGHT, LEFT, UP, WIDTH, HEIGHT } from "./constants.js";
 
 const dir = [
   [1, 0],
@@ -80,8 +80,6 @@ function getShapeChar(before, after) {
 }
 
 function generateRandomPuzzle() {
-  const WIDTH = 3;
-  const HEIGHT = 3;
   const path = generateRandomPath(WIDTH, HEIGHT);
 
   // path에 대한 길 shape를 생성

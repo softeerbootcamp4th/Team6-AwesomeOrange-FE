@@ -1,5 +1,6 @@
 import generateRandomPuzzle from "./generateRandom.js";
 import { checkPuzzle, getLinkedPuzzleState } from "./utils.js";
+import { WIDTH, HEIGHT } from "./constants.js";
 
 function getLinkSubtitle(linked)
 {
@@ -19,7 +20,7 @@ function getAnswerStateSubtitle(prevBoard, newBoard, answer)
 
 function getSubtitle(prevBoard, newBoard, answer)
 {
-	const [linked, nextCursor] = getLinkedPuzzleState(newBoard, 3, 3);
+	const [linked, nextCursor] = getLinkedPuzzleState(newBoard, WIDTH, HEIGHT);
 
 	const linkedSubtitle = getLinkSubtitle(linked);
 	const answerSubtitle = getAnswerStateSubtitle(prevBoard, newBoard, answer);

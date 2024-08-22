@@ -1,6 +1,7 @@
 import { useReducer, useEffect, useImperativeHandle } from "react";
 import reducer from "./businessLogic/reducer.js";
 import { generatePiece, generateAnswer, checkPuzzle } from "./businessLogic/utils.js";
+import usePuzzleKeyMount from "./businessLogic/usePuzzleKeyMount.js";
 import PuzzlePiece from "./PuzzlePiece.jsx";
 import style from "./style.module.css";
 import car1x from "./assets/car@1x.png";
@@ -30,6 +31,7 @@ function Puzzle({ interactCallback, $ref, disabled }) {
   useImperativeHandle($ref, () => ({ reset: ()=>dispatch({type: "reset", initialized: false}) }), []);
 
   const isCorrect = checkPuzzle(piece, answer);
+  const puzzleRef = usePuzzleKeyMount();
 
   return (
     <div className="relative flex flex-col md:flex-row gap-8 md:gap-0">
@@ -75,6 +77,7 @@ function Puzzle({ interactCallback, $ref, disabled }) {
               fixRotate={fixRotate}
               ariaLabel={label}
               disabled={disabled}
+              $ref={puzzleRef(i)}
             />
           );
         })}

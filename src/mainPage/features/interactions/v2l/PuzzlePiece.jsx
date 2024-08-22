@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LINEAR } from "./businessLogic/constants.js";
 
-function PuzzlePiece({ shape, onClick, fixRotate, ariaLabel, disabled }) {
+function PuzzlePiece({ shape, onClick, fixRotate, ariaLabel, disabled, $ref }) {
   const [fixing, setFixing] = useState(false);
   const style = {
     transform: `rotate( ${shape.rotate * 90}deg)`,
@@ -10,7 +10,7 @@ function PuzzlePiece({ shape, onClick, fixRotate, ariaLabel, disabled }) {
   return (
     <button
       style={style}
-      className={`size-28 bg-black rounded-xl border-2 border-white transition-transform ease-out ${fixing ? "duration-0" : "duration-500"}`}
+      className={`size-28 bg-black rounded-xl border-2 border-white outline-yellow-400 transition-transform ease-out ${fixing ? "duration-0" : "duration-500"}`}
       onClick={() => {
         onClick();
         setFixing(false);
@@ -23,6 +23,7 @@ function PuzzlePiece({ shape, onClick, fixRotate, ariaLabel, disabled }) {
       }}
       aria-label={ariaLabel}
       disabled={disabled}
+      ref={$ref}
     >
       <svg
         className="size-full stroke-blue-300 fill-transparent"
