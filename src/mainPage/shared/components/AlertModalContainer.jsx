@@ -12,11 +12,11 @@ function AlertModalContainer({ title, description, image, children }) {
       aria-modal="true"
       role="dialog"
       aria-labelledby={id}
-      aria-describedby={description === undefined ? descId : undefined}
+      aria-describedby={description === undefined ? undefined : descId}
     >
       <div className="flex flex-col gap-2 items-center">
-        <p className="text-body-l font-bold text-neutral-700" id={id}>{title}</p>
-        <p className="w-full max-w-80 text-body-s font-medium text-neutral-400 text-center" id={descId}>
+        <p className="text-body-l font-bold text-neutral-700" id={id} aria-live="polite">{title}</p>
+        <p className="w-full max-w-80 text-body-s font-medium text-neutral-400 text-center" id={descId} aria-live={description === undefined ? undefined : "polite"}>
           {description}
         </p>
       </div>
