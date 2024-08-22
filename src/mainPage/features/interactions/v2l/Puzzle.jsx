@@ -45,7 +45,7 @@ function Puzzle({ interactCallback, $ref }) {
           height="100"
           src={car1x}
           srcSet={`${car1x} 1x, ${car2x} 2x`}
-          alt="start position"
+          alt="시작 지점은 (0,0)입니다."
           draggable="false"
         />
         <div className="w-8 h-2 bg-blue-300"></div>
@@ -100,13 +100,15 @@ function Puzzle({ interactCallback, $ref }) {
             height="130"
             src={panContainer1x}
             srcSet={`${panContainer1x} 1x, ${panContainer2x} 2x`}
-            alt="start position"
+            alt="도착 지점은 (2,2)입니다."
             draggable="false"
           />
           <img
             className={`absolute right-2 top-3 ${isCorrect ? style.rotate : ""}`}
             src={pan}
             draggable="false"
+            alt=""
+            role="presentation"
           />
         </div>
       </div>
