@@ -114,7 +114,7 @@ export function getLinkedPuzzleState(pieces, width, height)
     // 직전 연결된 상태와 현재 커서가 연결되어 있지 않으면 return
     const cursor = y * width + x;
     const connectData = pieces[cursor].getConnectData();
-    if((prev & connectData) === 0) return linked;
+    if((prev & connectData) === 0) return [linked, cursor];
     // 연결되어 있다면 인덱스를 배열에 넣음
     linked.push(cursor);
     // 다음 연결된 상태를 가져옴
@@ -126,8 +126,8 @@ export function getLinkedPuzzleState(pieces, width, height)
       case RIGHT : x++; prev=LEFT; break;
       case UP: y--; prev=DOWN; break;
       case DOWN: y++; prev=UP; break;
-      default: return linked;
+      default: return [linked, -1];
     }
   }
-  return linked;
+  return [linked, -1];
 }
