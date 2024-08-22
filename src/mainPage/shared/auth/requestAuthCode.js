@@ -1,9 +1,10 @@
 import { fetchServer, handleError } from "@/common/dataFetch/fetchServer.js";
+import { EVENT_ID } from "@common/constants";
 
 async function requestAuthCode(name, phoneNumber) {
   try {
     const body = { name, phoneNumber: phoneNumber.replace(/\D+/g, "") };
-    await fetchServer("/api/v1/event-user/send-auth", {
+    await fetchServer(`/api/v1/event-user/send-auth/${EVENT_ID}`, {
       method: "post",
       body,
     });
