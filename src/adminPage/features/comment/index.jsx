@@ -20,12 +20,17 @@ export default function AdminComment() {
   }
 
   function onChangeForm(e) {
-    const newString = e.target.value.replace(/[^0-9]/g, "");
-    const filteredFormString = formString.replace(/[^0-9]/g, "");
+    let newString = e.target.value.replace(/[^0-9]/g, "");
 
-    if (newString.length > 9) return;
+    if (!newString) {
+      newString = "";
+    } else if (newString.length <= 6) {
+      newString = "HD_" + newString;
+    } else if (newString.length <= 9) {
+      newString = "HD_" + newString.slice(0, 6) + "_" + newString.slice(6);
+    } else return;
 
-    if (newString !== filteredFormString) {
+    if (newString !== formString) {
       if (newString.length >= 6) {
         setSelectedEvent(-1);
         setIsSpread(true);
@@ -34,13 +39,7 @@ export default function AdminComment() {
         setIsSpread(false);
       }
     }
-    if (!newString) {
-      setFormString("");
-    } else if (newString.length <= 6) {
-      setFormString("HD_" + newString);
-    } else {
-      setFormString("HD_" + newString.slice(0, 6) + "_" + newString.slice(6));
-    }
+    setFormString(newString);
   }
 
   function searchEvent(e, eventId) {

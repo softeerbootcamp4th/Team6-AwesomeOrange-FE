@@ -3,8 +3,9 @@ import { EventEditDispatchContext } from "../businessLogic/context.js";
 import { Input } from "@admin/components/SmallInput.jsx";
 import DateInput from "@admin/components/DateInput";
 import DeleteButton from "@admin/components/DeleteButton";
-import { formatDate, padNumber } from "@common/utils.js";
+import { formatDate, padNumber, getDayDifference } from "@common/utils.js";
 import fcfsInputGridStyle from "./tableStyle.js";
+import serverTimeStore from "@admin/serverTime/store.js";
 
 const MINUTE = 60;
 
@@ -34,9 +35,10 @@ function FcfsItemInput({ uniqueKey, date, start, end, participantCount, prizeInf
       ) : (
         <DateInput
           date={date}
-          setDate={(date) =>
-            dispatch({ type: "modify_fcfs_item", key: uniqueKey, value: { date } })
-          }
+          setDate={(date) => {
+            if (getDayDifference(serverTimeStore.getState().serverTime, date) <= 0) return;
+            dispatch({ type: "modify_fcfs_item", key: uniqueKey, value: { date } });
+          }}
           required
           size="4"
         />

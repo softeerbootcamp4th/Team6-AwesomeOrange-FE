@@ -1,5 +1,6 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
+import { formatDate } from "@common/utils.js";
 import Pagination from "@admin/components/Pagination";
 import { useState } from "react";
 
@@ -26,20 +27,6 @@ export default function Comments({
         }),
     [page, searchString],
   );
-
-  function getDate(createdAt) {
-    const yy = createdAt.slice(2, 4);
-    const mm = createdAt.slice(5, 7);
-    const dd = createdAt.slice(8, 10);
-    return `${yy}-${mm}-${dd}`;
-  }
-
-  function getTime(createdAt) {
-    const hh = createdAt.slice(11, 13);
-    const mm = createdAt.slice(14, 16);
-    const ss = createdAt.slice(17, 19);
-    return `${hh}:${mm}:${ss}`;
-  }
 
   function checkComment(id) {
     if (checkedComments.has(id)) {
@@ -69,9 +56,9 @@ export default function Comments({
           />
 
           <div className="place-self-center flex items-center gap-1 text-body-s">
-            <span>{getDate(comment.createdAt)}</span>
+            <span>{formatDate(comment.createdAt, "YY-MM-DD")}</span>
 
-            <span className="text-neutral-500">{getTime(comment.createdAt)}</span>
+            <span className="text-neutral-500">{formatDate(comment.createdAt, "hh:mm:ss")}</span>
           </div>
 
           <span className="pr-4 overflow-hidden text-body-s text-ellipsis">{comment.content}</span>
