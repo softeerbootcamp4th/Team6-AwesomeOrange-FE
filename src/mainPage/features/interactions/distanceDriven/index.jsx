@@ -60,6 +60,7 @@ function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
           }}
           style={circleStyle}
           ref={handleRef}
+          role="button"
           aria-describedby={descriptionId}
         />
         <svg

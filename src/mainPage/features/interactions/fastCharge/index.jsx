@@ -68,6 +68,7 @@ function FastChargeInteraction({ interactCallback, $ref, disabled }) {
             className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5"
             tabIndex={disabled ? undefined : 0}
             ref={keyRef}
+            role="button"
             aria-describedby={descriptionId}
           >
             {answer}
