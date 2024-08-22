@@ -30,7 +30,7 @@ function CommentForm() {
     })
       .then((submitAble) => {
         clearTimeout();
-        setButtonFetchState(submitAble ? "enabled": "disabled");
+        setButtonFetchState(submitAble ? "enabled" : "disabled");
       })
       .catch((e) => {
         if (e.status === 401) {
