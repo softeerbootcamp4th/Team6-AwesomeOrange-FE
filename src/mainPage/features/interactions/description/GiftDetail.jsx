@@ -5,7 +5,13 @@ export default function GiftDetail({ contentList }) {
     <div className="flex flex-col font-bold">
       {contentList.map((content, index) => (
         <div key={index} className="bg-neutral-900 p-6 mb-5 flex z-0 relative">
-          <img src={content.src} alt={`${content.grade} : ${content.name}`} width="130" height="89" loading="lazy" />
+          <img
+            src={content.src}
+            alt={`${content.grade} : ${content.name}`}
+            width="130"
+            height="89"
+            loading="lazy"
+          />
 
           <div className="pl-8 flex flex-col">
             <span className="text-body-m sm:text-body-l text-white">
@@ -18,7 +24,10 @@ export default function GiftDetail({ contentList }) {
             </span>
           </div>
 
-          <div className="absolute right-0 top-0 z-40 translate-x-1/4 -translate-y-1/4" aria-hidden="true">
+          <div
+            className="absolute right-0 top-0 z-40 translate-x-1/4 -translate-y-1/4"
+            aria-hidden="true"
+          >
             <Star fill={content.starColor} />
 
             <span

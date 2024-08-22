@@ -7,7 +7,7 @@ function WelcomeModal() {
   const id = useId();
 
   return (
-    <div 
+    <div
       className="w-[calc(100%-1rem)] max-w-[31.25rem] h-[calc(100svh-2rem)] max-h-[40.625rem] p-6 min-[520px]:px-20 pt-10 pb-[4.75rem] shadow bg-white relative flex flex-col justify-between"
       aria-modal="true"
       role="dialog"

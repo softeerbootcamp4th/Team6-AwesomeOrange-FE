@@ -45,14 +45,7 @@ export default function ContentSection({ content }) {
       onAnimationEnd={() => setIsHighlighted(true)}
       className={`${isVisible ? style.fadeIn : "opacity-0"} z-0 flex flex-col font-bold`}
     >
-      <img
-        src={content.src}
-        alt=""
-        width="1200"
-        height="456"
-        className="w-full"
-        loading="lazy"
-      />
+      <img src={content.src} alt="" width="1200" height="456" className="w-full" loading="lazy" />
 
       <span className="pt-10 text-body-m sm:text-body-l text-neutral-800">{content.title}</span>
 

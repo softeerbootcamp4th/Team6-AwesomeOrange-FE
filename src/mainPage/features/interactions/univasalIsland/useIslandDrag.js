@@ -14,8 +14,12 @@ const assistive = {
   phone: {
     grabText: () =>
       "스마트폰을 잡았습니다. 방향키로 스마트폰의 위치를 이동하세요. 스페이스바로 스마트폰을 놓으세요",
-    moveText: ({ phoneX, phoneY, islandY }) => `스마트폰을 이동했습니다. (x: ${phoneX}, y: ${phoneY}) 유니버설 아일랜드는 (0, ${islandY})에 있습니다.
-    ${canSnapPhoneInKeyboardMode({phoneX, phoneY, islandY}) ? "스마트폰을 스냅할 수 있습니다. 스페이스바로 유니버설 아일랜드를 놓아보세요." : ""}`,
+    moveText: ({
+      phoneX,
+      phoneY,
+      islandY,
+    }) => `스마트폰을 이동했습니다. (x: ${phoneX}, y: ${phoneY}) 유니버설 아일랜드는 (0, ${islandY})에 있습니다.
+    ${canSnapPhoneInKeyboardMode({ phoneX, phoneY, islandY }) ? "스마트폰을 스냅할 수 있습니다. 스페이스바로 유니버설 아일랜드를 놓아보세요." : ""}`,
     dropText: ({ phoneIsSnapping }) =>
       `스마트폰을 놓았습니다. ${phoneIsSnapping ? "스마트폰이 아일랜드에 스냅되었습니다." : "스마트폰이 아일랜드에서 벗어났습니다."}`,
   },

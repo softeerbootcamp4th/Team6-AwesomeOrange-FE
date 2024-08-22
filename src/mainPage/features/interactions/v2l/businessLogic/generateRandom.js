@@ -62,17 +62,17 @@ function getDirection(base, target) {
 function getShapeChar(before, after) {
   const code = before | after;
   switch (code) {
-    case (UP | LEFT):
+    case UP | LEFT:
       return "┘";
-    case (UP | RIGHT):
+    case UP | RIGHT:
       return "└";
-    case (UP | DOWN):
+    case UP | DOWN:
       return "│";
-    case (LEFT | RIGHT):
+    case LEFT | RIGHT:
       return "─";
-    case (LEFT | DOWN):
+    case LEFT | DOWN:
       return "┐";
-    case (RIGHT | DOWN):
+    case RIGHT | DOWN:
       return "┌";
     default:
       return ".";

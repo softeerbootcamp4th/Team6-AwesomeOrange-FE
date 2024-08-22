@@ -12,7 +12,6 @@ function Phone({ dynamicStyle, onPointerDown, isSnapped, disabled, $ref, describ
       onPointerDown={onPointerDown}
       ref={$ref}
       tabIndex={disabled ? undefined : 0}
-
     >
       <svg
         className="w-full h-full absolute top-0 left-0"

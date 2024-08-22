@@ -12,7 +12,7 @@ function SubsidyInteraction({ interactCallback, $ref, disabled }) {
 
   function onClick() {
     setCount((count) => count + 1);
-    setSubtitle(`${(count + 1)*10}만원을 입력하셨습니다.`);
+    setSubtitle(`${(count + 1) * 10}만원을 입력하셨습니다.`);
     coinRef.current?.animate([{ transform: "rotateY(0)" }, { transform: "rotateY(360deg)" }], {
       duration: 500,
       iteractions: 1,

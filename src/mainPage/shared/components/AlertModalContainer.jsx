@@ -1,7 +1,7 @@
 import { useId } from "react";
 
 function AlertModalContainer({ title, description, image, children }) {
-  const id =  useId();
+  const id = useId();
   const descId = useId();
 
   const containerStyle =
@@ -15,8 +15,14 @@ function AlertModalContainer({ title, description, image, children }) {
       aria-describedby={description === undefined ? undefined : descId}
     >
       <div className="flex flex-col gap-2 items-center">
-        <p className="text-body-l font-bold text-neutral-700" id={id} aria-live="polite">{title}</p>
-        <p className="w-full max-w-80 text-body-s font-medium text-neutral-400 text-center" id={descId} aria-live={description === undefined ? undefined : "polite"}>
+        <p className="text-body-l font-bold text-neutral-700" id={id} aria-live="polite">
+          {title}
+        </p>
+        <p
+          className="w-full max-w-80 text-body-s font-medium text-neutral-400 text-center"
+          id={descId}
+          aria-live={description === undefined ? undefined : "polite"}
+        >
           {description}
         </p>
       </div>

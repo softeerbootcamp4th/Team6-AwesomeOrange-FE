@@ -24,12 +24,16 @@ function Puzzle({ interactCallback, $ref, disabled }) {
       │┘│`),
     subtitle: `IONIQ 5의 브이투엘 기능을 홍보하는 길 맞추기 퍼즐 게임입니다. 방향키나 탭 키로 퍼즐 조각을 탐색할 수 있고, 
     스페이스바로 퍼즐 조각을 눌러서 퍼즐을 오른쪽으로 돌려보세요.
-    퍼즐은 가로 3칸, 세로 3칸으로 구성되어 있으며, 왼쪽 위부터 1번입니다. 1번 퍼즐이 9번 퍼즐까지 이어지면 게임에서 이길 수 있습니다.`
+    퍼즐은 가로 3칸, 세로 3칸으로 구성되어 있으며, 왼쪽 위부터 1번입니다. 1번 퍼즐이 9번 퍼즐까지 이어지면 게임에서 이길 수 있습니다.`,
   });
 
   const { answer, piece, subtitle } = state;
-  useEffect(()=>dispatch({type: "reset", initialized: true}), []);
-  useImperativeHandle($ref, () => ({ reset: ()=>dispatch({type: "reset", initialized: false}) }), []);
+  useEffect(() => dispatch({ type: "reset", initialized: true }), []);
+  useImperativeHandle(
+    $ref,
+    () => ({ reset: () => dispatch({ type: "reset", initialized: false }) }),
+    [],
+  );
 
   const isCorrect = checkPuzzle(piece, answer);
   const puzzleRef = usePuzzleKeyMount();
@@ -61,14 +65,14 @@ function Puzzle({ interactCallback, $ref, disabled }) {
       <div className="grid grid-rows-3 grid-cols-3 gap-4 z-10 w-[23rem] flex-shrink-0">
         {piece.map((shape, i) => {
           const onClick = () => {
-            if(disabled) return;
-            dispatch({type: "rotate", index: i});
+            if (disabled) return;
+            dispatch({ type: "rotate", index: i });
             interactCallback?.();
           };
           const fixRotate = () => {
-            dispatch({type: "reconcile-rotate", index: i});
+            dispatch({ type: "reconcile-rotate", index: i });
           };
-          const label = `${i+1} 번째 퍼즐입니다. ${shape.getLabel()}`;
+          const label = `${i + 1} 번째 퍼즐입니다. ${shape.getLabel()}`;
 
           return (
             <PuzzlePiece
