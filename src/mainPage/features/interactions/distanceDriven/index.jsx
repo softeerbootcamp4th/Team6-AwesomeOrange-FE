@@ -1,10 +1,14 @@
-import { useImperativeHandle } from "react";
+import { useEffect, useImperativeHandle } from "react";
 import InteractionDescription from "../InteractionDescription.jsx";
-import AnswerText from "./AnswerText.jsx";
 import usePointDrag from "./usePointDrag.js";
+import useDeviceRatio from "./useDeviceRatio.js";
 
-function DistanceDrivenInteraction({ interactCallback, $ref }) {
-  const { x, y, reset, isDragging, onPointerDown } = usePointDrag();
+const MAX_DISTANCE = 800;
+
+function DistanceDrivenInteraction({ interactCallback, $ref, disabled }) {
+  const { x, y, reset, isDragging, onPointerDown, handleRef, subtitle } = usePointDrag(!disabled);
+  const ratio = useDeviceRatio();
+  const km = Math.floor((Math.hypot(x, y) * MAX_DISTANCE) / ratio);
 
   const circleStyle = {
     transform: `translate(${x}px, ${y}px)`,
@@ -25,6 +29,10 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
     );
   }
 
+  useEffect(() => {
+    if (km !== 0) interactCallback?.();
+  }, [km, interactCallback]);
+
   useImperativeHandle($ref, () => ({ reset }), [reset]);
 
   return (
@@ -36,15 +44,22 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
         directive="가운데 점을 드래그하여 최대 주행거리를 예측해보세요!"
         shouldNotSelect={isDragging}
       />
+      <span aria-live="assertive" className="assistive-text">
+        {subtitle(x, y, km)}
+      </span>
+      <span aria-live="assertive" className="assistive-text">
+        스페이스바를 눌러서 드래그 상태를 전환하세요.
+      </span>
       <div className="absolute top-1/2">
         <div
+          tabIndex={disabled ? undefined : 0}
           className="rounded-full size-8 bg-blue-500 cursor-pointer touch-none before:size-8 before:rounded-full before:absolute before:left-0 before:top-0 before:z-10 before:bg-blue-500 before:opacity-50"
           onPointerDown={(e) => {
             onPointerDown(e);
             pulseAnimation(e);
-            interactCallback?.();
           }}
           style={circleStyle}
+          ref={handleRef}
         />
         <svg
           className="overflow-visible stroke-blue-500 absolute top-4 left-4 pointer-events-none"
@@ -55,9 +70,7 @@ function DistanceDrivenInteraction({ interactCallback, $ref }) {
         </svg>
       </div>
       <p className="text-white absolute bottom-32 md:bottom-36 lg:bottom-[180px] text-title-s font-bold pointer-events-none">
-        <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5">
-          <AnswerText distance={Math.hypot(x, y)} />
-        </span>
+        <span className="text-head-m md:text-head-l lg:text-17.5 mr-1.5 lg:mr-2.5">{km}</span>
         km
       </p>
     </article>

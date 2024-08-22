@@ -9,7 +9,7 @@ export default function EventDetail({
 }) {
   return (
     <div className="flex flex-col flex-grow gap-10">
-      <h4 className="text-body-l text-neutral-50 font-bold">상세 안내</h4>
+      <p className="text-body-l text-neutral-50 font-bold">상세 안내</p>
 
       <div className="grid grid-cols-1 md:grid-cols-[11fr 9fr] gap-5">
         <div className="bg-neutral-900 p-6 flex flex-col font-bold">

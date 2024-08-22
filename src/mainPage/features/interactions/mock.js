@@ -9,7 +9,7 @@ const handlers = [
     const token = request.headers.get("authorization");
     if (token === null) return HttpResponse.json({ dates: [] });
 
-    return HttpResponse.json(eventParticipationDate);
+    return HttpResponse.json(eventParticipationDate, { status: 402 });
   }),
   http.post("/api/v1/event/draw/:eventId/participation", ({ request }) => {
     const token = request.headers.get("authorization");

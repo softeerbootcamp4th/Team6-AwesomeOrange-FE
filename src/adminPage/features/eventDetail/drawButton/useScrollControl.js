@@ -45,7 +45,7 @@ function useScrollControl() {
       },
       { root: hullRef.current ?? null, threshold: 0.01 },
     );
-    for (let [, elem] of itemRef.current) {
+    for (let [, elem] of getMap()) {
       observerRef.current.observe(elem);
     }
 

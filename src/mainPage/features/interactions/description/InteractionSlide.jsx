@@ -42,7 +42,7 @@ export default function InteractionSlide({ interactionDesc, index, isCurrent, sl
       </span>
 
       <div className="pt-5 flex items-center">
-        <img src={numberImgPath} alt="" role="presentation" />
+        <img src={numberImgPath} alt="" role="presentation" width="24" height="24" />
 
         <span
           className={`${isCurrent ? "opacity-100" : "opacity-50"} pl-3 text-title-m sm:text-head-s text-white font-bold`}

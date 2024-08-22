@@ -76,21 +76,23 @@ function IntroSection() {
       <section ref={introRef} className="flex flex-col items-center">
         <div
           style={{ opacity: titleOpacity }}
-          className="z-50 sticky w-full flex justify-center top-[50vh] -translate-y-1/2 pointer-events-none"
+          className="z-50 sticky top-0 w-full h-screen flex justify-center items-center pointer-events-none"
         >
-          <h1
-            className={`${style.openTitle} ease-in text-head-l md:text-7xl lg:text-8xl font-bold text-black z-50 text-center`}
+          <div
+            className={`${style.openTitle} ease-in relative text-head-l md:text-7xl lg:text-8xl font-bold text-black z-50 text-center flex justify-center items-center`}
           >
-            The new <br className="inline min-[500px]:hidden" />
+            <h1 className="z-10">The new <br className="inline min-[500px]:hidden" />
             <span className="max-[500px]:sketch-line">IONIQ 5</span>
-          </h1>
-
-          <div className="absolute hidden min-[500px]:block top-10 md:top-11 lg:top-[66px] z-0 overflow-hidden scale-[60%] md:scale-75 lg:scale-100">
-            <LineHighlight />
+            </h1>
+            <div className="absolute hidden min-[500px]:block top-10 md:top-11 lg:top-[66px] z-0 overflow-hidden scale-[60%] md:scale-75 lg:scale-100">
+              <LineHighlight />
+            </div>
           </div>
+
+          
         </div>
 
-        <div className="relative mt-[800px] flex flex-col items-center">
+        <div className="relative flex flex-col items-center">
           <div ref={frameRef} className="overflow-hidden">
             <video
               src={SpinningCarVideo}

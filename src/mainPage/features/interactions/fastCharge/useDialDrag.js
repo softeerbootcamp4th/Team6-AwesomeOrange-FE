@@ -1,6 +1,9 @@
 import { useState, useRef, useCallback } from "react";
 import useMountDragEvent from "@main/hooks/useMountDragEvent.js";
+import useA11yDrag from "@main/hooks/useA11yDrag.js";
 import { clamp } from "@common/utils.js";
+
+const MAX_MINUTE = 30;
 
 function getAngle(pointer, center) {
   const vx = pointer.x - center.x;
@@ -14,12 +17,23 @@ function getAngleDelta(prev, current) {
   return current - prev;
 }
 
-function useDialDrag() {
+const grabText = (value) =>
+  `다이얼 조작을 시작합니다. 현재 당신이 선택한 충전 시간은 ${value}분입니다. 왼쪽 방향키를 눌러서 충전 시간을 줄이고, 오른쪽 방향키를 눌러서 충전 시간을 늘려보세요. 최대 30분까지만 늘릴 수 있습니다.`;
+const moveText = (value, angle) => {
+  if (angle > 0) return `다이얼을 0도 이하로 조작할 수 없습니다.`;
+  if (angle < -Math.PI * 2) return `다이얼을 360도 이상으로 조작할 수 없습니다.`;
+  return `다이얼을 돌렸습니다. 현재 각도는 ${Math.floor((-angle * 180) / Math.PI)}도이며, 당신이 선택한 충전 시간은 ${value}분입니다.`;
+};
+const dropText = (value) =>
+  `다이얼 조작을 해제했습니다. 당신이 선택한 충전 시간은 ${value}분입니다.`;
+
+function useDialDrag(enabled = true) {
   const [angle, setAngle] = useState(0);
   const dialRef = useRef(null);
   const dialCenter = useRef({ x: 0, y: 0 });
   const prevAngle = useRef(0);
   const angleCache = useRef(0);
+  const [subtitle, setSubtitle] = useState(() => () => "");
 
   const onDragStart = useCallback((cursor) => {
     if (dialRef.current === null) return;
@@ -44,6 +58,7 @@ function useDialDrag() {
     onDragStart,
     onDrag,
     onDragEnd,
+    enabled,
   });
 
   const resetAngle = useCallback(() => {
@@ -51,6 +66,30 @@ function useDialDrag() {
     angleCache.current = 0;
     prevAngle.current = 0;
   }, []);
+
+  const onKeyMove = useCallback((x, y) => {
+    const UNIT = (Math.PI * 2) / MAX_MINUTE;
+
+    const delta = x !== 0 ? x : -y;
+    function getNewAngle(angle) {
+      const rounded = Math.round(angle / UNIT);
+      if (rounded - delta > 0) return UNIT;
+      else if (rounded - delta < -MAX_MINUTE) return -Math.PI * 2 - UNIT;
+      return (rounded - delta) * UNIT;
+    }
+
+    angleCache.current = getNewAngle(angleCache.current);
+    setAngle(angleCache.current);
+  }, []);
+
+  const keyRef = useA11yDrag({
+    grabText,
+    moveText,
+    dropText,
+    onKeyMove,
+    enabled,
+    setSubtitle,
+  });
 
   const style = {
     transform: `rotate(${angle}rad)`,
@@ -61,9 +100,11 @@ function useDialDrag() {
     angle,
     style,
     ref: dialRef,
+    keyRef,
     onPointerDown,
     resetAngle,
     isDragging: dragState,
+    subtitle,
   };
 }
 
