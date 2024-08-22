@@ -28,7 +28,7 @@ function CommentForm() {
     fetchServer("/api/v1/comment/info", {
       credentials: isLogin ? "include" : "same-origin",
     })
-      .then(({ submitted }) => {
+      .then((submitted) => {
         clearTimeout();
         setButtonFetchState(submitted ? "disabled" : "enabled");
       })
