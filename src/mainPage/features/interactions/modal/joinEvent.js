@@ -8,6 +8,7 @@ import { EVENT_DRAW_ID } from "@common/constants.js";
 const joinEventErrorHandler = {
   409: "이미 참여했습니다.",
   404: "이벤트가 존재하지 않습니다.",
+  400: "사용자가 다른 이벤트에 소속되어 있으므로, 이벤트를 참여할 수 없습니다.",
   offline: "오프라인 폴백 모드로 전환합니다.",
 };
 
@@ -35,6 +36,9 @@ export default function joinEvent(index) {
           case joinEventErrorHandler[404]:
           case joinEventErrorHandler["offline"]:
             setFallbackMode();
+            break;
+          case joinEventErrorHandler[400]:
+            alert(joinEventErrorHandler[400]);
             break;
           default:
             alert("이벤트 참여에 실패했습니다.");
