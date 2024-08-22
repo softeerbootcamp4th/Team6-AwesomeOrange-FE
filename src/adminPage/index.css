@@ -4,8 +4,9 @@
 
 @font-face {
   font-family: "hdsans";
-  src: url("/font/HyundaiSansTextKROTFMedium.woff2") format("woff2"),
-    url('/font/HyundaiSansTextKROTFMedium.woff') format('woff');
+  src:
+    url("/font/HyundaiSansTextKROTFMedium.woff2") format("woff2"),
+    url("/font/HyundaiSansTextKROTFMedium.woff") format("woff");
   font-weight: 500;
   font-display: swap;
 }
