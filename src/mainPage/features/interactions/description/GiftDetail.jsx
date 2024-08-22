@@ -25,7 +25,7 @@ export default function GiftDetail({ contentList }) {
               style={{ color: content.starTextColor }}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-body-s"
             >
-              {content.star}
+              {content.grade}
             </span>
           </div>
         </div>
