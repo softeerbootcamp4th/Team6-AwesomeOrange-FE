@@ -23,15 +23,15 @@ const handlers = [
     return HttpResponse.json(false);
   }),
   http.post("/api/v1/event/fcfs/:eventFrameId", async ({ request }) => {
-    const { eventAnswer } = await request.json();
+    const { answer } = await request.json();
 
-    const answerResult = eventAnswer === 3;
+    const answerResult = answer === 3;
     const winner = false;
 
     const token = request.headers.get("authorization");
     if (token === null) return HttpResponse.json(false, { status: 401 });
 
-    if (typeof eventAnswer !== "number") return HttpResponse.json(false, { status: 400 });
+    if (typeof answer !== "number") return HttpResponse.json(false, { status: 400 });
 
     return HttpResponse.json({ answerResult, winner });
   }),

@@ -53,7 +53,7 @@ function CardGame({ offline }) {
   }
 
   async function getCardAnswerOnline(index) {
-    const fetchConfig = { method: "post", body: { eventAnswer: index } };
+    const fetchConfig = { method: "post", body: { answer: index } };
     try {
       const { answerResult, winner } = await fetchServer(
         `/api/v1/event/fcfs/${EVENT_FCFS_ID}`,
