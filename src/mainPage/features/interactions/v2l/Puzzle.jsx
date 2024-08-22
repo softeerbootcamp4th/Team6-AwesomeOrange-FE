@@ -1,5 +1,5 @@
-import { useState, useEffect, useImperativeHandle } from "react";
-import generateRandomPuzzle from "./generateRandom.js";
+import { useReducer, useEffect, useImperativeHandle } from "react";
+import reducer from "./reducer.js";
 import { generatePiece, generateAnswer, checkPuzzle } from "./utils.js";
 import PuzzlePiece from "./PuzzlePiece.jsx";
 import style from "./style.module.css";
@@ -12,32 +12,30 @@ import pan from "./assets/pan.svg";
 // ─│┌┐┘└
 
 function Puzzle({ interactCallback, $ref }) {
-  const [answer, setAnswer] = useState(
-    generateAnswer(`
-			─┐.
-			.│.
-			.└─`),
-  );
-  const [piece, setPiece] = useState(
-    generatePiece(`
-			│┘─
-			─││
-			│┘│`),
-  );
+  const [state, dispatch] = useReducer(reducer, {
+    answer: generateAnswer(`
+      ─┐.
+      .│.
+      .└─`),
+    piece: generatePiece(`
+      │┘─
+      ─││
+      │┘│`),
+    subtitle: `IONIQ 5의 V2L 기능을 홍보하는 길 맞추기 퍼즐 게임입니다. 스페이스바로 퍼즐 조각을 눌러서 퍼즐을 오른쪽으로 돌려보세요.
+    퍼즐은 가로 3칸, 세로 3칸으로 구성되어 있으며, 왼쪽 위부터 1번입니다. 1번 퍼즐이 9번 퍼즐까지 이어지면 게임에서 이길 수 있습니다.`
+  });
 
-  function reset() {
-    const [randAnswer, randPiece] = generateRandomPuzzle();
-    setAnswer(randAnswer);
-    setPiece(randPiece);
-  }
-
-  useEffect(reset, []);
-  useImperativeHandle($ref, () => ({ reset }), []);
+  const { answer, piece, subtitle } = state;
+  useEffect(()=>dispatch({type: "reset", initialized: true}), []);
+  useImperativeHandle($ref, () => ({ reset: ()=>dispatch({type: "reset", initialized: false}) }), []);
 
   const isCorrect = checkPuzzle(piece, answer);
 
   return (
     <div className="relative flex flex-col md:flex-row gap-8 md:gap-0">
+      <span aria-live="assertive" className="assistive-text">
+        {subtitle}
+      </span>
       <div className="flex items-center h-28 -translate-x-16 md:translate-x-0">
         <img
           className="object-right w-72 h-28 object-scale-down"
@@ -45,7 +43,8 @@ function Puzzle({ interactCallback, $ref }) {
           height="100"
           src={car1x}
           srcSet={`${car1x} 1x, ${car2x} 2x`}
-          alt="시작 지점은 (0,0)입니다."
+          alt=""
+          role="presentation"
           draggable="false"
         />
         <div className="w-8 h-2 bg-blue-300"></div>
@@ -59,21 +58,13 @@ function Puzzle({ interactCallback, $ref }) {
       <div className="grid grid-rows-3 grid-cols-3 gap-4 z-10 w-[23rem] flex-shrink-0">
         {piece.map((shape, i) => {
           const onClick = () => {
-            setPiece((board) => {
-              const newBoard = [...board];
-              newBoard[i] = board[i].rotated();
-              return newBoard;
-            });
+            dispatch({type: "rotate", index: i});
             interactCallback?.();
           };
           const fixRotate = () => {
-            setPiece((board) => {
-              const newBoard = [...board];
-              newBoard[i] = board[i].fixedRotated();
-              return newBoard;
-            });
+            dispatch({type: "reconcile-rotate", index: i});
           };
-          const label = `퍼즐 조각 (${i % 3}, ${Math.floor(i / 3)}). ${shape.getLabel()}`;
+          const label = `${i+1} 번째 퍼즐입니다. ${shape.getLabel()}`;
 
           return (
             <PuzzlePiece
@@ -100,7 +91,8 @@ function Puzzle({ interactCallback, $ref }) {
             height="130"
             src={panContainer1x}
             srcSet={`${panContainer1x} 1x, ${panContainer2x} 2x`}
-            alt="도착 지점은 (2,2)입니다."
+            alt=""
+            role="presentation"
             draggable="false"
           />
           <img
