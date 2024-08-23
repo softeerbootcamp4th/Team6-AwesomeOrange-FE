@@ -24,6 +24,8 @@ jobs:
         run: npm install -g vercel
       - name: deploy to vercel as production
         run: |
+          npm install
+          cd ./packages/mainPage
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
           vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
           vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
