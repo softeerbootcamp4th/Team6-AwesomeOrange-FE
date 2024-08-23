@@ -91,6 +91,15 @@ const handlers = [
       size,
     });
   }),
+  http.delete("/api/v1/admin/events/:id", async ({ params }) => {
+    const { id } = params;
+
+    const index = dummyData.findIndex(({ eventId }) => eventId === id);
+    if (index === -1) return HttpResponse.json(false);
+    dummyData.splice(index, 1);
+
+    return HttpResponse.json(true);
+  }),
   http.delete("/api/v1/admin/events", async ({ request }) => {
     const { eventIds } = await request.json();
 
