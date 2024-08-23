@@ -11,6 +11,6 @@
 		{
 			"source": "/comments/:path*",
 			"destination": "/comments/[id].html"
-		},
+		}
 	]
 }
