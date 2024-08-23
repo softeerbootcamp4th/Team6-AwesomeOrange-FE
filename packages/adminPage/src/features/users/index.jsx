@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function AdminCommentID() {
   const [formString, setFormString] = useState("");
   const [searchString, setSearchString] = useState("");
-  const [category, setCategory] = useState("name");
+  const [category, setCategory] = useState("userName");
 
   function searchComment(e) {
     e.preventDefault();
@@ -37,7 +37,7 @@ export default function AdminCommentID() {
             onChange={(e) => setCategory(e.target.value)}
             className="bg-transparent text-neutral-600"
           >
-            <option value="name">성명</option>
+            <option value="userName">성명</option>
             <option value="phoneNumber">전화번호</option>
             <option value="frameId">FrameId</option>
           </select>

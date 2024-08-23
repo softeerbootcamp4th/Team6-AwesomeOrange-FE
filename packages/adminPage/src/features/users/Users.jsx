@@ -9,7 +9,9 @@ export default function Comments({ searchString, category }) {
   const data = useQuery(
     "admin-users",
     () =>
-      fetchServer(`/api/v1/admin/event-users?page=${page - 1}&search=${searchString}&size=15`)
+      fetchServer(
+        `/api/v1/admin/event-users?page=${page - 1}&search=${searchString}&field=${category}&size=15`,
+      )
         .then((res) => {
           console.log(category);
           return res;
