@@ -6,15 +6,19 @@
     },
     {
       "source": "/events/create",
-      "destination": "/events/create.html"
+      "destination": "/events/create"
     },
     {
-      "source": "/events/:path(:path((?!create(\\.html)?$).*)",
-      "destination": "/events/[id].html"
+      "source": "/events/(.*)/edit",
+      "destination": "/events/create"
+    },
+    {
+      "source": "/events/(.*)",
+      "destination": "/events/[id]"
     },
     {
       "source": "/comments/(.*)",
-      "destination": "/comments/[id].html"
+      "destination": "/comments/[id]"
     }
   ],
   "cleanUrls": true

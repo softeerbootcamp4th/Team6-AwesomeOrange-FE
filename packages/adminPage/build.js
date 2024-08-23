@@ -17,6 +17,7 @@ const buildUrl = [
   "events/[id]",
   "comments",
   "comments/[id]",
+  "users"
 ];
 
 async function copyFolder(src, dest) {
