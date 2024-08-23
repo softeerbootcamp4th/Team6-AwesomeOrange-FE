@@ -2,15 +2,19 @@ import Suspense from "@common/components/Suspense";
 import Loading from "./Loading.jsx";
 import Users from "./Users.jsx";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export default function AdminCommentID() {
   const [formString, setFormString] = useState("");
   const [searchString, setSearchString] = useState("");
-  const [category, setCategory] = useState("name");
+  const [category, setCategory] = useState("userName");
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function searchComment(e) {
     e.preventDefault();
     setSearchString(formString);
+    setSearchParams({ search: formString, field: category });
   }
 
   return (
@@ -37,7 +41,7 @@ export default function AdminCommentID() {
             onChange={(e) => setCategory(e.target.value)}
             className="bg-transparent text-neutral-600"
           >
-            <option value="name">성명</option>
+            <option value="userName">성명</option>
             <option value="phoneNumber">전화번호</option>
             <option value="frameId">FrameId</option>
           </select>
@@ -58,7 +62,7 @@ export default function AdminCommentID() {
       </div>
 
       <Suspense fallback={<Loading />}>
-        <Users searchString={searchString} category={category} />
+        <Users searchParams={searchParams} setSearchParams={setSearchParams} />
       </Suspense>
     </div>
   );

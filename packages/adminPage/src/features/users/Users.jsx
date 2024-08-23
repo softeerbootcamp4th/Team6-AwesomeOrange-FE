@@ -3,15 +3,15 @@ import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import Pagination from "@admin/components/Pagination";
 import { useState } from "react";
 
-export default function Comments({ searchString, category }) {
-  searchString;
+export default function Comments({ searchParams }) {
   const [page, setPage] = useState(1);
   const data = useQuery(
     "admin-users",
     () =>
-      fetchServer(`/api/v1/admin/event-users?page=${page - 1}&search=${searchString}&size=15`)
+      fetchServer(
+        `/api/v1/admin/event-users?page=${page - 1}&search=${searchParams.get("search") ?? ""}&field=${searchParams.get("field") ?? "userName"}&size=15`,
+      )
         .then((res) => {
-          console.log(category);
           return res;
         })
         .catch((e) => {
@@ -19,7 +19,7 @@ export default function Comments({ searchString, category }) {
           console.log(e);
           return { users: [] };
         }),
-    [page, searchString],
+    [page, searchParams],
   );
 
   return (
