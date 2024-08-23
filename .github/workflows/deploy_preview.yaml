@@ -21,8 +21,6 @@ jobs:
         run: npm install -g vercel
       - name: deploy to vercel as preview
         run: |
-          cd ./packages/mainPage
-          ls 
           vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
           vercel build --token=${{ secrets.VERCEL_TOKEN }}
           vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
