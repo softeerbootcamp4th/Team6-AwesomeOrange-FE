@@ -24,7 +24,7 @@ export default function sharedAssetRouter(paths) {
         if (originPath === null) return next();
         const filePath = join(__dirname, originPath);
 
-        if(!existsSync(filePath)) return next();
+        if (!existsSync(filePath)) return next();
 
         const stream = createReadStream(filePath);
         stream.on("error", (err) => {

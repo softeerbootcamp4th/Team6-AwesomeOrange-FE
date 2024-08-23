@@ -29,9 +29,7 @@ function SearchResultItem({ eventId, name, startTime, endTime, eventType, checke
       <div className="flex justify-center items-center">
         {eventType === "fcfs" ? "선착순" : eventType === "draw" ? "추첨" : "???"}
       </div>
-      <div className="flex justify-center items-center">
-        {eventStatus}
-      </div>
+      <div className="flex justify-center items-center">{eventStatus}</div>
       <div className="flex justify-center items-center">
         <Link to={`./${eventId}`}>
           <Button styleType="ghost" className="px-2 py-1 text-body-s">
