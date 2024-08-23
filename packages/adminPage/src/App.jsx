@@ -30,8 +30,8 @@ function App() {
           <Route exact path="/events/:eventId/edit" element={<EventsEditPage />} />
           <Route path="/events/:eventId" element={<EventsDetailPage />} />
           <Route path="/events" element={<EventsPage />} />
-          <Route path="/comments/:eventId" element={<CommentsIDPage />} />
           <Route path="/comments" element={<CommentsPage />} />
+          <Route path="/comments/:eventId" element={<CommentsIDPage />} />
           <Route path="/users" element={<UsersPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
