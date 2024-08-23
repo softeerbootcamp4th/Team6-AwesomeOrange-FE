@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "hdsans";
+  src: url("/font/HyundaiSansTextKROTFBold.woff2") format("woff2"),
+    url('/font/HyundaiSansTextKROTFBold.woff') format('woff');
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "hdsans";
+  src: url("/font/HyundaiSansTextKROTFRegular.woff2") format("woff2"),
+    url('/font/HyundaiSansTextKROTFRegular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}

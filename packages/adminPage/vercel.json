@@ -1,0 +1,25 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "http://softeerorange.store/api/:path*"
+    },
+    {
+      "source": "/events/create",
+      "destination": "/events/create"
+    },
+    {
+      "source": "/events/(.*)/edit",
+      "destination": "/events/create"
+    },
+    {
+      "source": "/events/(.*)",
+      "destination": "/events/[id]"
+    },
+    {
+      "source": "/comments/(.*)",
+      "destination": "/comments/[id]"
+    }
+  ],
+  "cleanUrls": true
+}
