@@ -34,7 +34,7 @@ export default function InteractionPage() {
           ref={swiperRef}
         >
           {JSONData.interaction.map((interactionDesc, index) => (
-            <swiper-slide key={index} class="w-5/6 sm:w-[566px] h-[456px]">
+            <swiper-slide key={index} class="w-5/6 sm:w-[566px] h-[456px]" lazy="true">
               <InteractionSlide
                 interactionDesc={interactionDesc}
                 index={index}
