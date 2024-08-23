@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
-import { createReadStream } from "node:fs";
+import { createReadStream, existsSync } from "node:fs";
 import { lookup } from "mime-types";
 
 const __dirname = fileURLToPath(new URL("../../", import.meta.url));
@@ -24,11 +24,13 @@ export default function sharedAssetRouter(paths) {
         if (originPath === null) return next();
         const filePath = join(__dirname, originPath);
 
+        if(!existsSync(filePath)) return next();
+
         const stream = createReadStream(filePath);
         stream.on("error", (err) => {
           if (err.code === "ENOENT") {
             res.statusCode = 404;
-            res.end("File not found");
+            res.end("Send Fallback");
           } else {
             res.statusCode = 500;
             res.end("Server error");
