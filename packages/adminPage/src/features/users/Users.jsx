@@ -13,7 +13,6 @@ export default function Comments({ searchString, category }) {
         `/api/v1/admin/event-users?page=${page - 1}&search=${searchString}&field=${category}&size=15`,
       )
         .then((res) => {
-          console.log(category);
           return res;
         })
         .catch((e) => {
