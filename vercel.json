@@ -1,8 +1,0 @@
-{
-	"rewrites": [
-		{
-			"source": "/api/:path*",
-			"destination": "http://softeerorange.store/api/:path*"
-		}
-	]
-}

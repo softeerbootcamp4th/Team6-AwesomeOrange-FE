@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "http://softeerorange.store/api/:path*"
+    },
+    {
+      "source": "/events/:path*",
+      "destination": "/events/[id].html"
+    },
+    {
+      "source": "/comments/:path*",
+      "destination": "/comments/[id].html"
+    }
+  ],
+  "cleanUrls": true
+}

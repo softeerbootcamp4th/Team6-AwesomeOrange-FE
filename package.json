@@ -1,25 +1,20 @@
 {
-  "name": "awesome-orange-project",
+  "name": "@awesome-orange",
   "private": true,
-  "version": "0.5.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "node build.js main",
-    "build-admin": "node build.js admin",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css}'",
+    "format": "prettier --write 'packages/**/*.{js,jsx,ts,tsx,json,css}'",
     "lint": "eslint . --ext js,jsx --max-warnings 0",
     "lint-fix": "eslint . --ext js,jsx --fix",
-    "preview": "vite preview --outDir dist/main",
-    "preview-admin": "vite preview --outDir dist/admin"
+    "build": "npm --prefix ./packages/mainPage run build",
+    "build-admin": "npm --prefix ./packages/adminPage run build",
+    "preview": "npm --prefix ./packages/mainPage run preview",
+    "preview-admin": "npm --prefix ./packages/adminPage run preview"
   },
   "dependencies": {
-    "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-lottie-player": "^2.1.0",
-    "react-router-dom": "^6.26.0",
-    "swiper": "^11.1.9",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
@@ -45,5 +40,10 @@
     "workerDirectory": [
       "public"
     ]
-  }
+  },
+  "workspaces": [
+    "packages/common",
+    "packages/mainPage",
+    "packages/adminPage"
+  ]
 }
