@@ -25,7 +25,7 @@ function DetailSwiper({ content }) {
           ref={swiperElRef}
         >
           {content.map((item) => (
-            <swiper-slide class={slideClass} key={item.title}>
+            <swiper-slide class={slideClass} key={item.title} lazy="true">
               <DetailItem {...item} />
             </swiper-slide>
           ))}

@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import getRandomString from "@common/mock/getRandomString.js";
 
 let result = [];
+let status = "AVAILABLE";
 
 function makeDrawComplete() {
   const newResult = [];
@@ -24,10 +25,15 @@ function makeDrawComplete() {
 const handlers = [
   http.post("/api/v1/admin/draw/:eventId/draw", () => {
     result = makeDrawComplete();
+    status = "IS_DRAWING";
+    setTimeout(() => (status = "COMPLETE"), 3000);
     return new HttpResponse(null, { status: 201 });
   }),
   http.get("/api/v1/admin/draw/:eventId/winners", () => {
     return HttpResponse.json(result);
+  }),
+  http.get("/api/v1/admin/draw/:eventId/status", () => {
+    return HttpResponse.json({ status });
   }),
 ];
 

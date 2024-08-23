@@ -1,4 +1,4 @@
-import { fetchServer } from "@common/dataFetch/fetchServer.js";
+import { fetchServer, HTTPError } from "@common/dataFetch/fetchServer.js";
 import { useMutation } from "@common/dataFetch/getQuery.js";
 import ConfirmModal from "@admin/modals/ConfirmModal.jsx";
 import AlertModal from "@admin/modals/AlertModal.jsx";
@@ -17,8 +17,22 @@ function DeleteButton({ selected, reset }) {
       }),
     {
       onSuccess: () => {
-        openModal(<AlertModal title="삭제" description="기대평이 삭제되었습니다." />);
+        openModal(<AlertModal title="삭제" description="이벤트가 삭제되었습니다." />);
         reset();
+      },
+      onError: async (e) => {
+        if (e instanceof HTTPError && e.status === 400) {
+          return openModal(
+            <AlertModal
+              title="오류"
+              description="진행 중이거나 삭제된 이벤트는 삭제가 불가능합니다."
+            />,
+          );
+        }
+        if (e instanceof HTTPError && e.status === 404) {
+          return openModal(<AlertModal title="오류" description="존재하지 않는 이벤트입니다." />);
+        }
+        return openModal(<AlertModal title="오류" description="이벤트를 삭제할 수 없습니다." />);
       },
     },
   );
