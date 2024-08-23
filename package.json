@@ -10,7 +10,7 @@
     "build": "npm --prefix ./packages/mainPage run build",
     "build-admin": "npm --prefix ./packages/adminPage run build",
     "preview": "npm --prefix ./packages/mainPage run preview",
-    "preview-admin": "npm --prefix ./packages/adminPage run preview",
+    "preview-admin": "npm --prefix ./packages/adminPage run preview"
   },
   "dependencies": {
     "react": "^18.3.1",
