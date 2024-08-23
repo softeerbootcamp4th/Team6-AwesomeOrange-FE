@@ -11,7 +11,13 @@ function ConfirmModal({ title, description, onConfirm }) {
         <div className="border-b border-neutral-200 flex justify-between">
           <p className="text-body-l text-black font-bold ">{title}</p>
           <button onClick={close} aria-label="닫기">
-            <img src="/shared/icons/close.svg" alt="닫기" width="24" height="24" draggable="false" />
+            <img
+              src="/shared/icons/close.svg"
+              alt="닫기"
+              width="24"
+              height="24"
+              draggable="false"
+            />
           </button>
         </div>
         <div className="text-body-s font-medium">{description}</div>

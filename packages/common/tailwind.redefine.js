@@ -58,9 +58,9 @@ export default {
     black: "#0D0D0D",
   },
   spacing: {
-    "11.5": "2.875rem", //46px
-    "15": "3.75rem", //60px
-    "17.5": "4.375rem", //70px
+    11.5: "2.875rem", //46px
+    15: "3.75rem", //60px
+    17.5: "4.375rem", //70px
   },
   fontSize: {
     "detail-s": ["10px", "13px"],
@@ -77,9 +77,9 @@ export default {
     "head-l": ["57px", "80px"],
   },
   transitionTimingFunction: {
-    'in-out-cubic': 'cubic-bezier(0.645, 0.045, 0.355, 1.000)'
+    "in-out-cubic": "cubic-bezier(0.645, 0.045, 0.355, 1.000)",
   },
   backgroundImage: {
-    "checked": "url('/shared/icons/checked.svg')"
-  }
+    checked: "url('/shared/icons/checked.svg')",
+  },
 };

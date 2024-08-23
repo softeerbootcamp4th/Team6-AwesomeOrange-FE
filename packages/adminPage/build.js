@@ -1,24 +1,23 @@
 import { build } from "vite";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import process from "node:process";
-import { readFile, writeFile, rm, mkdir, readdir, copyFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir, copyFile } from "node:fs/promises";
 import config from "./vite.config.js";
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const toAbsolute = (p) => resolve(__dirname, p);
 
 console.log("yeahhhhh!!!!");
 
 const buildUrl = [
-	"index",
-	"events",
-	"events/create",
-	"login",
-	"events/[id]",
-	"comments",
-	"comments/[id]"
-]
+  "index",
+  "events",
+  "events/create",
+  "login",
+  "events/[id]",
+  "comments",
+  "comments/[id]",
+];
 
 async function copyFolder(src, dest) {
   // 대상 폴더가 존재하지 않으면 생성
@@ -43,63 +42,60 @@ async function copyFolder(src, dest) {
 }
 
 async function processBuild() {
-	await Promise.all([
-		buildClient(), 
-		buildSSG()
-		]);
-	await Promise.all([
-		copyFolder("../../public/font", `./dist/font`),
-		copyFolder("../../public/icons", `./dist/shared/icons`)
-	]);
-	await injectSSGToHtml();
+  await Promise.all([buildClient(), buildSSG()]);
+  await Promise.all([
+    copyFolder("../../public/font", `./dist/font`),
+    copyFolder("../../public/icons", `./dist/shared/icons`),
+  ]);
+  await injectSSGToHtml();
 }
 
 async function buildClient() {
-	await build({
-		...config
-	});
+  await build({
+    ...config,
+  });
 }
 
 function buildSSG() {
-	return build({
-		...config,
-		build: {
-			ssr: true,
-			rollupOptions: {
-				input: {
-					entry: `./src/main-server.jsx`
-				},
-				output: {
-					dir: `./dist-ssg`
-				}
-			}
-		}
-	});
+  return build({
+    ...config,
+    build: {
+      ssr: true,
+      rollupOptions: {
+        input: {
+          entry: `./src/main-server.jsx`,
+        },
+        output: {
+          dir: `./dist-ssg`,
+        },
+      },
+    },
+  });
 }
 
 async function injectSSGToHtml() {
-	console.log("--ssg result--");
-	const {default: render} = await import(`./dist-ssg/entry.js`);
-	const template = await readFile(`./dist/index.html`, "utf-8");
+  console.log("--ssg result--");
+  const { default: render } = await import(`./dist-ssg/entry.js`);
+  const template = await readFile(`./dist/index.html`, "utf-8");
 
-	const urlEntryPoint = buildUrl ?? ["index"];
+  const urlEntryPoint = buildUrl ?? ["index"];
 
-	const promises = urlEntryPoint.map( async (path)=>{
-		const absolutePath = toAbsolute(`./dist/${path}.html`);
-		try {
-			const html = template.replace("<!--hydrate_root-->", render(path));
+  const promises = urlEntryPoint.map(async (path) => {
+    const absolutePath = toAbsolute(`./dist/${path}.html`);
+    try {
+      const html = template.replace("<!--hydrate_root-->", render(path));
 
-			const dir = dirname(absolutePath);
-			await mkdir(dir, { recursive: true });
-			await writeFile(absolutePath, html);
-			console.log(`pre-rendered : ${path}`);
-		} catch(e) {
-			console.log(`pre-rendered failed : ${path}`);
-			console.error(e);
-		}
-	} );
-	await Promise.allSettled(promises);
-	console.log("--successfully build completed!--");
+      const dir = dirname(absolutePath);
+      await mkdir(dir, { recursive: true });
+      await writeFile(absolutePath, html);
+      console.log(`pre-rendered : ${path}`);
+    } catch (e) {
+      console.log(`pre-rendered failed : ${path}`);
+      console.error(e);
+    }
+  });
+  await Promise.allSettled(promises);
+  console.log("--successfully build completed!--");
 }
 
 processBuild();

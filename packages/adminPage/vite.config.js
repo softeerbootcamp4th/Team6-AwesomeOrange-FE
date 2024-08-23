@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import svgr from "vite-plugin-svgr";
 import sharedAssetRouter from "@awesome-orange/common/sharedAssetRouter.js";
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,13 +15,13 @@ export default defineConfig({
       ["/admin", "/admin.html"],
       ["/admin/*", "/admin.html"],
     ]),
-    react(), 
+    react(),
     svgr(),
     sharedAssetRouter([
       ["/font", "/public/font"],
       ["/shared", "/public"],
-      ["/mockServiceWorker.js", "/public/mockServiceWorker.js"]
-    ])
+      ["/mockServiceWorker.js", "/public/mockServiceWorker.js"],
+    ]),
   ],
   resolve: {
     alias: [
@@ -33,9 +33,9 @@ export default defineConfig({
   preview: {
     proxy: {
       "/api": {
-        target: 'http://softeerorange.store',
+        target: "http://softeerorange.store",
         changeOrigin: true,
-      }
-    }
-  }
+      },
+    },
+  },
 });
