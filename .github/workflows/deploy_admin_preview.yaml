@@ -7,6 +7,10 @@ on:
     branches:
       - "dev"
       - "experimental/monoRepo"
+    paths:
+      - "packages/common/**"
+      - "packages/adminPage/**"
+      - "public/**"
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
