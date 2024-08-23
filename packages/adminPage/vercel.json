@@ -5,11 +5,15 @@
       "destination": "http://softeerorange.store/api/:path*"
     },
     {
-      "source": "/events/:path*",
+      "source": "/events/create",
+      "destination": "/events/create.html"
+    },
+    {
+      "source": "/events/:path(:path((?!create(\\.html)?$).*)",
       "destination": "/events/[id].html"
     },
     {
-      "source": "/comments/:path*",
+      "source": "/comments/(.*)",
       "destination": "/comments/[id].html"
     }
   ],
