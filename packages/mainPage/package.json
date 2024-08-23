@@ -5,7 +5,7 @@
   "main": "src/main-client.jsx",
   "scripts": {
     "dev": "vite --host",
-    "build": "node ../../build.js main",
+    "build": "node build.js",
     "preview": "vite preview"
   },
   "dependencies": {
