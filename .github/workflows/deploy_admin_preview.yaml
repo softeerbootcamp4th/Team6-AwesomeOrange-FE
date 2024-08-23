@@ -1,15 +1,12 @@
-name: deploy preview
+name: deploy admin preview
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_ADMIN_PROJECT_ID }}
 on:
   push:
     branches:
       - "dev"
-    paths:
-      - "packages/common/**"
-      - "packages/mainPage/**"
-      - "public/**"
+      - "experimental/monoRepo"
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
@@ -25,7 +22,7 @@ jobs:
       - name: deploy to vercel as preview
         run: |
           npm install
-          cd ./packages/mainPage
+          cd ./packages/adminPage
           vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
           vercel build --token=${{ secrets.VERCEL_TOKEN }}
           vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
