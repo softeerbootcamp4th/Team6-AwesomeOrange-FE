@@ -27,6 +27,14 @@ const submitCardgameErrorHandle = {
   offline: "offline",
 };
 
+function popConfetti(confetti) {
+  confetti.default({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.8 }
+  });
+}
+
 function CardGame({ offline }) {
   // states
   const eventStatus = useFcfsStore((store) => store.eventStatus);
@@ -47,20 +55,29 @@ function CardGame({ offline }) {
   }
 
   function getCardAnswerOffline(index) {
+    const confetti = import("canvas-confetti");
     return new Promise((resolve) => {
-      setTimeout(() => resolve(offlineAnswer === index), 1000);
+      setTimeout(() => {
+        const isAnswer = offlineAnswer === index;
+        if(isAnswer) confetti.then( popConfetti );
+        resolve(offlineAnswer === index);
+      }, 1000);
     });
   }
 
   async function getCardAnswerOnline(index) {
     const fetchConfig = { method: "post", body: { answer: index } };
     try {
+      const confetti = import("canvas-confetti");
       const { answerResult, winner } = await fetchServer(
         `/api/v1/event/fcfs/${EVENT_FCFS_ID}`,
         fetchConfig,
       ).catch(handleError(submitCardgameErrorHandle));
       if (answerResult) {
-        if (winner) openModal(<FcfsWinModal />);
+        if (winner) {
+          confetti.then( popConfetti );
+          openModal(<FcfsWinModal />);
+        }
         else openModal(<FcfsLoseModal />);
       }
       return answerResult;
