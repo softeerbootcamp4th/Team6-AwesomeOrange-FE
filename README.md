@@ -1,4 +1,6 @@
-#  Team6-AwesomeOrange
+# Team6-AwesomeOrange
+
+[![Team Awesome Orange - Interactive IONIQ 5 Event]("https://github.com/softeerbootcamp4th/Team6-AwesomeOrange-FE/packages/mainPage/public/images/thumbnail.png)](https://softeer-awesome-orange.vercel.app/)
 
 > 백엔드 레포는 여기로! => [백엔드 레포](https://github.com/softeerbootcamp4th/Team6-AwesomeOrange-BE)
 
