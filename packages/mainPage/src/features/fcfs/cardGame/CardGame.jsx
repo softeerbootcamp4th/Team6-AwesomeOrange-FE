@@ -103,22 +103,24 @@ function CardGame({ offline }) {
           }
         />
       </div>
-      <div className="relative grid grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
-        {[1, 2, 3, 4].map((index, i) => (
-          <Card
-            index={index}
-            isFlipped={isParticipated || flipState[i]}
-            setFlipped={(flipState) =>
-              setFlipState((state) => {
-                const newState = [...state];
-                newState[i] = flipState;
-                return newState;
-              })
-            }
-            key={`card ${index}`}
-            {...cardProps}
-          />
-        ))}
+      <div className="relative w-full md:w-[640px] lg:w-full max-w-[1080px] flex justify-center">
+        <div className="grid grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
+          {[1, 2, 3, 4].map((index, i) => (
+            <Card
+              index={index}
+              isFlipped={isParticipated || flipState[i]}
+              setFlipped={(flipState) =>
+                setFlipState((state) => {
+                  const newState = [...state];
+                  newState[i] = flipState;
+                  return newState;
+                })
+              }
+              key={`card ${index}`}
+              {...cardProps}
+            />
+          ))}
+        </div>
         <div className="absolute right-0 -bottom-20" hidden={!isOffline}>
           <ResetButton onClick={reset} />
         </div>
