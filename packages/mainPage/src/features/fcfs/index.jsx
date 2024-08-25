@@ -14,8 +14,12 @@ function FcfsSection() {
       ref={sectionRef}
       className="relative w-full flex flex-col items-center py-24 lg:py-60 gap-16 lg:gap-30 px-6"
     >
-      <img src="/images/fcfsBackground.webp" loading="lazy" alt="" role="presentation" 
-        className="absolute top-0 left-0 w-full h-full bg-black -z-50 object-cover object-top pointer-events-none select-none" 
+      <img
+        src="/images/fcfsBackground.webp"
+        loading="lazy"
+        alt=""
+        role="presentation"
+        className="absolute top-0 left-0 w-full h-full bg-black -z-50 object-cover object-top pointer-events-none select-none"
       />
       <div className="relative w-full max-w-[1200px] flex flex-col gap-3 lg:gap-9 text-center font-bold items-center">
         <p className="text-body-m text-neutral-200 w-fit py-1 lg:py-5 border-b-2 border-neutral-200">

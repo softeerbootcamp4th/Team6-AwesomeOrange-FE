@@ -31,7 +31,7 @@ function popConfetti(confetti) {
   confetti.default({
     particleCount: 100,
     spread: 70,
-    origin: { y: 0.8 }
+    origin: { y: 0.8 },
   });
 }
 
@@ -59,7 +59,7 @@ function CardGame({ offline }) {
     return new Promise((resolve) => {
       setTimeout(() => {
         const isAnswer = offlineAnswer === index;
-        if(isAnswer) confetti.then( popConfetti );
+        if (isAnswer) confetti.then(popConfetti);
         resolve(offlineAnswer === index);
       }, 1000);
     });
@@ -75,10 +75,9 @@ function CardGame({ offline }) {
       ).catch(handleError(submitCardgameErrorHandle));
       if (answerResult) {
         if (winner) {
-          confetti.then( popConfetti );
+          confetti.then(popConfetti);
           openModal(<FcfsWinModal />);
-        }
-        else openModal(<FcfsLoseModal />);
+        } else openModal(<FcfsLoseModal />);
       }
       return answerResult;
     } catch (e) {
