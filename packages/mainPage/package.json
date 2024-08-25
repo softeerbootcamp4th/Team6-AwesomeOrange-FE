@@ -9,9 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@awesome-orange/common": "*",
+    "canvas-confetti": "^1.9.3",
     "jwt-decode": "^4.0.0",
     "react-lottie-player": "^2.1.0",
-    "swiper": "^11.1.9",
-    "@awesome-orange/common": "*"
+    "swiper": "^11.1.9"
   }
 }

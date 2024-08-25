@@ -16,10 +16,20 @@ function Card({ index, locked, isFlipped, setFlipped, setGlobalLock, getCardAnsw
   function flip() {
     setGlobalLock(true);
     setPending(true);
+    const confetti = import("canvas-confetti");
     getCardAnswer(index)
       .then((isAnswer) => {
         setCorrect(isAnswer);
         setFlipped(true);
+        if(isAnswer) {
+          confetti.then( (confetti)=>{
+            confetti.default({
+              particleCount: 100,
+              spread: 70,
+              origin: { y: 0.8 }
+            })
+          } );
+        }
       })
       .catch(() => {
         setFlipped(false);
