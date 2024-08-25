@@ -7,8 +7,6 @@ import config from "./vite.config.js";
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const toAbsolute = (p) => resolve(__dirname, p);
 
-console.log("yeahhhhh!!!!");
-
 const buildUrl = [
   "index",
   "events",
@@ -46,6 +44,7 @@ async function processBuild() {
   await Promise.all([buildClient(), buildSSG()]);
   await Promise.all([
     copyFolder("../../public/font", `./dist/font`),
+    copyFolder("../../public/favicon", `./dist/favicon`),
     copyFolder("../../public/icons", `./dist/shared/icons`),
   ]);
   await injectSSGToHtml();
