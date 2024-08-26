@@ -2,7 +2,6 @@ import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import { formatDate } from "@common/utils.js";
 import Pagination from "@admin/components/Pagination";
-import { useState } from "react";
 
 export default function Comments({
   eventId,
@@ -10,8 +9,10 @@ export default function Comments({
   setCheckedComments,
   setAllId,
   searchString,
+  page,
+  setPage
 }) {
-  const [page, setPage] = useState(1);
+
   const data = useQuery(
     eventId,
     () =>
