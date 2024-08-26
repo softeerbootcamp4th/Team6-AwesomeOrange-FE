@@ -9,6 +9,7 @@ export default function AdminCommentID({ eventId }) {
   const [formString, setFormString] = useState("");
   const [searchString, setSearchString] = useState("");
   const [allId, setAllId] = useState([]);
+  const [page, setPage] = useState(1);
 
   function selectAll() {
     if (allId.every((id) => checkedComments.has(id))) {
@@ -26,6 +27,7 @@ export default function AdminCommentID({ eventId }) {
 
   function searchComment(e) {
     e.preventDefault();
+    setPage(1);
     setSearchString(formString);
   }
 
@@ -78,6 +80,8 @@ export default function AdminCommentID({ eventId }) {
           setCheckedComments={setCheckedComments}
           setAllId={setAllId}
           searchString={searchString}
+          page={page}
+          setPage={setPage}
         />
       </Suspense>
     </div>
