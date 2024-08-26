@@ -33,6 +33,7 @@ async function processBuild() {
   await Promise.all([buildClient(), buildSSG()]);
   await Promise.all([
     copyFolder("../../public/font", `./dist/font`),
+    copyFolder("../../public/favicon", `./dist/favicon`),
     copyFolder("../../public/icons", `./dist/shared/icons`),
   ]);
   await injectSSGToHtml();

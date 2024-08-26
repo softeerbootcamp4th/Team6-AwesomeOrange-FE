@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import LineHighlight from "./LineHighlight.jsx";
 import FcfsNotifier from "./notifier";
+import scrollTo from "@main/scroll/scrollTo.js";
+import { OTHER_SECTION } from "@main/scroll/constants.js";
 
 import useScrollTransition from "@main/hooks/useScrollTransition.js";
 import style from "./index.module.css";
@@ -111,12 +113,14 @@ function IntroSection() {
           <div className="absolute -bottom-2 w-full h-4 bg-white" />
         </div>
 
-        <img
-          src={Pointer}
-          alt="다음으로 넘어가기"
-          className="pt-60 pb-40 animate-bounce"
-          draggable="false"
-        />
+        <button onClick={() => scrollTo(OTHER_SECTION)}>
+          <img
+            src={Pointer}
+            alt="다음으로 넘어가기"
+            className="pt-60 pb-40 animate-bounce"
+            draggable="false"
+          />
+        </button>
       </section>
 
       <FcfsNotifier visible={isTimerVisible} />

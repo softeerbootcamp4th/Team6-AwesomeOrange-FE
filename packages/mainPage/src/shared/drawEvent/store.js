@@ -10,6 +10,7 @@ function getJoinDataEvent() {
       let newJoinedList = [false, false, false, false, false];
       dates.forEach((date) => {
         const day = getDayDifference(EVENT_START_DATE, new Date(date));
+        if (day >= 5 || day < 0) return;
         newJoinedList[day] = true;
       });
       return newJoinedList;

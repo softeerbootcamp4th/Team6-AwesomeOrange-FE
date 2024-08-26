@@ -5,9 +5,9 @@ import UserFindStage from "./UserFind";
 import { ModalCloseContext } from "@common/modal/modal.jsx";
 import { login } from "./store.js";
 
-const AUTH_INPUT_PAGE = Symbol("input");
-const AUTH_CODE_PAGE = Symbol("code");
-const AUTH_FIND_PAGE = Symbol("find");
+const AUTH_INPUT_PAGE = "input";
+const AUTH_CODE_PAGE = "code";
+const AUTH_FIND_PAGE = "find";
 
 function AuthModal({ onComplete: onCompleteCallback }) {
   const close = useContext(ModalCloseContext);

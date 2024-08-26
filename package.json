@@ -1,12 +1,14 @@
 {
   "name": "@awesome-orange",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "format": "prettier --write 'packages/**/*.{js,jsx,ts,tsx,json,css}'",
     "lint": "eslint . --ext js,jsx --max-warnings 0",
     "lint-fix": "eslint . --ext js,jsx --fix",
+    "dev": "npm --prefix ./packages/mainPage run dev",
+    "dev-admin": "npm --prefix ./packages/adminPage run dev",
     "build": "npm --prefix ./packages/mainPage run build",
     "build-admin": "npm --prefix ./packages/adminPage run build",
     "preview": "npm --prefix ./packages/mainPage run preview",
