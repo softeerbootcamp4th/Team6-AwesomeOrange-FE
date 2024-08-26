@@ -23,8 +23,9 @@ export default function InteractionPage() {
   return (
     <>
       <section ref={sectionRef} className="bg-black py-24 lg:py-60 flex flex-col items-center">
-        <TapBar currentInteraction={currentInteraction} slideTo={slideTo} />
-
+        <div className="w-full px-6 flex flex-col items-center">
+          <TapBar currentInteraction={currentInteraction} slideTo={slideTo} />
+        </div>
         <swiper-container
           slides-per-view="auto"
           centered-slides="true"

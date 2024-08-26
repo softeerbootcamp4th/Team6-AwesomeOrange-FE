@@ -27,6 +27,14 @@ const submitCardgameErrorHandle = {
   offline: "offline",
 };
 
+function popConfetti(confetti) {
+  confetti.default({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.8 },
+  });
+}
+
 function CardGame({ offline }) {
   // states
   const eventStatus = useFcfsStore((store) => store.eventStatus);
@@ -47,21 +55,29 @@ function CardGame({ offline }) {
   }
 
   function getCardAnswerOffline(index) {
+    const confetti = import("canvas-confetti");
     return new Promise((resolve) => {
-      setTimeout(() => resolve(offlineAnswer === index), 1000);
+      setTimeout(() => {
+        const isAnswer = offlineAnswer === index;
+        if (isAnswer) confetti.then(popConfetti);
+        resolve(offlineAnswer === index);
+      }, 1000);
     });
   }
 
   async function getCardAnswerOnline(index) {
     const fetchConfig = { method: "post", body: { answer: index } };
     try {
+      const confetti = import("canvas-confetti");
       const { answerResult, winner } = await fetchServer(
         `/api/v1/event/fcfs/${EVENT_FCFS_ID}`,
         fetchConfig,
       ).catch(handleError(submitCardgameErrorHandle));
       if (answerResult) {
-        if (winner) openModal(<FcfsWinModal />);
-        else openModal(<FcfsLoseModal />);
+        if (winner) {
+          confetti.then(popConfetti);
+          openModal(<FcfsWinModal />);
+        } else openModal(<FcfsLoseModal />);
       }
       return answerResult;
     } catch (e) {
@@ -103,22 +119,24 @@ function CardGame({ offline }) {
           }
         />
       </div>
-      <div className="relative grid grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
-        {[1, 2, 3, 4].map((index, i) => (
-          <Card
-            index={index}
-            isFlipped={isParticipated || flipState[i]}
-            setFlipped={(flipState) =>
-              setFlipState((state) => {
-                const newState = [...state];
-                newState[i] = flipState;
-                return newState;
-              })
-            }
-            key={`card ${index}`}
-            {...cardProps}
-          />
-        ))}
+      <div className="relative w-full md:w-[640px] lg:w-full max-w-[1080px] flex justify-center">
+        <div className="grid grid-cols-2 min-[1140px]:grid-cols-4 gap-10">
+          {[1, 2, 3, 4].map((index, i) => (
+            <Card
+              index={index}
+              isFlipped={isParticipated || flipState[i]}
+              setFlipped={(flipState) =>
+                setFlipState((state) => {
+                  const newState = [...state];
+                  newState[i] = flipState;
+                  return newState;
+                })
+              }
+              key={`card ${index}`}
+              {...cardProps}
+            />
+          ))}
+        </div>
         <div className="absolute right-0 -bottom-20" hidden={!isOffline}>
           <ResetButton onClick={reset} />
         </div>

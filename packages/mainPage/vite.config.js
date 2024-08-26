@@ -14,6 +14,7 @@ export default defineConfig({
     svgr(),
     sharedAssetRouter([
       ["/font", "/public/font"],
+      ["/favicon", "/public/favicon"],
       ["/shared", "/public"],
       ["/mockServiceWorker.js", "/public/mockServiceWorker.js"],
     ]),

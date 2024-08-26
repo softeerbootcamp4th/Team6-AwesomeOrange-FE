@@ -147,7 +147,7 @@ export function getDayDifference(_date1, _date2) {
 }
 
 export function addHyphen(value) {
-  const plain = value.replace(/\D/g, "");
+  const plain = value.trim().replace(/[^0-9]/g, "");
 
   if (plain.length < 4) return plain;
   if (plain.length <= 7) return plain.replace(/^(\d{3})(\d{0,4})$/, "$1-$2");

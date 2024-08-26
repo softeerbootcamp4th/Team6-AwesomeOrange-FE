@@ -1,6 +1,6 @@
 {
   "name": "@awesome-orange/common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "devDependencies": {
     "mime-types": "^2.1.35"
