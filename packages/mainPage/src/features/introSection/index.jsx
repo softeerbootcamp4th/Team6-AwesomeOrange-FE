@@ -113,7 +113,7 @@ function IntroSection() {
           <div className="absolute -bottom-2 w-full h-4 bg-white" />
         </div>
 
-        <button onClick={()=>scrollTo(OTHER_SECTION)}>
+        <button onClick={() => scrollTo(OTHER_SECTION)}>
           <img
             src={Pointer}
             alt="다음으로 넘어가기"
