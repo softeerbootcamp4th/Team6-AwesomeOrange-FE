@@ -1,10 +1,9 @@
 import { useQuery } from "@common/dataFetch/getQuery.js";
 import { fetchServer } from "@common/dataFetch/fetchServer.js";
 import Pagination from "@admin/components/Pagination";
-import { useState } from "react";
 
-export default function Comments({ searchParams }) {
-  const [page, setPage] = useState(1);
+export default function Comments({ searchParams, page, setPage }) {
+
   const data = useQuery(
     "admin-users",
     () =>
