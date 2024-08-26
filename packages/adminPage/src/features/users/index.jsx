@@ -8,11 +8,13 @@ export default function AdminCommentID() {
   const [formString, setFormString] = useState("");
   const [searchString, setSearchString] = useState("");
   const [category, setCategory] = useState("userName");
+  const [page, setPage] = useState(1);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   function searchComment(e) {
     e.preventDefault();
+    setPage(1);
     setSearchString(formString);
     setSearchParams({ search: formString, field: category });
   }
@@ -62,7 +64,12 @@ export default function AdminCommentID() {
       </div>
 
       <Suspense fallback={<Loading />}>
-        <Users searchParams={searchParams} setSearchParams={setSearchParams} />
+        <Users
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          page={page}
+          setPage={setPage}
+        />
       </Suspense>
     </div>
   );
