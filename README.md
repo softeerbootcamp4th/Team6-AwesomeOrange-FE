@@ -71,11 +71,12 @@
 
 **Back-End**
 
-| 1주차 | JPA Entity 구축, 배포 등 인프라 설정, 유저 로그인, 선착순 이벤트 프로토타입 구현 |
-| --- | --- |
-| 2주차 | 기대평, 어드민 시스템, 가중치 반영 추첨 구현 (+단위 테스트) |
-| 3주차 | 선착순 이벤트 최적화, 서비스 확장성 개선, 테스트코드 작성 |
-| 4주차 | 버그 수정, 부하 테스트 기반 서비스 최적화 |
+주차 | [@win-luck](https://github.com/win-luck) | [@blaxsior](https://github.com/blaxsior) |
+-- | -- | -- |
+1주차 | DB 설계, 배포 인프라 및 CI/CD 설정, 유저 로그인 | DB 설계, JPA Entity & Repository 구축, Authorization을 위한 JWT 토큰 관리 구현
+2주차 | 기대평 기능 구현, 선착순 이벤트 구현 및 기능 검증, 공유 URL | 어드민 기본 기능 구현, 로그 수집 인프라 구축, 추첨 이벤트 알고리즘 구현
+3주차 | 테스트 컨테이너 조성, 모니터링 서버 도입 | 어드민 핵심 기능 구현, 가중치 반영 추첨 이벤트 구현
+4주차 | 로드 밸런서 도입, 버그 수정 | 이벤트 검증 로직 보강, QueryDSL 도입, 버그 수정
 
 ## 🪵 Backlog
 ### Front-End
@@ -86,7 +87,10 @@
 
 ## 🤔 Issue & TroubleShooting
 - [프론트엔드 트러블슈팅](https://github.com/softeerbootcamp4th/Team6-AwesomeOrange-FE/wiki)
-- [백엔드 트러블슈팅](https://github.com/softeerbootcamp4th/Team6-AwesomeOrange-BE/wiki/%5BIssue-&-TroubleShooting%5D)
+- 백엔드 트러블슈팅
+  - [백엔드 예상 트러블슈팅](https://github.com/softeerbootcamp4th/Team6-AwesomeOrange-BE/wiki/%5BIssue-&-TroubleShooting%5D)
+  - [트러블슈팅 - 이희준](https://github.com/softeerbootcamp4th/Team6-AwesomeOrange-BE/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85-%E2%80%90-%EC%9D%B4%ED%9D%AC%EC%A4%80)
+  - [트러블슈팅 - 채승운](https://github.com/softeerbootcamp4th/Team6-AwesomeOrange-BE/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85-%E2%80%90-%EC%B1%84%EC%8A%B9%EC%9A%B4)
 
 ## ⚙️ Tech Stack & Architecture
 
@@ -129,11 +133,19 @@
 └── public
 ```
 
-### 🗄️ ERD
-<img width="686" alt="image" src="https://github.com/user-attachments/assets/eece7379-ad7b-4b29-b0bb-ae4bc20a7104">
-
 ### 🏗️ 백엔드 아키텍처
-(준비중입니다.)
+![image](https://github.com/user-attachments/assets/3df8b220-bd4d-4900-9bb2-dd572218d0b2)
+
+
+## CI/CD workflow
+![image](https://github.com/user-attachments/assets/c5014c58-7f6d-4e47-9380-87785704bae0)
+![image](https://github.com/user-attachments/assets/6b828058-a6d0-4d1e-a358-05f50ae54dd9)
+
+
+### 🗄️ ERD
+기획 상에서는 각 이벤트가 고정된 시간 및 정책, 점수 책정 방식을 가지고 있습니다. 이러한 정보를 서버 수준에서 처리하도록 구현할 수 있겠지만, 차후 새로운 이벤트 타입, 정책 및 점수 책정 방식을 도입해야 하는 경우 문제를 해결하기 어렵습니다. 따라서, 팀 어썸 오렌지는 데이터베이스를 기획 상의 이벤트 이외에도 다양한 요구사항을 만족할 수 있는, 확장성 있는 구조로 설계할 수 있도록 노력했습니다.
+![image](https://github.com/user-attachments/assets/cc6f37a4-7e67-4bc5-ace5-87667f46c86a)
+- 이벤트 공통 정보는 event_metadata 로 묶고, 이벤트마다 달라지는 요소는 db 수준에서 분리
 
 ## 📥 Installation
 
