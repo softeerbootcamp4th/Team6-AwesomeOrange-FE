@@ -17,7 +17,7 @@
 
 .pending .front {
   filter: brightness(2.9) drop-shadow(0px 0px 40px white);
-  transition: filter 0.8s ease-out;
+  transition: filter 0.8s ease-in;
 }
 
 .back {
