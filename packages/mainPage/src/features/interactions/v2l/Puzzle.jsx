@@ -79,7 +79,7 @@ function Puzzle({ interactCallback, $ref, disabled }) {
           const fixRotate = () => {
             dispatch({ type: "reconcile-rotate", index: i });
           };
-          const label = `${i + 1} 번째 퍼즐입니다. ${shape.getLabel()}`;
+          const label = `${i + 1}번 조각`;
 
           return (
             <PuzzlePiece
