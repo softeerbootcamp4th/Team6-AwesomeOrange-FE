@@ -48,7 +48,8 @@ function createFetchOptions(options = {}) {
 async function fetchServerBase(url, options = {}) {
   try {
     const response = await fetch(url, createFetchOptions(options));
-    if (response.status >= 400 && response.status <= 599) throw new HTTPError(response);
+    if (response.status >= 400 && response.status <= 499) throw new HTTPError(response);
+    if (response.status >= 500) throw new ServerCloseError();
     const text = await response.text();
     if (text === "") return null;
     return JSON.parse(text);
